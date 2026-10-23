@@ -6,80 +6,166 @@
 <div class="space-y-16 lg:space-y-24">
 
     {{-- 2. Hero Section --}}
-    <section class="relative overflow-hidden bg-gradient-to-br from-brand-primary via-[#0a6d96] to-brand-primary-dark text-white py-20 lg:py-28">
-        <!-- Background Decorative Patterns -->
-        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#97D7FF_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none"></div>
-        <div class="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-brand-sky/20 blur-3xl pointer-events-none"></div>
+    <section class="relative overflow-hidden bg-brand-primary-dark text-white py-20 lg:py-28">
+        <!-- Background Campus Architecture & Gradient Overlay -->
+        <div class="absolute inset-0 z-0">
+            <!-- Stylized Campus Background Pattern -->
+            <div class="absolute inset-0 bg-[radial-gradient(#97D7FF_1px,transparent_1px)] [background-size:24px_24px] opacity-15 pointer-events-none"></div>
+            <!-- Gradient Overlay: menjaga keterbacaan teks dan menyatukan palet warna -->
+            <div class="absolute inset-0 bg-gradient-to-r from-brand-primary-dark/95 via-brand-primary/90 to-brand-primary/80 z-10"></div>
+            <!-- Glow Accents -->
+            <div class="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-brand-sky/20 blur-3xl z-10 pointer-events-none"></div>
+            <div class="absolute -bottom-24 -right-24 w-[32rem] h-[32rem] rounded-full bg-brand-secondary/25 blur-3xl z-10 pointer-events-none"></div>
+        </div>
 
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                <div class="lg:col-span-7 space-y-6">
-                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-sky/15 text-brand-sky border border-brand-sky/30 text-xs font-semibold uppercase tracking-wider">
-                        <span class="w-2 h-2 rounded-full bg-brand-cream animate-pulse"></span>
-                        Program Sarjana Terapan (D-4)
+        <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+                
+                <!-- Left Narrative Column -->
+                <div class="lg:col-span-7 space-y-7">
+                    <!-- Campus & Degree Identifier -->
+                    <div class="inline-flex flex-wrap items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold text-brand-sky">
+                        <span class="flex items-center gap-1.5 text-brand-cream">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                            </svg>
+                            <span>Kampus Politeknik Negeri Tanah Laut</span>
+                        </span>
+                        <span class="text-white/40">&bull;</span>
+                        <span class="text-white">Sarjana Terapan (D-4)</span>
                     </div>
 
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight sm:leading-none">
-                        Membangun Masa Depan <br class="hidden sm:inline" />
-                        <span class="text-brand-cream">Teknologi Multimedia &amp; Digital</span>
+                    <!-- Main Dynamic Headline -->
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight sm:leading-none">
+                        Inovasi Kreatif di Era <br class="hidden sm:inline" />
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-cream via-brand-sky to-white">
+                            Rekayasa Multimedia
+                        </span>
                     </h1>
 
-                    <p class="text-base sm:text-lg text-brand-sky/90 max-w-2xl leading-relaxed">
-                        Mempersiapkan talenta vokasi terampil di bidang rekayasa multimedia, animasi digital, pemodelan 3D, pengembang game, dan teknologi media interaktif berstandar industri.
+                    <p class="text-base sm:text-lg text-brand-sky/90 max-w-2xl leading-relaxed font-normal">
+                        Mencetak sarjana terapan yang menguasai sinergi teknologi komputasi perangkat lunak dan kepekaan seni digital: mulai dari <span class="text-white font-semibold">Game Development</span>, <span class="text-white font-semibold">Animasi 3D</span>, hingga teknologi imersif <span class="text-white font-semibold">Virtual Reality (VR/AR)</span>.
                     </p>
 
-                    <div class="flex flex-wrap gap-4 pt-2">
-                        <a href="{{ route('public.academic.curriculum') }}" class="px-6 py-3.5 rounded-xl bg-brand-cream text-brand-dark font-bold hover:brightness-95 shadow-md shadow-black/10 transition-all flex items-center gap-2">
+                    <!-- Primary CTAs -->
+                    <div class="flex flex-wrap items-center gap-4 pt-1">
+                        <a href="{{ route('public.academic.curriculum') }}" class="px-6 py-3.5 rounded-xl bg-brand-cream text-brand-dark font-extrabold hover:brightness-95 shadow-lg shadow-black/15 transition-all flex items-center gap-2 group">
                             <span>Jelajahi Kurikulum</span>
-                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                             </svg>
                         </a>
-                        <a href="{{ route('public.profile.vision-mission') }}" class="px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold transition-all">
-                            Visi &amp; Misi Prodi
+                        <a href="{{ route('public.facilities.index') }}" class="px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white font-bold transition-all flex items-center gap-2">
+                            <svg class="w-4 h-4 text-brand-sky" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                            </svg>
+                            <span>Fasilitas Studio &amp; Lab</span>
                         </a>
                     </div>
-                </div>
 
-                <div class="lg:col-span-5">
-                    <div class="relative mx-auto max-w-md lg:max-w-none">
-                        <!-- Card Showcase Frame -->
-                        <div class="rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-6 sm:p-8 shadow-2xl space-y-6">
-                            <div class="flex items-center justify-between border-b border-white/10 pb-4">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-lg bg-brand-cream text-brand-dark font-black flex items-center justify-center text-sm">
-                                        TRM
-                                    </div>
-                                    <div>
-                                        <h3 class="font-bold text-sm text-white">Profil Ringkas Vokasi</h3>
-                                        <span class="text-xs text-brand-sky">Politeknik Negeri Tanah Laut</span>
-                                    </div>
-                                </div>
-                                <span class="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-400/20 text-emerald-300 border border-emerald-400/30">
-                                    Aktif
-                                </span>
-                            </div>
-
-                            <div class="grid grid-cols-2 gap-4 text-center">
-                                <div class="bg-black/20 rounded-xl p-3 border border-white/10">
-                                    <div class="text-2xl font-bold text-brand-cream">4 Tahun</div>
-                                    <div class="text-xs text-brand-sky/80 mt-0.5">Jenjang Sarjana Terapan</div>
-                                </div>
-                                <div class="bg-black/20 rounded-xl p-3 border border-white/10">
-                                    <div class="text-2xl font-bold text-brand-cream">144+ SKS</div>
-                                    <div class="text-xs text-brand-sky/80 mt-0.5">Teori &amp; Praktikum DUDI</div>
-                                </div>
-                            </div>
-
-                            <div class="text-xs text-brand-sky/80 bg-white/5 rounded-xl p-3 border border-white/10 flex items-center gap-2">
-                                <svg class="w-4 h-4 text-brand-cream shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <span>Gelar Lulusan: <strong>Sarjana Terapan Komputer (S.Tr.Kom.)</strong></span>
-                            </div>
+                    <!-- Quick Highlights Counter -->
+                    <div class="pt-6 border-t border-white/15 grid grid-cols-3 gap-4 max-w-lg">
+                        <div>
+                            <div class="text-2xl font-black text-brand-cream">144 SKS</div>
+                            <div class="text-[11px] text-brand-sky/80 uppercase tracking-wider font-semibold">Kurikulum Terapan</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-black text-brand-cream">4 Tahun</div>
+                            <div class="text-[11px] text-brand-sky/80 uppercase tracking-wider font-semibold">Jenjang D-4 (S1 Terapan)</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-black text-brand-cream">S.Tr.Kom.</div>
+                            <div class="text-[11px] text-brand-sky/80 uppercase tracking-wider font-semibold">Gelar Kelulusan</div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Right Dynamic Showcase: Hybrid Campus & Multimedia Studio Preview -->
+                <div class="lg:col-span-5">
+                    <div class="relative mx-auto max-w-md lg:max-w-none">
+                        
+                        <!-- Floating Badge 1: Identitas Gedung Kampus POLITALA -->
+                        <div class="absolute -top-6 -left-4 sm:-left-6 z-30 bg-white/95 backdrop-blur-md p-3.5 rounded-2xl border border-white/40 shadow-xl flex items-center gap-3 text-brand-dark animate-bounce [animation-duration:4s]">
+                            <div class="w-10 h-10 rounded-xl bg-brand-primary flex items-center justify-center text-white shrink-0">
+                                <svg class="w-5 h-5 text-brand-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                </svg>
+                            </div>
+                            <div>
+                                <span class="block text-[10px] font-bold text-brand-secondary uppercase tracking-wider">Gedung Terpadu</span>
+                                <span class="block text-xs font-extrabold text-brand-dark">Kampus POLITALA Pelaihari</span>
+                            </div>
+                        </div>
+
+                        <!-- Main Multimedia Studio Mockup Window -->
+                        <div class="rounded-3xl bg-slate-900/80 backdrop-blur-xl border border-white/20 p-5 sm:p-6 shadow-2xl relative overflow-hidden space-y-4">
+                            <!-- Window Control Bar -->
+                            <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
+                                    <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+                                    <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+                                    <span class="ml-2 text-xs font-mono text-slate-300 font-medium">TRM_Studio_3D.scene</span>
+                                </div>
+                                <span class="text-[10px] uppercase font-bold tracking-wider text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                                    Live Studio
+                                </span>
+                            </div>
+
+                            <!-- Interactive Studio Graphic Screen -->
+                            <div class="aspect-4/3 rounded-2xl bg-gradient-to-br from-slate-950 via-slate-900 to-brand-primary-dark/80 border border-white/10 p-5 flex flex-col justify-between relative overflow-hidden">
+                                <!-- 3D Wireframe Visual Grid -->
+                                <div class="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:16px_16px]"></div>
+                                
+                                <div class="relative z-10 flex items-center justify-between text-xs text-brand-sky">
+                                    <span class="font-mono bg-black/40 px-2 py-1 rounded">Viewport: Realtime Shading</span>
+                                    <span class="font-mono text-brand-cream">FPS: 60 • 4K HDR</span>
+                                </div>
+
+                                <!-- Center 3D Creative Object Graphic -->
+                                <div class="relative z-10 flex flex-col items-center justify-center my-4 space-y-2">
+                                    <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-brand-secondary to-brand-sky flex items-center justify-center text-white shadow-lg shadow-brand-sky/20 border border-white/30 transform hover:rotate-12 transition-transform">
+                                        <svg class="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5" />
+                                        </svg>
+                                    </div>
+                                    <span class="text-xs font-bold text-white tracking-wide">Rekayasa Aset 3D &amp; Engine Game</span>
+                                    <span class="text-[11px] text-slate-400 font-mono">Unreal Engine • Blender • Unity</span>
+                                </div>
+
+                                <div class="relative z-10 flex items-center justify-between text-[11px] text-slate-400 border-t border-white/10 pt-2 font-mono">
+                                    <span>Rendering Pipeline</span>
+                                    <span class="text-emerald-400 font-bold">100% Ready</span>
+                                </div>
+                            </div>
+
+                            <!-- Bottom Feature Tags inside Card -->
+                            <div class="grid grid-cols-2 gap-2 text-center text-xs">
+                                <div class="bg-white/5 rounded-xl p-2.5 border border-white/10 text-slate-200">
+                                    <span class="block font-bold text-brand-cream">Lab Immersive VR</span>
+                                    <span class="text-[10px] text-slate-400">Teknologi Masa Depan</span>
+                                </div>
+                                <div class="bg-white/5 rounded-xl p-2.5 border border-white/10 text-slate-200">
+                                    <span class="block font-bold text-brand-cream">Kemitraan DUDI</span>
+                                    <span class="text-[10px] text-slate-400">Magang Bersertifikat</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Floating Badge 2: Game Dev & Tech Vokasi -->
+                        <div class="absolute -bottom-6 -right-4 sm:-right-6 z-30 bg-white/95 backdrop-blur-md p-3.5 rounded-2xl border border-white/40 shadow-xl flex items-center gap-3 text-brand-dark">
+                            <div class="w-10 h-10 rounded-xl bg-brand-cream flex items-center justify-center text-brand-dark shrink-0 font-bold">
+                                🎮
+                            </div>
+                            <div>
+                                <span class="block text-[10px] font-bold text-emerald-700 uppercase tracking-wider">Vokasi Terapan</span>
+                                <span class="block text-xs font-extrabold text-brand-dark">Pengembangan Game &amp; Animasi</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
