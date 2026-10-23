@@ -130,3 +130,11 @@ Route::get('/kontak', fn () => view('public.page-placeholder', [
 
 // Auth (Akan diselesaikan di Tahap 6, sementara disiapkan route namanya)
 Route::get('/admin/login', fn () => view('admin.auth.login'))->name('login');
+
+// Panel Admin (Tahap 5 Layout & UI Kit)
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', fn () => view('admin.dashboard'))->name('dashboard');
+    Route::get('/crud/{section}', function ($section) {
+        return view('admin.sample-crud', compact('section'));
+    })->name('crud.sample');
+});
