@@ -51,6 +51,6 @@ class LayoutsAndRoutesTest extends TestCase
 
         $crud = $this->get('/admin/crud/berita');
         $crud->assertStatus(200);
-        $crud->assertSee('Manajemen Berita');
+        $crud->assertSee('Berita Program Studi');
     }
 }
