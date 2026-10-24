@@ -39,6 +39,9 @@ Route::prefix('akademik')->name('public.academic.')->group(function () {
 
 // Berita & Informasi
 Route::get('/berita', fn () => view('public.news.index'))->name('public.news.index');
+Route::get('/berita/{slug}', function ($slug = 'd4-trm-politala-jalin-kerjasama-dengan-studio-game-nasional') {
+    return view('public.news.show', compact('slug'));
+})->name('public.news.show');
 Route::get('/pengumuman', fn () => view('public.announcements.index'))->name('public.announcements.index');
 Route::get('/agenda', fn () => view('public.events.index'))->name('public.events.index');
 

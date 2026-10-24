@@ -435,7 +435,7 @@
                                 <span class="text-brand-secondary font-medium">Akademik</span>
                             </div>
                             <h3 class="font-bold text-base text-brand-dark leading-snug line-clamp-2 hover:text-brand-primary transition-colors">
-                                <a href="{{ route('public.news.index') }}">
+                                <a href="{{ route('public.news.show', 'd4-trm-politala-jalin-kerjasama-dengan-studio-game-nasional') }}">
                                     [Contoh Berita {{ $j }}] Sosialisasi Kurikulum dan Laboratorium Multimedia Terapan D-4 TRM
                                 </a>
                             </h3>
@@ -443,7 +443,7 @@
                                 Uraian ringkas berita mengenai persiapan kegiatan perkuliahan, workshop industri, dan fasilitas multimedia...
                             </p>
                         </div>
-                        <a href="{{ route('public.news.index') }}" class="text-xs font-bold text-brand-primary hover:text-brand-primary-hover inline-flex items-center gap-1">
+                        <a href="{{ route('public.news.show', 'd4-trm-politala-jalin-kerjasama-dengan-studio-game-nasional') }}" class="text-xs font-bold text-brand-primary hover:text-brand-primary-hover inline-flex items-center gap-1">
                             <span>Baca Selengkapnya</span>
                             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />

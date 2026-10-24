@@ -28,6 +28,7 @@ class LayoutsAndRoutesTest extends TestCase
             '/profil/visi-misi',
             '/akademik/kurikulum',
             '/berita',
+            '/berita/d4-trm-politala-jalin-kerjasama-dengan-studio-game-nasional',
             '/fasilitas',
             '/galeri',
             '/kontak',
