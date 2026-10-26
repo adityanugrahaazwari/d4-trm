@@ -1,28 +1,27 @@
-<header x-data="{ 
+<nav x-data="{ 
     mobileMenuOpen: false, 
     activeDropdown: null,
     scrolled: false 
 }" 
 @scroll.window="scrolled = (window.pageYOffset > 15)"
-class="sticky top-0 z-50 w-full transition-all duration-300 px-3 sm:px-6 lg:px-8"
-:class="scrolled ? 'pt-2.5 pb-2.5' : 'pt-3 sm:pt-4 pb-2.5'">
+class="sticky top-0 z-50 w-full transition-all duration-300 border-b"
+:class="scrolled 
+    ? 'bg-white/95 backdrop-blur-xl border-slate-200/90 shadow-md shadow-slate-900/5' 
+    : 'bg-white/90 backdrop-blur-lg border-slate-200/70 shadow-xs'">
 
-    <nav class="max-w-7xl mx-auto rounded-2xl lg:rounded-3xl transition-all duration-300 border shadow-md"
-         :class="scrolled 
-            ? 'bg-white/90 backdrop-blur-xl border-slate-200/80 shadow-slate-900/8' 
-            : 'bg-white/95 backdrop-blur-lg border-slate-200/70 shadow-slate-900/5'">
-        
-        <div class="px-3.5 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between gap-3">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between transition-all duration-300"
+             :class="scrolled ? 'h-16' : 'h-20'">
             
             <!-- Brand Logo & Name -->
-            <a href="{{ route('home') }}" class="flex items-center gap-3 group shrink-0">
+            <a href="{{ route('home') }}" class="flex items-center gap-3.5 group shrink-0">
                 <div class="relative flex items-center justify-center">
-                    <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-brand-primary via-brand-primary to-brand-secondary text-white font-extrabold text-base sm:text-lg flex items-center justify-center shadow-md shadow-brand-primary/25 group-hover:scale-105 group-hover:shadow-brand-primary/40 transition-all duration-300 ring-2 ring-white/80">
+                    <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-brand-primary via-brand-primary to-brand-secondary text-white font-extrabold text-base sm:text-lg flex items-center justify-center shadow-md shadow-brand-primary/25 group-hover:scale-105 group-hover:shadow-brand-primary/40 transition-all duration-300 ring-2 ring-brand-primary-light">
                         TRM
                     </div>
-                    <span class="absolute -bottom-1 -right-1 flex h-3 w-3">
+                    <span class="absolute -bottom-0.5 -right-0.5 flex h-2.5 w-2.5">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-sky opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-3 w-3 bg-brand-secondary"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-secondary"></span>
                     </span>
                 </div>
                 <div class="flex flex-col">
@@ -43,7 +42,7 @@ class="sticky top-0 z-50 w-full transition-all duration-300 px-3 sm:px-6 lg:px-8
                 
                 <!-- Beranda -->
                 <a href="{{ route('home') }}" 
-                   class="px-3 py-2 rounded-xl transition-all duration-200 {{ request()->routeIs('home') ? 'text-brand-primary bg-brand-primary-light font-bold shadow-xs' : 'text-slate-700 hover:text-brand-primary hover:bg-slate-100/70' }}">
+                   class="px-3 py-2 rounded-xl transition-all duration-200 {{ request()->routeIs('home') ? 'text-brand-primary bg-brand-primary-light font-bold shadow-2xs' : 'text-slate-700 hover:text-brand-primary hover:bg-slate-100/70' }}">
                     Beranda
                 </a>
 
@@ -345,7 +344,7 @@ class="sticky top-0 z-50 w-full transition-all duration-300 px-3 sm:px-6 lg:px-8
             <!-- Action CTA Right -->
             <div class="hidden lg:flex items-center gap-2.5">
                 <a href="{{ route('login') }}" 
-                   class="group relative inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-brand-primary bg-brand-primary-light hover:bg-brand-primary hover:text-white border border-brand-primary/20 shadow-xs hover:shadow-md hover:shadow-brand-primary/25 transition-all duration-200">
+                   class="group relative inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-brand-primary bg-brand-primary-light hover:bg-brand-primary hover:text-white border border-brand-primary/20 shadow-2xs hover:shadow-md hover:shadow-brand-primary/25 transition-all duration-200">
                     <svg class="w-3.5 h-3.5 transition-transform group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                     </svg>
@@ -375,15 +374,15 @@ class="sticky top-0 z-50 w-full transition-all duration-300 px-3 sm:px-6 lg:px-8
             </div>
         </div>
 
-        <!-- Mobile Drawer Menu (Slide Down inside the pill container) -->
+        <!-- Mobile Drawer Menu -->
         <div x-show="mobileMenuOpen" 
              x-transition:enter="transition ease-out duration-200"
-             x-transition:enter-start="opacity-0 -translate-y-2 scale-98"
-             x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+             x-transition:enter-start="opacity-0 -translate-y-2"
+             x-transition:enter-end="opacity-100 translate-y-0"
              x-transition:leave="transition ease-in duration-150"
-             x-transition:leave-start="opacity-100 translate-y-0 scale-100"
-             x-transition:leave-end="opacity-0 -translate-y-2 scale-98"
-             class="lg:hidden border-t border-slate-100 px-4 pt-3 pb-5 space-y-1.5 max-h-[75vh] overflow-y-auto" 
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-2"
+             class="lg:hidden border-t border-slate-100 py-3 space-y-1.5 max-h-[75vh] overflow-y-auto" 
              style="display: none;">
             
             <a href="{{ route('home') }}" 
@@ -484,5 +483,5 @@ class="sticky top-0 z-50 w-full transition-all duration-300 px-3 sm:px-6 lg:px-8
                 </a>
             </div>
         </div>
-    </nav>
-</header>
+    </div>
+</nav>
