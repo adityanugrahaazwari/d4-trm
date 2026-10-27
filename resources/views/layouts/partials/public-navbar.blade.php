@@ -82,16 +82,15 @@ class="sticky top-0 z-50 w-full transition-all duration-300">
         </div>
     </div>
 
-    <!-- Main Floating Island Navbar -->
-    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 transition-all duration-300"
-         :class="scrolled ? 'pt-1.5 sm:pt-2' : 'pt-2.5 sm:pt-3.5'">
+    <!-- Main Edge-to-Edge Glassmorphic Navbar -->
+    <div class="w-full transition-all duration-300 border-b"
+         :class="scrolled 
+             ? 'bg-white/95 backdrop-blur-xl border-slate-200/90 shadow-md shadow-slate-900/5' 
+             : 'bg-white/90 backdrop-blur-lg border-slate-200/70 shadow-xs'">
         
-        <div class="transition-all duration-300 rounded-2xl sm:rounded-3xl border"
-             :class="scrolled 
-                 ? 'bg-white/95 backdrop-blur-2xl border-slate-200/90 shadow-lg shadow-slate-900/8 px-3.5 sm:px-6 py-2 sm:py-2.5' 
-                 : 'bg-white/90 backdrop-blur-xl border-slate-200/75 shadow-md shadow-brand-dark/5 px-4 sm:px-6 py-2.5 sm:py-3.5'">
-            
-            <div class="flex items-center justify-between gap-2 lg:gap-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between gap-2 lg:gap-4 transition-all duration-300"
+                 :class="scrolled ? 'h-16' : 'h-20'">
                 
                 <!-- Brand Logo & Identity -->
                 <a href="{{ route('home') }}" class="flex items-center gap-3 group shrink-0">
