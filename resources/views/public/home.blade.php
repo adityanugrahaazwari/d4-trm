@@ -54,29 +54,45 @@
                         Mempersiapkan talenta masa depan yang menguasai integrasi komputasi modern dan kreativitas visual: mulai dari <span class="text-white font-semibold">Game Programming</span>, <span class="text-white font-semibold">Produksi Animasi 3D</span>, hingga ekosistem interaktif <span class="text-white font-semibold">Virtual Reality (VR/AR)</span>.
                     </p>
 
-                    <!-- Primary CTAs -->
+                    <!-- Primary CTAs (Pendaftaran Mahasiswa Baru & Kurikulum) -->
                     <div class="flex flex-wrap items-center gap-3.5 pt-1">
-                        <a href="{{ route('public.academic.curriculum') }}" 
-                           class="px-6 py-3.5 rounded-full bg-gradient-to-r from-brand-cream to-amber-200 text-brand-dark font-extrabold hover:shadow-lg hover:shadow-brand-cream/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2 group shadow-md">
-                            <span>Jelajahi Kurikulum</span>
+                        <!-- Pendaftaran PMB Button (Standout Primary CTA) -->
+                        <a href="https://pmb.politala.ac.id" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           class="px-6 py-3.5 rounded-full bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-300 hover:to-teal-300 text-slate-950 font-black text-sm hover:shadow-xl hover:shadow-emerald-500/25 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2.5 group shadow-lg">
+                            <svg class="w-4 h-4 text-slate-950 transition-transform group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            </svg>
+                            <span>Pendaftaran Mahasiswa Baru</span>
                             <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                             </svg>
                         </a>
-                        <a href="{{ route('public.facilities.index') }}" 
-                           class="px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white font-bold transition-all flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98]">
+
+                        <!-- Jelajahi Kurikulum -->
+                        <a href="{{ route('public.academic.curriculum') }}" 
+                           class="px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white font-bold text-sm transition-all flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98]">
+                            <span>Jelajahi Kurikulum</span>
                             <svg class="w-4 h-4 text-brand-sky" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+
+                        <!-- Fasilitas Studio & Lab -->
+                        <a href="{{ route('public.facilities.index') }}" 
+                           class="px-4 py-3.5 rounded-full hover:bg-white/10 text-brand-sky hover:text-white font-semibold text-xs sm:text-sm transition-all flex items-center gap-1.5">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                             </svg>
                             <span>Fasilitas Studio &amp; Lab</span>
                         </a>
-                        <a href="{{ route('public.gallery.index') }}" 
-                           class="px-4 py-3.5 rounded-full hover:bg-white/10 text-brand-sky hover:text-white font-semibold text-xs sm:text-sm transition-all flex items-center gap-1.5">
-                            <span>Galeri Dokumentasi</span>
-                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </a>
+                    </div>
+
+                    <!-- Quick PMB Jalur Masuk Badge -->
+                    <div class="inline-flex items-center gap-2 text-xs text-brand-sky/90 bg-white/5 backdrop-blur-sm px-3.5 py-1.5 rounded-xl border border-white/10">
+                        <span class="text-brand-cream font-bold">Jalur Masuk:</span>
+                        <span>SNBP • SNBT • Jalur Mandiri POLITALA</span>
                     </div>
 
                     <!-- Quick Highlights Metrics Cards -->
