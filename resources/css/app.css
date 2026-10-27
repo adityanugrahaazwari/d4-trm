@@ -27,6 +27,7 @@
     --animate-pulse-slow: pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     --animate-scan: scan 4s ease-in-out infinite;
     --animate-shimmer: shimmer 2.5s infinite;
+    --animate-bounce-subtle: bounce-subtle 2.5s ease-in-out infinite;
 
     @keyframes float {
         0%, 100% { transform: translateY(0px); }
@@ -45,6 +46,10 @@
     @keyframes shimmer {
         0% { transform: translateX(-100%); }
         100% { transform: translateX(200%); }
+    }
+    @keyframes bounce-subtle {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-4px); }
     }
 }
 

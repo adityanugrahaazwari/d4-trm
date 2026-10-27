@@ -348,27 +348,41 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div class="lg:col-span-5 order-2 lg:order-1">
                 <div class="relative">
-                    <div class="aspect-4/3 rounded-2xl bg-gradient-to-tr from-brand-secondary/20 via-brand-sky/20 to-brand-primary/10 border border-brand-border p-8 flex flex-col justify-between shadow-inner">
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white border border-slate-200 text-xs font-semibold text-brand-primary">
-                            Identitas Program Studi
+                    <!-- Floating Accent Badge -->
+                    <div class="absolute -top-4 -right-3 z-20 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-brand-primary/20 shadow-lg text-[11px] font-bold text-brand-primary flex items-center gap-1.5 animate-float hover:scale-105 transition-transform">
+                        <span class="w-2 h-2 rounded-full bg-brand-primary animate-ping"></span>
+                        <span>Sarjana Terapan Vokasi</span>
+                    </div>
+
+                    <div class="aspect-4/3 rounded-2xl bg-gradient-to-tr from-brand-secondary/20 via-brand-sky/20 to-brand-primary/10 border border-brand-border p-8 flex flex-col justify-between shadow-inner hover:shadow-xl hover:border-brand-primary/30 transition-all duration-500 relative overflow-hidden group">
+                        <!-- Ambient Grid Background -->
+                        <div class="absolute inset-0 bg-[radial-gradient(#086288_1px,transparent_1px)] [background-size:16px_16px] opacity-10 pointer-events-none"></div>
+
+                        <div class="relative z-10 inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white border border-slate-200 text-xs font-semibold text-brand-primary shadow-xs">
+                            <span class="w-1.5 h-1.5 rounded-full bg-brand-primary"></span>
+                            <span>Identitas Program Studi</span>
                         </div>
-                        <div class="space-y-3">
+                        <div class="relative z-10 space-y-3">
                             <span class="text-xs uppercase tracking-wider text-brand-muted font-bold block">Jurusan</span>
-                            <div class="text-xl font-bold text-brand-dark">Komputer dan Bisnis</div>
+                            <div class="text-2xl font-black text-brand-dark group-hover:text-brand-primary transition-colors">Komputer dan Bisnis</div>
                             <p class="text-xs text-brand-muted">
                                 Politeknik Negeri Tanah Laut, Kalimantan Selatan
                             </p>
                         </div>
-                        <div class="pt-4 border-t border-slate-200/80 flex items-center justify-between text-xs text-brand-muted">
-                            <span>Akreditasi: [Dalam Proses Akreditasi BAN-PT/LAM-INFOKOM]</span>
+                        <div class="relative z-10 pt-4 border-t border-slate-200/80 flex items-center justify-between text-xs text-brand-muted">
+                            <span class="flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                                <span>Akreditasi: [Dalam Proses Akreditasi BAN-PT/LAM-INFOKOM]</span>
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="lg:col-span-7 space-y-6 order-1 lg:order-2">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary-light text-brand-primary text-xs font-bold uppercase tracking-wider">
-                    Tentang TRM POLITALA
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary-light text-brand-primary text-xs font-bold uppercase tracking-wider shadow-xs">
+                    <span class="w-1.5 h-1.5 rounded-full bg-brand-primary"></span>
+                    <span>Tentang TRM POLITALA</span>
                 </div>
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight leading-tight">
                     Program Studi Vokasi Unggulan di Bidang Rekayasa Multimedia
@@ -381,10 +395,27 @@
                         Dengan kurikulum berbasis praktik (Hands-on Learning) serta kolaborasi erat bersama Dunia Usaha dan Dunia Industri (DUDI), mahasiswa dibekali kemampuan teknis dan portofolio profesional sejak dini.
                     </p>
                 </div>
+
+                <!-- Interactive Pillars Highlight -->
+                <div class="grid grid-cols-3 gap-3 pt-1">
+                    <div class="p-3 rounded-xl bg-brand-surface border border-slate-200/80 hover:border-brand-primary/40 hover:bg-white hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+                        <span class="block text-xs font-black text-brand-dark">Hands-on Lab</span>
+                        <span class="text-[10px] text-brand-muted font-medium">70% Praktik Vokasi</span>
+                    </div>
+                    <div class="p-3 rounded-xl bg-brand-surface border border-slate-200/80 hover:border-brand-primary/40 hover:bg-white hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+                        <span class="block text-xs font-black text-brand-dark">Standar DUDI</span>
+                        <span class="text-[10px] text-brand-muted font-medium">Kurikulum Selaras</span>
+                    </div>
+                    <div class="p-3 rounded-xl bg-brand-surface border border-slate-200/80 hover:border-brand-primary/40 hover:bg-white hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+                        <span class="block text-xs font-black text-brand-dark">Portofolio Riil</span>
+                        <span class="text-[10px] text-brand-muted font-medium">Karya Siap Industri</span>
+                    </div>
+                </div>
+
                 <div class="pt-2 flex items-center gap-4">
-                    <a href="{{ route('public.profile.history') }}" class="text-sm font-bold text-brand-primary hover:text-brand-primary-hover flex items-center gap-1.5 transition-colors">
+                    <a href="{{ route('public.profile.history') }}" class="group text-sm font-bold text-brand-primary hover:text-brand-primary-hover flex items-center gap-1.5 transition-colors">
                         <span>Baca Sejarah &amp; Selengkapnya</span>
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
                     </a>
@@ -394,10 +425,10 @@
     </section>
 
     {{-- 4. Keunggulan Program Studi --}}
-    <section class="bg-brand-surface py-16 border-y border-slate-200/80">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <section class="bg-brand-surface py-16 border-y border-slate-200/80 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
             <div class="text-center max-w-3xl mx-auto space-y-3">
-                <span class="inline-flex px-3 py-1 rounded-full bg-brand-sky-light text-brand-primary text-xs font-bold uppercase tracking-wider">
+                <span class="inline-flex px-3 py-1 rounded-full bg-brand-sky-light text-brand-primary text-xs font-bold uppercase tracking-wider shadow-xs">
                     Mengapa Memilih Kami
                 </span>
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">
@@ -410,39 +441,48 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                 <!-- Keunggulan 1 -->
-                <div class="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-xs hover:border-brand-primary/40 hover:shadow-md transition-all space-y-4">
-                    <div class="w-12 h-12 rounded-xl bg-brand-primary-light text-brand-primary flex items-center justify-center font-bold text-xl">
+                <div class="group relative overflow-hidden bg-white p-7 rounded-2xl border border-slate-200/80 shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 space-y-4">
+                    <!-- Top Accent Line -->
+                    <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-brand-primary to-brand-sky opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    
+                    <div class="w-12 h-12 rounded-xl bg-brand-primary-light text-brand-primary flex items-center justify-center font-bold text-xl group-hover:bg-brand-primary group-hover:text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-xs">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-dark">Praktikum Berbasis Proyek (PBL)</h3>
+                    <h3 class="text-lg font-bold text-brand-dark group-hover:text-brand-primary transition-colors">Praktikum Berbasis Proyek (PBL)</h3>
                     <p class="text-sm text-brand-muted leading-relaxed">
                         Pembelajaran berpusat pada penugasan proyek industri nyata sehingga mahasiswa memiliki portofolio sebelum lulus.
                     </p>
                 </div>
 
                 <!-- Keunggulan 2 -->
-                <div class="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-xs hover:border-brand-primary/40 hover:shadow-md transition-all space-y-4">
-                    <div class="w-12 h-12 rounded-xl bg-brand-primary-light text-brand-primary flex items-center justify-center font-bold text-xl">
+                <div class="group relative overflow-hidden bg-white p-7 rounded-2xl border border-slate-200/80 shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 space-y-4">
+                    <!-- Top Accent Line -->
+                    <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-brand-secondary to-brand-sky opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                    <div class="w-12 h-12 rounded-xl bg-brand-primary-light text-brand-primary flex items-center justify-center font-bold text-xl group-hover:bg-brand-primary group-hover:text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-xs">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                         </svg>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-dark">Fasilitas Laboratorium Modern</h3>
+                    <h3 class="text-lg font-bold text-brand-dark group-hover:text-brand-primary transition-colors">Fasilitas Laboratorium Modern</h3>
                     <p class="text-sm text-brand-muted leading-relaxed">
                         Didukung laboratorium multimedia dengan workstation berspesifikasi tinggi untuk animasi, rendering 3D, dan pengembangan game.
                     </p>
                 </div>
 
                 <!-- Keunggulan 3 -->
-                <div class="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-xs hover:border-brand-primary/40 hover:shadow-md transition-all space-y-4">
-                    <div class="w-12 h-12 rounded-xl bg-brand-primary-light text-brand-primary flex items-center justify-center font-bold text-xl">
+                <div class="group relative overflow-hidden bg-white p-7 rounded-2xl border border-slate-200/80 shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 space-y-4">
+                    <!-- Top Accent Line -->
+                    <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-emerald-500 to-teal-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                    <div class="w-12 h-12 rounded-xl bg-brand-primary-light text-brand-primary flex items-center justify-center font-bold text-xl group-hover:bg-brand-primary group-hover:text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-xs">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-dark">Kemitraan Industri Kreatif</h3>
+                    <h3 class="text-lg font-bold text-brand-dark group-hover:text-brand-primary transition-colors">Kemitraan Industri Kreatif</h3>
                     <p class="text-sm text-brand-muted leading-relaxed">
                         Program magang industri bersertifikat (MBKM Vokasi) untuk mempercepat serapan kerja lulusan di perusahaan multimedia dan digital agency.
                     </p>
@@ -454,7 +494,7 @@
     {{-- 5. Kompetensi dan Prospek Karier --}}
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div class="text-center max-w-3xl mx-auto space-y-3">
-            <span class="inline-flex px-3 py-1 rounded-full bg-brand-cream text-brand-dark text-xs font-bold uppercase tracking-wider">
+            <span class="inline-flex px-3 py-1 rounded-full bg-brand-cream text-brand-dark text-xs font-bold uppercase tracking-wider shadow-xs">
                 Masa Depan Lulusan
             </span>
             <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">
@@ -466,41 +506,49 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition-all space-y-3">
-                <div class="w-10 h-10 rounded-lg bg-brand-sky-light text-brand-primary flex items-center justify-center font-bold">
+            <!-- Career 1 -->
+            <div class="group relative overflow-hidden bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-sky/60 transition-all duration-300 space-y-3">
+                <div class="absolute bottom-0 inset-x-0 h-0.5 bg-gradient-to-r from-brand-sky to-brand-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div class="w-10 h-10 rounded-xl bg-brand-sky-light text-brand-primary group-hover:bg-brand-primary group-hover:text-white group-hover:scale-110 group-hover:shadow-md transition-all duration-300 flex items-center justify-center font-black text-sm">
                     01
                 </div>
-                <h3 class="font-bold text-brand-dark text-base">Game Developer &amp; Programmer</h3>
+                <h3 class="font-bold text-brand-dark text-base group-hover:text-brand-primary transition-colors">Game Developer &amp; Programmer</h3>
                 <p class="text-xs text-brand-muted leading-relaxed">
                     Pengembang mekanik game, gameplay programmer, dan perancang simulasi interaktif virtual reality (VR).
                 </p>
             </div>
 
-            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition-all space-y-3">
-                <div class="w-10 h-10 rounded-lg bg-brand-sky-light text-brand-primary flex items-center justify-center font-bold">
+            <!-- Career 2 -->
+            <div class="group relative overflow-hidden bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-sky/60 transition-all duration-300 space-y-3">
+                <div class="absolute bottom-0 inset-x-0 h-0.5 bg-gradient-to-r from-brand-sky to-brand-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div class="w-10 h-10 rounded-xl bg-brand-sky-light text-brand-primary group-hover:bg-brand-primary group-hover:text-white group-hover:scale-110 group-hover:shadow-md transition-all duration-300 flex items-center justify-center font-black text-sm">
                     02
                 </div>
-                <h3 class="font-bold text-brand-dark text-base">3D Artist &amp; Animator</h3>
+                <h3 class="font-bold text-brand-dark text-base group-hover:text-brand-primary transition-colors">3D Artist &amp; Animator</h3>
                 <p class="text-xs text-brand-muted leading-relaxed">
                     Spesialis pemodelan 3D, texturing, rigging, dan animasi untuk industri perfilman, periklanan, dan game.
                 </p>
             </div>
 
-            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition-all space-y-3">
-                <div class="w-10 h-10 rounded-lg bg-brand-sky-light text-brand-primary flex items-center justify-center font-bold">
+            <!-- Career 3 -->
+            <div class="group relative overflow-hidden bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-sky/60 transition-all duration-300 space-y-3">
+                <div class="absolute bottom-0 inset-x-0 h-0.5 bg-gradient-to-r from-brand-sky to-brand-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div class="w-10 h-10 rounded-xl bg-brand-sky-light text-brand-primary group-hover:bg-brand-primary group-hover:text-white group-hover:scale-110 group-hover:shadow-md transition-all duration-300 flex items-center justify-center font-black text-sm">
                     03
                 </div>
-                <h3 class="font-bold text-brand-dark text-base">UI/UX Designer</h3>
+                <h3 class="font-bold text-brand-dark text-base group-hover:text-brand-primary transition-colors">UI/UX Designer</h3>
                 <p class="text-xs text-brand-muted leading-relaxed">
                     Desainer antarmuka dan pengalaman pengguna untuk aplikasi web, mobile, dan sistem interaktif digital.
                 </p>
             </div>
 
-            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition-all space-y-3">
-                <div class="w-10 h-10 rounded-lg bg-brand-sky-light text-brand-primary flex items-center justify-center font-bold">
+            <!-- Career 4 -->
+            <div class="group relative overflow-hidden bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-sky/60 transition-all duration-300 space-y-3">
+                <div class="absolute bottom-0 inset-x-0 h-0.5 bg-gradient-to-r from-brand-sky to-brand-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div class="w-10 h-10 rounded-xl bg-brand-sky-light text-brand-primary group-hover:bg-brand-primary group-hover:text-white group-hover:scale-110 group-hover:shadow-md transition-all duration-300 flex items-center justify-center font-black text-sm">
                     04
                 </div>
-                <h3 class="font-bold text-brand-dark text-base">Multimedia Software Engineer</h3>
+                <h3 class="font-bold text-brand-dark text-base group-hover:text-brand-primary transition-colors">Multimedia Software Engineer</h3>
                 <p class="text-xs text-brand-muted leading-relaxed">
                     Perekayasa perangkat lunak berbasis media, video streaming, computer vision, dan sistem multimedia cerdas.
                 </p>
@@ -508,9 +556,9 @@
         </div>
 
         <div class="text-center">
-            <a href="{{ route('public.academic.graduate-profile') }}" class="inline-flex items-center gap-2 text-sm font-bold text-brand-primary hover:text-brand-primary-hover">
+            <a href="{{ route('public.academic.graduate-profile') }}" class="group inline-flex items-center gap-2 text-sm font-bold text-brand-primary hover:text-brand-primary-hover transition-colors">
                 <span>Pelajari Capaian Pembelajaran Lulusan (CPL) &amp; Profil Lengkap</span>
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg class="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
             </a>
@@ -522,7 +570,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
                 <div class="space-y-3">
-                    <span class="inline-flex px-3 py-1 rounded-full bg-brand-primary-light text-brand-primary text-xs font-bold uppercase tracking-wider">
+                    <span class="inline-flex px-3 py-1 rounded-full bg-brand-primary-light text-brand-primary text-xs font-bold uppercase tracking-wider shadow-xs">
                         Tenaga Pendidik
                     </span>
                     <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">
@@ -532,9 +580,9 @@
                         Didukung dosen berdedikasi dengan keahlian komputasi dan multimedia terapan.
                     </p>
                 </div>
-                <a href="{{ route('public.profile.lecturers') }}" class="inline-flex items-center gap-1.5 text-sm font-bold text-brand-primary hover:text-brand-primary-hover">
+                <a href="{{ route('public.profile.lecturers') }}" class="group inline-flex items-center gap-1.5 text-sm font-bold text-brand-primary hover:text-brand-primary-hover transition-colors">
                     <span>Lihat Semua Dosen</span>
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                     </svg>
                 </a>
@@ -543,9 +591,12 @@
             <!-- Card Dosen Grid (Dengan penanda data contoh eksplisit) -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 @for ($i = 1; $i <= 4; $i++)
-                    <div class="bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-md transition-all">
-                        <div class="aspect-square bg-slate-100 flex items-center justify-center text-slate-400 border-b border-slate-100">
-                            <svg class="w-16 h-16 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div class="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300">
+                        <div class="aspect-square bg-gradient-to-br from-slate-100 via-slate-50 to-brand-primary-light/30 flex items-center justify-center text-slate-400 border-b border-slate-100 relative overflow-hidden">
+                            <!-- Avatar Ambient Shimmer -->
+                            <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                            
+                            <svg class="w-16 h-16 opacity-40 group-hover:opacity-70 group-hover:scale-110 transition-all duration-500 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                         </div>
@@ -553,7 +604,7 @@
                             <span class="text-[10px] uppercase font-bold tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 inline-block">
                                 [Data Contoh #{{ $i }}]
                             </span>
-                            <h3 class="font-bold text-sm text-brand-dark leading-tight">[Nama Dosen Pengajar {{ $i }}, M.Kom.]</h3>
+                            <h3 class="font-bold text-sm text-brand-dark leading-tight group-hover:text-brand-primary transition-colors">[Nama Dosen Pengajar {{ $i }}, M.Kom.]</h3>
                             <p class="text-xs text-brand-muted">Keahlian: [Multimedia &amp; Grafika Komputer]</p>
                         </div>
                     </div>
@@ -569,7 +620,7 @@
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div class="space-y-3">
-                <span class="inline-flex px-3 py-1 rounded-full bg-brand-sky-light text-brand-primary text-xs font-bold uppercase tracking-wider">
+                <span class="inline-flex px-3 py-1 rounded-full bg-brand-sky-light text-brand-primary text-xs font-bold uppercase tracking-wider shadow-xs">
                     Kabar &amp; Agenda
                 </span>
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">
@@ -580,10 +631,10 @@
                 </p>
             </div>
             <div class="flex items-center gap-3">
-                <a href="{{ route('public.news.index') }}" class="px-4 py-2 rounded-lg text-xs font-bold bg-brand-primary-light text-brand-primary hover:bg-brand-primary hover:text-white transition-colors">
+                <a href="{{ route('public.news.index') }}" class="px-4 py-2 rounded-lg text-xs font-bold bg-brand-primary-light text-brand-primary hover:bg-brand-primary hover:text-white hover:scale-105 active:scale-95 transition-all shadow-xs">
                     Semua Berita
                 </a>
-                <a href="{{ route('public.announcements.index') }}" class="px-4 py-2 rounded-lg text-xs font-bold border border-slate-200 text-brand-dark hover:border-brand-primary hover:text-brand-primary transition-colors">
+                <a href="{{ route('public.announcements.index') }}" class="px-4 py-2 rounded-lg text-xs font-bold border border-slate-200 text-brand-dark hover:border-brand-primary hover:text-brand-primary hover:scale-105 active:scale-95 transition-all shadow-xs">
                     Semua Pengumuman
                 </a>
             </div>
@@ -591,12 +642,15 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             @for ($j = 1; $j <= 3; $j++)
-                <article class="bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-md transition-all flex flex-col">
-                    <div class="aspect-16/9 bg-slate-100 flex items-center justify-center text-slate-400 border-b border-slate-100 relative">
-                        <svg class="w-12 h-12 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <article class="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col">
+                    <div class="aspect-16/9 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center text-slate-400 border-b border-slate-100 relative overflow-hidden">
+                        <!-- Shimmer Hover Glow -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+
+                        <svg class="w-12 h-12 opacity-30 group-hover:opacity-60 group-hover:scale-110 transition-all duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
-                        <span class="absolute top-3 left-3 text-[10px] uppercase font-bold tracking-wider text-amber-800 bg-amber-100/90 px-2 py-0.5 rounded border border-amber-300">
+                        <span class="absolute top-3 left-3 text-[10px] uppercase font-bold tracking-wider text-amber-800 bg-amber-100/95 px-2 py-0.5 rounded border border-amber-300 shadow-xs">
                             [Berita Dummy #{{ $j }}]
                         </span>
                     </div>
@@ -607,7 +661,7 @@
                                 <span>&bull;</span>
                                 <span class="text-brand-secondary font-medium">Akademik</span>
                             </div>
-                            <h3 class="font-bold text-base text-brand-dark leading-snug line-clamp-2 hover:text-brand-primary transition-colors">
+                            <h3 class="font-bold text-base text-brand-dark leading-snug line-clamp-2 group-hover:text-brand-primary transition-colors">
                                 <a href="{{ route('public.news.show', 'd4-trm-politala-jalin-kerjasama-dengan-studio-game-nasional') }}">
                                     [Contoh Berita {{ $j }}] Sosialisasi Kurikulum dan Laboratorium Multimedia Terapan D-4 TRM
                                 </a>
@@ -616,9 +670,9 @@
                                 Uraian ringkas berita mengenai persiapan kegiatan perkuliahan, workshop industri, dan fasilitas multimedia...
                             </p>
                         </div>
-                        <a href="{{ route('public.news.show', 'd4-trm-politala-jalin-kerjasama-dengan-studio-game-nasional') }}" class="text-xs font-bold text-brand-primary hover:text-brand-primary-hover inline-flex items-center gap-1">
+                        <a href="{{ route('public.news.show', 'd4-trm-politala-jalin-kerjasama-dengan-studio-game-nasional') }}" class="text-xs font-bold text-brand-primary hover:text-brand-primary-hover inline-flex items-center gap-1 group/btn">
                             <span>Baca Selengkapnya</span>
-                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg class="w-3.5 h-3.5 transform group-hover/btn:translate-x-1.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                             </svg>
                         </a>
@@ -633,7 +687,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
                 <div class="space-y-3">
-                    <span class="inline-flex px-3 py-1 rounded-full bg-brand-primary-light text-brand-primary text-xs font-bold uppercase tracking-wider">
+                    <span class="inline-flex px-3 py-1 rounded-full bg-brand-primary-light text-brand-primary text-xs font-bold uppercase tracking-wider shadow-xs">
                         Sarana &amp; Prasarana
                     </span>
                     <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">
@@ -643,54 +697,75 @@
                         Ruang praktikum terintegrasi untuk mendukung proses belajar dan riset multimedia.
                     </p>
                 </div>
-                <a href="{{ route('public.facilities.index') }}" class="inline-flex items-center gap-1.5 text-sm font-bold text-brand-primary hover:text-brand-primary-hover">
+                <a href="{{ route('public.facilities.index') }}" class="group inline-flex items-center gap-1.5 text-sm font-bold text-brand-primary hover:text-brand-primary-hover transition-colors">
                     <span>Lihat Seluruh Fasilitas</span>
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                     </svg>
                 </a>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-                <div class="bg-white rounded-2xl border border-slate-200/80 p-6 space-y-4 shadow-xs">
-                    <div class="aspect-video rounded-xl bg-slate-100 flex items-center justify-center text-slate-400 border border-slate-200/60">
-                        <span class="text-xs font-medium text-slate-400">[Foto Laboratorium Komputer]</span>
+                <!-- Lab 1 -->
+                <div class="group bg-white rounded-2xl border border-slate-200/80 p-6 space-y-4 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300">
+                    <div class="aspect-video rounded-xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center text-slate-400 border border-slate-200/60 overflow-hidden relative group-hover:border-brand-primary/30 transition-colors">
+                        <span class="text-xs font-medium text-slate-400 group-hover:scale-105 transition-transform duration-500">[Foto Laboratorium Komputer]</span>
                     </div>
                     <div>
-                        <span class="text-[10px] uppercase font-bold tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 inline-block mb-1.5">
-                            [Data Contoh]
-                        </span>
-                        <h3 class="font-bold text-base text-brand-dark">Lab Komputasi Multimedia &amp; Desain</h3>
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-[10px] uppercase font-bold tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 inline-block">
+                                [Data Contoh]
+                            </span>
+                            <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                Lab Aktif
+                            </span>
+                        </div>
+                        <h3 class="font-bold text-base text-brand-dark group-hover:text-brand-primary transition-colors">Lab Komputasi Multimedia &amp; Desain</h3>
                         <p class="text-xs text-brand-muted mt-1 leading-relaxed">
                             Dilengkapi PC berspesifikasi tinggi untuk pengolahan grafis 2D/3D, audio-video editing, dan UI prototyping.
                         </p>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-2xl border border-slate-200/80 p-6 space-y-4 shadow-xs">
-                    <div class="aspect-video rounded-xl bg-slate-100 flex items-center justify-center text-slate-400 border border-slate-200/60">
-                        <span class="text-xs font-medium text-slate-400">[Foto Studio Animasi &amp; Motion]</span>
+                <!-- Lab 2 -->
+                <div class="group bg-white rounded-2xl border border-slate-200/80 p-6 space-y-4 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300">
+                    <div class="aspect-video rounded-xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center text-slate-400 border border-slate-200/60 overflow-hidden relative group-hover:border-brand-primary/30 transition-colors">
+                        <span class="text-xs font-medium text-slate-400 group-hover:scale-105 transition-transform duration-500">[Foto Studio Animasi &amp; Motion]</span>
                     </div>
                     <div>
-                        <span class="text-[10px] uppercase font-bold tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 inline-block mb-1.5">
-                            [Data Contoh]
-                        </span>
-                        <h3 class="font-bold text-base text-brand-dark">Studio Animasi &amp; Green Screen</h3>
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-[10px] uppercase font-bold tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 inline-block">
+                                [Data Contoh]
+                            </span>
+                            <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                Studio Aktif
+                            </span>
+                        </div>
+                        <h3 class="font-bold text-base text-brand-dark group-hover:text-brand-primary transition-colors">Studio Animasi &amp; Green Screen</h3>
                         <p class="text-xs text-brand-muted mt-1 leading-relaxed">
                             Fasilitas pengambilan gambar, motion capture, rekaman audio voice-over, dan produksi visual effect.
                         </p>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-2xl border border-slate-200/80 p-6 space-y-4 shadow-xs">
-                    <div class="aspect-video rounded-xl bg-slate-100 flex items-center justify-center text-slate-400 border border-slate-200/60">
-                        <span class="text-xs font-medium text-slate-400">[Foto Lab Jaringan &amp; VR]</span>
+                <!-- Lab 3 -->
+                <div class="group bg-white rounded-2xl border border-slate-200/80 p-6 space-y-4 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300">
+                    <div class="aspect-video rounded-xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center text-slate-400 border border-slate-200/60 overflow-hidden relative group-hover:border-brand-primary/30 transition-colors">
+                        <span class="text-xs font-medium text-slate-400 group-hover:scale-105 transition-transform duration-500">[Foto Lab Jaringan &amp; VR]</span>
                     </div>
                     <div>
-                        <span class="text-[10px] uppercase font-bold tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 inline-block mb-1.5">
-                            [Data Contoh]
-                        </span>
-                        <h3 class="font-bold text-base text-brand-dark">Lab Game Tech &amp; Immersive VR/AR</h3>
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-[10px] uppercase font-bold tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 inline-block">
+                                [Data Contoh]
+                            </span>
+                            <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                Lab Riset Aktif
+                            </span>
+                        </div>
+                        <h3 class="font-bold text-base text-brand-dark group-hover:text-brand-primary transition-colors">Lab Game Tech &amp; Immersive VR/AR</h3>
                         <p class="text-xs text-brand-muted mt-1 leading-relaxed">
                             Eksperimen perangkat VR Headset, pengembangan interaktif simulator 3D, dan pengujian platform game.
                         </p>
@@ -702,9 +777,14 @@
 
     {{-- 9. CTA Penutup --}}
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
-        <div class="rounded-3xl bg-gradient-to-r from-brand-primary via-brand-primary to-brand-secondary text-white p-8 sm:p-14 shadow-xl relative overflow-hidden">
+        <div class="rounded-3xl bg-gradient-to-r from-brand-primary-dark via-brand-primary to-brand-secondary text-white p-8 sm:p-14 shadow-2xl relative overflow-hidden group">
+            <!-- Ambient Glowing Color Orbs -->
+            <div class="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-brand-sky/20 blur-3xl animate-pulse-slow pointer-events-none"></div>
+            <div class="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-brand-secondary/30 blur-3xl animate-pulse-slow [animation-delay:2s] pointer-events-none"></div>
+            <div class="absolute inset-0 bg-[radial-gradient(#97D7FF_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none"></div>
+
             <div class="relative z-10 max-w-2xl space-y-6">
-                <span class="inline-flex px-3 py-1 rounded-full bg-brand-cream text-brand-dark text-xs font-bold uppercase tracking-wider">
+                <span class="inline-flex px-3.5 py-1.5 rounded-full bg-brand-cream text-brand-dark text-xs font-black uppercase tracking-wider shadow-sm">
                     Penerimaan Mahasiswa Baru
                 </span>
                 <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">
@@ -714,12 +794,19 @@
                     Dapatkan informasi pendaftaran mahasiswa baru, jalur seleksi, dan beasiswa melalui portal resmi Politeknik Negeri Tanah Laut.
                 </p>
                 <div class="flex flex-wrap gap-4 pt-2">
-                    <a href="{{ route('public.contact') }}" class="px-6 py-3 rounded-xl bg-white text-brand-primary font-bold hover:bg-slate-100 shadow-md transition-all">
-                        Hubungi Program Studi
+                    <!-- Primary CTA with Animated Shimmer Ray -->
+                    <a href="{{ route('public.contact') }}" class="relative overflow-hidden px-6 py-3.5 rounded-xl bg-white text-brand-primary font-bold hover:bg-brand-cream-light shadow-lg hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-200 flex items-center gap-2 group/btn">
+                        <span class="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-brand-primary/10 to-transparent skew-x-12 animate-shimmer pointer-events-none"></span>
+                        <span class="relative z-10">Hubungi Program Studi</span>
+                        <svg class="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
                     </a>
-                    <a href="https://politala.ac.id" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold transition-all flex items-center gap-2">
+
+                    <!-- Secondary Portal Link -->
+                    <a href="https://politala.ac.id" target="_blank" rel="noopener noreferrer" class="px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-white font-semibold transition-all hover:scale-105 active:scale-95 flex items-center gap-2 group/portal">
                         <span>Portal POLITALA</span>
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="w-4 h-4 transform group-hover/portal:translate-x-0.5 group-hover/portal:-translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
                     </a>
