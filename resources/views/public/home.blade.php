@@ -140,14 +140,8 @@
                         </button>
                     </div>
 
-                    <!-- Quick PMB Jalur Masuk Badge -->
-                    <div class="inline-flex items-center gap-2 text-xs text-brand-sky/90 bg-white/5 backdrop-blur-sm px-3.5 py-1.5 rounded-xl border border-white/10 transition-all hover:border-white/20">
-                        <span class="text-brand-cream font-bold">Jalur Masuk:</span>
-                        <span>SNBP • SNBT • Jalur Mandiri POLITALA</span>
-                    </div>
-
                     <!-- Quick Highlights Metrics Cards with Hover Lift -->
-                    <div class="pt-6 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-xl">
+                    <div class="pt-6 border-t border-white/15 grid grid-cols-3 gap-3 max-w-lg">
                         <div class="bg-white/5 rounded-2xl p-3 border border-white/10 backdrop-blur-sm hover:bg-white/10 hover:border-brand-sky/40 hover:-translate-y-0.5 transition-all duration-300">
                             <div class="text-xl sm:text-2xl font-black text-brand-cream">144 SKS</div>
                             <div class="text-[10px] text-brand-sky/80 uppercase tracking-wider font-semibold">Kurikulum Terapan</div>
@@ -155,10 +149,6 @@
                         <div class="bg-white/5 rounded-2xl p-3 border border-white/10 backdrop-blur-sm hover:bg-white/10 hover:border-brand-sky/40 hover:-translate-y-0.5 transition-all duration-300">
                             <div class="text-xl sm:text-2xl font-black text-brand-cream">4 Tahun</div>
                             <div class="text-[10px] text-brand-sky/80 uppercase tracking-wider font-semibold">Jenjang D-4 (S1)</div>
-                        </div>
-                        <div class="bg-white/5 rounded-2xl p-3 border border-white/10 backdrop-blur-sm hover:bg-white/10 hover:border-brand-sky/40 hover:-translate-y-0.5 transition-all duration-300">
-                            <div class="text-xl sm:text-2xl font-black text-brand-cream">100%</div>
-                            <div class="text-[10px] text-brand-sky/80 uppercase tracking-wider font-semibold">Lab Standar Industri</div>
                         </div>
                         <div class="bg-white/5 rounded-2xl p-3 border border-white/10 backdrop-blur-sm hover:bg-white/10 hover:border-brand-sky/40 hover:-translate-y-0.5 transition-all duration-300">
                             <div class="text-xl sm:text-2xl font-black text-brand-cream">S.Tr.Kom.</div>
