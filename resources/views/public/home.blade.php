@@ -6,7 +6,7 @@
 <div class="space-y-16 lg:space-y-24">
 
     {{-- 2. Hero Section --}}
-    <section class="relative overflow-hidden bg-brand-primary-dark text-white py-20 lg:py-28">
+    <section class="relative overflow-hidden bg-brand-primary-dark text-white pt-32 sm:pt-36 lg:pt-40 pb-20 lg:pb-28">
         <!-- Background Campus Architecture & Gradient Overlay -->
         <div class="absolute inset-0 z-0">
             <!-- Stylized Campus Background Pattern -->

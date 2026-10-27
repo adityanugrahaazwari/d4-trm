@@ -28,102 +28,56 @@
         );
     }
 }" 
-@scroll.window="scrolled = (window.pageYOffset > 15)"
+@scroll.window="scrolled = (window.pageYOffset > 20)"
 @keydown.window.prevent.ctrl.k="searchOpen = true"
 @keydown.window.prevent.cmd.k="searchOpen = true"
 @keydown.escape.window="searchOpen = false; mobileMenuOpen = false; activeDropdown = null"
-class="sticky top-0 z-50 w-full transition-all duration-300">
+class="fixed top-0 inset-x-0 z-50 pointer-events-none transition-all duration-300">
 
-    <!-- Pre-Header Top Utility Bar (Informasi & Kredibilitas Akademik) -->
-    <div x-show="!scrolled" 
-         x-transition:enter="transition ease-out duration-200"
-         x-transition:enter-start="opacity-0 -translate-y-2"
-         x-transition:enter-end="opacity-100 translate-y-0"
-         x-transition:leave="transition ease-in duration-150"
-         x-transition:leave-start="opacity-100 translate-y-0"
-         x-transition:leave-end="opacity-0 -translate-y-2"
-         class="bg-brand-dark text-slate-300 border-b border-white/10 hidden md:block transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1.5 flex items-center justify-between text-[11px]">
-            <!-- Status & Afiliasi Kampus -->
-            <div class="flex items-center gap-3">
-                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-semibold border border-emerald-500/30">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                    Akreditasi Baik Sekali (LAM INFOKOM)
-                </span>
-                <span class="text-white/30">•</span>
-                <span class="text-slate-300 font-medium hidden lg:inline">
-                    Jurusan Teknologi Informasi • Politeknik Negeri Tanah Laut
-                </span>
-            </div>
-
-            <!-- Quick Links -->
-            <div class="flex items-center gap-4 font-medium text-slate-300">
-                <a href="{{ route('public.contact') }}" class="hover:text-brand-sky transition-colors flex items-center gap-1">
-                    <svg class="w-3.5 h-3.5 text-brand-sky" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                    <span>Hubungi Kami</span>
-                </a>
-                <span class="text-white/20">|</span>
-                <a href="https://pmb.politala.ac.id" target="_blank" rel="noopener noreferrer" class="text-brand-sky hover:text-white transition-colors flex items-center gap-1 font-semibold">
-                    <span>Pendaftaran Mahasiswa Baru (PMB)</span>
-                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                </a>
-                <span class="text-white/20">|</span>
-                <a href="{{ route('login') }}" class="hover:text-white transition-colors flex items-center gap-1">
-                    <svg class="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                    </svg>
-                    <span>Portal Staf</span>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Edge-to-Edge Glassmorphic Navbar -->
-    <div class="w-full transition-all duration-300 border-b"
-         :class="scrolled 
-             ? 'bg-white/95 backdrop-blur-xl border-slate-200/90 shadow-md shadow-slate-900/5' 
-             : 'bg-white/90 backdrop-blur-lg border-slate-200/70 shadow-xs'">
+    <!-- Floating Pill Container -->
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 transition-all duration-300"
+         :class="scrolled ? 'pt-2 sm:pt-3' : 'pt-3 sm:pt-4.5'">
         
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between gap-2 lg:gap-4 transition-all duration-300"
-                 :class="scrolled ? 'h-16' : 'h-20'">
+        <div class="pointer-events-auto transition-all duration-300 rounded-2xl lg:rounded-full border backdrop-blur-xl shadow-lg"
+             :class="scrolled 
+                 ? 'bg-white/95 border-slate-200/90 shadow-slate-900/10 px-4 sm:px-6 py-2 sm:py-2.5' 
+                 : 'bg-white/90 border-slate-200/75 shadow-slate-900/5 px-4 sm:px-6 py-2.5 sm:py-3'">
+            
+            <div class="flex items-center justify-between gap-2 lg:gap-4">
                 
                 <!-- Brand Logo & Identity -->
                 <a href="{{ route('home') }}" class="flex items-center gap-3 group shrink-0">
                     <div class="relative flex items-center justify-center">
-                        <!-- Modern Gradient Icon Box with Glow -->
-                        <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-brand-primary via-brand-primary to-brand-secondary text-white font-black text-base sm:text-lg flex items-center justify-center shadow-md shadow-brand-primary/25 group-hover:scale-105 group-hover:shadow-brand-primary/40 group-hover:shadow-lg transition-all duration-300 ring-2 ring-brand-sky/40">
+                        <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-gradient-to-tr from-brand-primary via-brand-primary to-brand-secondary text-white font-black text-sm sm:text-base flex items-center justify-center shadow-md shadow-brand-primary/25 group-hover:scale-105 transition-all duration-300 ring-2 ring-brand-sky/40">
                             TRM
                         </div>
                         <span class="absolute -bottom-0.5 -right-0.5 flex h-2.5 w-2.5">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-sky opacity-75"></span>
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500 ring-2 ring-white"></span>
                         </span>
                     </div>
 
                     <div class="flex flex-col">
-                        <span class="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest text-brand-secondary leading-none">
-                            Program Sarjana Terapan
-                        </span>
-                        <span class="font-extrabold text-sm sm:text-base text-brand-dark tracking-tight leading-tight group-hover:text-brand-primary transition-colors">
-                            D-4 Rekayasa Multimedia
-                        </span>
-                        <span class="text-[10px] sm:text-[11px] font-medium text-slate-400 leading-none hidden sm:block">
+                        <div class="flex items-center gap-1.5">
+                            <span class="font-extrabold text-sm sm:text-base text-brand-dark tracking-tight leading-none group-hover:text-brand-primary transition-colors">
+                                D-4 Teknik Rekayasa Multimedia
+                            </span>
+                            <span class="hidden xl:inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 leading-none">
+                                Baik Sekali
+                            </span>
+                        </div>
+                        <span class="text-[10px] sm:text-[11px] font-medium text-slate-400 leading-none mt-1 hidden sm:block">
                             Politeknik Negeri Tanah Laut
                         </span>
                     </div>
                 </a>
 
-                <!-- Desktop Navigation Menu Links -->
-                <nav class="hidden lg:flex items-center gap-1 xl:gap-1.5 text-sm font-semibold text-brand-dark">
+                <!-- Desktop Navigation Menu Links (Pill Style) -->
+                <nav class="hidden lg:flex items-center gap-1 xl:gap-1.5 text-xs font-semibold text-brand-dark">
                     
                     <!-- Beranda -->
                     <a href="{{ route('home') }}" 
-                       class="relative px-3 py-2 rounded-xl transition-all duration-200 {{ request()->routeIs('home') ? 'text-brand-primary bg-brand-primary-light font-bold ring-1 ring-brand-primary/20 shadow-2xs' : 'text-slate-700 hover:text-brand-primary hover:bg-slate-100/70' }}">
+                       class="relative px-3.5 py-2 rounded-full transition-all duration-200 {{ request()->routeIs('home') ? 'text-brand-primary bg-brand-primary-light font-bold ring-1 ring-brand-primary/20 shadow-2xs' : 'text-slate-700 hover:text-brand-primary hover:bg-slate-100/70' }}">
                         Beranda
                     </a>
 
@@ -131,9 +85,9 @@ class="sticky top-0 z-50 w-full transition-all duration-300">
                     <div class="relative" @click.outside="if (activeDropdown === 'profile') activeDropdown = null">
                         <button type="button" 
                                 @click="activeDropdown = activeDropdown === 'profile' ? null : 'profile'" 
-                                class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all duration-200 {{ request()->routeIs('public.profile.*') ? 'text-brand-primary bg-brand-primary-light font-bold ring-1 ring-brand-primary/20 shadow-2xs' : 'text-slate-700 hover:text-brand-primary hover:bg-slate-100/70' }}">
+                                class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full transition-all duration-200 {{ request()->routeIs('public.profile.*') ? 'text-brand-primary bg-brand-primary-light font-bold ring-1 ring-brand-primary/20 shadow-2xs' : 'text-slate-700 hover:text-brand-primary hover:bg-slate-100/70' }}">
                             <span>Profil</span>
-                            <svg class="w-4 h-4 transition-transform duration-200 text-slate-400" 
+                            <svg class="w-3.5 h-3.5 transition-transform duration-200 text-slate-400" 
                                  :class="{ 'rotate-180 text-brand-primary': activeDropdown === 'profile' }" 
                                  fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -151,7 +105,6 @@ class="sticky top-0 z-50 w-full transition-all duration-300">
                              class="absolute left-0 mt-3 w-[660px] rounded-3xl bg-white/95 backdrop-blur-2xl p-4 shadow-2xl border border-slate-100 ring-1 ring-black/5 z-50 grid grid-cols-12 gap-4" 
                              style="display: none;">
                             
-                            <!-- Left: 2 Columns of Links -->
                             <div class="col-span-8 space-y-2">
                                 <div class="px-2 py-1 flex items-center justify-between border-b border-slate-100">
                                     <span class="text-xs font-bold uppercase tracking-wider text-brand-secondary">Tentang Program Studi</span>
@@ -269,9 +222,9 @@ class="sticky top-0 z-50 w-full transition-all duration-300">
                     <div class="relative" @click.outside="if (activeDropdown === 'academic') activeDropdown = null">
                         <button type="button" 
                                 @click="activeDropdown = activeDropdown === 'academic' ? null : 'academic'" 
-                                class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all duration-200 {{ request()->routeIs('public.academic.*') ? 'text-brand-primary bg-brand-primary-light font-bold ring-1 ring-brand-primary/20 shadow-2xs' : 'text-slate-700 hover:text-brand-primary hover:bg-slate-100/70' }}">
+                                class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full transition-all duration-200 {{ request()->routeIs('public.academic.*') ? 'text-brand-primary bg-brand-primary-light font-bold ring-1 ring-brand-primary/20 shadow-2xs' : 'text-slate-700 hover:text-brand-primary hover:bg-slate-100/70' }}">
                             <span>Akademik</span>
-                            <svg class="w-4 h-4 transition-transform duration-200 text-slate-400" 
+                            <svg class="w-3.5 h-3.5 transition-transform duration-200 text-slate-400" 
                                  :class="{ 'rotate-180 text-brand-primary': activeDropdown === 'academic' }" 
                                  fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -393,9 +346,9 @@ class="sticky top-0 z-50 w-full transition-all duration-300">
                     <div class="relative" @click.outside="if (activeDropdown === 'news') activeDropdown = null">
                         <button type="button" 
                                 @click="activeDropdown = activeDropdown === 'news' ? null : 'news'" 
-                                class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all duration-200 {{ (request()->routeIs('public.news.*') || request()->routeIs('public.announcements.*') || request()->routeIs('public.events.*')) ? 'text-brand-primary bg-brand-primary-light font-bold ring-1 ring-brand-primary/20 shadow-2xs' : 'text-slate-700 hover:text-brand-primary hover:bg-slate-100/70' }}">
+                                class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full transition-all duration-200 {{ (request()->routeIs('public.news.*') || request()->routeIs('public.announcements.*') || request()->routeIs('public.events.*')) ? 'text-brand-primary bg-brand-primary-light font-bold ring-1 ring-brand-primary/20 shadow-2xs' : 'text-slate-700 hover:text-brand-primary hover:bg-slate-100/70' }}">
                             <span>Informasi</span>
-                            <svg class="w-4 h-4 transition-transform duration-200 text-slate-400" 
+                            <svg class="w-3.5 h-3.5 transition-transform duration-200 text-slate-400" 
                                  :class="{ 'rotate-180 text-brand-primary': activeDropdown === 'news' }" 
                                  fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -457,35 +410,35 @@ class="sticky top-0 z-50 w-full transition-all duration-300">
 
                     <!-- Fasilitas -->
                     <a href="{{ route('public.facilities.index') }}" 
-                       class="px-3 py-2 rounded-xl transition-all duration-200 {{ request()->routeIs('public.facilities.*') ? 'text-brand-primary bg-brand-primary-light font-bold ring-1 ring-brand-primary/20 shadow-2xs' : 'text-slate-700 hover:text-brand-primary hover:bg-slate-100/70' }}">
+                       class="px-3.5 py-2 rounded-full transition-all duration-200 {{ request()->routeIs('public.facilities.*') ? 'text-brand-primary bg-brand-primary-light font-bold ring-1 ring-brand-primary/20 shadow-2xs' : 'text-slate-700 hover:text-brand-primary hover:bg-slate-100/70' }}">
                         Fasilitas
                     </a>
 
                     <!-- Galeri -->
                     <a href="{{ route('public.gallery.index') }}" 
-                       class="px-3 py-2 rounded-xl transition-all duration-200 {{ request()->routeIs('public.gallery.*') ? 'text-brand-primary bg-brand-primary-light font-bold ring-1 ring-brand-primary/20 shadow-2xs' : 'text-slate-700 hover:text-brand-primary hover:bg-slate-100/70' }}">
+                       class="px-3.5 py-2 rounded-full transition-all duration-200 {{ request()->routeIs('public.gallery.*') ? 'text-brand-primary bg-brand-primary-light font-bold ring-1 ring-brand-primary/20 shadow-2xs' : 'text-slate-700 hover:text-brand-primary hover:bg-slate-100/70' }}">
                         Galeri
                     </a>
 
                     <!-- Kontak -->
                     <a href="{{ route('public.contact') }}" 
-                       class="px-3 py-2 rounded-xl transition-all duration-200 {{ request()->routeIs('public.contact') ? 'text-brand-primary bg-brand-primary-light font-bold ring-1 ring-brand-primary/20 shadow-2xs' : 'text-slate-700 hover:text-brand-primary hover:bg-slate-100/70' }}">
+                       class="px-3.5 py-2 rounded-full transition-all duration-200 {{ request()->routeIs('public.contact') ? 'text-brand-primary bg-brand-primary-light font-bold ring-1 ring-brand-primary/20 shadow-2xs' : 'text-slate-700 hover:text-brand-primary hover:bg-slate-100/70' }}">
                         Kontak
                     </a>
                 </nav>
 
-                <!-- Desktop Action CTA Right -->
+                <!-- Desktop Action CTA Right (Pill Style) -->
                 <div class="hidden lg:flex items-center gap-2">
                     
                     <!-- Quick Search Trigger -->
                     <button type="button" 
                             @click="searchOpen = true"
-                            class="inline-flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 bg-slate-100/80 hover:bg-slate-200/80 hover:text-brand-primary transition-all duration-200 border border-slate-200/60"
+                            class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold text-slate-600 bg-slate-100/80 hover:bg-slate-200/80 hover:text-brand-primary transition-all duration-200 border border-slate-200/60"
                             title="Buka Pencarian (Ctrl + K)">
                         <svg class="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
-                        <span class="text-[11px] text-slate-500">Cari...</span>
+                        <span class="text-[11px] text-slate-500">Cari</span>
                         <kbd class="hidden xl:inline-block px-1.5 py-0.5 text-[9px] font-mono font-medium text-slate-500 bg-white rounded-md border border-slate-300 shadow-2xs">Ctrl K</kbd>
                     </button>
 
@@ -493,16 +446,16 @@ class="sticky top-0 z-50 w-full transition-all duration-300">
                     <a href="https://pmb.politala.ac.id" 
                        target="_blank" 
                        rel="noopener noreferrer"
-                       class="group inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-brand-primary to-brand-secondary hover:from-brand-primary-hover hover:to-brand-primary shadow-md shadow-brand-primary/25 hover:shadow-lg hover:shadow-brand-primary/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
+                       class="group inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold text-white bg-gradient-to-r from-brand-primary to-brand-secondary hover:from-brand-primary-hover hover:to-brand-primary shadow-md shadow-brand-primary/25 hover:shadow-lg hover:shadow-brand-primary/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
                         <span>Daftar PMB</span>
                         <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                         </svg>
                     </a>
 
-                    <!-- Portal Admin Button (Clean Icon/Link) -->
+                    <!-- Portal Admin Button -->
                     <a href="{{ route('login') }}" 
-                       class="p-2 rounded-xl text-slate-600 hover:text-brand-primary hover:bg-slate-100 transition-colors border border-transparent hover:border-slate-200"
+                       class="p-2 rounded-full text-slate-600 hover:text-brand-primary hover:bg-slate-100 transition-colors border border-transparent hover:border-slate-200"
                        title="Masuk ke Portal Admin">
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
@@ -512,28 +465,25 @@ class="sticky top-0 z-50 w-full transition-all duration-300">
 
                 <!-- Mobile Action & Hamburger Controls -->
                 <div class="flex lg:hidden items-center gap-1.5">
-                    <!-- Search Icon Trigger Mobile -->
                     <button type="button" 
                             @click="searchOpen = true" 
-                            class="p-2 rounded-xl text-slate-600 hover:text-brand-primary hover:bg-slate-100 transition-colors"
+                            class="p-2 rounded-full text-slate-600 hover:text-brand-primary hover:bg-slate-100 transition-colors"
                             aria-label="Cari">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </button>
 
-                    <!-- Mobile PMB Pill -->
                     <a href="https://pmb.politala.ac.id" 
                        target="_blank" 
                        rel="noopener noreferrer"
-                       class="px-2.5 py-1.5 rounded-lg text-[11px] font-bold text-white bg-gradient-to-r from-brand-primary to-brand-secondary shadow-xs">
+                       class="px-2.5 py-1 rounded-full text-[11px] font-bold text-white bg-gradient-to-r from-brand-primary to-brand-secondary shadow-xs">
                         PMB
                     </a>
                     
-                    <!-- Hamburger Button -->
                     <button type="button" 
                             @click="mobileMenuOpen = !mobileMenuOpen" 
-                            class="p-2 rounded-xl text-slate-700 hover:text-brand-primary hover:bg-slate-100 focus:outline-hidden transition-colors" 
+                            class="p-2 rounded-full text-slate-700 hover:text-brand-primary hover:bg-slate-100 focus:outline-hidden transition-colors" 
                             aria-label="Buka navigasi">
                         <svg x-show="!mobileMenuOpen" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -545,7 +495,7 @@ class="sticky top-0 z-50 w-full transition-all duration-300">
                 </div>
             </div>
 
-            <!-- Mobile Drawer Menu (No amateur emojis, clean SVGs) -->
+            <!-- Mobile Drawer Menu (Clean SVGs inside floating card) -->
             <div x-show="mobileMenuOpen" 
                  x-transition:enter="transition ease-out duration-200"
                  x-transition:enter-start="opacity-0 -translate-y-3"
@@ -664,7 +614,7 @@ class="sticky top-0 z-50 w-full transition-all duration-300">
                     <svg class="w-4 h-4 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
-                    <span>Galeri Karya</span>
+                    <span>Galeri</span>
                 </a>
                 
                 <!-- Kontak -->
@@ -681,7 +631,7 @@ class="sticky top-0 z-50 w-full transition-all duration-300">
                     <a href="https://pmb.politala.ac.id" 
                        target="_blank" 
                        rel="noopener noreferrer"
-                       class="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-xs uppercase tracking-wider shadow-md shadow-brand-primary/20">
+                       class="flex items-center justify-center gap-2 w-full py-2.5 rounded-full bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-xs uppercase tracking-wider shadow-md shadow-brand-primary/20">
                         <span>Pendaftaran Mahasiswa Baru</span>
                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -689,7 +639,7 @@ class="sticky top-0 z-50 w-full transition-all duration-300">
                     </a>
 
                     <a href="{{ route('login') }}" 
-                       class="flex items-center justify-center gap-2 w-full py-2 rounded-xl text-slate-600 bg-slate-100 hover:bg-slate-200 font-semibold text-xs transition-colors">
+                       class="flex items-center justify-center gap-2 w-full py-2 rounded-full text-slate-600 bg-slate-100 hover:bg-slate-200 font-semibold text-xs transition-colors">
                         <svg class="w-3.5 h-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                         </svg>
@@ -708,7 +658,7 @@ class="sticky top-0 z-50 w-full transition-all duration-300">
          x-transition:leave="transition ease-in duration-150"
          x-transition:leave-start="opacity-100"
          x-transition:leave-end="opacity-0"
-         class="fixed inset-0 z-50 overflow-y-auto p-4 sm:p-6 md:p-20 bg-slate-900/60 backdrop-blur-md flex items-start justify-center"
+         class="fixed inset-0 z-50 overflow-y-auto p-4 sm:p-6 md:p-20 bg-slate-900/60 backdrop-blur-md flex items-start justify-center pointer-events-auto"
          style="display: none;">
         
         <div @click.outside="searchOpen = false" 
