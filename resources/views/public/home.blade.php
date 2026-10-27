@@ -9,7 +9,6 @@
     <section x-data="{ 
         activeTab: 'game',
         wireframeMode: false,
-        videoModalOpen: false,
         focusIndex: 0,
         focusList: [
             'Game Development 3D',
@@ -23,7 +22,6 @@
             }, 3200);
         }
     }" 
-    @keydown.escape.window="videoModalOpen = false"
     class="relative overflow-hidden bg-brand-primary-dark text-white pt-20 sm:pt-24 lg:pt-28 pb-16 lg:pb-24">
         
         <!-- Ambient Cyber-Grid & Cinematic Background Layer with Slow Pulsing Orbs -->
@@ -123,21 +121,6 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                             </svg>
                         </a>
-
-                        <!-- Video Showreel Modal Trigger with Pulse Ring -->
-                        <button type="button" 
-                                @click="videoModalOpen = true"
-                                class="px-4 py-3.5 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white font-bold text-sm transition-all flex items-center gap-2.5 hover:scale-[1.02] active:scale-[0.98] group hover:border-brand-cream/40">
-                            <div class="relative flex items-center justify-center">
-                                <span class="absolute inline-flex h-full w-full rounded-full bg-brand-cream opacity-50 animate-ping [animation-duration:2.5s]"></span>
-                                <div class="relative w-6 h-6 rounded-full bg-brand-cream text-brand-dark flex items-center justify-center shadow-xs group-hover:scale-110 transition-transform">
-                                    <svg class="w-3.5 h-3.5 ml-0.5 fill-current" viewBox="0 0 24 24">
-                                        <path d="M8 5v14l11-7z" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <span>Showreel 1 Menit</span>
-                        </button>
                     </div>
 
                     <!-- Quick Highlights Metrics Cards with Hover Lift -->
@@ -356,73 +339,6 @@
                     </div>
                 </div>
 
-            </div>
-        </div>
-
-        <!-- Video Showreel Modal (Pop-up Player Teaser) -->
-        <div x-show="videoModalOpen" 
-             x-transition:enter="transition ease-out duration-200"
-             x-transition:enter-start="opacity-0"
-             x-transition:enter-end="opacity-100"
-             x-transition:leave="transition ease-in duration-150"
-             x-transition:leave-start="opacity-100"
-             x-transition:leave-end="opacity-0"
-             class="fixed inset-0 z-50 overflow-y-auto p-4 sm:p-6 md:p-12 bg-slate-950/80 backdrop-blur-md flex items-center justify-center"
-             style="display: none;">
-            
-            <div @click.outside="videoModalOpen = false" 
-                 class="w-full max-w-3xl bg-slate-900 rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
-                
-                <!-- Video Modal Header -->
-                <div class="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-slate-950/50">
-                    <div class="flex items-center gap-2">
-                        <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse"></span>
-                        <span class="text-sm font-bold text-white">Showreel Profil D-4 Teknik Rekayasa Multimedia</span>
-                    </div>
-                    <button type="button" 
-                            @click="videoModalOpen = false" 
-                            class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors text-xs font-bold">
-                        ESC
-                    </button>
-                </div>
-
-                <!-- Video Showcase Preview Canvas -->
-                <div class="aspect-16/9 bg-gradient-to-br from-slate-950 via-brand-primary-dark to-slate-900 flex flex-col items-center justify-center p-8 text-center relative overflow-hidden">
-                    <div class="absolute inset-0 bg-[radial-gradient(#97D7FF_1px,transparent_1px)] [background-size:20px_20px] opacity-20 pointer-events-none"></div>
-                    
-                    <div class="relative z-10 space-y-4 max-w-md">
-                        <div class="w-20 h-20 rounded-full bg-brand-primary/40 border-2 border-brand-sky text-brand-sky flex items-center justify-center mx-auto shadow-2xl shadow-brand-sky/20">
-                            <svg class="w-8 h-8 ml-1 fill-current" viewBox="0 0 24 24">
-                                <path d="M8 5v14l11-7z" />
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-black text-white">Cuplikan Video Showreel Mahasiswa</h3>
-                            <p class="text-xs text-slate-300 mt-1">
-                                Kompilasi animasi 3D, gameplay simulator, karya motion graphic, dan suasana praktikum di Studio Multimedia POLITALA.
-                            </p>
-                        </div>
-                        <div class="pt-2 flex items-center justify-center gap-3">
-                            <span class="px-3 py-1 rounded-full bg-white/10 text-[11px] font-semibold text-brand-sky border border-white/15">
-                                Durasi: 01:24
-                            </span>
-                            <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-[11px] font-semibold text-emerald-400 border border-emerald-500/30">
-                                Resolusi: 4K 60fps
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Video Modal Footer -->
-                <div class="px-6 py-3.5 bg-slate-950 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs border-t border-white/10">
-                    <span class="text-slate-400">Politeknik Negeri Tanah Laut • Jurusan Teknologi Informasi</span>
-                    <a href="{{ route('public.gallery.index') }}" class="text-brand-sky hover:text-white font-bold flex items-center gap-1 transition-colors">
-                        <span>Lihat Galeri Karya Selengkapnya</span>
-                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </a>
-                </div>
             </div>
         </div>
     </section>
