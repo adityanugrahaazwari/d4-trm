@@ -6,16 +6,38 @@
 <div class="flex flex-col gap-16 lg:gap-24">
 
     {{-- 2. Hero Section --}}
-    <section class="relative overflow-hidden bg-brand-primary-dark text-white pt-20 sm:pt-24 lg:pt-28 pb-16 lg:pb-24">
-        <!-- Background Campus Architecture & Gradient Overlay -->
-        <div class="absolute inset-0 z-0">
-            <!-- Stylized Campus Background Pattern -->
-            <div class="absolute inset-0 bg-[radial-gradient(#97D7FF_1.2px,transparent_1.2px)] [background-size:28px_28px] opacity-15 pointer-events-none"></div>
-            <!-- Gradient Overlay: menjaga keterbacaan teks dan menyatukan palet warna -->
+    <section x-data="{ 
+        activeTab: 'game',
+        wireframeMode: false,
+        videoModalOpen: false,
+        focusIndex: 0,
+        focusList: [
+            'Game Development 3D',
+            'Animasi &amp; Visual Effects',
+            'Virtual Reality (VR/AR)',
+            'Rekayasa Aplikasi Multimedia'
+        ],
+        init() {
+            setInterval(() => {
+                this.focusIndex = (this.focusIndex + 1) % this.focusList.length;
+            }, 3000);
+        }
+    }" 
+    @keydown.escape.window="videoModalOpen = false"
+    class="relative overflow-hidden bg-brand-primary-dark text-white pt-20 sm:pt-24 lg:pt-28 pb-16 lg:pb-24">
+        
+        <!-- Ambient Cyber-Grid & Cinematic Background Layer -->
+        <div class="absolute inset-0 z-0 pointer-events-none">
+            <!-- 3D Cyber-Grid Pattern -->
+            <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(151,215,255,0.07)_1px,transparent_1px),linear-gradient(to_bottom,rgba(151,215,255,0.07)_1px,transparent_1px)] bg-[size:36px_36px] opacity-30"></div>
+            <!-- Radial Dot Matrix -->
+            <div class="absolute inset-0 bg-[radial-gradient(#97D7FF_1.2px,transparent_1.2px)] [background-size:24px_24px] opacity-15"></div>
+            <!-- Gradient Overlay: menjaga keterbacaan teks dan kedalaman warna -->
             <div class="absolute inset-0 bg-gradient-to-r from-brand-primary-dark/95 via-brand-primary/90 to-brand-primary/80 z-10"></div>
-            <!-- Glow Accents -->
-            <div class="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-brand-sky/20 blur-3xl z-10 pointer-events-none"></div>
-            <div class="absolute -bottom-24 -right-24 w-[32rem] h-[32rem] rounded-full bg-brand-secondary/25 blur-3xl z-10 pointer-events-none"></div>
+            <!-- Ambient Glowing Color Orbs -->
+            <div class="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-brand-sky/20 blur-3xl z-10"></div>
+            <div class="absolute -bottom-24 -right-24 w-[34rem] h-[34rem] rounded-full bg-brand-secondary/30 blur-3xl z-10"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-indigo-500/10 blur-3xl z-10"></div>
         </div>
 
         <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -40,21 +62,31 @@
                         </span>
                     </div>
 
-                    <!-- Main Dynamic Headline -->
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] sm:leading-[1.1]">
-                        Pusat Keunggulan <br class="hidden sm:inline" />
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-cream via-brand-sky to-white">
-                            Seni Digital &amp; Teknologi
-                        </span>
-                        <br />
-                        Teknik Rekayasa Multimedia
-                    </h1>
+                    <!-- Main Dynamic Animated Headline -->
+                    <div class="space-y-2">
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.15] sm:leading-[1.15]">
+                            Pusat Keunggulan <br class="hidden sm:inline" />
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-cream via-brand-sky to-white">
+                                Seni Digital &amp; Teknologi
+                            </span>
+                        </h1>
+                        <div class="flex items-center gap-2 text-xl sm:text-2xl lg:text-3xl font-extrabold text-brand-sky">
+                            <span class="text-slate-300 font-semibold text-lg sm:text-xl">Fokus:</span>
+                            <span class="inline-block text-brand-cream border-b-2 border-brand-cream/60 transition-all duration-300 min-h-[1.4em]" 
+                                  x-html="focusList[focusIndex]">
+                                Game Development 3D
+                            </span>
+                        </div>
+                        <p class="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-300">
+                            Program Studi Sarjana Terapan Teknik Rekayasa Multimedia
+                        </p>
+                    </div>
 
                     <p class="text-base sm:text-lg text-slate-200/90 max-w-2xl leading-relaxed font-normal">
                         Mempersiapkan talenta masa depan yang menguasai integrasi komputasi modern dan kreativitas visual: mulai dari <span class="text-white font-semibold">Game Programming</span>, <span class="text-white font-semibold">Produksi Animasi 3D</span>, hingga ekosistem interaktif <span class="text-white font-semibold">Virtual Reality (VR/AR)</span>.
                     </p>
 
-                    <!-- Primary CTAs (Pendaftaran Mahasiswa Baru & Kurikulum) -->
+                    <!-- Primary CTAs (Pendaftaran PMB, Kurikulum & Video Showreel) -->
                     <div class="flex flex-wrap items-center gap-3.5 pt-1">
                         <!-- Pendaftaran PMB Button (Standout Primary CTA) -->
                         <a href="https://pmb.politala.ac.id" 
@@ -72,12 +104,24 @@
 
                         <!-- Jelajahi Kurikulum -->
                         <a href="{{ route('public.academic.curriculum') }}" 
-                           class="px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white font-bold text-sm transition-all flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98]">
+                           class="px-5 py-3.5 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white font-bold text-sm transition-all flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98]">
                             <span>Jelajahi Kurikulum</span>
                             <svg class="w-4 h-4 text-brand-sky" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                             </svg>
                         </a>
+
+                        <!-- Video Showreel Modal Trigger -->
+                        <button type="button" 
+                                @click="videoModalOpen = true"
+                                class="px-4 py-3.5 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white font-bold text-sm transition-all flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98] group">
+                            <div class="w-6 h-6 rounded-full bg-brand-cream text-brand-dark flex items-center justify-center shadow-xs group-hover:scale-110 transition-transform">
+                                <svg class="w-3.5 h-3.5 ml-0.5 fill-current" viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg>
+                            </div>
+                            <span>Showreel 1 Menit</span>
+                        </button>
                     </div>
 
                     <!-- Quick PMB Jalur Masuk Badge -->
@@ -105,10 +149,21 @@
                             <div class="text-[10px] text-brand-sky/80 uppercase tracking-wider font-semibold">Gelar Kelulusan</div>
                         </div>
                     </div>
+
+                    <!-- Tech Stack & Engine Strip -->
+                    <div class="pt-3 flex flex-wrap items-center gap-2 text-xs text-slate-300">
+                        <span class="text-[10px] font-bold text-brand-sky uppercase tracking-wider mr-1">Tools &amp; Engine:</span>
+                        <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 font-mono text-[10px] text-white">Unreal Engine 5</span>
+                        <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 font-mono text-[10px] text-white">Unity 3D</span>
+                        <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 font-mono text-[10px] text-white">Blender 4</span>
+                        <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 font-mono text-[10px] text-white">Autodesk Maya</span>
+                        <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 font-mono text-[10px] text-white">Adobe Suite</span>
+                        <span class="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 font-mono text-[10px] text-white">Meta Quest XR</span>
+                    </div>
                 </div>
 
                 <!-- Right Dynamic Interactive Showcase: Studio & Creative Pipeline -->
-                <div class="lg:col-span-5" x-data="{ activeTab: 'game' }">
+                <div class="lg:col-span-5">
                     <div class="relative mx-auto max-w-md lg:max-w-none">
                         
                         <!-- Floating Badge 1: Identitas Kampus POLITALA -->
@@ -140,45 +195,56 @@
                                     <button type="button" 
                                             @click="activeTab = 'game'" 
                                             :class="activeTab === 'game' ? 'bg-brand-primary text-white shadow-xs' : 'text-slate-400 hover:text-white'"
-                                            class="px-2.5 py-1 rounded-lg transition-colors">
+                                            class="px-2 py-1 rounded-lg transition-colors">
                                         Game Dev
                                     </button>
                                     <button type="button" 
                                             @click="activeTab = '3d'" 
                                             :class="activeTab === '3d' ? 'bg-brand-primary text-white shadow-xs' : 'text-slate-400 hover:text-white'"
-                                            class="px-2.5 py-1 rounded-lg transition-colors">
+                                            class="px-2 py-1 rounded-lg transition-colors">
                                         Animasi 3D
                                     </button>
                                     <button type="button" 
                                             @click="activeTab = 'vr'" 
                                             :class="activeTab === 'vr' ? 'bg-brand-primary text-white shadow-xs' : 'text-slate-400 hover:text-white'"
-                                            class="px-2.5 py-1 rounded-lg transition-colors">
+                                            class="px-2 py-1 rounded-lg transition-colors">
                                         VR / Immersive
                                     </button>
                                 </div>
                             </div>
 
                             <!-- Interactive Studio Graphic Screen -->
-                            <div class="aspect-4/3 rounded-2xl bg-gradient-to-br from-slate-950 via-slate-900 to-brand-primary-dark/90 border border-white/10 p-5 flex flex-col justify-between relative overflow-hidden">
-                                <!-- Dynamic Visual Grid Pattern -->
-                                <div class="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:16px_16px]"></div>
+                            <div class="aspect-4/3 rounded-2xl bg-gradient-to-br from-slate-950 via-slate-900 to-brand-primary-dark/90 border border-white/10 p-4 sm:p-5 flex flex-col justify-between relative overflow-hidden">
+                                <!-- Dynamic Visual Grid Pattern (Changes with Wireframe Mode) -->
+                                <div class="absolute inset-0 transition-opacity duration-300"
+                                     :class="wireframeMode ? 'opacity-40 bg-[linear-gradient(to_right,#00ffff_1px,transparent_1px),linear-gradient(to_bottom,#00ffff_1px,transparent_1px)] bg-[size:14px_14px]' : 'opacity-20 bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:16px_16px]'"></div>
                                 
-                                <!-- Header inside Screen -->
+                                <!-- Header inside Screen: Shader stats & Wireframe Toggle -->
                                 <div class="relative z-10 flex items-center justify-between text-xs text-brand-sky font-mono">
                                     <span class="bg-black/50 px-2 py-0.5 rounded text-[11px] border border-white/10 flex items-center gap-1.5">
                                         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                                        <span x-text="activeTab === 'game' ? 'Engine: Unreal Engine 5' : (activeTab === '3d' ? 'Shader: Realtime Cycles' : 'Spatial XR: Meta Quest Ready')"></span>
+                                        <span x-text="activeTab === 'game' ? 'Unreal Engine 5' : (activeTab === '3d' ? 'Blender Cycles' : 'Meta Quest XR')"></span>
                                     </span>
-                                    <span class="text-brand-cream text-[11px]">FPS: 60 • 4K HDR</span>
+                                    
+                                    <!-- Wireframe Mode Toggle Button -->
+                                    <button type="button" 
+                                            @click="wireframeMode = !wireframeMode"
+                                            class="px-2 py-0.5 rounded text-[10px] font-bold border transition-colors flex items-center gap-1"
+                                            :class="wireframeMode ? 'bg-cyan-500/20 text-cyan-300 border-cyan-400/40' : 'bg-white/10 text-slate-300 border-white/10 hover:text-white'">
+                                        <span x-text="wireframeMode ? 'Wireframe: ON' : 'Wireframe: OFF'"></span>
+                                    </button>
                                 </div>
 
-                                <!-- Center Visual Graphic (Changes per Tab) -->
+                                <!-- Center Visual Graphic (Changes per Tab & Wireframe Mode) -->
                                 <div class="relative z-10 flex flex-col items-center justify-center my-3 space-y-2 text-center">
                                     
                                     <!-- 1. Game Development Visual -->
                                     <div x-show="activeTab === 'game'" x-transition class="flex flex-col items-center space-y-2">
-                                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-indigo-600 via-brand-primary to-brand-sky flex items-center justify-center text-white shadow-xl shadow-indigo-500/25 border border-white/20 transform hover:scale-105 transition-transform">
-                                            <svg class="w-9 h-9 text-brand-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <div class="w-16 h-16 rounded-2xl transition-all duration-300 flex items-center justify-center text-white shadow-xl border"
+                                             :class="wireframeMode 
+                                                ? 'bg-transparent border-cyan-400 text-cyan-300 shadow-cyan-500/30' 
+                                                : 'bg-gradient-to-tr from-indigo-600 via-brand-primary to-brand-sky border-white/20 shadow-indigo-500/25'">
+                                            <svg class="w-9 h-9" :class="wireframeMode ? 'text-cyan-300 animate-pulse' : 'text-brand-cream'" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
                                             </svg>
                                         </div>
@@ -190,8 +256,11 @@
 
                                     <!-- 2. 3D Animation Visual -->
                                     <div x-show="activeTab === '3d'" x-transition class="flex flex-col items-center space-y-2" style="display: none;">
-                                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-500 via-orange-600 to-rose-500 flex items-center justify-center text-white shadow-xl shadow-orange-500/25 border border-white/20 transform hover:scale-105 transition-transform">
-                                            <svg class="w-9 h-9 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <div class="w-16 h-16 rounded-2xl transition-all duration-300 flex items-center justify-center text-white shadow-xl border"
+                                             :class="wireframeMode 
+                                                ? 'bg-transparent border-amber-400 text-amber-300 shadow-amber-500/30' 
+                                                : 'bg-gradient-to-tr from-amber-500 via-orange-600 to-rose-500 border-white/20 shadow-orange-500/25'">
+                                            <svg class="w-9 h-9" :class="wireframeMode ? 'text-amber-300 animate-pulse' : 'text-white'" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5" />
                                             </svg>
                                         </div>
@@ -203,8 +272,11 @@
 
                                     <!-- 3. Virtual Reality Visual -->
                                     <div x-show="activeTab === 'vr'" x-transition class="flex flex-col items-center space-y-2" style="display: none;">
-                                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-emerald-500 via-teal-600 to-sky-500 flex items-center justify-center text-white shadow-xl shadow-teal-500/25 border border-white/20 transform hover:scale-105 transition-transform">
-                                            <svg class="w-9 h-9 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <div class="w-16 h-16 rounded-2xl transition-all duration-300 flex items-center justify-center text-white shadow-xl border"
+                                             :class="wireframeMode 
+                                                ? 'bg-transparent border-emerald-400 text-emerald-300 shadow-emerald-500/30' 
+                                                : 'bg-gradient-to-tr from-emerald-500 via-teal-600 to-sky-500 border-white/20 shadow-teal-500/25'">
+                                            <svg class="w-9 h-9" :class="wireframeMode ? 'text-emerald-300 animate-pulse' : 'text-white'" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                             </svg>
                                         </div>
@@ -215,12 +287,19 @@
                                     </div>
                                 </div>
 
-                                <!-- Footer inside Screen -->
+                                <!-- Footer inside Screen: Live Audio Equalizer Waveform & Pipeline -->
                                 <div class="relative z-10 flex items-center justify-between text-[11px] text-slate-400 border-t border-white/10 pt-2 font-mono">
-                                    <span>Pipeline Kreatif</span>
+                                    <!-- Animated Waveform Equalizer -->
+                                    <div class="flex items-end gap-1 h-3.5">
+                                        <span class="w-1 h-3 bg-brand-sky rounded-full animate-bounce [animation-duration:600ms]"></span>
+                                        <span class="w-1 h-2 bg-emerald-400 rounded-full animate-bounce [animation-duration:450ms]"></span>
+                                        <span class="w-1 h-3.5 bg-brand-cream rounded-full animate-bounce [animation-duration:700ms]"></span>
+                                        <span class="w-1 h-1.5 bg-rose-400 rounded-full animate-bounce [animation-duration:500ms]"></span>
+                                        <span class="w-1 h-2.5 bg-brand-sky rounded-full animate-bounce [animation-duration:650ms]"></span>
+                                    </div>
                                     <span class="text-emerald-400 font-bold flex items-center gap-1">
                                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                                        Siap Diterapkan di Industri
+                                        Pipeline Industri Siap
                                     </span>
                                 </div>
                             </div>
@@ -233,12 +312,12 @@
                                 </div>
                                 <div class="bg-white/5 rounded-xl p-2.5 border border-white/10 text-slate-200">
                                     <span class="block font-bold text-brand-cream">Studio Render &amp; MoCap</span>
-                                    <span class="text-[10px] text-slate-400">Standar Produksi Film &amp; Game</span>
+                                    <span class="text-[10px] text-slate-400">Standar Film &amp; Game</span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Floating Badge 2: Keunggulan Kompetensi (No Emojis) -->
+                        <!-- Floating Badge 2: Keunggulan Kompetensi -->
                         <div class="absolute -bottom-6 -right-4 sm:-right-6 z-30 bg-white/95 backdrop-blur-md p-3 rounded-2xl border border-white/40 shadow-xl flex items-center gap-2.5 text-brand-dark">
                             <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-primary to-brand-secondary flex items-center justify-center text-white shrink-0 shadow-xs">
                                 <svg class="w-5 h-5 text-brand-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -254,6 +333,73 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+
+        <!-- Video Showreel Modal (Pop-up Player Teaser) -->
+        <div x-show="videoModalOpen" 
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0"
+             x-transition:enter-end="opacity-100"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0"
+             class="fixed inset-0 z-50 overflow-y-auto p-4 sm:p-6 md:p-12 bg-slate-950/80 backdrop-blur-md flex items-center justify-center"
+             style="display: none;">
+            
+            <div @click.outside="videoModalOpen = false" 
+                 class="w-full max-w-3xl bg-slate-900 rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+                
+                <!-- Video Modal Header -->
+                <div class="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-slate-950/50">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse"></span>
+                        <span class="text-sm font-bold text-white">Showreel Profil D-4 Teknik Rekayasa Multimedia</span>
+                    </div>
+                    <button type="button" 
+                            @click="videoModalOpen = false" 
+                            class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors text-xs font-bold">
+                        ESC
+                    </button>
+                </div>
+
+                <!-- Video Showcase Preview Canvas -->
+                <div class="aspect-16/9 bg-gradient-to-br from-slate-950 via-brand-primary-dark to-slate-900 flex flex-col items-center justify-center p-8 text-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-[radial-gradient(#97D7FF_1px,transparent_1px)] [background-size:20px_20px] opacity-20 pointer-events-none"></div>
+                    
+                    <div class="relative z-10 space-y-4 max-w-md">
+                        <div class="w-20 h-20 rounded-full bg-brand-primary/40 border-2 border-brand-sky text-brand-sky flex items-center justify-center mx-auto shadow-2xl shadow-brand-sky/20">
+                            <svg class="w-8 h-8 ml-1 fill-current" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-black text-white">Cuplikan Video Showreel Mahasiswa</h3>
+                            <p class="text-xs text-slate-300 mt-1">
+                                Kompilasi animasi 3D, gameplay simulator, karya motion graphic, dan suasana praktikum di Studio Multimedia POLITALA.
+                            </p>
+                        </div>
+                        <div class="pt-2 flex items-center justify-center gap-3">
+                            <span class="px-3 py-1 rounded-full bg-white/10 text-[11px] font-semibold text-brand-sky border border-white/15">
+                                Durasi: 01:24
+                            </span>
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-[11px] font-semibold text-emerald-400 border border-emerald-500/30">
+                                Resolusi: 4K 60fps
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Modal Footer -->
+                <div class="px-6 py-3.5 bg-slate-950 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs border-t border-white/10">
+                    <span class="text-slate-400">Politeknik Negeri Tanah Laut • Jurusan Teknologi Informasi</span>
+                    <a href="{{ route('public.gallery.index') }}" class="text-brand-sky hover:text-white font-bold flex items-center gap-1 transition-colors">
+                        <span>Lihat Galeri Karya Selengkapnya</span>
+                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
