@@ -36,7 +36,7 @@ class="fixed top-0 inset-x-0 z-50 pointer-events-none transition-all duration-30
 
     <!-- Floating Pill Container -->
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 transition-all duration-300"
-         :class="scrolled ? 'pt-2 sm:pt-3' : 'pt-3 sm:pt-4.5'">
+         :class="scrolled ? 'pt-2 sm:pt-2.5' : 'pt-2.5 sm:pt-3'">
         
         <div class="pointer-events-auto transition-all duration-300 rounded-2xl lg:rounded-full border backdrop-blur-xl shadow-lg"
              :class="scrolled 
