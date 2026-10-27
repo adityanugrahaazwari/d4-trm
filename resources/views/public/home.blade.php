@@ -236,13 +236,8 @@
                                          x-transition:enter-start="opacity-0 scale-90"
                                          x-transition:enter-end="opacity-100 scale-100"
                                          class="flex flex-col items-center space-y-2">
-                                        <div class="w-16 h-16 rounded-2xl transition-all duration-500 flex items-center justify-center text-white shadow-xl border group-hover:scale-105"
-                                             :class="wireframeMode 
-                                                ? 'bg-transparent border-cyan-400 text-cyan-300 shadow-cyan-500/30' 
-                                                : 'bg-gradient-to-tr from-indigo-600 via-brand-primary to-brand-sky border-white/20 shadow-indigo-500/25'">
-                                            <svg class="w-9 h-9" :class="wireframeMode ? 'text-cyan-300 animate-pulse' : 'text-brand-cream'" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
-                                            </svg>
+                                        <div class="h-20 flex items-center justify-center" :class="wireframeMode ? 'opacity-40 invert contrast-200' : ''">
+                                            <img src="{{ asset('assets/undraw_virtual-reality_4fo0.svg') }}" alt="Game Development Visual" class="h-20 w-auto object-contain drop-shadow-lg group-hover:scale-105 transition-transform duration-300">
                                         </div>
                                         <div>
                                             <span class="block text-sm font-extrabold text-white tracking-wide">Pengembangan Game 2D &amp; 3D</span>
@@ -256,13 +251,8 @@
                                          x-transition:enter-start="opacity-0 scale-90"
                                          x-transition:enter-end="opacity-100 scale-100"
                                          class="flex flex-col items-center space-y-2" style="display: none;">
-                                        <div class="w-16 h-16 rounded-2xl transition-all duration-500 flex items-center justify-center text-white shadow-xl border group-hover:scale-105"
-                                             :class="wireframeMode 
-                                                ? 'bg-transparent border-amber-400 text-amber-300 shadow-amber-500/30' 
-                                                : 'bg-gradient-to-tr from-amber-500 via-orange-600 to-rose-500 border-white/20 shadow-orange-500/25'">
-                                            <svg class="w-9 h-9" :class="wireframeMode ? 'text-amber-300 animate-pulse' : 'text-white'" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5" />
-                                            </svg>
+                                        <div class="h-20 flex items-center justify-center" :class="wireframeMode ? 'opacity-40 invert contrast-200' : ''">
+                                            <img src="{{ asset('assets/undraw_3d-modeling_j8a3.svg') }}" alt="3D Animation Modeling" class="h-20 w-auto object-contain drop-shadow-lg group-hover:scale-105 transition-transform duration-300">
                                         </div>
                                         <div>
                                             <span class="block text-sm font-extrabold text-white tracking-wide">Pemodelan 3D, Rigging &amp; VFX</span>
@@ -276,13 +266,8 @@
                                          x-transition:enter-start="opacity-0 scale-90"
                                          x-transition:enter-end="opacity-100 scale-100"
                                          class="flex flex-col items-center space-y-2" style="display: none;">
-                                        <div class="w-16 h-16 rounded-2xl transition-all duration-500 flex items-center justify-center text-white shadow-xl border group-hover:scale-105"
-                                             :class="wireframeMode 
-                                                ? 'bg-transparent border-emerald-400 text-emerald-300 shadow-emerald-500/30' 
-                                                : 'bg-gradient-to-tr from-emerald-500 via-teal-600 to-sky-500 border-white/20 shadow-teal-500/25'">
-                                            <svg class="w-9 h-9" :class="wireframeMode ? 'text-emerald-300 animate-pulse' : 'text-white'" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                            </svg>
+                                        <div class="h-20 flex items-center justify-center" :class="wireframeMode ? 'opacity-40 invert contrast-200' : ''">
+                                            <img src="{{ asset('assets/undraw_augmented-reality_3ie0.svg') }}" alt="Immersive Tech XR" class="h-20 w-auto object-contain drop-shadow-lg group-hover:scale-105 transition-transform duration-300">
                                         </div>
                                         <div>
                                             <span class="block text-sm font-extrabold text-white tracking-wide">Teknologi Imersif (VR/AR/XR)</span>
@@ -354,22 +339,33 @@
                         <span>Sarjana Terapan Vokasi</span>
                     </div>
 
-                    <div class="aspect-4/3 rounded-2xl bg-gradient-to-tr from-brand-secondary/20 via-brand-sky/20 to-brand-primary/10 border border-brand-border p-8 flex flex-col justify-between shadow-inner hover:shadow-xl hover:border-brand-primary/30 transition-all duration-500 relative overflow-hidden group">
+                    <div class="rounded-2xl bg-gradient-to-tr from-brand-secondary/20 via-brand-sky/20 to-brand-primary/10 border border-brand-border p-6 sm:p-7 flex flex-col justify-between shadow-inner hover:shadow-xl hover:border-brand-primary/30 transition-all duration-500 relative overflow-hidden group">
                         <!-- Ambient Grid Background -->
                         <div class="absolute inset-0 bg-[radial-gradient(#086288_1px,transparent_1px)] [background-size:16px_16px] opacity-10 pointer-events-none"></div>
 
-                        <div class="relative z-10 inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white border border-slate-200 text-xs font-semibold text-brand-primary shadow-xs">
-                            <span class="w-1.5 h-1.5 rounded-full bg-brand-primary"></span>
-                            <span>Identitas Program Studi</span>
+                        <div class="relative z-10 flex items-center justify-between">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white border border-slate-200 text-xs font-semibold text-brand-primary shadow-xs">
+                                <span class="w-1.5 h-1.5 rounded-full bg-brand-primary"></span>
+                                <span>Identitas Program Studi</span>
+                            </div>
+                            <span class="text-xs uppercase tracking-wider text-brand-primary font-bold">D-4 TRM</span>
                         </div>
-                        <div class="relative z-10 space-y-3">
-                            <span class="text-xs uppercase tracking-wider text-brand-muted font-bold block">Jurusan</span>
-                            <div class="text-2xl font-black text-brand-dark group-hover:text-brand-primary transition-colors">Komputer dan Bisnis</div>
+
+                        <!-- Team Collaboration Illustration -->
+                        <div class="relative z-10 my-4 flex items-center justify-center">
+                            <img src="{{ asset('assets/undraw_team-collaboration_phnf.svg') }}" 
+                                 alt="Kolaborasi Mahasiswa Multimedia POLITALA" 
+                                 class="h-44 sm:h-52 w-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-500">
+                        </div>
+
+                        <div class="relative z-10 space-y-1">
+                            <span class="text-[10px] uppercase tracking-wider text-brand-muted font-bold block">Jurusan</span>
+                            <div class="text-xl sm:text-2xl font-black text-brand-dark group-hover:text-brand-primary transition-colors">Komputer dan Bisnis</div>
                             <p class="text-xs text-brand-muted">
                                 Politeknik Negeri Tanah Laut, Kalimantan Selatan
                             </p>
                         </div>
-                        <div class="relative z-10 pt-4 border-t border-slate-200/80 flex items-center justify-between text-xs text-brand-muted">
+                        <div class="relative z-10 pt-3 mt-3 border-t border-slate-200/80 flex items-center justify-between text-xs text-brand-muted">
                             <span class="flex items-center gap-1.5">
                                 <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
                                 <span>Akreditasi: [Dalam Proses Akreditasi BAN-PT/LAM-INFOKOM]</span>
@@ -441,51 +437,51 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                 <!-- Keunggulan 1 -->
-                <div class="group relative overflow-hidden bg-white p-7 rounded-2xl border border-slate-200/80 shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 space-y-4">
+                <div class="group relative overflow-hidden bg-white p-7 rounded-2xl border border-slate-200/80 shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 space-y-4 flex flex-col justify-between">
                     <!-- Top Accent Line -->
                     <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-brand-primary to-brand-sky opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     
-                    <div class="w-12 h-12 rounded-xl bg-brand-primary-light text-brand-primary flex items-center justify-center font-bold text-xl group-hover:bg-brand-primary group-hover:text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-xs">
-                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
+                    <div class="space-y-4">
+                        <div class="h-32 flex items-center justify-center p-2 bg-slate-50/80 rounded-xl border border-slate-100">
+                            <img src="{{ asset('assets/undraw_live-collaboration_i8an.svg') }}" alt="Praktikum Berbasis Proyek PBL" class="h-28 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <h3 class="text-lg font-bold text-brand-dark group-hover:text-brand-primary transition-colors">Praktikum Berbasis Proyek (PBL)</h3>
+                        <p class="text-sm text-brand-muted leading-relaxed">
+                            Pembelajaran berpusat pada penugasan proyek industri nyata sehingga mahasiswa memiliki portofolio sebelum lulus.
+                        </p>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-dark group-hover:text-brand-primary transition-colors">Praktikum Berbasis Proyek (PBL)</h3>
-                    <p class="text-sm text-brand-muted leading-relaxed">
-                        Pembelajaran berpusat pada penugasan proyek industri nyata sehingga mahasiswa memiliki portofolio sebelum lulus.
-                    </p>
                 </div>
 
                 <!-- Keunggulan 2 -->
-                <div class="group relative overflow-hidden bg-white p-7 rounded-2xl border border-slate-200/80 shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 space-y-4">
+                <div class="group relative overflow-hidden bg-white p-7 rounded-2xl border border-slate-200/80 shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 space-y-4 flex flex-col justify-between">
                     <!-- Top Accent Line -->
                     <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-brand-secondary to-brand-sky opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-                    <div class="w-12 h-12 rounded-xl bg-brand-primary-light text-brand-primary flex items-center justify-center font-bold text-xl group-hover:bg-brand-primary group-hover:text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-xs">
-                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                        </svg>
+                    <div class="space-y-4">
+                        <div class="h-32 flex items-center justify-center p-2 bg-slate-50/80 rounded-xl border border-slate-100">
+                            <img src="{{ asset('assets/undraw_instant-analysis_vm8x.svg') }}" alt="Fasilitas Laboratorium Modern" class="h-28 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <h3 class="text-lg font-bold text-brand-dark group-hover:text-brand-primary transition-colors">Fasilitas Laboratorium Modern</h3>
+                        <p class="text-sm text-brand-muted leading-relaxed">
+                            Didukung laboratorium multimedia dengan workstation berspesifikasi tinggi untuk animasi, rendering 3D, dan pengembangan game.
+                        </p>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-dark group-hover:text-brand-primary transition-colors">Fasilitas Laboratorium Modern</h3>
-                    <p class="text-sm text-brand-muted leading-relaxed">
-                        Didukung laboratorium multimedia dengan workstation berspesifikasi tinggi untuk animasi, rendering 3D, dan pengembangan game.
-                    </p>
                 </div>
 
                 <!-- Keunggulan 3 -->
-                <div class="group relative overflow-hidden bg-white p-7 rounded-2xl border border-slate-200/80 shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 space-y-4">
+                <div class="group relative overflow-hidden bg-white p-7 rounded-2xl border border-slate-200/80 shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 space-y-4 flex flex-col justify-between">
                     <!-- Top Accent Line -->
                     <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-emerald-500 to-teal-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-                    <div class="w-12 h-12 rounded-xl bg-brand-primary-light text-brand-primary flex items-center justify-center font-bold text-xl group-hover:bg-brand-primary group-hover:text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-xs">
-                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
+                    <div class="space-y-4">
+                        <div class="h-32 flex items-center justify-center p-2 bg-slate-50/80 rounded-xl border border-slate-100">
+                            <img src="{{ asset('assets/undraw_handshake-deal_nwk6.svg') }}" alt="Kemitraan Industri Kreatif" class="h-28 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <h3 class="text-lg font-bold text-brand-dark group-hover:text-brand-primary transition-colors">Kemitraan Industri Kreatif</h3>
+                        <p class="text-sm text-brand-muted leading-relaxed">
+                            Program magang industri bersertifikat (MBKM Vokasi) untuk mempercepat serapan kerja lulusan di perusahaan multimedia dan digital agency.
+                        </p>
                     </div>
-                    <h3 class="text-lg font-bold text-brand-dark group-hover:text-brand-primary transition-colors">Kemitraan Industri Kreatif</h3>
-                    <p class="text-sm text-brand-muted leading-relaxed">
-                        Program magang industri bersertifikat (MBKM Vokasi) untuk mempercepat serapan kerja lulusan di perusahaan multimedia dan digital agency.
-                    </p>
                 </div>
             </div>
         </div>
@@ -507,51 +503,83 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <!-- Career 1 -->
-            <div class="group relative overflow-hidden bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-sky/60 transition-all duration-300 space-y-3">
+            <div class="group relative overflow-hidden bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-sky/60 transition-all duration-300 space-y-3 flex flex-col justify-between">
                 <div class="absolute bottom-0 inset-x-0 h-0.5 bg-gradient-to-r from-brand-sky to-brand-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div class="w-10 h-10 rounded-xl bg-brand-sky-light text-brand-primary group-hover:bg-brand-primary group-hover:text-white group-hover:scale-110 group-hover:shadow-md transition-all duration-300 flex items-center justify-center font-black text-sm">
-                    01
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="w-9 h-9 rounded-xl bg-brand-sky-light text-brand-primary group-hover:bg-brand-primary group-hover:text-white group-hover:scale-110 group-hover:shadow-md transition-all duration-300 flex items-center justify-center font-black text-xs">
+                            01
+                        </div>
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-brand-secondary">Game Industry</span>
+                    </div>
+                    <div class="h-24 flex items-center justify-center p-2 bg-slate-50/80 rounded-xl border border-slate-100">
+                        <img src="{{ asset('assets/undraw_virtual-reality_4fo0.svg') }}" alt="Game Developer & Programmer" class="h-20 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <h3 class="font-bold text-brand-dark text-base group-hover:text-brand-primary transition-colors">Game Developer &amp; Programmer</h3>
+                    <p class="text-xs text-brand-muted leading-relaxed">
+                        Pengembang mekanik game, gameplay programmer, dan perancang simulasi interaktif virtual reality (VR).
+                    </p>
                 </div>
-                <h3 class="font-bold text-brand-dark text-base group-hover:text-brand-primary transition-colors">Game Developer &amp; Programmer</h3>
-                <p class="text-xs text-brand-muted leading-relaxed">
-                    Pengembang mekanik game, gameplay programmer, dan perancang simulasi interaktif virtual reality (VR).
-                </p>
             </div>
 
             <!-- Career 2 -->
-            <div class="group relative overflow-hidden bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-sky/60 transition-all duration-300 space-y-3">
+            <div class="group relative overflow-hidden bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-sky/60 transition-all duration-300 space-y-3 flex flex-col justify-between">
                 <div class="absolute bottom-0 inset-x-0 h-0.5 bg-gradient-to-r from-brand-sky to-brand-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div class="w-10 h-10 rounded-xl bg-brand-sky-light text-brand-primary group-hover:bg-brand-primary group-hover:text-white group-hover:scale-110 group-hover:shadow-md transition-all duration-300 flex items-center justify-center font-black text-sm">
-                    02
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="w-9 h-9 rounded-xl bg-brand-sky-light text-brand-primary group-hover:bg-brand-primary group-hover:text-white group-hover:scale-110 group-hover:shadow-md transition-all duration-300 flex items-center justify-center font-black text-xs">
+                            02
+                        </div>
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-brand-secondary">Animation &amp; Film</span>
+                    </div>
+                    <div class="h-24 flex items-center justify-center p-2 bg-slate-50/80 rounded-xl border border-slate-100">
+                        <img src="{{ asset('assets/undraw_3d-modeling_j8a3.svg') }}" alt="3D Artist & Animator" class="h-20 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <h3 class="font-bold text-brand-dark text-base group-hover:text-brand-primary transition-colors">3D Artist &amp; Animator</h3>
+                    <p class="text-xs text-brand-muted leading-relaxed">
+                        Spesialis pemodelan 3D, texturing, rigging, dan animasi untuk industri perfilman, periklanan, dan game.
+                    </p>
                 </div>
-                <h3 class="font-bold text-brand-dark text-base group-hover:text-brand-primary transition-colors">3D Artist &amp; Animator</h3>
-                <p class="text-xs text-brand-muted leading-relaxed">
-                    Spesialis pemodelan 3D, texturing, rigging, dan animasi untuk industri perfilman, periklanan, dan game.
-                </p>
             </div>
 
             <!-- Career 3 -->
-            <div class="group relative overflow-hidden bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-sky/60 transition-all duration-300 space-y-3">
+            <div class="group relative overflow-hidden bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-sky/60 transition-all duration-300 space-y-3 flex flex-col justify-between">
                 <div class="absolute bottom-0 inset-x-0 h-0.5 bg-gradient-to-r from-brand-sky to-brand-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div class="w-10 h-10 rounded-xl bg-brand-sky-light text-brand-primary group-hover:bg-brand-primary group-hover:text-white group-hover:scale-110 group-hover:shadow-md transition-all duration-300 flex items-center justify-center font-black text-sm">
-                    03
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="w-9 h-9 rounded-xl bg-brand-sky-light text-brand-primary group-hover:bg-brand-primary group-hover:text-white group-hover:scale-110 group-hover:shadow-md transition-all duration-300 flex items-center justify-center font-black text-xs">
+                            03
+                        </div>
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-brand-secondary">Product &amp; UI/UX</span>
+                    </div>
+                    <div class="h-24 flex items-center justify-center p-2 bg-slate-50/80 rounded-xl border border-slate-100">
+                        <img src="{{ asset('assets/undraw_brainstorming_gny9.svg') }}" alt="UI/UX Designer" class="h-20 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <h3 class="font-bold text-brand-dark text-base group-hover:text-brand-primary transition-colors">UI/UX Designer</h3>
+                    <p class="text-xs text-brand-muted leading-relaxed">
+                        Desainer antarmuka dan pengalaman pengguna untuk aplikasi web, mobile, dan sistem interaktif digital.
+                    </p>
                 </div>
-                <h3 class="font-bold text-brand-dark text-base group-hover:text-brand-primary transition-colors">UI/UX Designer</h3>
-                <p class="text-xs text-brand-muted leading-relaxed">
-                    Desainer antarmuka dan pengalaman pengguna untuk aplikasi web, mobile, dan sistem interaktif digital.
-                </p>
             </div>
 
             <!-- Career 4 -->
-            <div class="group relative overflow-hidden bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-sky/60 transition-all duration-300 space-y-3">
+            <div class="group relative overflow-hidden bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-sky/60 transition-all duration-300 space-y-3 flex flex-col justify-between">
                 <div class="absolute bottom-0 inset-x-0 h-0.5 bg-gradient-to-r from-brand-sky to-brand-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div class="w-10 h-10 rounded-xl bg-brand-sky-light text-brand-primary group-hover:bg-brand-primary group-hover:text-white group-hover:scale-110 group-hover:shadow-md transition-all duration-300 flex items-center justify-center font-black text-sm">
-                    04
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="w-9 h-9 rounded-xl bg-brand-sky-light text-brand-primary group-hover:bg-brand-primary group-hover:text-white group-hover:scale-110 group-hover:shadow-md transition-all duration-300 flex items-center justify-center font-black text-xs">
+                            04
+                        </div>
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-brand-secondary">Software &amp; Vision</span>
+                    </div>
+                    <div class="h-24 flex items-center justify-center p-2 bg-slate-50/80 rounded-xl border border-slate-100">
+                        <img src="{{ asset('assets/undraw_team-assignment_lzot.svg') }}" alt="Multimedia Software Engineer" class="h-20 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <h3 class="font-bold text-brand-dark text-base group-hover:text-brand-primary transition-colors">Multimedia Software Engineer</h3>
+                    <p class="text-xs text-brand-muted leading-relaxed">
+                        Perekayasa perangkat lunak berbasis media, video streaming, computer vision, dan sistem multimedia cerdas.
+                    </p>
                 </div>
-                <h3 class="font-bold text-brand-dark text-base group-hover:text-brand-primary transition-colors">Multimedia Software Engineer</h3>
-                <p class="text-xs text-brand-muted leading-relaxed">
-                    Perekayasa perangkat lunak berbasis media, video streaming, computer vision, dan sistem multimedia cerdas.
-                </p>
             </div>
         </div>
 
@@ -592,13 +620,11 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 @for ($i = 1; $i <= 4; $i++)
                     <div class="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300">
-                        <div class="aspect-square bg-gradient-to-br from-slate-100 via-slate-50 to-brand-primary-light/30 flex items-center justify-center text-slate-400 border-b border-slate-100 relative overflow-hidden">
+                        <div class="aspect-square bg-gradient-to-br from-slate-100 via-slate-50 to-brand-primary-light/30 flex items-center justify-center p-6 border-b border-slate-100 relative overflow-hidden">
                             <!-- Avatar Ambient Shimmer -->
                             <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                             
-                            <svg class="w-16 h-16 opacity-40 group-hover:opacity-70 group-hover:scale-110 transition-all duration-500 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                            </svg>
+                            <img src="{{ asset('assets/undraw_educator_6dgp.svg') }}" alt="Tenaga Pendidik D-4 TRM" class="h-28 w-auto object-contain drop-shadow-xs group-hover:scale-110 transition-transform duration-500">
                         </div>
                         <div class="p-5 space-y-2">
                             <span class="text-[10px] uppercase font-bold tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 inline-block">
@@ -641,44 +667,119 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            @for ($j = 1; $j <= 3; $j++)
-                <article class="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col">
-                    <div class="aspect-16/9 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center text-slate-400 border-b border-slate-100 relative overflow-hidden">
+            <!-- Article 1 -->
+            <article class="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between">
+                <div>
+                    <div class="aspect-16/9 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4 border-b border-slate-100 relative overflow-hidden">
                         <!-- Shimmer Hover Glow -->
                         <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
 
-                        <svg class="w-12 h-12 opacity-30 group-hover:opacity-60 group-hover:scale-110 transition-all duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
+                        <img src="{{ asset('assets/undraw_working-together_r43a.svg') }}" alt="Kerjasama Industri dan Studio Game" class="h-28 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform duration-500">
                         <span class="absolute top-3 left-3 text-[10px] uppercase font-bold tracking-wider text-amber-800 bg-amber-100/95 px-2 py-0.5 rounded border border-amber-300 shadow-xs">
-                            [Berita Dummy #{{ $j }}]
+                            [Berita Dummy #1]
                         </span>
                     </div>
-                    <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
-                        <div class="space-y-2">
-                            <div class="flex items-center gap-2 text-xs text-brand-muted">
-                                <span>{{ date('d M Y') }}</span>
-                                <span>&bull;</span>
-                                <span class="text-brand-secondary font-medium">Akademik</span>
-                            </div>
-                            <h3 class="font-bold text-base text-brand-dark leading-snug line-clamp-2 group-hover:text-brand-primary transition-colors">
-                                <a href="{{ route('public.news.show', 'd4-trm-politala-jalin-kerjasama-dengan-studio-game-nasional') }}">
-                                    [Contoh Berita {{ $j }}] Sosialisasi Kurikulum dan Laboratorium Multimedia Terapan D-4 TRM
-                                </a>
-                            </h3>
-                            <p class="text-xs text-brand-muted line-clamp-2 leading-relaxed">
-                                Uraian ringkas berita mengenai persiapan kegiatan perkuliahan, workshop industri, dan fasilitas multimedia...
-                            </p>
+                    <div class="p-6 space-y-3">
+                        <div class="flex items-center gap-2 text-xs text-brand-muted">
+                            <span>{{ date('d M Y') }}</span>
+                            <span>&bull;</span>
+                            <span class="text-brand-secondary font-medium">Kemitraan DUDI</span>
                         </div>
-                        <a href="{{ route('public.news.show', 'd4-trm-politala-jalin-kerjasama-dengan-studio-game-nasional') }}" class="text-xs font-bold text-brand-primary hover:text-brand-primary-hover inline-flex items-center gap-1 group/btn">
-                            <span>Baca Selengkapnya</span>
-                            <svg class="w-3.5 h-3.5 transform group-hover/btn:translate-x-1.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </a>
+                        <h3 class="font-bold text-base text-brand-dark leading-snug line-clamp-2 group-hover:text-brand-primary transition-colors">
+                            <a href="{{ route('public.news.show', 'd4-trm-politala-jalin-kerjasama-dengan-studio-game-nasional') }}">
+                                [Contoh Berita 1] Sosialisasi Kurikulum dan Laboratorium Multimedia Terapan D-4 TRM
+                            </a>
+                        </h3>
+                        <p class="text-xs text-brand-muted line-clamp-2 leading-relaxed">
+                            Uraian ringkas berita mengenai persiapan kegiatan perkuliahan, workshop industri, dan fasilitas multimedia...
+                        </p>
                     </div>
-                </article>
-            @endfor
+                </div>
+                <div class="px-6 pb-6 pt-2">
+                    <a href="{{ route('public.news.show', 'd4-trm-politala-jalin-kerjasama-dengan-studio-game-nasional') }}" class="text-xs font-bold text-brand-primary hover:text-brand-primary-hover inline-flex items-center gap-1 group/btn">
+                        <span>Baca Selengkapnya</span>
+                        <svg class="w-3.5 h-3.5 transform group-hover/btn:translate-x-1.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Article 2 -->
+            <article class="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between">
+                <div>
+                    <div class="aspect-16/9 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4 border-b border-slate-100 relative overflow-hidden">
+                        <!-- Shimmer Hover Glow -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+
+                        <img src="{{ asset('assets/undraw_brainstorming_gny9.svg') }}" alt="Workshop Kurikulum &amp; Desain" class="h-28 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 left-3 text-[10px] uppercase font-bold tracking-wider text-amber-800 bg-amber-100/95 px-2 py-0.5 rounded border border-amber-300 shadow-xs">
+                            [Berita Dummy #2]
+                        </span>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <div class="flex items-center gap-2 text-xs text-brand-muted">
+                            <span>{{ date('d M Y') }}</span>
+                            <span>&bull;</span>
+                            <span class="text-brand-secondary font-medium">Workshop Vokasi</span>
+                        </div>
+                        <h3 class="font-bold text-base text-brand-dark leading-snug line-clamp-2 group-hover:text-brand-primary transition-colors">
+                            <a href="{{ route('public.news.show', 'd4-trm-politala-jalin-kerjasama-dengan-studio-game-nasional') }}">
+                                [Contoh Berita 2] Lokakarya Perancangan UI/UX &amp; Pemodelan Animasi Berbasis Standar Industri
+                            </a>
+                        </h3>
+                        <p class="text-xs text-brand-muted line-clamp-2 leading-relaxed">
+                            Pelatihan teknis intensif bagi mahasiswa dalam merancang antarmuka modern dan aset digital terstandar...
+                        </p>
+                    </div>
+                </div>
+                <div class="px-6 pb-6 pt-2">
+                    <a href="{{ route('public.news.show', 'd4-trm-politala-jalin-kerjasama-dengan-studio-game-nasional') }}" class="text-xs font-bold text-brand-primary hover:text-brand-primary-hover inline-flex items-center gap-1 group/btn">
+                        <span>Baca Selengkapnya</span>
+                        <svg class="w-3.5 h-3.5 transform group-hover/btn:translate-x-1.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Article 3 -->
+            <article class="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between">
+                <div>
+                    <div class="aspect-16/9 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4 border-b border-slate-100 relative overflow-hidden">
+                        <!-- Shimmer Hover Glow -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+
+                        <img src="{{ asset('assets/undraw_team-assignment_lzot.svg') }}" alt="Praktikum &amp; Riset Multimedia" class="h-28 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 left-3 text-[10px] uppercase font-bold tracking-wider text-amber-800 bg-amber-100/95 px-2 py-0.5 rounded border border-amber-300 shadow-xs">
+                            [Berita Dummy #3]
+                        </span>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <div class="flex items-center gap-2 text-xs text-brand-muted">
+                            <span>{{ date('d M Y') }}</span>
+                            <span>&bull;</span>
+                            <span class="text-brand-secondary font-medium">Praktikum Lab</span>
+                        </div>
+                        <h3 class="font-bold text-base text-brand-dark leading-snug line-clamp-2 group-hover:text-brand-primary transition-colors">
+                            <a href="{{ route('public.news.show', 'd4-trm-politala-jalin-kerjasama-dengan-studio-game-nasional') }}">
+                                [Contoh Berita 3] Uji Coba Perangkat VR Headset dan Simulator Interaktif Mahasiswa TRM
+                            </a>
+                        </h3>
+                        <p class="text-xs text-brand-muted line-clamp-2 leading-relaxed">
+                            Eksplorasi teknologi spasial virtual reality dalam mendukung inovasi pembelajaran interaktif di kampus...
+                        </p>
+                    </div>
+                </div>
+                <div class="px-6 pb-6 pt-2">
+                    <a href="{{ route('public.news.show', 'd4-trm-politala-jalin-kerjasama-dengan-studio-game-nasional') }}" class="text-xs font-bold text-brand-primary hover:text-brand-primary-hover inline-flex items-center gap-1 group/btn">
+                        <span>Baca Selengkapnya</span>
+                        <svg class="w-3.5 h-3.5 transform group-hover/btn:translate-x-1.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </article>
         </div>
     </section>
 
@@ -708,8 +809,8 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
                 <!-- Lab 1 -->
                 <div class="group bg-white rounded-2xl border border-slate-200/80 p-6 space-y-4 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300">
-                    <div class="aspect-video rounded-xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center text-slate-400 border border-slate-200/60 overflow-hidden relative group-hover:border-brand-primary/30 transition-colors">
-                        <span class="text-xs font-medium text-slate-400 group-hover:scale-105 transition-transform duration-500">[Foto Laboratorium Komputer]</span>
+                    <div class="aspect-video rounded-xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4 border border-slate-200/60 overflow-hidden relative group-hover:border-brand-primary/30 transition-colors">
+                        <img src="{{ asset('assets/undraw_work-from-anywhere_tpk5.svg') }}" alt="Lab Komputasi Multimedia &amp; Desain" class="h-32 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform duration-500">
                     </div>
                     <div>
                         <div class="flex items-center justify-between mb-1.5">
@@ -730,8 +831,8 @@
 
                 <!-- Lab 2 -->
                 <div class="group bg-white rounded-2xl border border-slate-200/80 p-6 space-y-4 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300">
-                    <div class="aspect-video rounded-xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center text-slate-400 border border-slate-200/60 overflow-hidden relative group-hover:border-brand-primary/30 transition-colors">
-                        <span class="text-xs font-medium text-slate-400 group-hover:scale-105 transition-transform duration-500">[Foto Studio Animasi &amp; Motion]</span>
+                    <div class="aspect-video rounded-xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4 border border-slate-200/60 overflow-hidden relative group-hover:border-brand-primary/30 transition-colors">
+                        <img src="{{ asset('assets/undraw_3d-modeling_j8a3.svg') }}" alt="Studio Animasi &amp; Green Screen" class="h-32 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform duration-500">
                     </div>
                     <div>
                         <div class="flex items-center justify-between mb-1.5">
@@ -752,8 +853,8 @@
 
                 <!-- Lab 3 -->
                 <div class="group bg-white rounded-2xl border border-slate-200/80 p-6 space-y-4 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300">
-                    <div class="aspect-video rounded-xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center text-slate-400 border border-slate-200/60 overflow-hidden relative group-hover:border-brand-primary/30 transition-colors">
-                        <span class="text-xs font-medium text-slate-400 group-hover:scale-105 transition-transform duration-500">[Foto Lab Jaringan &amp; VR]</span>
+                    <div class="aspect-video rounded-xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4 border border-slate-200/60 overflow-hidden relative group-hover:border-brand-primary/30 transition-colors">
+                        <img src="{{ asset('assets/undraw_augmented-reality_3ie0.svg') }}" alt="Lab Game Tech &amp; Immersive VR/AR" class="h-32 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform duration-500">
                     </div>
                     <div>
                         <div class="flex items-center justify-between mb-1.5">
@@ -783,33 +884,42 @@
             <div class="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-brand-secondary/30 blur-3xl animate-pulse-slow [animation-delay:2s] pointer-events-none"></div>
             <div class="absolute inset-0 bg-[radial-gradient(#97D7FF_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none"></div>
 
-            <div class="relative z-10 max-w-2xl space-y-6">
-                <span class="inline-flex px-3.5 py-1.5 rounded-full bg-brand-cream text-brand-dark text-xs font-black uppercase tracking-wider shadow-sm">
-                    Penerimaan Mahasiswa Baru
-                </span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">
-                    Bergabung Menjadi Generasi Kreatif &amp; Inovator Multimedia
-                </h2>
-                <p class="text-sm sm:text-base text-brand-sky/90 leading-relaxed">
-                    Dapatkan informasi pendaftaran mahasiswa baru, jalur seleksi, dan beasiswa melalui portal resmi Politeknik Negeri Tanah Laut.
-                </p>
-                <div class="flex flex-wrap gap-4 pt-2">
-                    <!-- Primary CTA with Animated Shimmer Ray -->
-                    <a href="{{ route('public.contact') }}" class="relative overflow-hidden px-6 py-3.5 rounded-xl bg-white text-brand-primary font-bold hover:bg-brand-cream-light shadow-lg hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-200 flex items-center gap-2 group/btn">
-                        <span class="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-brand-primary/10 to-transparent skew-x-12 animate-shimmer pointer-events-none"></span>
-                        <span class="relative z-10">Hubungi Program Studi</span>
-                        <svg class="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </svg>
-                    </a>
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-7 space-y-6">
+                    <span class="inline-flex px-3.5 py-1.5 rounded-full bg-brand-cream text-brand-dark text-xs font-black uppercase tracking-wider shadow-sm">
+                        Penerimaan Mahasiswa Baru
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">
+                        Bergabung Menjadi Generasi Kreatif &amp; Inovator Multimedia
+                    </h2>
+                    <p class="text-sm sm:text-base text-brand-sky/90 leading-relaxed">
+                        Dapatkan informasi pendaftaran mahasiswa baru, jalur seleksi, dan beasiswa melalui portal resmi Politeknik Negeri Tanah Laut.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <!-- Primary CTA with Animated Shimmer Ray -->
+                        <a href="{{ route('public.contact') }}" class="relative overflow-hidden px-6 py-3.5 rounded-xl bg-white text-brand-primary font-bold hover:bg-brand-cream-light shadow-lg hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-200 flex items-center gap-2 group/btn">
+                            <span class="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-brand-primary/10 to-transparent skew-x-12 animate-shimmer pointer-events-none"></span>
+                            <span class="relative z-10">Hubungi Program Studi</span>
+                            <svg class="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </a>
 
-                    <!-- Secondary Portal Link -->
-                    <a href="https://politala.ac.id" target="_blank" rel="noopener noreferrer" class="px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-white font-semibold transition-all hover:scale-105 active:scale-95 flex items-center gap-2 group/portal">
-                        <span>Portal POLITALA</span>
-                        <svg class="w-4 h-4 transform group-hover/portal:translate-x-0.5 group-hover/portal:-translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                        </svg>
-                    </a>
+                        <!-- Secondary Portal Link -->
+                        <a href="https://politala.ac.id" target="_blank" rel="noopener noreferrer" class="px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-white font-semibold transition-all hover:scale-105 active:scale-95 flex items-center gap-2 group/portal">
+                            <span>Portal POLITALA</span>
+                            <svg class="w-4 h-4 transform group-hover/portal:translate-x-0.5 group-hover/portal:-translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- CTA Illustration -->
+                <div class="hidden lg:flex lg:col-span-5 items-center justify-center relative">
+                    <img src="{{ asset('assets/undraw_back-to-school-offers_uorw.svg') }}" 
+                         alt="Penerimaan Mahasiswa Baru TRM POLITALA" 
+                         class="max-h-64 w-auto object-contain drop-shadow-2xl animate-float">
                 </div>
             </div>
         </div>
