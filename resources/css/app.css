@@ -21,6 +21,31 @@
     --color-brand-muted: #526777;
     --color-brand-surface: #F8FAFC;
     --color-brand-border: #E2E8F0;
+
+    --animate-float: float 4s ease-in-out infinite;
+    --animate-float-reverse: float-reverse 5s ease-in-out infinite;
+    --animate-pulse-slow: pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    --animate-scan: scan 4s ease-in-out infinite;
+    --animate-shimmer: shimmer 2.5s infinite;
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+    }
+    @keyframes float-reverse {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(10px); }
+    }
+    @keyframes scan {
+        0% { transform: translateY(-100%); opacity: 0; }
+        20% { opacity: 0.7; }
+        80% { opacity: 0.7; }
+        100% { transform: translateY(220%); opacity: 0; }
+    }
+    @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(200%); }
+    }
 }
 
 @layer base {
