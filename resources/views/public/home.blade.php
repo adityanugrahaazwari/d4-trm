@@ -3,10 +3,10 @@
 @section('title', 'Beranda - D-4 Teknik Rekayasa Multimedia POLITALA')
 
 @section('content')
-<div class="space-y-16 lg:space-y-24">
+<div class="flex flex-col gap-16 lg:gap-24">
 
     {{-- 2. Hero Section --}}
-    <section class="relative overflow-hidden bg-brand-primary-dark text-white pt-32 sm:pt-36 lg:pt-40 pb-20 lg:pb-28">
+    <section class="relative overflow-hidden bg-brand-primary-dark text-white pt-20 sm:pt-24 lg:pt-28 pb-16 lg:pb-24">
         <!-- Background Campus Architecture & Gradient Overlay -->
         <div class="absolute inset-0 z-0">
             <!-- Stylized Campus Background Pattern -->
