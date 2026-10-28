@@ -10,7 +10,7 @@
         <!-- Current Breadcrumb / Section Title -->
         <div>
             <h1 class="font-bold text-lg text-brand-dark leading-tight">@yield('page_title', 'Dashboard')</h1>
-            <p class="text-xs text-brand-muted">@yield('page_subtitle', 'Panel Kontrol dan Manajemen Website D-4 TRM')</p>
+            <p class="text-xs text-brand-muted">@yield('page_subtitle', 'Panel Kontrol dan Manajemen Website D-IV TRM')</p>
         </div>
     </div>
 

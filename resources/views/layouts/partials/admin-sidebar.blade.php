@@ -18,7 +18,7 @@
         </div>
         <div class="flex flex-col">
             <span class="font-bold text-sm tracking-wide text-white leading-tight">Panel Pengelola</span>
-            <span class="text-[11px] text-brand-sky font-medium">D-4 Rekayasa Multimedia</span>
+            <span class="text-[11px] text-brand-sky font-medium">D-IV Rekayasa Multimedia</span>
         </div>
     </div>
 

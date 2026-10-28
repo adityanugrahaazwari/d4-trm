@@ -2,7 +2,7 @@
 
 @section('title', 'Dashboard')
 @section('page_title', 'Dashboard Ringkasan')
-@section('page_subtitle', 'Selamat datang di Panel Administrasi D-4 Teknik Rekayasa Multimedia')
+@section('page_subtitle', 'Selamat datang di Panel Administrasi D-IV Teknik Rekayasa Multimedia')
 
 @section('content')
 <div class="space-y-8">
@@ -12,7 +12,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
         <div>
-            <strong class="font-bold">Tahap 5 — Kerangka UI Admin:</strong> Seluruh angka metrik dan tabel aktivitas di bawah ini merupakan data contoh/dummy bertanda visual. Data nyata akan dihubungkan secara dinamis dari database pada Tahap 8–11.
+            <strong class="font-bold">Tahap 5 â€” Kerangka UI Admin:</strong> Seluruh angka metrik dan tabel aktivitas di bawah ini merupakan data contoh/dummy bertanda visual. Data nyata akan dihubungkan secara dinamis dari database pada Tahap 8â€“11.
         </div>
     </div>
 

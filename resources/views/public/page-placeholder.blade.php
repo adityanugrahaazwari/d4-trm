@@ -36,7 +36,7 @@
 
         <div class="prose max-w-none text-slate-700 leading-relaxed space-y-4">
             <p>
-                Bagian <strong>{{ $title ?? 'ini' }}</strong> memuat informasi resmi terkait Program Studi D-4 Teknik Rekayasa Multimedia, Jurusan Komputer dan Bisnis, Politeknik Negeri Tanah Laut.
+                Bagian <strong>{{ $title ?? 'ini' }}</strong> memuat informasi resmi terkait Program Studi D-IV Teknik Rekayasa Multimedia, Jurusan Komputer dan Bisnis, Politeknik Negeri Tanah Laut.
             </p>
             <p class="text-brand-muted text-sm italic">
                 * Konten dinamis pada modul ini akan dikelola melalui Panel Admin pada tahap implementasi fitur backend.

@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Kurikulum Program Studi - D-4 TRM POLITALA')
+@section('title', 'Kurikulum Program Studi - D-IV TRM POLITALA')
 
 @section('content')
 <div class="bg-gradient-to-b from-brand-primary/10 via-brand-surface to-white border-b border-slate-100 pt-28 sm:pt-32 lg:pt-36 pb-12 lg:pb-16">
@@ -15,7 +15,7 @@
         <div class="flex flex-wrap items-center justify-between gap-4">
             <div>
                 <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">Struktur Kurikulum</h1>
-                <p class="mt-2 text-sm sm:text-base text-brand-muted">Kurikulum Sarjana Terapan D-4 TRM berbasis Outcome-Based Education (OBE) dan Project-Based Learning</p>
+                <p class="mt-2 text-sm sm:text-base text-brand-muted">Kurikulum Sarjana Terapan D-IV TRM berbasis Outcome-Based Education (OBE) dan Project-Based Learning</p>
             </div>
             <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">
                 [Data Simulasi Kurikulum]
@@ -55,7 +55,7 @@
                         T1
                     </div>
                     <div>
-                        <span class="text-xs font-bold text-brand-secondary uppercase">Tahun 1 (Semester 1–2)</span>
+                        <span class="text-xs font-bold text-brand-secondary uppercase">Tahun 1 (Semester 1â€“2)</span>
                         <h3 class="font-bold text-base text-brand-dark">Fundamental Computing &amp; Multimedia Foundation</h3>
                         <p class="text-xs text-brand-muted mt-1">Dasar pemrograman, matematika diskrit, desain grafis 2D, tipografi digital, dan logika algoritma.</p>
                     </div>
@@ -69,7 +69,7 @@
                         T2
                     </div>
                     <div>
-                        <span class="text-xs font-bold text-brand-secondary uppercase">Tahun 2 (Semester 3–4)</span>
+                        <span class="text-xs font-bold text-brand-secondary uppercase">Tahun 2 (Semester 3â€“4)</span>
                         <h3 class="font-bold text-base text-brand-dark">Core Interactive Media &amp; 3D Modeling</h3>
                         <p class="text-xs text-brand-muted mt-1">Pemodelan 3D, animasi karakter, pemrograman web multimedia, UI/UX prototyping, dan audio engineering.</p>
                     </div>
@@ -83,7 +83,7 @@
                         T3
                     </div>
                     <div>
-                        <span class="text-xs font-bold text-emerald-600 uppercase">Tahun 3 (Semester 5–6)</span>
+                        <span class="text-xs font-bold text-emerald-600 uppercase">Tahun 3 (Semester 5â€“6)</span>
                         <h3 class="font-bold text-base text-brand-dark">Advanced Game Development &amp; Immersive Tech (VR/AR)</h3>
                         <p class="text-xs text-brand-muted mt-1">Pengembangan game engine (Unity/Unreal), virtual &amp; augmented reality, computer vision, dan proyek kolaborasi DUDI.</p>
                     </div>
@@ -97,7 +97,7 @@
                         T4
                     </div>
                     <div>
-                        <span class="text-xs font-bold text-amber-600 uppercase">Tahun 4 (Semester 7–8)</span>
+                        <span class="text-xs font-bold text-amber-600 uppercase">Tahun 4 (Semester 7â€“8)</span>
                         <h3 class="font-bold text-base text-brand-dark">Magang Industri (MBKM) &amp; Tugas Akhir Skripsi Terapan</h3>
                         <p class="text-xs text-brand-muted mt-1">Praktik kerja industri 1 semester penuh, seminar proposal, dan pameran karya produk Tugas Akhir.</p>
                     </div>

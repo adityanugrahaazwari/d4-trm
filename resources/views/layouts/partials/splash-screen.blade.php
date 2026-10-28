@@ -18,7 +18,7 @@
 
         <!-- Brand Typography -->
         <div class="splash-brand">
-            <h2 class="splash-brand-title">D-4 TEKNIK REKAYASA MULTIMEDIA</h2>
+            <h2 class="splash-brand-title">D-IV TEKNIK REKAYASA MULTIMEDIA</h2>
             <p class="splash-brand-sub">Politeknik Negeri Tanah Laut</p>
         </div>
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Design System - D-4 TRM</title>
+    <title>Design System - D-IV TRM</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=plus-jakarta-sans:400,500,600,700,800&display=swap" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -15,8 +15,8 @@
     <div class="max-w-5xl mx-auto space-y-10">
         <!-- Header -->
         <div class="border-b border-brand-border pb-6">
-            <h1 class="text-3xl font-bold text-brand-primary">Design System & Token D-4 TRM</h1>
-            <p class="text-brand-muted mt-2">Fondasi palet warna, tipografi, dan komponen dasar website D-4 Teknik Rekayasa Multimedia.</p>
+            <h1 class="text-3xl font-bold text-brand-primary">Design System & Token D-IV TRM</h1>
+            <p class="text-brand-muted mt-2">Fondasi palet warna, tipografi, dan komponen dasar website D-IV Teknik Rekayasa Multimedia.</p>
         </div>
 
         <!-- Palette Showcase -->

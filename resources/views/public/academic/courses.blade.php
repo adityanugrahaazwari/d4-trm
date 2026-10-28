@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Daftar Mata Kuliah - D-4 TRM POLITALA')
+@section('title', 'Daftar Mata Kuliah - D-IV TRM POLITALA')
 
 @section('content')
 <div class="bg-gradient-to-b from-brand-primary/10 via-brand-surface to-white border-b border-slate-100 pt-28 sm:pt-32 lg:pt-36 pb-12 lg:pb-16">
@@ -41,7 +41,7 @@
     <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
         <div class="p-6 border-b border-slate-100 flex items-center justify-between">
             <h3 class="font-bold text-base text-brand-dark">
-                Sebaran Mata Kuliah — <span x-text="'Semester ' + activeSemester"></span>
+                Sebaran Mata Kuliah â€” <span x-text="'Semester ' + activeSemester"></span>
             </h3>
             <span class="text-xs text-brand-muted">Total SKS: ~18 SKS</span>
         </div>

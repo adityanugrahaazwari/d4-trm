@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Beranda - D-4 Teknik Rekayasa Multimedia POLITALA')
+@section('title', 'Beranda - D-IV Teknik Rekayasa Multimedia POLITALA')
 
 @section('content')
 <div class="flex flex-col gap-16 lg:gap-24">
@@ -52,10 +52,10 @@
                             <span>POLITALA Tanah Laut</span>
                         </span>
                         <span class="text-white/40">&bull;</span>
-                        <span class="text-white">Sarjana Terapan (D-4)</span>
+                        <span class="text-white">Sarjana Terapan (D-IV)</span>
                         <span class="text-white/40">&bull;</span>
-                        <span class="inline-flex items-center gap-1 text-emerald-400 font-bold">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                        <span class="inline-flex items-center gap-1 text-emeralD-IV00 font-bold">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emeralD-IV00 animate-ping"></span>
                             Akreditasi Baik Sekali
                         </span>
                     </div>
@@ -100,7 +100,7 @@
                         <a href="https://pmb.politala.ac.id" 
                            target="_blank" 
                            rel="noopener noreferrer"
-                           class="relative overflow-hidden px-6 py-3.5 rounded-full bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-400 hover:from-emerald-300 hover:to-teal-200 text-slate-950 font-black text-sm hover:shadow-2xl hover:shadow-emerald-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2.5 group shadow-lg ring-2 ring-emerald-400/40">
+                           class="relative overflow-hidden px-6 py-3.5 rounded-full bg-gradient-to-r from-emeralD-IV00 via-teal-300 to-emeralD-IV00 hover:from-emerald-300 hover:to-teal-200 text-slate-950 font-black text-sm hover:shadow-2xl hover:shadow-emerald-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2.5 group shadow-lg ring-2 ring-emeralD-IV00/40">
                             <!-- Shimmer Light Ray Sweep -->
                             <span class="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/50 to-transparent skew-x-12 animate-shimmer pointer-events-none"></span>
                             
@@ -131,7 +131,7 @@
                         </div>
                         <div class="bg-white/5 rounded-2xl p-3 border border-white/10 backdrop-blur-sm hover:bg-white/10 hover:border-brand-sky/40 hover:-translate-y-0.5 transition-all duration-300">
                             <div class="text-xl sm:text-2xl font-black text-brand-cream">4 Tahun</div>
-                            <div class="text-[10px] text-brand-sky/80 uppercase tracking-wider font-semibold">Jenjang D-4 (S1)</div>
+                            <div class="text-[10px] text-brand-sky/80 uppercase tracking-wider font-semibold">Jenjang D-IV (S1)</div>
                         </div>
                         <div class="bg-white/5 rounded-2xl p-3 border border-white/10 backdrop-blur-sm hover:bg-white/10 hover:border-brand-sky/40 hover:-translate-y-0.5 transition-all duration-300">
                             <div class="text-xl sm:text-2xl font-black text-brand-cream">S.Tr.Kom.</div>
@@ -214,7 +214,7 @@
                                 <!-- Header inside Screen: Shader stats & Wireframe Toggle -->
                                 <div class="relative z-10 flex items-center justify-between text-xs text-brand-sky font-mono">
                                     <span class="bg-black/50 px-2 py-0.5 rounded text-[11px] border border-white/10 flex items-center gap-1.5">
-                                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                                        <span class="w-2 h-2 rounded-full bg-emeralD-IV00 animate-pulse"></span>
                                         <span x-text="activeTab === 'game' ? 'Unreal Engine 5' : (activeTab === '3d' ? 'Blender Cycles' : 'Meta Quest XR')"></span>
                                     </span>
                                     
@@ -241,7 +241,7 @@
                                         </div>
                                         <div>
                                             <span class="block text-sm font-extrabold text-white tracking-wide">Pengembangan Game 2D &amp; 3D</span>
-                                            <span class="block text-[11px] text-slate-300 font-mono">Unreal Engine • Unity • C# &amp; Blueprints</span>
+                                            <span class="block text-[11px] text-slate-300 font-mono">Unreal Engine â€¢ Unity â€¢ C# &amp; Blueprints</span>
                                         </div>
                                     </div>
 
@@ -256,7 +256,7 @@
                                         </div>
                                         <div>
                                             <span class="block text-sm font-extrabold text-white tracking-wide">Pemodelan 3D, Rigging &amp; VFX</span>
-                                            <span class="block text-[11px] text-slate-300 font-mono">Blender 4 • Autodesk Maya • ZBrush</span>
+                                            <span class="block text-[11px] text-slate-300 font-mono">Blender 4 â€¢ Autodesk Maya â€¢ ZBrush</span>
                                         </div>
                                     </div>
 
@@ -271,7 +271,7 @@
                                         </div>
                                         <div>
                                             <span class="block text-sm font-extrabold text-white tracking-wide">Teknologi Imersif (VR/AR/XR)</span>
-                                            <span class="block text-[11px] text-slate-300 font-mono">Spatial Audio • Hand Tracking • 360 Video</span>
+                                            <span class="block text-[11px] text-slate-300 font-mono">Spatial Audio â€¢ Hand Tracking â€¢ 360 Video</span>
                                         </div>
                                     </div>
                                 </div>
@@ -281,15 +281,15 @@
                                     <!-- Animated 7-Bar Waveform Equalizer -->
                                     <div class="flex items-end gap-1 h-3.5" title="Live Audio Bus Monitoring">
                                         <span class="w-1 h-2 bg-brand-sky rounded-full animate-bounce [animation-duration:600ms]"></span>
-                                        <span class="w-1 h-3.5 bg-emerald-400 rounded-full animate-bounce [animation-duration:450ms]"></span>
+                                        <span class="w-1 h-3.5 bg-emeralD-IV00 rounded-full animate-bounce [animation-duration:450ms]"></span>
                                         <span class="w-1 h-1.5 bg-brand-cream rounded-full animate-bounce [animation-duration:750ms]"></span>
                                         <span class="w-1 h-3 bg-rose-400 rounded-full animate-bounce [animation-duration:500ms]"></span>
                                         <span class="w-1 h-2 bg-brand-sky rounded-full animate-bounce [animation-duration:650ms]"></span>
                                         <span class="w-1 h-3.5 bg-cyan-300 rounded-full animate-bounce [animation-duration:550ms]"></span>
                                         <span class="w-1 h-1 bg-amber-300 rounded-full animate-bounce [animation-duration:700ms]"></span>
                                     </div>
-                                    <span class="text-emerald-400 font-bold flex items-center gap-1.5">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                    <span class="text-emeralD-IV00 font-bold flex items-center gap-1.5">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emeralD-IV00 animate-pulse"></span>
                                         Pipeline Industri Siap
                                     </span>
                                 </div>
@@ -348,7 +348,7 @@
                                 <span class="w-1.5 h-1.5 rounded-full bg-brand-primary"></span>
                                 <span>Identitas Program Studi</span>
                             </div>
-                            <span class="text-xs uppercase tracking-wider text-brand-primary font-bold">D-4 TRM</span>
+                            <span class="text-xs uppercase tracking-wider text-brand-primary font-bold">D-IV TRM</span>
                         </div>
 
                         <!-- Team Collaboration Illustration -->
@@ -385,7 +385,7 @@
                 </h2>
                 <div class="space-y-4 text-brand-muted leading-relaxed">
                     <p>
-                        Program Studi D-4 Teknik Rekayasa Multimedia dirancang untuk menjawab tingginya kebutuhan industri kreatif dan teknologi digital terhadap tenaga ahli terapan yang menguasai perancangan sistem multimedia interaktif, produksi konten animasi, perancangan game, dan UI/UX modern.
+                        Program Studi D-IV Teknik Rekayasa Multimedia dirancang untuk menjawab tingginya kebutuhan industri kreatif dan teknologi digital terhadap tenaga ahli terapan yang menguasai perancangan sistem multimedia interaktif, produksi konten animasi, perancangan game, dan UI/UX modern.
                     </p>
                     <p>
                         Dengan kurikulum berbasis praktik (Hands-on Learning) serta kolaborasi erat bersama Dunia Usaha dan Dunia Industri (DUDI), mahasiswa dibekali kemampuan teknis dan portofolio profesional sejak dini.
@@ -428,7 +428,7 @@
                     Mengapa Memilih Kami
                 </span>
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">
-                    Keunggulan Program Studi D-4 TRM
+                    Keunggulan Program Studi D-IV TRM
                 </h2>
                 <p class="text-brand-muted text-sm sm:text-base">
                     Komitmen pendidikan vokasi berkualitas dengan fasilitas modern dan kurikulum selaras industri.
@@ -624,7 +624,7 @@
                             <!-- Avatar Ambient Shimmer -->
                             <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                             
-                            <img src="{{ asset('assets/undraw_educator_6dgp.svg') }}" alt="Tenaga Pendidik D-4 TRM" class="h-28 w-auto object-contain drop-shadow-xs group-hover:scale-110 transition-transform duration-500">
+                            <img src="{{ asset('assets/undraw_educator_6dgp.svg') }}" alt="Tenaga Pendidik D-IV TRM" class="h-28 w-auto object-contain drop-shadow-xs group-hover:scale-110 transition-transform duration-500">
                         </div>
                         <div class="p-5 space-y-2">
                             <span class="text-[10px] uppercase font-bold tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 inline-block">
@@ -687,7 +687,7 @@
                         </div>
                         <h3 class="font-bold text-base text-brand-dark leading-snug line-clamp-2 group-hover:text-brand-primary transition-colors">
                             <a href="{{ route('public.news.show', 'd4-trm-politala-jalin-kerjasama-dengan-studio-game-nasional') }}">
-                                [Contoh Berita 1] Sosialisasi Kurikulum dan Laboratorium Multimedia Terapan D-4 TRM
+                                [Contoh Berita 1] Sosialisasi Kurikulum dan Laboratorium Multimedia Terapan D-IV TRM
                             </a>
                         </h3>
                         <p class="text-xs text-brand-muted line-clamp-2 leading-relaxed">

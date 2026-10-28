@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Kalender Akademik - D-4 TRM POLITALA')
+@section('title', 'Kalender Akademik - D-IV TRM POLITALA')
 
 @section('content')
 <div class="bg-gradient-to-b from-brand-primary/10 via-brand-surface to-white border-b border-slate-100 pt-28 sm:pt-32 lg:pt-36 pb-12 lg:pb-16">
@@ -57,7 +57,7 @@
                     <p class="text-xs text-brand-muted">Pengisian Kartu Rencana Studi (KRS) online</p>
                 </div>
                 <div class="text-xs font-bold text-brand-secondary bg-brand-sky-light px-3 py-1.5 rounded-lg whitespace-nowrap">
-                    01 Agustus – 15 Agustus 2026
+                    01 Agustus â€“ 15 Agustus 2026
                 </div>
             </div>
 
@@ -67,7 +67,7 @@
                     <p class="text-xs text-brand-muted">Orientasi mahasiswa baru Politeknik Negeri Tanah Laut</p>
                 </div>
                 <div class="text-xs font-bold text-brand-primary bg-brand-primary-light px-3 py-1.5 rounded-lg whitespace-nowrap">
-                    18 Agustus – 22 Agustus 2026
+                    18 Agustus â€“ 22 Agustus 2026
                 </div>
             </div>
 
@@ -77,7 +77,7 @@
                     <p class="text-xs text-brand-muted">Pekan perkuliahan aktif minggu 1 s.d. 8</p>
                 </div>
                 <div class="text-xs font-bold text-slate-700 bg-slate-100 px-3 py-1.5 rounded-lg whitespace-nowrap">
-                    25 Agustus – 17 Oktober 2026
+                    25 Agustus â€“ 17 Oktober 2026
                 </div>
             </div>
 
@@ -87,7 +87,7 @@
                     <p class="text-xs text-brand-muted">Penilaian berbasis uji teori dan review portofolio project</p>
                 </div>
                 <div class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-1.5 rounded-lg whitespace-nowrap">
-                    20 Oktober – 31 Oktober 2026
+                    20 Oktober â€“ 31 Oktober 2026
                 </div>
             </div>
 
@@ -97,7 +97,7 @@
                     <p class="text-xs text-brand-muted">Showcase produk multimedia akhir semester mahasiswa</p>
                 </div>
                 <div class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-lg whitespace-nowrap">
-                    22 Desember 2026 – 05 Januari 2027
+                    22 Desember 2026 â€“ 05 Januari 2027
                 </div>
             </div>
         </div>

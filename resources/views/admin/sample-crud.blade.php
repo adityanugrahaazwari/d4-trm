@@ -40,7 +40,7 @@
 
 @section('title', $title)
 @section('page_title', $title)
-@section('page_subtitle', 'Kerangka modul antarmuka panel administrasi D-4 TRM POLITALA')
+@section('page_subtitle', 'Kerangka modul antarmuka panel administrasi D-IV TRM POLITALA')
 
 @section('content')
 <div x-data="{ 
@@ -58,7 +58,7 @@
             <svg class="w-4 h-4 text-brand-primary shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span><strong>Kerangka UI Modul: {{ $title }}</strong> (Simulasi Antarmuka Tahap 5). Pada tahap backend (Tahap 7–12), modul ini dihubungkan langsung ke Controller dan database.</span>
+            <span><strong>Kerangka UI Modul: {{ $title }}</strong> (Simulasi Antarmuka Tahap 5). Pada tahap backend (Tahap 7â€“12), modul ini dihubungkan langsung ke Controller dan database.</span>
         </div>
         <span class="text-[10px] uppercase font-bold text-brand-primary bg-white px-2 py-0.5 rounded shadow-xs">Data Simulasi</span>
     </div>
@@ -96,7 +96,7 @@
 
                     <div class="space-y-1.5">
                         <label class="block font-bold text-brand-dark">Isi Konten / Uraian Resmi <span class="text-rose-500">*</span></label>
-                        <textarea rows="7" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary leading-relaxed">[Teks simulasi isi {{ strtolower($title) }}: Program Studi D-4 Teknik Rekayasa Multimedia POLITALA berkomitmen mencetak lulusan sarjana terapan yang profesional dan adaptif terhadap perkembangan industri multimedia internasional.]</textarea>
+                        <textarea rows="7" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary leading-relaxed">[Teks simulasi isi {{ strtolower($title) }}: Program Studi D-IV Teknik Rekayasa Multimedia POLITALA berkomitmen mencetak lulusan sarjana terapan yang profesional dan adaptif terhadap perkembangan industri multimedia internasional.]</textarea>
                     </div>
 
                     <div class="space-y-1.5">
@@ -108,7 +108,7 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         <div class="space-y-1.5">
                             <label class="block font-bold text-brand-dark">Nama Website / Institusi</label>
-                            <input type="text" value="D-4 Teknik Rekayasa Multimedia" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                            <input type="text" value="D-IV Teknik Rekayasa Multimedia" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
                         </div>
                         <div class="space-y-1.5">
                             <label class="block font-bold text-brand-dark">Singkatan Brand</label>

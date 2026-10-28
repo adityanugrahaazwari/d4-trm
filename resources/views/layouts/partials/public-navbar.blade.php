@@ -10,7 +10,7 @@
         { title: 'Dosen & Pengajar', desc: 'Profil dosen ahli animasi, game & web', url: '{{ route('public.profile.lecturers') }}', tag: 'Profil' },
         { title: 'Tenaga Kependidikan', desc: 'Staf administrasi dan laboran prodi', url: '{{ route('public.profile.staff') }}', tag: 'Profil' },
         { title: 'Visi & Misi', desc: 'Arah dan tujuan strategis program studi', url: '{{ route('public.profile.vision-mission') }}', tag: 'Profil' },
-        { title: 'Sejarah Program Studi', desc: 'Perjalanan pendirian D-4 TRM POLITALA', url: '{{ route('public.profile.history') }}', tag: 'Profil' },
+        { title: 'Sejarah Program Studi', desc: 'Perjalanan pendirian D-IV TRM POLITALA', url: '{{ route('public.profile.history') }}', tag: 'Profil' },
         { title: 'Fasilitas & Laboratorium', desc: 'Studio multimedia, lab rendering & game', url: '{{ route('public.facilities.index') }}', tag: 'Profil' },
         { title: 'Galeri Dokumentasi', desc: 'Showcase animasi, visual efek & game', url: '{{ route('public.gallery.index') }}', tag: 'Profil' },
         { title: 'Berita Terkini', desc: 'Kabar terbaru, artikel dan prestasi', url: '{{ route('public.news.index') }}', tag: 'Informasi' },
@@ -46,13 +46,13 @@ class="fixed top-0 inset-x-0 z-50 pointer-events-none transition-all duration-30
             <div class="flex items-center justify-between gap-3 lg:gap-6">
                 
                 <!-- Brand Logo & Identity -->
-                <a href="{{ route('home') }}" class="flex items-center gap-2.5 sm:gap-3 group shrink-0" title="D-4 Teknik Rekayasa Multimedia POLITALA">
+                <a href="{{ route('home') }}" class="flex items-center gap-2.5 sm:gap-3 group shrink-0" title="D-IV Teknik Rekayasa Multimedia POLITALA">
                     <div class="relative flex items-center justify-center">
                         <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-tr from-brand-primary via-brand-primary to-brand-secondary text-white font-black text-xs sm:text-sm flex items-center justify-center shadow-md shadow-brand-primary/25 group-hover:scale-105 transition-all duration-300 ring-2 ring-brand-sky/40">
                             TRM
                         </div>
                         <span class="absolute -bottom-0.5 -right-0.5 flex h-2 w-2 sm:h-2.5 sm:w-2.5">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emeralD-IV00 opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-full w-full bg-emerald-500 ring-2 ring-white"></span>
                         </span>
                     </div>
@@ -60,7 +60,7 @@ class="fixed top-0 inset-x-0 z-50 pointer-events-none transition-all duration-30
                     <div class="flex flex-col">
                         <div class="flex items-center gap-1.5">
                             <span class="font-extrabold text-xs sm:text-sm text-brand-dark tracking-tight leading-none group-hover:text-brand-primary transition-colors">
-                                D-4 Teknik Rekayasa Multimedia
+                                D-IV Teknik Rekayasa Multimedia
                             </span>
                         </div>
                         <span class="text-[9px] sm:text-[10px] font-medium text-slate-400 leading-none mt-1 hidden sm:block">
@@ -105,7 +105,7 @@ class="fixed top-0 inset-x-0 z-50 pointer-events-none transition-all duration-30
                             <div class="col-span-8 space-y-2">
                                 <div class="px-2 py-1 flex items-center justify-between border-b border-slate-100">
                                     <span class="text-xs font-bold uppercase tracking-wider text-brand-secondary">Tentang &amp; Sarana Prodi</span>
-                                    <span class="text-[10px] font-semibold text-slate-400">D-4 TRM POLITALA</span>
+                                    <span class="text-[10px] font-semibold text-slate-400">D-IV TRM POLITALA</span>
                                 </div>
 
                                 <div class="grid grid-cols-2 gap-1 pt-1">
@@ -452,7 +452,7 @@ class="fixed top-0 inset-x-0 z-50 pointer-events-none transition-all duration-30
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                         <span class="text-[11px] text-slate-500">Cari</span>
-                        <kbd class="hidden xl:inline-block px-1.5 py-0.2 text-[9px] font-mono font-medium text-slate-500 bg-white rounded border border-slate-300 shadow-2xs">⌘K</kbd>
+                        <kbd class="hidden xl:inline-block px-1.5 py-0.2 text-[9px] font-mono font-medium text-slate-500 bg-white rounded border border-slate-300 shadow-2xs">âŒ˜K</kbd>
                     </button>
 
                     <!-- Portal Admin Button -->

@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Sejarah Program Studi - D-4 TRM POLITALA')
+@section('title', 'Sejarah Program Studi - D-IV TRM POLITALA')
 
 @section('content')
 <!-- Header Page -->
@@ -16,7 +16,7 @@
         <div class="flex flex-wrap items-center justify-between gap-4">
             <div>
                 <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">Sejarah Program Studi</h1>
-                <p class="mt-2 text-sm sm:text-base text-brand-muted">Latar belakang pendirian dan tonggak perkembangan D-4 Teknik Rekayasa Multimedia</p>
+                <p class="mt-2 text-sm sm:text-base text-brand-muted">Latar belakang pendirian dan tonggak perkembangan D-IV Teknik Rekayasa Multimedia</p>
             </div>
             <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">
                 [Data Simulasi]
@@ -30,7 +30,7 @@
     <div class="bg-white rounded-2xl border border-slate-200/80 p-8 sm:p-10 shadow-xs space-y-6 text-slate-700 leading-relaxed text-sm sm:text-base">
         <h2 class="text-xl sm:text-2xl font-bold text-brand-primary">Latar Belakang Pendirian</h2>
         <p>
-            Program Studi Sarjana Terapan (D-4) <strong>Teknik Rekayasa Multimedia</strong> di Politeknik Negeri Tanah Laut didirikan sebagai respon strategis terhadap akselerasi industri kreatif digital, teknologi game, animasi nasional, serta kebutuhan talenta multimedia interaktif di Kalimantan Selatan dan Indonesia.
+            Program Studi Sarjana Terapan (D-IV) <strong>Teknik Rekayasa Multimedia</strong> di Politeknik Negeri Tanah Laut didirikan sebagai respon strategis terhadap akselerasi industri kreatif digital, teknologi game, animasi nasional, serta kebutuhan talenta multimedia interaktif di Kalimantan Selatan dan Indonesia.
         </p>
         <p>
             Dengan berkembangnya teknologi media imersif (AR/VR), animasi komputer, dan platform konten digital, institusi memandang pentingnya kehadiran program studi vokasi yang memadukan keahlian <em>rekayasa perangkat lunak</em> dengan <em>estetika multimedia kreatif</em> berbasis praktik langsung (hands-on).

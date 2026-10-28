@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Berita Program Studi - D-4 TRM POLITALA')
+@section('title', 'Berita Program Studi - D-IV TRM POLITALA')
 
 @section('content')
 <div class="bg-gradient-to-b from-brand-primary/10 via-brand-surface to-white border-b border-slate-100 pt-28 sm:pt-32 lg:pt-36 pb-12 lg:pb-16">
@@ -57,10 +57,10 @@
                     <span class="text-brand-secondary font-bold">Kemitraan DUDI</span>
                 </div>
                 <h2 class="text-xl sm:text-2xl font-extrabold text-brand-dark leading-snug group-hover:text-brand-primary transition-colors">
-                    [Contoh Berita] D-4 TRM POLITALA Jalin Kerjasama dengan Studio Game Nasional untuk Penguatan MBKM Vokasi
+                    [Contoh Berita] D-IV TRM POLITALA Jalin Kerjasama dengan Studio Game Nasional untuk Penguatan MBKM Vokasi
                 </h2>
                 <p class="text-xs sm:text-sm text-brand-muted leading-relaxed line-clamp-3">
-                    Program Studi D-4 Teknik Rekayasa Multimedia mengukuhkan sinergi kurikulum berbasis industri melalui kesepakatan magang bersertifikat dan praktisi mengajar langsung dari industri kreatif...
+                    Program Studi D-IV Teknik Rekayasa Multimedia mengukuhkan sinergi kurikulum berbasis industri melalui kesepakatan magang bersertifikat dan praktisi mengajar langsung dari industri kreatif...
                 </p>
             </div>
             <div class="flex items-center gap-2 text-xs font-bold text-brand-primary group-hover:translate-x-1 transition-transform">
