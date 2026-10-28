@@ -52,7 +52,7 @@ class="fixed top-0 inset-x-0 z-50 pointer-events-none transition-all duration-30
                             TRM
                         </div>
                         <span class="absolute -bottom-0.5 -right-0.5 flex h-2 w-2 sm:h-2.5 sm:w-2.5">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emeralD-IV00 opacity-75"></span>
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-full w-full bg-emerald-500 ring-2 ring-white"></span>
                         </span>
                     </div>

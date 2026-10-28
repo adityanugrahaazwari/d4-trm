@@ -54,8 +54,8 @@
                         <span class="text-white/40">&bull;</span>
                         <span class="text-white">Sarjana Terapan (D-IV)</span>
                         <span class="text-white/40">&bull;</span>
-                        <span class="inline-flex items-center gap-1 text-emeralD-IV00 font-bold">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emeralD-IV00 animate-ping"></span>
+                        <span class="inline-flex items-center gap-1 text-emerald-400 font-bold">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
                             Akreditasi Baik Sekali
                         </span>
                     </div>
@@ -100,7 +100,7 @@
                         <a href="https://pmb.politala.ac.id" 
                            target="_blank" 
                            rel="noopener noreferrer"
-                           class="relative overflow-hidden px-6 py-3.5 rounded-full bg-gradient-to-r from-emeralD-IV00 via-teal-300 to-emeralD-IV00 hover:from-emerald-300 hover:to-teal-200 text-slate-950 font-black text-sm hover:shadow-2xl hover:shadow-emerald-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2.5 group shadow-lg ring-2 ring-emeralD-IV00/40">
+                           class="relative overflow-hidden px-6 py-3.5 rounded-full bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-400 hover:from-emerald-300 hover:to-teal-200 text-slate-950 font-black text-sm hover:shadow-2xl hover:shadow-emerald-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2.5 group shadow-lg">
                             <!-- Shimmer Light Ray Sweep -->
                             <span class="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/50 to-transparent skew-x-12 animate-shimmer pointer-events-none"></span>
                             
@@ -214,7 +214,7 @@
                                 <!-- Header inside Screen: Shader stats & Wireframe Toggle -->
                                 <div class="relative z-10 flex items-center justify-between text-xs text-brand-sky font-mono">
                                     <span class="bg-black/50 px-2 py-0.5 rounded text-[11px] border border-white/10 flex items-center gap-1.5">
-                                        <span class="w-2 h-2 rounded-full bg-emeralD-IV00 animate-pulse"></span>
+                                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                                         <span x-text="activeTab === 'game' ? 'Unreal Engine 5' : (activeTab === '3d' ? 'Blender Cycles' : 'Meta Quest XR')"></span>
                                     </span>
                                     
@@ -281,15 +281,15 @@
                                     <!-- Animated 7-Bar Waveform Equalizer -->
                                     <div class="flex items-end gap-1 h-3.5" title="Live Audio Bus Monitoring">
                                         <span class="w-1 h-2 bg-brand-sky rounded-full animate-bounce [animation-duration:600ms]"></span>
-                                        <span class="w-1 h-3.5 bg-emeralD-IV00 rounded-full animate-bounce [animation-duration:450ms]"></span>
+                                        <span class="w-1 h-3.5 bg-emerald-400 rounded-full animate-bounce [animation-duration:450ms]"></span>
                                         <span class="w-1 h-1.5 bg-brand-cream rounded-full animate-bounce [animation-duration:750ms]"></span>
                                         <span class="w-1 h-3 bg-rose-400 rounded-full animate-bounce [animation-duration:500ms]"></span>
                                         <span class="w-1 h-2 bg-brand-sky rounded-full animate-bounce [animation-duration:650ms]"></span>
                                         <span class="w-1 h-3.5 bg-cyan-300 rounded-full animate-bounce [animation-duration:550ms]"></span>
                                         <span class="w-1 h-1 bg-amber-300 rounded-full animate-bounce [animation-duration:700ms]"></span>
                                     </div>
-                                    <span class="text-emeralD-IV00 font-bold flex items-center gap-1.5">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-emeralD-IV00 animate-pulse"></span>
+                                    <span class="text-emerald-400 font-bold flex items-center gap-1.5">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                                         Pipeline Industri Siap
                                     </span>
                                 </div>
