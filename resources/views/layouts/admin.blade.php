@@ -16,6 +16,9 @@
     @stack('styles')
 </head>
 <body class="h-full font-sans antialiased text-brand-dark" x-data="{ mobileSidebarOpen: false }">
+    <!-- Splash Screen Page Transition -->
+    @include('layouts.partials.splash-screen')
+
     <div class="flex min-h-screen">
         <!-- Desktop Sidebar -->
         <div class="hidden lg:flex lg:flex-shrink-0">

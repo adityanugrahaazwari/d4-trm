@@ -54,4 +54,20 @@ class LayoutsAndRoutesTest extends TestCase
         $crud->assertStatus(200);
         $crud->assertSee('Berita Program Studi');
     }
+
+    /**
+     * Test splash screen is rendered on public and admin pages.
+     */
+    public function test_splash_screen_renders_on_pages(): void
+    {
+        $home = $this->get('/');
+        $home->assertStatus(200);
+        $home->assertSee('page-splash-screen');
+        $home->assertSee('Memuat halaman');
+
+        $admin = $this->get('/admin/dashboard');
+        $admin->assertStatus(200);
+        $admin->assertSee('page-splash-screen');
+        $admin->assertSee('Memuat halaman');
+    }
 }

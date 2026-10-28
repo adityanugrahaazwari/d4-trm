@@ -17,6 +17,9 @@
     @stack('styles')
 </head>
 <body class="min-h-screen flex flex-col bg-white text-brand-dark antialiased font-sans selection:bg-brand-primary selection:text-white">
+    <!-- Splash Screen Page Transition -->
+    @include('layouts.partials.splash-screen')
+
     <!-- Navbar -->
     @include('layouts.partials.public-navbar')
 

@@ -9,6 +9,9 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-[#F8FAFC] text-brand-dark min-h-screen p-8">
+    <!-- Splash Screen Page Transition -->
+    @include('layouts.partials.splash-screen')
+
     <div class="max-w-5xl mx-auto space-y-10">
         <!-- Header -->
         <div class="border-b border-brand-border pb-6">
