@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Fasilitas & Laboratorium - D-4 TRM POLITALA')
+@section('title', 'Fasilitas & Laboratorium - D-IV TRM POLITALA')
 
 @section('content')
 <div class="bg-gradient-to-b from-brand-primary/10 via-brand-surface to-white border-b border-slate-100 pt-28 sm:pt-32 lg:pt-36 pb-12 lg:pb-16">

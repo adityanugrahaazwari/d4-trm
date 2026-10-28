@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Masuk Panel Admin - D-4 TRM')
+@section('title', 'Masuk Panel Admin - D-IV TRM')
 
 @section('content')
 <div class="min-h-[70vh] flex items-center justify-center py-16 px-4 bg-slate-50/50">
@@ -11,7 +11,7 @@
                 TRM
             </div>
             <h2 class="text-2xl font-bold text-brand-dark">Masuk Panel Pengelola</h2>
-            <p class="text-xs text-brand-muted">Gunakan akun administrator D-4 TRM POLITALA</p>
+            <p class="text-xs text-brand-muted">Gunakan akun administrator D-IV TRM POLITALA</p>
         </div>
 
         <!-- Form Login Mockup -->
@@ -26,7 +26,7 @@
                     <label class="block text-xs font-bold text-brand-dark">Kata Sandi</label>
                     <span class="text-[11px] text-brand-secondary">Lupa sandi?</span>
                 </div>
-                <input type="password" value="password" placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary">
+                <input type="password" value="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary">
             </div>
 
             <div class="flex items-center justify-between text-xs text-brand-muted">

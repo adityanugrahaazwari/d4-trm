@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Capaian Pembelajaran Lulusan (CPL) - D-4 TRM POLITALA')
+@section('title', 'Capaian Pembelajaran Lulusan (CPL) - D-IV TRM POLITALA')
 
 @section('content')
 <div class="bg-gradient-to-b from-brand-primary/10 via-brand-surface to-white border-b border-slate-100 pt-28 sm:pt-32 lg:pt-36 pb-12 lg:pb-16">
@@ -15,7 +15,7 @@
         <div class="flex flex-wrap items-center justify-between gap-4">
             <div>
                 <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">Capaian Pembelajaran Lulusan (CPL)</h1>
-                <p class="mt-2 text-sm sm:text-base text-brand-muted">Standar kompetensi dan kualifikasi lulusan D-4 TRM sesuai Kerangka Kualifikasi Nasional Indonesia (KKNI Level 6)</p>
+                <p class="mt-2 text-sm sm:text-base text-brand-muted">Standar kompetensi dan kualifikasi lulusan D-IV TRM sesuai Kerangka Kualifikasi Nasional Indonesia (KKNI Level 6)</p>
             </div>
             <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">
                 [Data Simulasi CPL]

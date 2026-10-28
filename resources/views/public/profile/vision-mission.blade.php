@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Visi & Misi - D-4 TRM POLITALA')
+@section('title', 'Visi & Misi - D-IV TRM POLITALA')
 
 @section('content')
 <div class="bg-gradient-to-b from-brand-primary/10 via-brand-surface to-white border-b border-slate-100 pt-28 sm:pt-32 lg:pt-36 pb-12 lg:pb-16">
@@ -41,7 +41,7 @@
     <div class="space-y-6">
         <div class="space-y-1">
             <h2 class="text-2xl font-bold text-brand-dark">Misi Program Studi</h2>
-            <p class="text-sm text-brand-muted">Empat pilar utama pelaksanaan Tridharma Perguruan Tinggi di D-4 TRM POLITALA</p>
+            <p class="text-sm text-brand-muted">Empat pilar utama pelaksanaan Tridharma Perguruan Tinggi di D-IV TRM POLITALA</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -97,7 +97,7 @@
 
     <!-- Tujuan Program Studi -->
     <div class="bg-brand-surface rounded-2xl border border-slate-200/80 p-8 space-y-4">
-        <h3 class="text-lg font-bold text-brand-dark">Tujuan Program Studi D-4 TRM</h3>
+        <h3 class="text-lg font-bold text-brand-dark">Tujuan Program Studi D-IV TRM</h3>
         <ul class="space-y-2.5 text-xs sm:text-sm text-slate-700 list-disc list-inside">
             <li>Menghasilkan lulusan yang menguasai keahlian rekayasa multimedia siap kerja dengan sertifikasi kompetensi bertaraf nasional dan internasional.</li>
             <li>Menghasilkan produk riset terapan bidang game, animasi, dan media imersif yang bernilai paten dan bernilai komersial bagi industri.</li>

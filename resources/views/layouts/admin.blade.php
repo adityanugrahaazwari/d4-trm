@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', 'Admin Panel') - D-4 Teknik Rekayasa Multimedia</title>
+    <title>@yield('title', 'Admin Panel') - D-IV Teknik Rekayasa Multimedia</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -16,6 +16,9 @@
     @stack('styles')
 </head>
 <body class="h-full font-sans antialiased text-brand-dark" x-data="{ mobileSidebarOpen: false }">
+    <!-- Splash Screen Page Transition -->
+    @include('layouts.partials.splash-screen')
+
     <div class="flex min-h-screen">
         <!-- Desktop Sidebar -->
         <div class="hidden lg:flex lg:flex-shrink-0">

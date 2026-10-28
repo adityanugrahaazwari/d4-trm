@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Kontak Kami - D-4 TRM POLITALA')
+@section('title', 'Kontak Kami - D-IV TRM POLITALA')
 
 @section('content')
 <div class="bg-gradient-to-b from-brand-primary/10 via-brand-surface to-white border-b border-slate-100 pt-28 sm:pt-32 lg:pt-36 pb-12 lg:pb-16">
@@ -80,7 +80,7 @@
                         </div>
                         <div>
                             <span class="font-bold text-brand-dark block">Jam Layanan:</span>
-                            <span class="text-brand-muted text-xs block mt-0.5">Senin – Jumat: 08:00 – 16:30 WITA</span>
+                            <span class="text-brand-muted text-xs block mt-0.5">Senin â€“ Jumat: 08:00 â€“ 16:30 WITA</span>
                             <span class="text-rose-500 text-xs block">Sabtu, Minggu &amp; Libur Nasional: Tutup</span>
                         </div>
                     </div>
@@ -99,7 +99,7 @@
                 <svg class="w-5 h-5 text-emerald-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                 </svg>
-                <span>[Simulasi Form Berhasil] Pesan Anda telah terkirim ke sekretariat D-4 TRM POLITALA. Terima kasih!</span>
+                <span>[Simulasi Form Berhasil] Pesan Anda telah terkirim ke sekretariat D-IV TRM POLITALA. Terima kasih!</span>
             </div>
 
             <form @submit.prevent="sent = true" class="space-y-4">

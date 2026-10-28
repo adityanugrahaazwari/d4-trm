@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Struktur Organisasi - D-4 TRM POLITALA')
+@section('title', 'Struktur Organisasi - D-IV TRM POLITALA')
 
 @section('content')
 <div class="bg-gradient-to-b from-brand-primary/10 via-brand-surface to-white border-b border-slate-100 pt-28 sm:pt-32 lg:pt-36 pb-12 lg:pb-16">
@@ -15,7 +15,7 @@
         <div class="flex flex-wrap items-center justify-between gap-4">
             <div>
                 <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">Struktur Organisasi</h1>
-                <p class="mt-2 text-sm sm:text-base text-brand-muted">Bagan tata kelola dan susunan penugasan Program Studi D-4 TRM</p>
+                <p class="mt-2 text-sm sm:text-base text-brand-muted">Bagan tata kelola dan susunan penugasan Program Studi D-IV TRM</p>
             </div>
             <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">
                 [Data Simulasi]
@@ -44,7 +44,7 @@
             <div class="bg-brand-secondary text-white p-5 rounded-2xl text-center shadow-md">
                 <span class="text-[10px] uppercase font-bold tracking-wider text-brand-cream block">Koordinator Program Studi</span>
                 <h3 class="font-bold text-sm mt-1">[Nama Koordinator Prodi TRM, M.Kom.]</h3>
-                <p class="text-xs text-brand-cream/80 mt-0.5">D-4 Teknik Rekayasa Multimedia</p>
+                <p class="text-xs text-brand-cream/80 mt-0.5">D-IV Teknik Rekayasa Multimedia</p>
             </div>
             <div class="bg-slate-800 text-white p-5 rounded-2xl text-center shadow-md">
                 <span class="text-[10px] uppercase font-bold tracking-wider text-brand-sky block">Gugus Kendali Mutu (GKM)</span>
