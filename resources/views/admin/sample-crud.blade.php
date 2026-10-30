@@ -37,147 +37,12 @@
     $isFormOnly = in_array($sec, ['sejarah', 'visi-misi', 'sambutan', 'struktur', 'identitas', 'homepage', 'kontak-sosmed', 'logo-favicon', 'my-profile', 'media-upload']);
     $isMediaGrid = ($sec === 'media-list');
 
-    // Data Pengguna Terotentikasi dari Database
-    $userList = ($sec === 'users') ? \App\Models\User::all() : collect();
-
-    // Data Peran (Roles) RBAC
-    $roleList = [
-        [
-            'id' => 1,
-            'name' => 'Super Administrator',
-            'slug' => 'superadmin',
-            'desc' => 'Akses penuh tanpa batas ke semua modul, konfigurasi keamanan, dan hak istimewa sistem.',
-            'permissions' => ['Semua Hak Akses (Full Privileges)'],
-            'users_count' => 2,
-            'badge' => 'bg-purple-100 text-purple-800 border-purple-200',
-            'status' => 'Aktif',
-        ],
-        [
-            'id' => 2,
-            'name' => 'Administrator Akademik',
-            'slug' => 'admin-akademik',
-            'desc' => 'Pengelolaan data kurikulum, silabus mata kuliah, kalender akademik, CPL, profil lulusan, dosen & tendik.',
-            'permissions' => ['manage-academic', 'manage-staff', 'upload-media'],
-            'users_count' => 1,
-            'badge' => 'bg-blue-100 text-blue-800 border-blue-200',
-            'status' => 'Aktif',
-        ],
-        [
-            'id' => 3,
-            'name' => 'Administrator Konten & Media',
-            'slug' => 'admin-konten',
-            'desc' => 'Penerbitan warta berita, agenda kegiatan, pengumuman resmi, album dokumentasi galeri, dan berkas media.',
-            'permissions' => ['manage-news', 'manage-events', 'manage-gallery', 'upload-media'],
-            'users_count' => 1,
-            'badge' => 'bg-emerald-100 text-emerald-800 border-emerald-200',
-            'status' => 'Aktif',
-        ],
-        [
-            'id' => 4,
-            'name' => 'Operator Fasilitas & Laboratorium',
-            'slug' => 'operator-lab',
-            'desc' => 'Pencatatan sarana prasarana, spesifikasi alat multimedia, jadwal studio animasi, dan lab komputer grafik.',
-            'permissions' => ['manage-facilities', 'upload-media'],
-            'users_count' => 1,
-            'badge' => 'bg-amber-100 text-amber-800 border-amber-200',
-            'status' => 'Aktif',
-        ],
-        [
-            'id' => 5,
-            'name' => 'Editor Publikasi',
-            'slug' => 'editor',
-            'desc' => 'Menyusun draf berita, pengumuman, dan artikel informasi sebelum disetujui untuk dipublikasikan.',
-            'permissions' => ['manage-news', 'upload-media'],
-            'users_count' => 0,
-            'badge' => 'bg-slate-100 text-slate-800 border-slate-200',
-            'status' => 'Aktif',
-        ],
-    ];
-
-    // Data Hak Akses (Permissions) Granular
-    $permissionList = [
-        [
-            'id' => 1,
-            'name' => 'Kelola Pengguna & Peran',
-            'slug' => 'manage-users',
-            'module' => 'Administrasi & Keamanan',
-            'desc' => 'Membuat, mengubah peran, mengatur hak akses, dan menonaktifkan akun pengelola',
-            'roles' => ['Super Administrator'],
-            'status' => 'Aktif',
-        ],
-        [
-            'id' => 2,
-            'name' => 'Kelola Konfigurasi Website',
-            'slug' => 'manage-settings',
-            'module' => 'Konfigurasi Sistem',
-            'desc' => 'Mengatur identitas situs, logo, favicon, homepage banner hero, dan tautan sosial media',
-            'roles' => ['Super Administrator'],
-            'status' => 'Aktif',
-        ],
-        [
-            'id' => 3,
-            'name' => 'Kelola Kurikulum & Akademik',
-            'slug' => 'manage-academic',
-            'module' => 'Akademik & Pengajaran',
-            'desc' => 'Mengelola struktur kurikulum, sebaran SKS mata kuliah, kalender akademik, CPL, dan profil lulusan',
-            'roles' => ['Super Administrator', 'Administrator Akademik'],
-            'status' => 'Aktif',
-        ],
-        [
-            'id' => 4,
-            'name' => 'Kelola Data Dosen & Tendik',
-            'slug' => 'manage-staff',
-            'module' => 'Akademik & Pengajaran',
-            'desc' => 'Memperbarui profil tenaga pengajar, bidang keahlian dosen, NIDN, dan tenaga kependidikan',
-            'roles' => ['Super Administrator', 'Administrator Akademik'],
-            'status' => 'Aktif',
-        ],
-        [
-            'id' => 5,
-            'name' => 'Kelola Berita & Pengumuman',
-            'slug' => 'manage-news',
-            'module' => 'Konten & Publikasi',
-            'desc' => 'Menulis, mengedit, mempublikasikan, dan menghapus artikel warta berita, kategori, serta pengumuman',
-            'roles' => ['Super Administrator', 'Administrator Konten', 'Editor Publikasi'],
-            'status' => 'Aktif',
-        ],
-        [
-            'id' => 6,
-            'name' => 'Kelola Agenda Kegiatan',
-            'slug' => 'manage-events',
-            'module' => 'Konten & Publikasi',
-            'desc' => 'Menjadwalkan dan memperbarui kegiatan prodi seperti seminar, kuliah tamu, workshop, dan expo pameran',
-            'roles' => ['Super Administrator', 'Administrator Konten', 'Editor Publikasi'],
-            'status' => 'Aktif',
-        ],
-        [
-            'id' => 7,
-            'name' => 'Kelola Album & Foto Galeri',
-            'slug' => 'manage-gallery',
-            'module' => 'Konten & Publikasi',
-            'desc' => 'Mengelola album kegiatan, dokumentasi pameran, dan showcase karya animasi/game mahasiswa',
-            'roles' => ['Super Administrator', 'Administrator Konten'],
-            'status' => 'Aktif',
-        ],
-        [
-            'id' => 8,
-            'name' => 'Kelola Fasilitas & Laboratorium',
-            'slug' => 'manage-facilities',
-            'module' => 'Sarana & Prasarana',
-            'desc' => 'Mengelola inventaris studio multimedia, lab komputer rendering, alat rekam audio, dan spesifikasi lab',
-            'roles' => ['Super Administrator', 'Operator Fasilitas'],
-            'status' => 'Aktif',
-        ],
-        [
-            'id' => 9,
-            'name' => 'Manajemen Berkas Media',
-            'slug' => 'upload-media',
-            'module' => 'Media & Aset',
-            'desc' => 'Mengunggah gambar, dokumen pendukung, panduan akademik, dan file aset multimedia ke server',
-            'roles' => ['Super Administrator', 'Administrator Akademik', 'Administrator Konten', 'Operator Fasilitas', 'Editor Publikasi'],
-            'status' => 'Aktif',
-        ],
-    ];
+    // Live Database Models for Dynamic RBAC
+    $userList = ($sec === 'users') ? \App\Models\User::with('roleRelation')->get() : collect();
+    $roleList = ($sec === 'roles') ? \App\Models\Role::with('permissions')->withCount('users')->get() : collect();
+    $permissionList = ($sec === 'permissions') ? \App\Models\Permission::with('roles')->get() : collect();
+    $allRoles = in_array($sec, ['users', 'roles', 'permissions']) ? \App\Models\Role::where('is_active', true)->get() : collect();
+    $allPermissions = in_array($sec, ['users', 'roles', 'permissions']) ? \App\Models\Permission::where('is_active', true)->get() : collect();
 
     // Data Peran Badges Styling
     $roleBadges = [
@@ -198,6 +63,9 @@
     modalOpen: false, 
     deleteModalOpen: false, 
     selectedItem: null,
+    deleteFormAction: '',
+    formAction: '',
+    formMethod: 'POST',
     savedSuccess: false,
     modalTitle: 'Tambah Data',
     formData: { 
@@ -205,13 +73,14 @@
         title: '', 
         name: '', 
         email: '', 
-        role: 'admin-akademik', 
+        role_id: '{{ $allRoles->first()?->id ?? 1 }}',
         password: '',
         slug: '', 
         module: 'Akademik & Pengajaran', 
         desc: '', 
         category: 'Umum', 
-        status: 'published' 
+        status: 'published',
+        permissions: []
     }
 }" class="space-y-6">
 
@@ -415,13 +284,13 @@
 
             <button type="button" 
                     @if($sec === 'users')
-                        @click="modalTitle = 'Tambah Pengguna Pengelola'; formData = { id: null, name: '', email: '', role: 'admin-akademik', password: '', status: 'published' }; modalOpen = true"
+                        @click="modalTitle = 'Tambah Pengguna Pengelola'; formAction = '{{ route('admin.rbac.users.store') }}'; formMethod = 'POST'; formData = { id: null, name: '', email: '', role_id: '{{ $allRoles->first()?->id ?? 1 }}', password: '', status: 'published', permissions: [] }; modalOpen = true"
                     @elseif($sec === 'roles')
-                        @click="modalTitle = 'Tambah Peran (Role) Baru'; formData = { id: null, name: '', slug: '', desc: '', status: 'published' }; modalOpen = true"
+                        @click="modalTitle = 'Tambah Peran (Role) Baru'; formAction = '{{ route('admin.rbac.roles.store') }}'; formMethod = 'POST'; formData = { id: null, name: '', slug: '', desc: '', status: 'published', permissions: [] }; modalOpen = true"
                     @elseif($sec === 'permissions')
-                        @click="modalTitle = 'Tambah Hak Akses (Permission)'; formData = { id: null, name: '', slug: '', module: 'Akademik & Pengajaran', desc: '', status: 'published' }; modalOpen = true"
+                        @click="modalTitle = 'Tambah Hak Akses (Permission)'; formAction = '{{ route('admin.rbac.permissions.store') }}'; formMethod = 'POST'; formData = { id: null, name: '', slug: '', module: 'Akademik & Pengajaran', desc: '', status: 'published', permissions: [] }; modalOpen = true"
                     @else
-                        @click="modalTitle = 'Tambah ' + '{{ $title }}'; formData = { id: null, title: '', category: 'Utama', status: 'published' }; modalOpen = true"
+                        @click="modalTitle = 'Tambah ' + '{{ $title }}'; formAction = ''; formMethod = 'POST'; formData = { id: null, title: '', category: 'Utama', status: 'published', permissions: [] }; modalOpen = true"
                     @endif
                     class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-brand-primary hover:bg-brand-primary-hover text-white text-xs font-bold shadow-sm transition-colors">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -484,7 +353,8 @@
                         @if($sec === 'users')
                             @foreach($userList as $k => $u)
                                 @php
-                                    $roleInfo = $roleBadges[$u->role] ?? ['label' => ucfirst($u->role), 'badge' => 'bg-slate-100 text-slate-800 border-slate-200'];
+                                    $roleBadgeClass = $u->roleRelation?->badge ?? ($roleBadges[$u->role]['badge'] ?? 'bg-slate-100 text-slate-800 border-slate-200');
+                                    $roleTitle = $u->roleRelation?->name ?? ($roleBadges[$u->role]['label'] ?? ucfirst($u->role));
                                     $initials = collect(explode(' ', $u->name))->map(fn($seg) => mb_substr($seg, 0, 1))->take(2)->implode('');
                                 @endphp
                                 <tr class="hover:bg-slate-50/80 transition-colors">
@@ -502,8 +372,8 @@
                                     </td>
                                     <td class="py-3.5 px-4 font-mono text-slate-600 font-medium">{{ $u->email }}</td>
                                     <td class="py-3.5 px-4">
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold border {{ $roleInfo['badge'] }}">
-                                            {{ $roleInfo['label'] }}
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold border {{ $roleBadgeClass }}">
+                                            {{ $roleTitle }}
                                         </span>
                                     </td>
                                     <td class="py-3.5 px-4 text-slate-500 font-medium">
@@ -518,14 +388,14 @@
                                     <td class="py-3.5 px-6 text-center">
                                         <div class="inline-flex items-center gap-1.5">
                                             <button type="button" 
-                                                    @click="modalTitle = 'Ubah Pengguna: {{ addslashes($u->name) }}'; formData = { id: {{ $u->id }}, name: '{{ addslashes($u->name) }}', email: '{{ $u->email }}', role: '{{ $u->role }}', password: '', status: 'published' }; modalOpen = true" 
+                                                    @click="modalTitle = 'Ubah Pengguna: {{ addslashes($u->name) }}'; formAction = '{{ route('admin.rbac.users.update', $u) }}'; formMethod = 'PUT'; formData = { id: {{ $u->id }}, name: '{{ addslashes($u->name) }}', email: '{{ $u->email }}', role_id: '{{ $u->role_id ?? ($allRoles->first()?->id ?? 1) }}', password: '', status: 'published', permissions: [] }; modalOpen = true" 
                                                     class="p-1.5 rounded-lg text-slate-500 hover:text-brand-primary hover:bg-slate-100 transition-colors" title="Ubah Data">
                                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                                 </svg>
                                             </button>
                                             <button type="button" 
-                                                    @click="selectedItem = 'Pengguna {{ addslashes($u->name) }} ({{ $u->email }})'; deleteModalOpen = true" 
+                                                    @click="selectedItem = 'Pengguna {{ addslashes($u->name) }} ({{ $u->email }})'; deleteFormAction = '{{ route('admin.rbac.users.destroy', $u) }}'; deleteModalOpen = true" 
                                                     class="p-1.5 rounded-lg text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition-colors" title="Hapus Data">
                                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -539,46 +409,48 @@
                             @foreach($roleList as $k => $r)
                                 <tr class="hover:bg-slate-50/80 transition-colors">
                                     <td class="py-3.5 px-6 text-center text-slate-400 font-bold">{{ $k + 1 }}</td>
-                                    <td class="py-3.5 px-4 font-bold text-brand-dark">{{ $r['name'] }}</td>
+                                    <td class="py-3.5 px-4 font-bold text-brand-dark">{{ $r->name }}</td>
                                     <td class="py-3.5 px-4 font-mono">
                                         <span class="text-[11px] font-semibold text-brand-primary bg-brand-primary-light/60 px-2 py-0.5 rounded-md border border-brand-sky">
-                                            {{ $r['slug'] }}
+                                            {{ $r->slug }}
                                         </span>
                                     </td>
                                     <td class="py-3.5 px-4 text-slate-600 max-w-sm text-xs leading-relaxed">
-                                        {{ $r['desc'] }}
+                                        {{ $r->description ?: 'Peran pengelola modul sistem' }}
                                     </td>
                                     <td class="py-3.5 px-4 text-center">
                                         <div class="flex flex-wrap gap-1 justify-center max-w-xs mx-auto">
-                                            @foreach($r['permissions'] as $perm)
+                                            @forelse($r->permissions as $perm)
                                                 <span class="text-[10px] px-2 py-0.5 rounded-md font-mono bg-slate-100 text-slate-700 border border-slate-200/80">
-                                                    {{ $perm }}
+                                                    {{ $perm->name }}
                                                 </span>
-                                            @endforeach
+                                            @empty
+                                                <span class="text-[10px] text-slate-400 italic">Belum ada izin</span>
+                                            @endforelse
                                         </div>
                                     </td>
                                     <td class="py-3.5 px-4 text-center">
                                         <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200">
-                                            {{ $r['users_count'] }} Akun
+                                            {{ $r->users_count }} Akun
                                         </span>
                                     </td>
                                     <td class="py-3.5 px-4">
-                                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                                            <span>{{ $r['status'] }}</span>
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold {{ $r->is_active ? 'bg-emerald-100 text-emerald-800 border-emerald-200' : 'bg-slate-100 text-slate-600 border-slate-200' }} border">
+                                            <span class="w-1.5 h-1.5 rounded-full {{ $r->is_active ? 'bg-emerald-500' : 'bg-slate-400' }}"></span>
+                                            <span>{{ $r->is_active ? 'Aktif' : 'Nonaktif' }}</span>
                                         </span>
                                     </td>
                                     <td class="py-3.5 px-6 text-center">
                                         <div class="inline-flex items-center gap-1.5">
                                             <button type="button" 
-                                                    @click="modalTitle = 'Ubah Peran: {{ addslashes($r['name']) }}'; formData = { id: {{ $r['id'] }}, name: '{{ addslashes($r['name']) }}', slug: '{{ $r['slug'] }}', desc: '{{ addslashes($r['desc']) }}', status: 'published' }; modalOpen = true" 
+                                                    @click="modalTitle = 'Ubah Peran: {{ addslashes($r->name) }}'; formAction = '{{ route('admin.rbac.roles.update', $r) }}'; formMethod = 'PUT'; formData = { id: {{ $r->id }}, name: '{{ addslashes($r->name) }}', slug: '{{ $r->slug }}', desc: '{{ addslashes($r->description ?? '') }}', status: '{{ $r->is_active ? 'published' : 'draft' }}', permissions: {{ json_encode($r->permissions->pluck('id')->all()) }} }; modalOpen = true" 
                                                     class="p-1.5 rounded-lg text-slate-500 hover:text-brand-primary hover:bg-slate-100 transition-colors" title="Ubah Data">
                                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                                 </svg>
                                             </button>
                                             <button type="button" 
-                                                    @click="selectedItem = 'Peran {{ addslashes($r['name']) }}'; deleteModalOpen = true" 
+                                                    @click="selectedItem = 'Peran {{ addslashes($r->name) }}'; deleteFormAction = '{{ route('admin.rbac.roles.destroy', $r) }}'; deleteModalOpen = true" 
                                                     class="p-1.5 rounded-lg text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition-colors" title="Hapus Data">
                                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -592,46 +464,48 @@
                             @foreach($permissionList as $k => $p)
                                 <tr class="hover:bg-slate-50/80 transition-colors">
                                     <td class="py-3.5 px-6 text-center text-slate-400 font-bold">{{ $k + 1 }}</td>
-                                    <td class="py-3.5 px-4 font-bold text-brand-dark">{{ $p['name'] }}</td>
+                                    <td class="py-3.5 px-4 font-bold text-brand-dark">{{ $p->name }}</td>
                                     <td class="py-3.5 px-4 font-mono">
                                         <span class="text-[11px] font-semibold text-brand-primary bg-brand-primary-light/60 px-2 py-0.5 rounded-md border border-brand-sky">
-                                            {{ $p['slug'] }}
+                                            {{ $p->slug }}
                                         </span>
                                     </td>
                                     <td class="py-3.5 px-4">
                                         <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200">
-                                            {{ $p['module'] }}
+                                            {{ $p->module }}
                                         </span>
                                     </td>
                                     <td class="py-3.5 px-4 text-slate-600 max-w-sm text-xs leading-relaxed">
-                                        {{ $p['desc'] }}
+                                        {{ $p->description ?: 'Izin tindakan dalam modul' }}
                                     </td>
                                     <td class="py-3.5 px-4">
                                         <div class="flex flex-wrap gap-1">
-                                            @foreach($p['roles'] as $roleName)
+                                            @forelse($p->roles as $role)
                                                 <span class="text-[10px] px-2 py-0.5 rounded-md font-medium bg-brand-sky-light text-brand-primary border border-brand-sky">
-                                                    {{ $roleName }}
+                                                    {{ $role->name }}
                                                 </span>
-                                            @endforeach
+                                            @empty
+                                                <span class="text-[10px] text-slate-400 italic">Belum ditautkan</span>
+                                            @endforelse
                                         </div>
                                     </td>
                                     <td class="py-3.5 px-4">
-                                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                                            <span>{{ $p['status'] }}</span>
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold {{ $p->is_active ? 'bg-emerald-100 text-emerald-800 border-emerald-200' : 'bg-slate-100 text-slate-600 border-slate-200' }} border">
+                                            <span class="w-1.5 h-1.5 rounded-full {{ $p->is_active ? 'bg-emerald-500' : 'bg-slate-400' }}"></span>
+                                            <span>{{ $p->is_active ? 'Aktif' : 'Nonaktif' }}</span>
                                         </span>
                                     </td>
                                     <td class="py-3.5 px-6 text-center">
                                         <div class="inline-flex items-center gap-1.5">
                                             <button type="button" 
-                                                    @click="modalTitle = 'Ubah Hak Akses: {{ addslashes($p['name']) }}'; formData = { id: {{ $p['id'] }}, name: '{{ addslashes($p['name']) }}', slug: '{{ $p['slug'] }}', module: '{{ addslashes($p['module']) }}', desc: '{{ addslashes($p['desc']) }}', status: 'published' }; modalOpen = true" 
+                                                    @click="modalTitle = 'Ubah Hak Akses: {{ addslashes($p->name) }}'; formAction = '{{ route('admin.rbac.permissions.update', $p) }}'; formMethod = 'PUT'; formData = { id: {{ $p->id }}, name: '{{ addslashes($p->name) }}', slug: '{{ $p->slug }}', module: '{{ addslashes($p->module) }}', desc: '{{ addslashes($p->description ?? '') }}', status: '{{ $p->is_active ? 'published' : 'draft' }}', permissions: [] }; modalOpen = true" 
                                                     class="p-1.5 rounded-lg text-slate-500 hover:text-brand-primary hover:bg-slate-100 transition-colors" title="Ubah Data">
                                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                                 </svg>
                                             </button>
                                             <button type="button" 
-                                                    @click="selectedItem = 'Hak Akses {{ addslashes($p['name']) }}'; deleteModalOpen = true" 
+                                                    @click="selectedItem = 'Hak Akses {{ addslashes($p->name) }}'; deleteFormAction = '{{ route('admin.rbac.permissions.destroy', $p) }}'; deleteModalOpen = true" 
                                                     class="p-1.5 rounded-lg text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition-colors" title="Hapus Data">
                                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -762,32 +636,41 @@
                         </button>
                     </div>
 
-                    <form @submit.prevent="modalOpen = false; savedSuccess = true" class="space-y-4 text-xs">
+                    @if(in_array($sec, ['users', 'roles', 'permissions']))
+                        <form :action="formAction" method="POST" class="space-y-4 text-xs">
+                            @csrf
+                            <template x-if="formMethod === 'PUT'">
+                                <input type="hidden" name="_method" value="PUT">
+                            </template>
+                    @else
+                        <form @submit.prevent="modalOpen = false; savedSuccess = true" class="space-y-4 text-xs">
+                    @endif
+
                         @if($sec === 'users')
                             <div>
                                 <label class="block font-bold text-brand-dark mb-1.5">Nama Lengkap Pengguna <span class="text-rose-500">*</span></label>
-                                <input type="text" x-model="formData.name" placeholder="cth: Dr. Ir. Budi Santoso, M.T." required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                <input type="text" name="name" x-model="formData.name" placeholder="cth: Dr. Ir. Budi Santoso, M.T." required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
                             </div>
 
                             <div>
                                 <label class="block font-bold text-brand-dark mb-1.5">Alamat Email Login <span class="text-rose-500">*</span></label>
-                                <input type="email" x-model="formData.email" placeholder="cth: budi@politala.ac.id" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                <input type="email" name="email" x-model="formData.email" placeholder="cth: budi@politala.ac.id" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
                             </div>
 
                             <div>
                                 <label class="block font-bold text-brand-dark mb-1.5">Peran / Wewenang Akses (Role) <span class="text-rose-500">*</span></label>
-                                <select x-model="formData.role" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
-                                    <option value="superadmin">Super Administrator (Akses Penuh)</option>
-                                    <option value="admin-akademik">Administrator Akademik (Kurikulum, CPL, Dosen)</option>
-                                    <option value="admin-konten">Administrator Konten & Media (Berita, Agenda, Galeri)</option>
-                                    <option value="operator-lab">Operator Fasilitas & Lab (Studio, Sarana)</option>
-                                    <option value="editor">Editor Publikasi (Draf Warta)</option>
+                                <select name="role_id" x-model="formData.role_id" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                    @foreach($allRoles as $roleOption)
+                                        <option value="{{ $roleOption->id }}">
+                                            {{ $roleOption->name }} ({{ $roleOption->slug }})
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
 
                             <div>
                                 <label class="block font-bold text-brand-dark mb-1.5">Kata Sandi</label>
-                                <input type="password" x-model="formData.password" placeholder="Kosongkan jika tidak ingin mengubah sandi..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                <input type="password" name="password" x-model="formData.password" placeholder="Kosongkan jika tidak ingin mengubah sandi..." :required="formMethod === 'POST'" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
                                 <span class="text-[10px] text-brand-muted mt-1 block">Minimal 8 karakter untuk kata sandi akun baru.</span>
                             </div>
 
@@ -807,28 +690,47 @@
                         @elseif($sec === 'roles')
                             <div>
                                 <label class="block font-bold text-brand-dark mb-1.5">Nama Peran (Role Name) <span class="text-rose-500">*</span></label>
-                                <input type="text" x-model="formData.name" placeholder="cth: Administrator Kemahasiswaan" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                <input type="text" name="name" x-model="formData.name" placeholder="cth: Administrator Kemahasiswaan" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
                             </div>
 
                             <div>
-                                <label class="block font-bold text-brand-dark mb-1.5">Kode Identifikasi (Slug) <span class="text-rose-500">*</span></label>
-                                <input type="text" x-model="formData.slug" placeholder="cth: admin-kemahasiswaan" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-mono focus:ring-2 focus:ring-brand-primary/20">
+                                <label class="block font-bold text-brand-dark mb-1.5">Kode Identifikasi (Slug)</label>
+                                <input type="text" name="slug" x-model="formData.slug" placeholder="cth: admin-kemahasiswaan (otomatis jika dikosongkan)" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-mono focus:ring-2 focus:ring-brand-primary/20">
                             </div>
 
                             <div>
-                                <label class="block font-bold text-brand-dark mb-1.5">Deskripsi Wewenang & Batasan <span class="text-rose-500">*</span></label>
-                                <textarea rows="3" x-model="formData.desc" placeholder="Jelaskan ruang lingkup wewenang dan batasan peran ini..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20"></textarea>
+                                <label class="block font-bold text-brand-dark mb-1.5">Deskripsi Wewenang & Batasan</label>
+                                <textarea rows="2" name="description" x-model="formData.desc" placeholder="Jelaskan ruang lingkup wewenang dan batasan peran ini..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20"></textarea>
+                            </div>
+
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Pilih Hak Akses Modul yang Diizinkan (Permissions)</label>
+                                <p class="text-[11px] text-brand-muted mb-2">Centang hak akses yang ingin diizinkan untuk peran ini:</p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-52 overflow-y-auto p-2.5 border border-slate-200 rounded-xl bg-slate-50/70">
+                                    @foreach($allPermissions as $perm)
+                                        <label class="flex items-start gap-2.5 p-2 rounded-lg hover:bg-white border border-transparent hover:border-slate-200 text-xs cursor-pointer transition-all">
+                                            <input type="checkbox" name="permissions[]" value="{{ $perm->id }}" 
+                                                   :checked="formData.permissions.includes({{ $perm->id }})"
+                                                   @change="if ($el.checked) { if (!formData.permissions.includes({{ $perm->id }})) formData.permissions.push({{ $perm->id }}) } else { formData.permissions = formData.permissions.filter(x => x !== {{ $perm->id }}) }"
+                                                   class="mt-0.5 rounded border-slate-300 text-brand-primary focus:ring-brand-primary">
+                                            <div class="space-y-0.5">
+                                                <div class="font-bold text-brand-dark leading-tight">{{ $perm->name }}</div>
+                                                <div class="text-[10px] text-brand-muted leading-tight">{{ $perm->module }} &bull; <span class="font-mono text-brand-primary">{{ $perm->slug }}</span></div>
+                                            </div>
+                                        </label>
+                                    @endforeach
+                                </div>
                             </div>
 
                             <div>
                                 <label class="block font-bold text-brand-dark mb-1.5">Status Peran</label>
                                 <div class="flex items-center gap-4 text-xs">
                                     <label class="flex items-center gap-2">
-                                        <input type="radio" value="published" x-model="formData.status" class="text-brand-primary">
+                                        <input type="radio" name="status" value="published" x-model="formData.status" class="text-brand-primary">
                                         <span>Aktif</span>
                                     </label>
                                     <label class="flex items-center gap-2">
-                                        <input type="radio" value="draft" x-model="formData.status" class="text-brand-primary">
+                                        <input type="radio" name="status" value="draft" x-model="formData.status" class="text-brand-primary">
                                         <span>Nonaktif</span>
                                     </label>
                                 </div>
@@ -836,19 +738,20 @@
                         @elseif($sec === 'permissions')
                             <div>
                                 <label class="block font-bold text-brand-dark mb-1.5">Nama Hak Akses (Permission) <span class="text-rose-500">*</span></label>
-                                <input type="text" x-model="formData.name" placeholder="cth: Kelola Prestasi Mahasiswa" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                <input type="text" name="name" x-model="formData.name" placeholder="cth: Kelola Prestasi Mahasiswa" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
                             </div>
 
                             <div>
-                                <label class="block font-bold text-brand-dark mb-1.5">Kode Izin (Slug) <span class="text-rose-500">*</span></label>
-                                <input type="text" x-model="formData.slug" placeholder="cth: manage-achievements" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-mono focus:ring-2 focus:ring-brand-primary/20">
+                                <label class="block font-bold text-brand-dark mb-1.5">Kode Izin (Slug)</label>
+                                <input type="text" name="slug" x-model="formData.slug" placeholder="cth: manage-achievements (otomatis jika dikosongkan)" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-mono focus:ring-2 focus:ring-brand-primary/20">
                             </div>
 
                             <div>
                                 <label class="block font-bold text-brand-dark mb-1.5">Modul Sistem Terkait <span class="text-rose-500">*</span></label>
-                                <select x-model="formData.module" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                <select name="module" x-model="formData.module" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
                                     <option value="Administrasi & Keamanan">Administrasi & Keamanan</option>
                                     <option value="Konfigurasi Sistem">Konfigurasi Sistem</option>
+                                    <option value="Profil & Informasi">Profil & Informasi</option>
                                     <option value="Akademik & Pengajaran">Akademik & Pengajaran</option>
                                     <option value="Konten & Publikasi">Konten & Publikasi</option>
                                     <option value="Sarana & Prasarana">Sarana & Prasarana</option>
@@ -857,19 +760,19 @@
                             </div>
 
                             <div>
-                                <label class="block font-bold text-brand-dark mb-1.5">Deskripsi Tindakan Izin <span class="text-rose-500">*</span></label>
-                                <textarea rows="3" x-model="formData.desc" placeholder="Tindakan apa saja yang diizinkan oleh hak akses ini..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20"></textarea>
+                                <label class="block font-bold text-brand-dark mb-1.5">Deskripsi Tindakan Izin</label>
+                                <textarea rows="2" name="description" x-model="formData.desc" placeholder="Tindakan apa saja yang diizinkan oleh hak akses ini..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20"></textarea>
                             </div>
 
                             <div>
                                 <label class="block font-bold text-brand-dark mb-1.5">Status</label>
                                 <div class="flex items-center gap-4 text-xs">
                                     <label class="flex items-center gap-2">
-                                        <input type="radio" value="published" x-model="formData.status" class="text-brand-primary">
+                                        <input type="radio" name="status" value="published" x-model="formData.status" class="text-brand-primary">
                                         <span>Aktif</span>
                                     </label>
                                     <label class="flex items-center gap-2">
-                                        <input type="radio" value="draft" x-model="formData.status" class="text-brand-primary">
+                                        <input type="radio" name="status" value="draft" x-model="formData.status" class="text-brand-primary">
                                         <span>Nonaktif</span>
                                     </label>
                                 </div>
@@ -930,15 +833,25 @@
                     </div>
                     <h4 class="text-base font-bold text-brand-dark mb-1">Konfirmasi Penghapusan</h4>
                     <p class="text-xs text-brand-muted leading-relaxed mb-6">
-                        Apakah Anda yakin ingin menghapus <strong x-text="selectedItem"></strong>? Tindakan ini tidak dapat dibatalkan.
+                        Apakah Anda yakin ingin menghapus <strong x-text="selectedItem"></strong>? Tindakan ini akan memperbarui basis data dan tidak dapat dibatalkan.
                     </p>
                     <div class="flex items-center justify-center gap-3">
                         <button type="button" @click="deleteModalOpen = false" class="px-4 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-colors">
                             Batal
                         </button>
-                        <button type="button" @click="deleteModalOpen = false; savedSuccess = true" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold shadow-sm transition-colors">
-                            Ya, Hapus Data
-                        </button>
+                        @if(in_array($sec, ['users', 'roles', 'permissions']))
+                            <form :action="deleteFormAction" method="POST" class="inline">
+                                @csrf
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button type="submit" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold shadow-sm transition-colors">
+                                    Ya, Hapus Data
+                                </button>
+                            </form>
+                        @else
+                            <button type="button" @click="deleteModalOpen = false; savedSuccess = true" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold shadow-sm transition-colors">
+                                Ya, Hapus Data
+                            </button>
+                        @endif
                     </div>
                 </div>
             </div>

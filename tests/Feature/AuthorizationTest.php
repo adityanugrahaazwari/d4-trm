@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Permission;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -143,5 +145,128 @@ class AuthorizationTest extends TestCase
         $academicResponse->assertDontSee('Hak Akses (Permissions)');
         $academicResponse->assertDontSee('Pengaturan Website');
         $academicResponse->assertSee('Kurikulum');
+    }
+
+    /**
+     * Test superadmin can create a new role with specific permissions via database.
+     */
+    public function test_superadmin_can_create_new_role_with_permissions_dynamically(): void
+    {
+        $superadmin = User::factory()->superadmin()->create();
+
+        $permAcademic = Permission::where('slug', 'manage-academic')->firstOrFail();
+        $permMedia = Permission::where('slug', 'upload-media')->firstOrFail();
+
+        $response = $this->actingAs($superadmin)->post('/admin/rbac/roles', [
+            'name' => 'Koordinator Kemahasiswaan',
+            'slug' => 'koor-mhs',
+            'badge' => 'bg-indigo-100 text-indigo-800 border-indigo-200',
+            'description' => 'Mengelola kegiatan kemahasiswaan dan portofolio',
+            'permissions' => [$permAcademic->id, $permMedia->id],
+        ]);
+
+        $response->assertRedirect('/admin/crud/roles');
+        $this->assertDatabaseHas('roles', [
+            'name' => 'Koordinator Kemahasiswaan',
+            'slug' => 'koor-mhs',
+        ]);
+
+        $createdRole = Role::where('slug', 'koor-mhs')->firstOrFail();
+        $this->assertCount(2, $createdRole->permissions);
+        $this->assertTrue($createdRole->hasPermission('manage-academic'));
+        $this->assertTrue($createdRole->hasPermission('upload-media'));
+        $this->assertFalse($createdRole->hasPermission('manage-facilities'));
+    }
+
+    /**
+     * Test updating role permissions dynamically updates user access in real time.
+     */
+    public function test_dynamic_role_permission_update_immediately_affects_user_access(): void
+    {
+        $superadmin = User::factory()->superadmin()->create();
+
+        $permAcademic = Permission::where('slug', 'manage-academic')->firstOrFail();
+        $permFacilities = Permission::where('slug', 'manage-facilities')->firstOrFail();
+
+        // 1. Create a custom role with only academic permission
+        $role = Role::create([
+            'name' => 'Staff Akademik Khusus',
+            'slug' => 'staff-akademik-khusus',
+            'badge' => 'bg-teal-100 text-teal-800 border-teal-200',
+        ]);
+        $role->permissions()->sync([$permAcademic->id]);
+
+        $staff = User::factory()->create([
+            'role' => $role->slug,
+            'role_id' => $role->id,
+        ]);
+
+        // Staff can access kurikulum, but CANNOT access fasilitas
+        $this->actingAs($staff)->get('/admin/crud/kurikulum')->assertStatus(200);
+        $this->actingAs($staff)->get('/admin/crud/fasilitas')->assertStatus(403);
+
+        // 2. Superadmin updates the role dynamically to grant facilities permission
+        $updateResponse = $this->actingAs($superadmin)->put("/admin/rbac/roles/{$role->id}", [
+            'name' => 'Staff Akademik & Lab Khusus',
+            'slug' => 'staff-akademik-khusus',
+            'badge' => 'bg-teal-100 text-teal-800 border-teal-200',
+            'permissions' => [$permAcademic->id, $permFacilities->id],
+        ]);
+        $updateResponse->assertRedirect('/admin/crud/roles');
+
+        // 3. Now the staff user can immediately access fasilitas!
+        $this->actingAs($staff->fresh())->get('/admin/crud/fasilitas')->assertStatus(200);
+    }
+
+    /**
+     * Test superadmin can create a user assigned to a role dynamically.
+     */
+    public function test_superadmin_can_create_user_with_role_assignment(): void
+    {
+        $superadmin = User::factory()->superadmin()->create();
+        $academicRole = Role::where('slug', User::ROLE_ADMIN_AKADEMIK)->firstOrFail();
+
+        $response = $this->actingAs($superadmin)->post('/admin/rbac/users', [
+            'name' => 'Budi Akademik Baru',
+            'email' => 'budi.akademik@trm.ac.id',
+            'password' => 'secret1234',
+            'password_confirmation' => 'secret1234',
+            'role_id' => $academicRole->id,
+        ]);
+
+        $response->assertRedirect('/admin/crud/users');
+
+        $this->assertDatabaseHas('users', [
+            'email' => 'budi.akademik@trm.ac.id',
+            'role_id' => $academicRole->id,
+            'role' => $academicRole->slug,
+        ]);
+
+        $newUser = User::where('email', 'budi.akademik@trm.ac.id')->firstOrFail();
+        $this->actingAs($newUser)->get('/admin/crud/kurikulum')->assertStatus(200);
+        $this->actingAs($newUser)->get('/admin/crud/users')->assertStatus(403);
+    }
+
+    /**
+     * Test non-superadmin cannot access RBAC write endpoints.
+     */
+    public function test_non_superadmin_cannot_access_rbac_endpoints(): void
+    {
+        $academicAdmin = User::factory()->adminAkademik()->create();
+
+        $this->actingAs($academicAdmin)->post('/admin/rbac/roles', [
+            'name' => 'Illegal Role',
+            'slug' => 'illegal-role',
+        ])->assertStatus(403);
+
+        $this->actingAs($academicAdmin)->post('/admin/rbac/users', [
+            'name' => 'Illegal User',
+            'email' => 'hacker@test.com',
+        ])->assertStatus(403);
+
+        $this->actingAs($academicAdmin)->post('/admin/rbac/permissions', [
+            'name' => 'Illegal Perm',
+            'slug' => 'illegal-perm',
+        ])->assertStatus(403);
     }
 }

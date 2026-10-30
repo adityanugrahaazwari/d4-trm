@@ -7,10 +7,11 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password', 'role'])]
+#[Fillable(['name', 'email', 'password', 'role', 'role_id'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -33,6 +34,40 @@ class User extends Authenticatable
     public const ROLE_EDITOR = 'editor';
 
     /**
+     * Permission mapping for each CRUD section.
+     */
+    public const SECTION_PERMISSIONS = [
+        'users' => 'manage-users',
+        'roles' => 'manage-users',
+        'permissions' => 'manage-users',
+        'identitas' => 'manage-settings',
+        'homepage' => 'manage-settings',
+        'kontak-sosmed' => 'manage-settings',
+        'logo-favicon' => 'manage-settings',
+        'sejarah' => 'manage-profile',
+        'visi-misi' => 'manage-profile',
+        'sambutan' => 'manage-profile',
+        'struktur' => 'manage-profile',
+        'dosen' => 'manage-staff',
+        'tendik' => 'manage-staff',
+        'kurikulum' => 'manage-academic',
+        'mata-kuliah' => 'manage-academic',
+        'kalender' => 'manage-academic',
+        'cpl' => 'manage-academic',
+        'profil-lulusan' => 'manage-academic',
+        'berita' => 'manage-news',
+        'kategori-berita' => 'manage-news',
+        'pengumuman' => 'manage-news',
+        'agenda' => 'manage-news',
+        'fasilitas' => 'manage-facilities',
+        'album-galeri' => 'manage-gallery',
+        'foto-galeri' => 'manage-gallery',
+        'media-list' => 'upload-media',
+        'media-upload' => 'upload-media',
+        'my-profile' => null,
+    ];
+
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
@@ -46,11 +81,23 @@ class User extends Authenticatable
     }
 
     /**
+     * Role relationship (Dynamic Database RBAC).
+     */
+    public function roleRelation(): BelongsTo
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    /**
      * Check if user is a superadmin.
      */
     public function isSuperAdmin(): bool
     {
-        return $this->role === self::ROLE_SUPERADMIN;
+        if ($this->role === self::ROLE_SUPERADMIN) {
+            return true;
+        }
+
+        return $this->roleRelation?->slug === self::ROLE_SUPERADMIN;
     }
 
     /**
@@ -58,7 +105,7 @@ class User extends Authenticatable
      */
     public function isAdmin(): bool
     {
-        return in_array($this->role, [self::ROLE_SUPERADMIN, self::ROLE_ADMIN], true);
+        return $this->isSuperAdmin() || in_array($this->role, [self::ROLE_SUPERADMIN, self::ROLE_ADMIN], true);
     }
 
     /**
@@ -66,6 +113,10 @@ class User extends Authenticatable
      */
     public function getRoleLabelAttribute(): string
     {
+        if ($this->roleRelation) {
+            return $this->roleRelation->name;
+        }
+
         return match ($this->role) {
             self::ROLE_SUPERADMIN => 'Super Administrator',
             self::ROLE_ADMIN_AKADEMIK => 'Administrator Akademik',
@@ -77,12 +128,28 @@ class User extends Authenticatable
     }
 
     /**
+     * Dynamic check if user has a specific permission via database relationship.
+     */
+    public function hasPermission(string $permissionSlug): bool
+    {
+        if ($this->isSuperAdmin()) {
+            return true;
+        }
+
+        if ($this->roleRelation) {
+            return $this->roleRelation->hasPermission($permissionSlug);
+        }
+
+        return $this->fallbackHasPermission($permissionSlug);
+    }
+
+    /**
      * Determine if user can manage RBAC (users, roles, permissions).
-     * Only Super Administrator has this privilege.
+     * Strictly Super Administrator.
      */
     public function canManageRbac(): bool
     {
-        return $this->isSuperAdmin();
+        return $this->hasPermission('manage-users');
     }
 
     /**
@@ -90,7 +157,7 @@ class User extends Authenticatable
      */
     public function canManageSettings(): bool
     {
-        return $this->isSuperAdmin();
+        return $this->hasPermission('manage-settings');
     }
 
     /**
@@ -98,7 +165,7 @@ class User extends Authenticatable
      */
     public function canManageProfile(): bool
     {
-        return $this->isSuperAdmin() || $this->role === self::ROLE_ADMIN_AKADEMIK;
+        return $this->hasPermission('manage-profile');
     }
 
     /**
@@ -106,7 +173,7 @@ class User extends Authenticatable
      */
     public function canManageStaff(): bool
     {
-        return $this->isSuperAdmin() || $this->role === self::ROLE_ADMIN_AKADEMIK;
+        return $this->hasPermission('manage-staff');
     }
 
     /**
@@ -114,7 +181,7 @@ class User extends Authenticatable
      */
     public function canManageAcademic(): bool
     {
-        return $this->isSuperAdmin() || $this->role === self::ROLE_ADMIN_AKADEMIK;
+        return $this->hasPermission('manage-academic');
     }
 
     /**
@@ -122,7 +189,7 @@ class User extends Authenticatable
      */
     public function canManageNews(): bool
     {
-        return $this->isSuperAdmin() || in_array($this->role, [self::ROLE_ADMIN_KONTEN, self::ROLE_EDITOR], true);
+        return $this->hasPermission('manage-news');
     }
 
     /**
@@ -130,7 +197,7 @@ class User extends Authenticatable
      */
     public function canManageGallery(): bool
     {
-        return $this->isSuperAdmin() || $this->role === self::ROLE_ADMIN_KONTEN;
+        return $this->hasPermission('manage-gallery');
     }
 
     /**
@@ -138,7 +205,7 @@ class User extends Authenticatable
      */
     public function canManageFacilities(): bool
     {
-        return $this->isSuperAdmin() || $this->role === self::ROLE_OPERATOR_LAB;
+        return $this->hasPermission('manage-facilities');
     }
 
     /**
@@ -146,7 +213,7 @@ class User extends Authenticatable
      */
     public function canManageMedia(): bool
     {
-        return true;
+        return $this->hasPermission('upload-media');
     }
 
     /**
@@ -159,45 +226,32 @@ class User extends Authenticatable
             return true;
         }
 
-        // Strictly restrict users, roles, and permissions to Superadmin only
-        if (in_array($section, ['users', 'roles', 'permissions'], true)) {
-            return false;
+        if ($section === 'my-profile') {
+            return true;
         }
 
-        // Strictly restrict site settings to Superadmin only
-        if (in_array($section, ['identitas', 'homepage', 'kontak-sosmed', 'logo-favicon'], true)) {
-            return false;
+        $requiredPermission = self::SECTION_PERMISSIONS[$section] ?? null;
+
+        if ($requiredPermission) {
+            return $this->hasPermission($requiredPermission);
         }
 
-        return match ($this->role) {
-            self::ROLE_ADMIN_AKADEMIK => in_array($section, [
-                'sejarah', 'visi-misi', 'sambutan', 'struktur',
-                'dosen', 'tendik',
-                'kurikulum', 'mata-kuliah', 'kalender', 'cpl', 'profil-lulusan',
-                'media-list', 'media-upload',
-                'my-profile',
-            ], true),
+        return false;
+    }
 
-            self::ROLE_ADMIN_KONTEN => in_array($section, [
-                'berita', 'kategori-berita', 'pengumuman', 'agenda',
-                'album-galeri', 'foto-galeri',
-                'media-list', 'media-upload',
-                'my-profile',
-            ], true),
-
-            self::ROLE_OPERATOR_LAB => in_array($section, [
-                'fasilitas',
-                'media-list', 'media-upload',
-                'my-profile',
-            ], true),
-
-            self::ROLE_EDITOR => in_array($section, [
-                'berita', 'kategori-berita', 'pengumuman', 'agenda',
-                'media-list', 'media-upload',
-                'my-profile',
-            ], true),
-
-            default => ($section === 'my-profile'),
+    /**
+     * Fallback permission checking when roleRelation is not yet hydrated.
+     */
+    protected function fallbackHasPermission(string $slug): bool
+    {
+        return match ($slug) {
+            'manage-users', 'manage-settings' => $this->isSuperAdmin(),
+            'manage-profile', 'manage-staff', 'manage-academic' => $this->isSuperAdmin() || $this->role === self::ROLE_ADMIN_AKADEMIK,
+            'manage-news' => $this->isSuperAdmin() || in_array($this->role, [self::ROLE_ADMIN_KONTEN, self::ROLE_EDITOR], true),
+            'manage-gallery' => $this->isSuperAdmin() || $this->role === self::ROLE_ADMIN_KONTEN,
+            'manage-facilities' => $this->isSuperAdmin() || $this->role === self::ROLE_OPERATOR_LAB,
+            'upload-media' => true,
+            default => false,
         };
     }
 }

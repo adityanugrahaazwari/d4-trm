@@ -54,6 +54,7 @@ Route::get('/galeri', fn () => view('public.gallery.index'))->name('public.galle
 Route::get('/kontak', fn () => view('public.contact'))->name('public.contact');
 
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\RbacController;
 
 // Auth Routes (Tahap 6 - Autentikasi dan Keamanan)
 Route::middleware('guest')->group(function () {
@@ -66,6 +67,22 @@ Route::post('/admin/logout', [AuthController::class, 'destroy'])->name('logout')
 // Panel Admin (Tahap 5 Layout & UI Kit, diproteksi auth pada Tahap 6)
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/dashboard', fn () => view('admin.dashboard'))->name('dashboard');
+
+    // Dynamic Database-Driven RBAC Management (Superadmin Only)
+    Route::prefix('rbac')->name('rbac.')->middleware('can:manage-rbac')->group(function () {
+        Route::post('/roles', [RbacController::class, 'storeRole'])->name('roles.store');
+        Route::put('/roles/{role}', [RbacController::class, 'updateRole'])->name('roles.update');
+        Route::delete('/roles/{role}', [RbacController::class, 'destroyRole'])->name('roles.destroy');
+
+        Route::post('/permissions', [RbacController::class, 'storePermission'])->name('permissions.store');
+        Route::put('/permissions/{permission}', [RbacController::class, 'updatePermission'])->name('permissions.update');
+        Route::delete('/permissions/{permission}', [RbacController::class, 'destroyPermission'])->name('permissions.destroy');
+
+        Route::post('/users', [RbacController::class, 'storeUser'])->name('users.store');
+        Route::put('/users/{user}', [RbacController::class, 'updateUser'])->name('users.update');
+        Route::delete('/users/{user}', [RbacController::class, 'destroyUser'])->name('users.destroy');
+    });
+
     Route::get('/crud/{section}', function ($section) {
         if (! auth()->user()->canAccessSection($section)) {
             abort(403, 'Akses Ditolak: Anda tidak memiliki wewenang untuk mengakses modul ini.');
