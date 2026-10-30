@@ -125,15 +125,15 @@
 
                     <!-- Quick Highlights Metrics Cards with Hover Lift -->
                     <div class="pt-6 border-t border-white/15 grid grid-cols-3 gap-3 max-w-lg">
-                        <div class="bg-white/5 rounded-2xl p-3 border border-white/10 backdrop-blur-sm hover:bg-white/10 hover:border-brand-sky/40 hover:-translate-y-0.5 transition-all duration-300">
+                        <div class="card-fade-up bg-white/5 rounded-2xl p-3 border border-white/10 backdrop-blur-sm hover:bg-white/10 hover:border-brand-sky/40 hover:-translate-y-0.5 transition-all duration-300" data-card-delay="100">
                             <div class="text-xl sm:text-2xl font-black text-brand-cream">144 SKS</div>
                             <div class="text-[10px] text-brand-sky/80 uppercase tracking-wider font-semibold">Kurikulum Terapan</div>
                         </div>
-                        <div class="bg-white/5 rounded-2xl p-3 border border-white/10 backdrop-blur-sm hover:bg-white/10 hover:border-brand-sky/40 hover:-translate-y-0.5 transition-all duration-300">
+                        <div class="card-fade-up bg-white/5 rounded-2xl p-3 border border-white/10 backdrop-blur-sm hover:bg-white/10 hover:border-brand-sky/40 hover:-translate-y-0.5 transition-all duration-300" data-card-delay="200">
                             <div class="text-xl sm:text-2xl font-black text-brand-cream">4 Tahun</div>
                             <div class="text-[10px] text-brand-sky/80 uppercase tracking-wider font-semibold">Jenjang D-IV (S1)</div>
                         </div>
-                        <div class="bg-white/5 rounded-2xl p-3 border border-white/10 backdrop-blur-sm hover:bg-white/10 hover:border-brand-sky/40 hover:-translate-y-0.5 transition-all duration-300">
+                        <div class="card-fade-up bg-white/5 rounded-2xl p-3 border border-white/10 backdrop-blur-sm hover:bg-white/10 hover:border-brand-sky/40 hover:-translate-y-0.5 transition-all duration-300" data-card-delay="300">
                             <div class="text-xl sm:text-2xl font-black text-brand-cream">S.Tr.Kom.</div>
                             <div class="text-[10px] text-brand-sky/80 uppercase tracking-wider font-semibold">Gelar Kelulusan</div>
                         </div>
@@ -169,7 +169,7 @@
                         </div>
 
                         <!-- Main Studio Interactive Mockup Window -->
-                        <div class="rounded-3xl bg-slate-900/85 backdrop-blur-2xl border border-white/20 p-5 sm:p-6 shadow-2xl relative overflow-hidden space-y-4 hover:border-brand-sky/30 transition-colors duration-500">
+                        <div class="card-fade-up rounded-3xl bg-slate-900/85 backdrop-blur-2xl border border-white/20 p-5 sm:p-6 shadow-2xl relative overflow-hidden space-y-4 hover:border-brand-sky/30 transition-colors duration-500" data-card-delay="150">
                             
                             <!-- Window Control Bar & Interactive Tabs -->
                             <div class="flex items-center justify-between border-b border-white/10 pb-3 gap-2">
@@ -339,7 +339,7 @@
                         <span>Sarjana Terapan Vokasi</span>
                     </div>
 
-                    <div class="rounded-2xl bg-gradient-to-tr from-brand-secondary/20 via-brand-sky/20 to-brand-primary/10 border border-brand-border p-6 sm:p-7 flex flex-col justify-between shadow-inner hover:shadow-xl hover:border-brand-primary/30 transition-all duration-500 relative overflow-hidden group">
+                    <div class="card-fade-up rounded-2xl bg-gradient-to-tr from-brand-secondary/20 via-brand-sky/20 to-brand-primary/10 border border-brand-border p-6 sm:p-7 flex flex-col justify-between shadow-inner hover:shadow-xl hover:border-brand-primary/30 transition-all duration-500 relative overflow-hidden group" data-card-delay="0">
                         <!-- Ambient Grid Background -->
                         <div class="absolute inset-0 bg-[radial-gradient(#086288_1px,transparent_1px)] [background-size:16px_16px] opacity-10 pointer-events-none"></div>
 
@@ -394,15 +394,15 @@
 
                 <!-- Interactive Pillars Highlight -->
                 <div class="grid grid-cols-3 gap-3 pt-1">
-                    <div class="p-3 rounded-xl bg-brand-surface border border-slate-200/80 hover:border-brand-primary/40 hover:bg-white hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+                    <div class="card-fade-up p-3 rounded-xl bg-brand-surface border border-slate-200/80 hover:border-brand-primary/40 hover:bg-white hover:-translate-y-1 hover:shadow-md transition-all duration-300" data-card-delay="0">
                         <span class="block text-xs font-black text-brand-dark">Hands-on Lab</span>
                         <span class="text-[10px] text-brand-muted font-medium">70% Praktik Vokasi</span>
                     </div>
-                    <div class="p-3 rounded-xl bg-brand-surface border border-slate-200/80 hover:border-brand-primary/40 hover:bg-white hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+                    <div class="card-fade-up p-3 rounded-xl bg-brand-surface border border-slate-200/80 hover:border-brand-primary/40 hover:bg-white hover:-translate-y-1 hover:shadow-md transition-all duration-300" data-card-delay="120">
                         <span class="block text-xs font-black text-brand-dark">Standar DUDI</span>
                         <span class="text-[10px] text-brand-muted font-medium">Kurikulum Selaras</span>
                     </div>
-                    <div class="p-3 rounded-xl bg-brand-surface border border-slate-200/80 hover:border-brand-primary/40 hover:bg-white hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+                    <div class="card-fade-up p-3 rounded-xl bg-brand-surface border border-slate-200/80 hover:border-brand-primary/40 hover:bg-white hover:-translate-y-1 hover:shadow-md transition-all duration-300" data-card-delay="240">
                         <span class="block text-xs font-black text-brand-dark">Portofolio Riil</span>
                         <span class="text-[10px] text-brand-muted font-medium">Karya Siap Industri</span>
                     </div>
@@ -437,7 +437,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                 <!-- Keunggulan 1 -->
-                <div class="group relative overflow-hidden bg-white p-7 rounded-2xl border border-slate-200/80 shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 space-y-4 flex flex-col justify-between">
+                <div class="card-fade-up group relative overflow-hidden bg-white p-7 rounded-2xl border border-slate-200/80 shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 space-y-4 flex flex-col justify-between" data-card-delay="0">
                     <!-- Top Accent Line -->
                     <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-brand-primary to-brand-sky opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     
@@ -453,7 +453,7 @@
                 </div>
 
                 <!-- Keunggulan 2 -->
-                <div class="group relative overflow-hidden bg-white p-7 rounded-2xl border border-slate-200/80 shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 space-y-4 flex flex-col justify-between">
+                <div class="card-fade-up group relative overflow-hidden bg-white p-7 rounded-2xl border border-slate-200/80 shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 space-y-4 flex flex-col justify-between" data-card-delay="150">
                     <!-- Top Accent Line -->
                     <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-brand-secondary to-brand-sky opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
@@ -469,7 +469,7 @@
                 </div>
 
                 <!-- Keunggulan 3 -->
-                <div class="group relative overflow-hidden bg-white p-7 rounded-2xl border border-slate-200/80 shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 space-y-4 flex flex-col justify-between">
+                <div class="card-fade-up group relative overflow-hidden bg-white p-7 rounded-2xl border border-slate-200/80 shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 space-y-4 flex flex-col justify-between" data-card-delay="300">
                     <!-- Top Accent Line -->
                     <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-emerald-500 to-teal-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
@@ -503,7 +503,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <!-- Career 1 -->
-            <div class="group relative overflow-hidden bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-sky/60 transition-all duration-300 space-y-3 flex flex-col justify-between">
+            <div class="card-fade-up group relative overflow-hidden bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-sky/60 transition-all duration-300 space-y-3 flex flex-col justify-between" data-card-delay="0">
                 <div class="absolute bottom-0 inset-x-0 h-0.5 bg-gradient-to-r from-brand-sky to-brand-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div class="space-y-3">
                     <div class="flex items-center justify-between">
@@ -523,7 +523,7 @@
             </div>
 
             <!-- Career 2 -->
-            <div class="group relative overflow-hidden bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-sky/60 transition-all duration-300 space-y-3 flex flex-col justify-between">
+            <div class="card-fade-up group relative overflow-hidden bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-sky/60 transition-all duration-300 space-y-3 flex flex-col justify-between" data-card-delay="120">
                 <div class="absolute bottom-0 inset-x-0 h-0.5 bg-gradient-to-r from-brand-sky to-brand-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div class="space-y-3">
                     <div class="flex items-center justify-between">
@@ -543,7 +543,7 @@
             </div>
 
             <!-- Career 3 -->
-            <div class="group relative overflow-hidden bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-sky/60 transition-all duration-300 space-y-3 flex flex-col justify-between">
+            <div class="card-fade-up group relative overflow-hidden bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-sky/60 transition-all duration-300 space-y-3 flex flex-col justify-between" data-card-delay="240">
                 <div class="absolute bottom-0 inset-x-0 h-0.5 bg-gradient-to-r from-brand-sky to-brand-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div class="space-y-3">
                     <div class="flex items-center justify-between">
@@ -563,7 +563,7 @@
             </div>
 
             <!-- Career 4 -->
-            <div class="group relative overflow-hidden bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-sky/60 transition-all duration-300 space-y-3 flex flex-col justify-between">
+            <div class="card-fade-up group relative overflow-hidden bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-sky/60 transition-all duration-300 space-y-3 flex flex-col justify-between" data-card-delay="360">
                 <div class="absolute bottom-0 inset-x-0 h-0.5 bg-gradient-to-r from-brand-sky to-brand-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div class="space-y-3">
                     <div class="flex items-center justify-between">
@@ -619,7 +619,7 @@
             <!-- Card Dosen Grid (Dengan penanda data contoh eksplisit) -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 @for ($i = 1; $i <= 4; $i++)
-                    <div class="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300">
+                    <div class="card-fade-up group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300" data-card-delay="{{ ($i - 1) * 120 }}">
                         <div class="aspect-square bg-gradient-to-br from-slate-100 via-slate-50 to-brand-primary-light/30 flex items-center justify-center p-6 border-b border-slate-100 relative overflow-hidden">
                             <!-- Avatar Ambient Shimmer -->
                             <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
@@ -668,7 +668,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Article 1 -->
-            <article class="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between">
+            <article class="card-fade-up group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between" data-card-delay="0">
                 <div>
                     <div class="aspect-16/9 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4 border-b border-slate-100 relative overflow-hidden">
                         <!-- Shimmer Hover Glow -->
@@ -706,7 +706,7 @@
             </article>
 
             <!-- Article 2 -->
-            <article class="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between">
+            <article class="card-fade-up group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between" data-card-delay="150">
                 <div>
                     <div class="aspect-16/9 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4 border-b border-slate-100 relative overflow-hidden">
                         <!-- Shimmer Hover Glow -->
@@ -744,7 +744,7 @@
             </article>
 
             <!-- Article 3 -->
-            <article class="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between">
+            <article class="card-fade-up group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between" data-card-delay="300">
                 <div>
                     <div class="aspect-16/9 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4 border-b border-slate-100 relative overflow-hidden">
                         <!-- Shimmer Hover Glow -->
@@ -808,7 +808,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
                 <!-- Lab 1 -->
-                <div class="group bg-white rounded-2xl border border-slate-200/80 p-6 space-y-4 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300">
+                <div class="card-fade-up group bg-white rounded-2xl border border-slate-200/80 p-6 space-y-4 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300" data-card-delay="0">
                     <div class="aspect-video rounded-xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4 border border-slate-200/60 overflow-hidden relative group-hover:border-brand-primary/30 transition-colors">
                         <img src="{{ asset('assets/undraw_work-from-anywhere_tpk5.svg') }}" alt="Lab Komputasi Multimedia &amp; Desain" class="h-32 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform duration-500">
                     </div>
@@ -830,7 +830,7 @@
                 </div>
 
                 <!-- Lab 2 -->
-                <div class="group bg-white rounded-2xl border border-slate-200/80 p-6 space-y-4 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300">
+                <div class="card-fade-up group bg-white rounded-2xl border border-slate-200/80 p-6 space-y-4 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300" data-card-delay="150">
                     <div class="aspect-video rounded-xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4 border border-slate-200/60 overflow-hidden relative group-hover:border-brand-primary/30 transition-colors">
                         <img src="{{ asset('assets/undraw_3d-modeling_j8a3.svg') }}" alt="Studio Animasi &amp; Green Screen" class="h-32 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform duration-500">
                     </div>
@@ -852,7 +852,7 @@
                 </div>
 
                 <!-- Lab 3 -->
-                <div class="group bg-white rounded-2xl border border-slate-200/80 p-6 space-y-4 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300">
+                <div class="card-fade-up group bg-white rounded-2xl border border-slate-200/80 p-6 space-y-4 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300" data-card-delay="300">
                     <div class="aspect-video rounded-xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4 border border-slate-200/60 overflow-hidden relative group-hover:border-brand-primary/30 transition-colors">
                         <img src="{{ asset('assets/undraw_augmented-reality_3ie0.svg') }}" alt="Lab Game Tech &amp; Immersive VR/AR" class="h-32 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform duration-500">
                     </div>
@@ -878,7 +878,7 @@
 
     {{-- 9. CTA Penutup --}}
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
-        <div class="rounded-3xl bg-gradient-to-r from-brand-primary-dark via-brand-primary to-brand-secondary text-white p-8 sm:p-14 shadow-2xl relative overflow-hidden group">
+        <div class="card-fade-up rounded-3xl bg-gradient-to-r from-brand-primary-dark via-brand-primary to-brand-secondary text-white p-8 sm:p-14 shadow-2xl relative overflow-hidden group" data-card-delay="0">
             <!-- Ambient Glowing Color Orbs -->
             <div class="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-brand-sky/20 blur-3xl animate-pulse-slow pointer-events-none"></div>
             <div class="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-brand-secondary/30 blur-3xl animate-pulse-slow [animation-delay:2s] pointer-events-none"></div>
@@ -927,3 +927,101 @@
 
 </div>
 @endsection
+
+@push('styles')
+<style>
+/* Card Bottom-to-Top Animation (Slide Up & Fade In) */
+html.js-cards-ready .card-fade-up {
+    opacity: 0;
+    transform: translateY(32px);
+    transition-property: opacity, transform;
+    transition-duration: 700ms;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+html.js-cards-ready .card-fade-up.card-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html.js-cards-ready .card-fade-up {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+}
+</style>
+@endpush
+
+@push('scripts')
+<script>
+(function() {
+    // Flag html as cards-ready so CSS only hides elements if JS is operational
+    document.documentElement.classList.add('js-cards-ready');
+
+    function initHomepageCardAnimations() {
+        const cards = document.querySelectorAll('.card-fade-up');
+        if (!cards.length) return;
+
+        // Respect users preferring reduced motion
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) {
+            cards.forEach(card => card.classList.add('card-visible'));
+            return;
+        }
+
+        const animateCard = (card) => {
+            const delay = parseInt(card.getAttribute('data-card-delay') || '0', 10);
+            
+            card.style.transitionDelay = `${delay}ms`;
+            
+            requestAnimationFrame(() => {
+                card.classList.add('card-visible');
+            });
+
+            // After animation ends, remove animation classes and inline transitionDelay
+            // so hover effects (e.g. hover:-translate-y-2) work natively without constraint
+            const totalDuration = delay + 750;
+            setTimeout(() => {
+                card.style.transitionDelay = '';
+                card.classList.remove('card-fade-up', 'card-visible');
+            }, totalDuration);
+        };
+
+        // Determine if splash screen is visible on initial page load
+        const splashEl = document.getElementById('page-splash-screen');
+        const isSplashActive = splashEl && !splashEl.classList.contains('splash-hidden') && splashEl.style.display !== 'none';
+        const startDelay = isSplashActive ? 220 : 0;
+
+        setTimeout(() => {
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            obs.unobserve(entry.target);
+                            animateCard(entry.target);
+                        }
+                    });
+                }, {
+                    root: null,
+                    rootMargin: '0px 0px -40px 0px',
+                    threshold: 0.08
+                });
+
+                cards.forEach(card => observer.observe(card));
+            } else {
+                cards.forEach(card => animateCard(card));
+            }
+        }, startDelay);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initHomepageCardAnimations);
+    } else {
+        initHomepageCardAnimations();
+    }
+})();
+</script>
+@endpush
