@@ -42,7 +42,7 @@ class="fixed top-0 inset-x-0 z-50 pointer-events-none transition-all duration-30
                  ? 'bg-white/95 border-slate-200/90 shadow-slate-900/10 px-4 sm:px-6 py-2 sm:py-2.5' 
                  : 'bg-white/90 border-slate-200/75 shadow-slate-900/5 px-4 sm:px-6 py-2.5 sm:py-3'">
             
-            <div class="flex items-center justify-between gap-3 lg:gap-6">
+            <div class="relative flex items-center justify-between gap-3 lg:gap-6">
                 
                 <!-- Brand Logo & Identity -->
                 <a href="{{ route('home') }}" class="flex items-center gap-2.5 sm:gap-3 group shrink-0" title="D-IV Teknik Rekayasa Multimedia POLITALA">
@@ -68,8 +68,8 @@ class="fixed top-0 inset-x-0 z-50 pointer-events-none transition-all duration-30
                     </div>
                 </a>
 
-                <!-- Desktop Navigation Menu Links (5 Grouped Items, Pill Style) -->
-                <nav class="hidden lg:flex items-center gap-1 xl:gap-1.5 text-xs font-semibold text-brand-dark">
+                <!-- Desktop Navigation Menu Links (Centered Pill Style) -->
+                <nav class="hidden lg:flex items-center justify-center gap-1 xl:gap-1.5 text-xs font-semibold text-brand-dark lg:absolute lg:inset-y-0 lg:left-1/2 lg:-translate-x-1/2">
                     
                     <!-- 1. Beranda -->
                     <a href="{{ route('home') }}" 
@@ -98,7 +98,7 @@ class="fixed top-0 inset-x-0 z-50 pointer-events-none transition-all duration-30
                              x-transition:leave="transition ease-in duration-150"
                              x-transition:leave-start="opacity-100 translate-y-0 scale-100"
                              x-transition:leave-end="opacity-0 translate-y-2 scale-95"
-                             class="absolute left-0 mt-3 w-[680px] rounded-3xl bg-white/95 backdrop-blur-2xl p-4 shadow-2xl border border-slate-100 ring-1 ring-black/5 z-50 grid grid-cols-12 gap-4" 
+                             class="absolute -left-12 xl:left-0 mt-3 w-[640px] xl:w-[680px] max-w-[calc(100vw-3rem)] rounded-3xl bg-white/95 backdrop-blur-2xl p-4 shadow-2xl border border-slate-100 ring-1 ring-black/5 z-50 grid grid-cols-12 gap-4" 
                              style="display: none;">
                             
                             <div class="col-span-8 space-y-2">
@@ -263,7 +263,7 @@ class="fixed top-0 inset-x-0 z-50 pointer-events-none transition-all duration-30
                              x-transition:leave="transition ease-in duration-150"
                              x-transition:leave-start="opacity-100 translate-y-0 scale-100"
                              x-transition:leave-end="opacity-0 translate-y-2 scale-95"
-                             class="absolute left-0 mt-3 w-[660px] rounded-3xl bg-white/95 backdrop-blur-2xl p-4 shadow-2xl border border-slate-100 ring-1 ring-black/5 z-50 grid grid-cols-12 gap-4" 
+                             class="absolute left-1/2 -translate-x-1/2 mt-3 w-[660px] max-w-[calc(100vw-3rem)] rounded-3xl bg-white/95 backdrop-blur-2xl p-4 shadow-2xl border border-slate-100 ring-1 ring-black/5 z-50 grid grid-cols-12 gap-4" 
                              style="display: none;">
                             
                             <div class="col-span-8 space-y-2">
@@ -373,7 +373,7 @@ class="fixed top-0 inset-x-0 z-50 pointer-events-none transition-all duration-30
                              x-transition:leave="transition ease-in duration-150"
                              x-transition:leave-start="opacity-100 translate-y-0 scale-100"
                              x-transition:leave-end="opacity-0 translate-y-2 scale-95"
-                             class="absolute left-0 mt-3 w-80 rounded-3xl bg-white/95 backdrop-blur-2xl p-3 shadow-2xl border border-slate-100 ring-1 ring-black/5 z-50" 
+                             class="absolute left-1/2 -translate-x-1/2 xl:left-0 xl:translate-x-0 mt-3 w-80 max-w-[calc(100vw-3rem)] rounded-3xl bg-white/95 backdrop-blur-2xl p-3 shadow-2xl border border-slate-100 ring-1 ring-black/5 z-50" 
                              style="display: none;">
                             
                             <div class="space-y-1">
