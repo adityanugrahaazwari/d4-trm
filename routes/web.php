@@ -31,7 +31,7 @@ Route::prefix('profil')->name('public.profile.')->group(function () {
 // Akademik
 Route::prefix('akademik')->name('public.academic.')->group(function () {
     Route::get('/kurikulum', fn () => view('public.academic.curriculum'))->name('curriculum');
-    Route::get('/mata-kuliah', fn () => view('public.academic.courses'))->name('courses');
+    Route::get('/mata-kuliah', fn () => redirect()->to(route('public.academic.curriculum').'#mata-kuliah'))->name('courses');
     Route::get('/kalender-akademik', fn () => view('public.academic.calendar'))->name('calendar');
     Route::get('/capaian-pembelajaran', fn () => view('public.academic.cpl'))->name('cpl');
     Route::get('/profil-lulusan', fn () => view('public.academic.graduate-profile'))->name('graduate-profile');

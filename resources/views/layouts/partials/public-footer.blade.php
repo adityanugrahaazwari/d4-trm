@@ -24,8 +24,7 @@
             <div class="space-y-4">
                 <h4 class="text-sm font-bold uppercase tracking-wider text-brand-cream border-b border-white/10 pb-2">Akademik</h4>
                 <ul class="space-y-2.5 text-sm text-brand-sky/90">
-                    <li><a href="{{ route('public.academic.curriculum') }}" class="hover:text-white transition-colors">Kurikulum Program Studi</a></li>
-                    <li><a href="{{ route('public.academic.courses') }}" class="hover:text-white transition-colors">Daftar Mata Kuliah</a></li>
+                    <li><a href="{{ route('public.academic.curriculum') }}" class="hover:text-white transition-colors">Kurikulum &amp; Mata Kuliah</a></li>
                     <li><a href="{{ route('public.academic.calendar') }}" class="hover:text-white transition-colors">Kalender Akademik</a></li>
                     <li><a href="{{ route('public.academic.cpl') }}" class="hover:text-white transition-colors">Capaian Pembelajaran (CPL)</a></li>
                     <li><a href="{{ route('public.academic.graduate-profile') }}" class="hover:text-white transition-colors">Profil Lulusan</a></li>

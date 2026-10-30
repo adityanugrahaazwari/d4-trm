@@ -5,8 +5,7 @@
     searchOpen: false,
     searchQuery: '',
     quickLinks: [
-        { title: 'Kurikulum & Silabus', desc: 'Struktur kurikulum berbasis industri', url: '{{ route('public.academic.curriculum') }}', tag: 'Akademik' },
-        { title: 'Mata Kuliah TRM', desc: 'Daftar SKS semester 1-8 prodi multimedia', url: '{{ route('public.academic.courses') }}', tag: 'Akademik' },
+        { title: 'Kurikulum & Mata Kuliah', desc: 'Struktur kurikulum dan sebaran SKS semester 1-8', url: '{{ route('public.academic.curriculum') }}', tag: 'Akademik' },
         { title: 'Dosen & Pengajar', desc: 'Profil dosen ahli animasi, game & web', url: '{{ route('public.profile.lecturers') }}', tag: 'Profil' },
         { title: 'Tenaga Kependidikan', desc: 'Staf administrasi dan laboran prodi', url: '{{ route('public.profile.staff') }}', tag: 'Profil' },
         { title: 'Visi & Misi', desc: 'Arah dan tujuan strategis program studi', url: '{{ route('public.profile.vision-mission') }}', tag: 'Profil' },
@@ -275,28 +274,15 @@ class="fixed top-0 inset-x-0 z-50 pointer-events-none transition-all duration-30
 
                                 <div class="grid grid-cols-2 gap-1.5 pt-1">
                                     <a href="{{ route('public.academic.curriculum') }}" 
-                                       class="group flex items-start gap-2.5 p-2 rounded-xl hover:bg-brand-primary-light/80 transition-colors {{ request()->routeIs('public.academic.curriculum') ? 'bg-brand-primary-light' : '' }}">
+                                       class="group flex items-start gap-2.5 p-2 rounded-xl hover:bg-brand-primary-light/80 transition-colors {{ (request()->routeIs('public.academic.curriculum') || request()->routeIs('public.academic.courses')) ? 'bg-brand-primary-light' : '' }}">
                                         <div class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
                                             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                                             </svg>
                                         </div>
                                         <div>
-                                            <div class="text-xs font-bold text-slate-800 group-hover:text-brand-primary transition-colors">Kurikulum</div>
-                                            <div class="text-[10px] text-slate-500 line-clamp-1">Struktur berbasis industri</div>
-                                        </div>
-                                    </a>
-
-                                    <a href="{{ route('public.academic.courses') }}" 
-                                       class="group flex items-start gap-2.5 p-2 rounded-xl hover:bg-brand-primary-light/80 transition-colors {{ request()->routeIs('public.academic.courses') ? 'bg-brand-primary-light' : '' }}">
-                                        <div class="w-7 h-7 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center shrink-0 group-hover:bg-teal-600 group-hover:text-white transition-colors">
-                                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <div class="text-xs font-bold text-slate-800 group-hover:text-brand-primary transition-colors">Mata Kuliah</div>
-                                            <div class="text-[10px] text-slate-500 line-clamp-1">Daftar SKS semester 1-8</div>
+                                            <div class="text-xs font-bold text-slate-800 group-hover:text-brand-primary transition-colors">Kurikulum &amp; Mata Kuliah</div>
+                                            <div class="text-[10px] text-slate-500 line-clamp-1">Struktur &amp; sebaran SKS 1-8</div>
                                         </div>
                                     </a>
 
@@ -327,7 +313,7 @@ class="fixed top-0 inset-x-0 z-50 pointer-events-none transition-all duration-30
                                     </a>
 
                                     <a href="{{ route('public.academic.graduate-profile') }}" 
-                                       class="group flex items-start gap-2.5 p-2 rounded-xl hover:bg-brand-primary-light/80 transition-colors col-span-2 {{ request()->routeIs('public.academic.graduate-profile') ? 'bg-brand-primary-light' : '' }}">
+                                       class="group flex items-start gap-2.5 p-2 rounded-xl hover:bg-brand-primary-light/80 transition-colors {{ request()->routeIs('public.academic.graduate-profile') ? 'bg-brand-primary-light' : '' }}">
                                         <div class="w-7 h-7 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center shrink-0 group-hover:bg-teal-600 group-hover:text-white transition-colors">
                                             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -335,7 +321,7 @@ class="fixed top-0 inset-x-0 z-50 pointer-events-none transition-all duration-30
                                         </div>
                                         <div>
                                             <div class="text-xs font-bold text-slate-800 group-hover:text-brand-primary transition-colors">Profil Lulusan</div>
-                                            <div class="text-[10px] text-slate-500 line-clamp-1">Karir: 3D Artist, Game Developer, Multimedia Specialist</div>
+                                            <div class="text-[10px] text-slate-500 line-clamp-1">Peluang karir industri</div>
                                         </div>
                                     </a>
                                 </div>
@@ -569,8 +555,7 @@ class="fixed top-0 inset-x-0 z-50 pointer-events-none transition-all duration-30
                          x-transition:enter-start="opacity-0 -translate-y-1"
                          x-transition:enter-end="opacity-100 translate-y-0"
                          class="pl-9 pr-3 py-1 space-y-1 text-xs border-l-2 border-brand-primary-light ml-4 my-1">
-                        <a href="{{ route('public.academic.curriculum') }}" class="block py-1.5 text-slate-600 hover:text-brand-primary font-medium">Kurikulum</a>
-                        <a href="{{ route('public.academic.courses') }}" class="block py-1.5 text-slate-600 hover:text-brand-primary font-medium">Mata Kuliah</a>
+                        <a href="{{ route('public.academic.curriculum') }}" class="block py-1.5 text-slate-600 hover:text-brand-primary font-medium">Kurikulum &amp; Mata Kuliah</a>
                         <a href="{{ route('public.academic.calendar') }}" class="block py-1.5 text-slate-600 hover:text-brand-primary font-medium">Kalender Akademik</a>
                         <a href="{{ route('public.academic.cpl') }}" class="block py-1.5 text-slate-600 hover:text-brand-primary font-medium">Capaian Pembelajaran (CPL)</a>
                         <a href="{{ route('public.academic.graduate-profile') }}" class="block py-1.5 text-slate-600 hover:text-brand-primary font-medium">Profil Lulusan</a>
