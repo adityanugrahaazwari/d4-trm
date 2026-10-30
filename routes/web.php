@@ -44,6 +44,9 @@ Route::get('/berita/{slug}', function ($slug = 'd4-trm-politala-jalin-kerjasama-
 })->name('public.news.show');
 Route::get('/pengumuman', fn () => view('public.announcements.index'))->name('public.announcements.index');
 Route::get('/agenda', fn () => view('public.events.index'))->name('public.events.index');
+Route::get('/agenda/{slug}', function ($slug = 'kuliah-pakar-pipeline-animasi-3d-studio-hollywood') {
+    return view('public.events.show', compact('slug'));
+})->name('public.events.show');
 
 // Fasilitas, Galeri & Kontak
 Route::get('/fasilitas', fn () => view('public.facilities.index'))->name('public.facilities.index');

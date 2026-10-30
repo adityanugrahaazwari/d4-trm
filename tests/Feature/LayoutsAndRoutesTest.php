@@ -31,6 +31,8 @@ class LayoutsAndRoutesTest extends TestCase
             '/berita/d4-trm-politala-jalin-kerjasama-dengan-studio-game-nasional',
             '/fasilitas',
             '/galeri',
+            '/agenda',
+            '/agenda/kuliah-pakar-pipeline-animasi-3d-studio-hollywood',
             '/kontak',
         ];
 
