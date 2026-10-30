@@ -37,12 +37,97 @@
     $isFormOnly = in_array($sec, ['sejarah', 'visi-misi', 'sambutan', 'struktur', 'identitas', 'homepage', 'kontak-sosmed', 'logo-favicon', 'my-profile', 'media-upload']);
     $isMediaGrid = ($sec === 'media-list');
 
-    // Live Database Models for Dynamic RBAC
-    $userList = ($sec === 'users') ? \App\Models\User::with('roleRelation')->get() : collect();
-    $roleList = ($sec === 'roles') ? \App\Models\Role::with('permissions')->withCount('users')->get() : collect();
-    $permissionList = ($sec === 'permissions') ? \App\Models\Permission::with('roles')->get() : collect();
+    // Live Database Models for Dynamic RBAC with Search and Pagination
+    $searchQuery = trim((string) request('q', ''));
+    $roleFilter = trim((string) request('role', ''));
+    $moduleFilter = trim((string) request('module', ''));
+    $statusFilter = trim((string) request('status', ''));
+    $perPage = (int) request('per_page', 10);
+    if (! in_array($perPage, [5, 10, 25, 50], true)) {
+        $perPage = 10;
+    }
+
+    if ($sec === 'users') {
+        $userQuery = \App\Models\User::with('roleRelation');
+
+        if ($searchQuery !== '') {
+            $userQuery->where(function ($q) use ($searchQuery) {
+                $q->where('name', 'like', "%{$searchQuery}%")
+                  ->orWhere('email', 'like', "%{$searchQuery}%")
+                  ->orWhere('role', 'like', "%{$searchQuery}%")
+                  ->orWhereHas('roleRelation', function ($rq) use ($searchQuery) {
+                      $rq->where('name', 'like', "%{$searchQuery}%");
+                  });
+            });
+        }
+
+        if ($roleFilter !== '') {
+            $userQuery->where(function ($q) use ($roleFilter) {
+                $q->where('role', $roleFilter)
+                  ->orWhereHas('roleRelation', fn ($rq) => $rq->where('slug', $roleFilter));
+            });
+        }
+
+        $userList = $userQuery->orderBy('id', 'asc')->paginate($perPage)->withQueryString();
+    } else {
+        $userList = collect();
+    }
+
+    if ($sec === 'roles') {
+        $roleQuery = \App\Models\Role::with('permissions')->withCount('users');
+
+        if ($searchQuery !== '') {
+            $roleQuery->where(function ($q) use ($searchQuery) {
+                $q->where('name', 'like', "%{$searchQuery}%")
+                  ->orWhere('slug', 'like', "%{$searchQuery}%")
+                  ->orWhere('description', 'like', "%{$searchQuery}%");
+            });
+        }
+
+        if ($statusFilter !== '') {
+            $roleQuery->where('is_active', $statusFilter === 'active');
+        }
+
+        $roleList = $roleQuery->orderBy('id', 'asc')->paginate($perPage)->withQueryString();
+    } else {
+        $roleList = collect();
+    }
+
+    if ($sec === 'permissions') {
+        $permQuery = \App\Models\Permission::with('roles');
+
+        if ($searchQuery !== '') {
+            $permQuery->where(function ($q) use ($searchQuery) {
+                $q->where('name', 'like', "%{$searchQuery}%")
+                  ->orWhere('slug', 'like', "%{$searchQuery}%")
+                  ->orWhere('module', 'like', "%{$searchQuery}%")
+                  ->orWhere('description', 'like', "%{$searchQuery}%");
+            });
+        }
+
+        if ($moduleFilter !== '') {
+            $permQuery->where('module', $moduleFilter);
+        }
+
+        if ($statusFilter !== '') {
+            $permQuery->where('is_active', $statusFilter === 'active');
+        }
+
+        $permissionList = $permQuery->orderBy('id', 'asc')->paginate($perPage)->withQueryString();
+    } else {
+        $permissionList = collect();
+    }
+
     $allRoles = in_array($sec, ['users', 'roles', 'permissions']) ? \App\Models\Role::where('is_active', true)->get() : collect();
     $allPermissions = in_array($sec, ['users', 'roles', 'permissions']) ? \App\Models\Permission::where('is_active', true)->get() : collect();
+    $allModules = ($sec === 'permissions') ? \App\Models\Permission::select('module')->distinct()->pluck('module') : collect();
+
+    $paginator = match($sec) {
+        'users' => $userList,
+        'roles' => $roleList,
+        'permissions' => $permissionList,
+        default => null,
+    };
 
     // Data Peran Badges Styling
     $roleBadges = [
@@ -267,20 +352,81 @@
         {{-- VIEW MODE 3: TABULAR CRUD DATA LIST WITH ADD/EDIT MODAL & DELETE CONFIRMATION --}}
         
         <!-- Header Control Bar: Search & Action Button -->
-        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div class="flex flex-1 items-center gap-3 max-w-lg">
-                <div class="relative w-full">
-                    <input type="text" placeholder="Cari dalam {{ strtolower($title) }}..." class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary">
-                    <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
+        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-xs flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            @if(in_array($sec, ['users', 'roles', 'permissions']))
+                <form method="GET" action="{{ route('admin.crud.sample', ['section' => $sec]) }}" class="flex flex-1 flex-wrap sm:flex-nowrap items-center gap-2.5 max-w-2xl">
+                    <div class="relative flex-1 min-w-[200px]">
+                        <input type="text" 
+                               name="q" 
+                               value="{{ request('q') }}" 
+                               placeholder="Cari dalam {{ strtolower($title) }}..." 
+                               class="w-full pl-10 pr-8 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary">
+                        <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        @if(request('q'))
+                            <a href="{{ route('admin.crud.sample', ['section' => $sec, 'role' => request('role'), 'module' => request('module'), 'status' => request('status'), 'per_page' => request('per_page')]) }}" 
+                               class="absolute right-3 top-2 text-slate-400 hover:text-slate-600 text-base font-bold" 
+                               title="Hapus pencarian">&times;</a>
+                        @endif
+                    </div>
+
+                    @if($sec === 'users')
+                        <select name="role" onchange="this.form.submit()" class="px-3 py-2.5 rounded-xl border border-slate-200 text-xs text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-primary/20">
+                            <option value="">Semua Peran</option>
+                            @foreach($allRoles as $roleOption)
+                                <option value="{{ $roleOption->slug }}" {{ request('role') === $roleOption->slug ? 'selected' : '' }}>{{ $roleOption->name }}</option>
+                            @endforeach
+                        </select>
+                    @elseif($sec === 'permissions')
+                        <select name="module" onchange="this.form.submit()" class="px-3 py-2.5 rounded-xl border border-slate-200 text-xs text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-primary/20">
+                            <option value="">Semua Modul</option>
+                            @foreach($allModules as $mod)
+                                <option value="{{ $mod }}" {{ request('module') === $mod ? 'selected' : '' }}>{{ $mod }}</option>
+                            @endforeach
+                        </select>
+                    @elseif($sec === 'roles')
+                        <select name="status" onchange="this.form.submit()" class="px-3 py-2.5 rounded-xl border border-slate-200 text-xs text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-primary/20">
+                            <option value="">Semua Status</option>
+                            <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>Aktif</option>
+                            <option value="draft" {{ request('status') === 'draft' ? 'selected' : '' }}>Nonaktif</option>
+                        </select>
+                    @endif
+
+                    <select name="per_page" onchange="this.form.submit()" class="px-2.5 py-2.5 rounded-xl border border-slate-200 text-xs text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-primary/20" title="Jumlah data per halaman">
+                        <option value="5" {{ $perPage === 5 ? 'selected' : '' }}>5 / hal</option>
+                        <option value="10" {{ $perPage === 10 ? 'selected' : '' }}>10 / hal</option>
+                        <option value="25" {{ $perPage === 25 ? 'selected' : '' }}>25 / hal</option>
+                    </select>
+
+                    <button type="submit" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors shrink-0 flex items-center gap-1.5">
+                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <span>Cari</span>
+                    </button>
+
+                    @if(request('q') || request('role') || request('module') || request('status') || request('per_page'))
+                        <a href="{{ route('admin.crud.sample', ['section' => $sec]) }}" class="px-3 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-500 font-semibold text-xs transition-colors shrink-0" title="Reset Semua Filter">
+                            Reset
+                        </a>
+                    @endif
+                </form>
+            @else
+                <div class="flex flex-1 items-center gap-3 max-w-lg">
+                    <div class="relative w-full">
+                        <input type="text" placeholder="Cari dalam {{ strtolower($title) }}..." class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary">
+                        <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                    <select class="px-3 py-2.5 rounded-xl border border-slate-200 text-xs text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-primary/20">
+                        <option value="">Semua Status</option>
+                        <option value="active">Aktif / Terbit</option>
+                        <option value="draft">Draf Sementara</option>
+                    </select>
                 </div>
-                <select class="px-3 py-2.5 rounded-xl border border-slate-200 text-xs text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-primary/20">
-                    <option value="">Semua Status</option>
-                    <option value="active">Aktif / Terbit</option>
-                    <option value="draft">Draf Sementara</option>
-                </select>
-            </div>
+            @endif
 
             <button type="button" 
                     @if($sec === 'users')
@@ -351,14 +497,14 @@
                     </thead>
                     <tbody class="divide-y divide-slate-100 text-brand-dark font-medium">
                         @if($sec === 'users')
-                            @foreach($userList as $k => $u)
+                            @forelse($userList as $k => $u)
                                 @php
                                     $roleBadgeClass = $u->roleRelation?->badge ?? ($roleBadges[$u->role]['badge'] ?? 'bg-slate-100 text-slate-800 border-slate-200');
                                     $roleTitle = $u->roleRelation?->name ?? ($roleBadges[$u->role]['label'] ?? ucfirst($u->role));
                                     $initials = collect(explode(' ', $u->name))->map(fn($seg) => mb_substr($seg, 0, 1))->take(2)->implode('');
                                 @endphp
                                 <tr class="hover:bg-slate-50/80 transition-colors">
-                                    <td class="py-3.5 px-6 text-center text-slate-400 font-bold">{{ $k + 1 }}</td>
+                                    <td class="py-3.5 px-6 text-center text-slate-400 font-bold">{{ $paginator->firstItem() ? ($paginator->firstItem() + $k) : ($k + 1) }}</td>
                                     <td class="py-3.5 px-4">
                                         <div class="flex items-center gap-3">
                                             <div class="w-8 h-8 rounded-full bg-brand-primary text-white flex items-center justify-center font-bold text-xs uppercase shadow-xs shrink-0">
@@ -404,11 +550,31 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="7" class="py-12 text-center text-slate-400">
+                                        <div class="flex flex-col items-center justify-center gap-2">
+                                            <svg class="w-8 h-8 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                            </svg>
+                                            <div class="text-xs font-semibold text-slate-500">
+                                                @if(request('q') || request('role'))
+                                                    Tidak ada data pengguna yang cocok dengan kriteria pencarian / filter.
+                                                @else
+                                                    Belum ada data pengguna terdaftar di sistem.
+                                                @endif
+                                            </div>
+                                            @if(request('q') || request('role'))
+                                                <a href="{{ route('admin.crud.sample', ['section' => 'users']) }}" class="mt-1 text-xs text-brand-primary font-bold hover:underline">Reset Filter &amp; Pencarian</a>
+                                            @endif
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforelse
                         @elseif($sec === 'roles')
-                            @foreach($roleList as $k => $r)
+                            @forelse($roleList as $k => $r)
                                 <tr class="hover:bg-slate-50/80 transition-colors">
-                                    <td class="py-3.5 px-6 text-center text-slate-400 font-bold">{{ $k + 1 }}</td>
+                                    <td class="py-3.5 px-6 text-center text-slate-400 font-bold">{{ $paginator->firstItem() ? ($paginator->firstItem() + $k) : ($k + 1) }}</td>
                                     <td class="py-3.5 px-4 font-bold text-brand-dark">{{ $r->name }}</td>
                                     <td class="py-3.5 px-4 font-mono">
                                         <span class="text-[11px] font-semibold text-brand-primary bg-brand-primary-light/60 px-2 py-0.5 rounded-md border border-brand-sky">
@@ -459,11 +625,31 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="8" class="py-12 text-center text-slate-400">
+                                        <div class="flex flex-col items-center justify-center gap-2">
+                                            <svg class="w-8 h-8 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                            </svg>
+                                            <div class="text-xs font-semibold text-slate-500">
+                                                @if(request('q') || request('status'))
+                                                    Tidak ada data peran yang cocok dengan kriteria pencarian / filter.
+                                                @else
+                                                    Belum ada data peran terdaftar di sistem.
+                                                @endif
+                                            </div>
+                                            @if(request('q') || request('status'))
+                                                <a href="{{ route('admin.crud.sample', ['section' => 'roles']) }}" class="mt-1 text-xs text-brand-primary font-bold hover:underline">Reset Filter &amp; Pencarian</a>
+                                            @endif
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforelse
                         @elseif($sec === 'permissions')
-                            @foreach($permissionList as $k => $p)
+                            @forelse($permissionList as $k => $p)
                                 <tr class="hover:bg-slate-50/80 transition-colors">
-                                    <td class="py-3.5 px-6 text-center text-slate-400 font-bold">{{ $k + 1 }}</td>
+                                    <td class="py-3.5 px-6 text-center text-slate-400 font-bold">{{ $paginator->firstItem() ? ($paginator->firstItem() + $k) : ($k + 1) }}</td>
                                     <td class="py-3.5 px-4 font-bold text-brand-dark">{{ $p->name }}</td>
                                     <td class="py-3.5 px-4 font-mono">
                                         <span class="text-[11px] font-semibold text-brand-primary bg-brand-primary-light/60 px-2 py-0.5 rounded-md border border-brand-sky">
@@ -514,7 +700,27 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="7" class="py-12 text-center text-slate-400">
+                                        <div class="flex flex-col items-center justify-center gap-2">
+                                            <svg class="w-8 h-8 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                            </svg>
+                                            <div class="text-xs font-semibold text-slate-500">
+                                                @if(request('q') || request('module') || request('status'))
+                                                    Tidak ada data hak akses yang cocok dengan kriteria pencarian / filter modul.
+                                                @else
+                                                    Belum ada data hak akses terdaftar di sistem.
+                                                @endif
+                                            </div>
+                                            @if(request('q') || request('module') || request('status'))
+                                                <a href="{{ route('admin.crud.sample', ['section' => 'permissions']) }}" class="mt-1 text-xs text-brand-primary font-bold hover:underline">Reset Filter &amp; Pencarian</a>
+                                            @endif
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforelse
                         @else
                             @for ($k = 1; $k <= 4; $k++)
                                 <tr class="hover:bg-slate-50/80 transition-colors">
@@ -587,22 +793,55 @@
             </div>
 
             <!-- Dynamic Pagination Summary -->
-            @php
-                $totalCount = match($sec) {
-                    'users' => $userList->count(),
-                    'roles' => count($roleList),
-                    'permissions' => count($permissionList),
-                    default => 4
-                };
-            @endphp
-            <div class="px-6 py-4 bg-slate-50/70 border-t border-slate-100 flex items-center justify-between text-xs text-brand-muted">
-                <span>Menampilkan 1 sampai {{ $totalCount }} dari {{ $totalCount }} data {{ in_array($sec, ['users', 'roles', 'permissions']) ? 'terdaftar' : 'simulasi' }}</span>
-                <div class="flex items-center gap-1">
-                    <button disabled class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-300 font-semibold cursor-not-allowed">Sebelumnya</button>
-                    <button class="px-3 py-1.5 rounded-lg bg-brand-primary text-white font-bold">1</button>
-                    <button disabled class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-300 font-semibold cursor-not-allowed">Selanjutnya</button>
+            @if(in_array($sec, ['users', 'roles', 'permissions']) && $paginator instanceof \Illuminate\Contracts\Pagination\LengthAwarePaginator)
+                <div class="px-6 py-4 bg-slate-50/70 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-brand-muted">
+                    <div>
+                        @if($paginator->total() > 0)
+                            <span>Menampilkan <strong class="text-brand-dark">{{ $paginator->firstItem() }}</strong> sampai <strong class="text-brand-dark">{{ $paginator->lastItem() }}</strong> dari <strong class="text-brand-dark">{{ $paginator->total() }}</strong> data terdaftar</span>
+                            @if(request('q'))
+                                <span class="ml-1 text-slate-400">&bull; Hasil pencarian "<strong class="text-brand-primary">{{ request('q') }}</strong>"</span>
+                            @endif
+                        @else
+                            <span>Tidak ditemukan data yang sesuai kriteria pencarian</span>
+                        @endif
+                    </div>
+
+                    @if($paginator->hasPages())
+                        <div class="flex items-center gap-1">
+                            @foreach($paginator->onEachSide(1)->linkCollection() as $link)
+                                @if(str_contains($link['label'], 'Previous'))
+                                    @if($link['url'])
+                                        <a href="{{ $link['url'] }}" class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 font-semibold transition-colors">Sebelumnya</a>
+                                    @else
+                                        <span class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-300 font-semibold cursor-not-allowed">Sebelumnya</span>
+                                    @endif
+                                @elseif(str_contains($link['label'], 'Next'))
+                                    @if($link['url'])
+                                        <a href="{{ $link['url'] }}" class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 font-semibold transition-colors">Selanjutnya</a>
+                                    @else
+                                        <span class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-300 font-semibold cursor-not-allowed">Selanjutnya</span>
+                                    @endif
+                                @elseif($link['label'] === '...')
+                                    <span class="px-2.5 py-1.5 text-slate-400 font-bold">...</span>
+                                @elseif($link['active'])
+                                    <span class="px-3 py-1.5 rounded-lg bg-brand-primary text-white font-bold shadow-xs">{{ $link['label'] }}</span>
+                                @else
+                                    <a href="{{ $link['url'] }}" class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 font-semibold transition-colors">{{ $link['label'] }}</a>
+                                @endif
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
-            </div>
+            @else
+                <div class="px-6 py-4 bg-slate-50/70 border-t border-slate-100 flex items-center justify-between text-xs text-brand-muted">
+                    <span>Menampilkan 1 sampai 4 dari 4 data simulasi</span>
+                    <div class="flex items-center gap-1">
+                        <button disabled class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-300 font-semibold cursor-not-allowed">Sebelumnya</button>
+                        <button class="px-3 py-1.5 rounded-lg bg-brand-primary text-white font-bold">1</button>
+                        <button disabled class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-300 font-semibold cursor-not-allowed">Selanjutnya</button>
+                    </div>
+                </div>
+            @endif
         </div>
 
         <!-- Modal Form Tambah / Ubah -->

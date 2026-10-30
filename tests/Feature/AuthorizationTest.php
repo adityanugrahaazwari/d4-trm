@@ -269,4 +269,91 @@ class AuthorizationTest extends TestCase
             'slug' => 'illegal-perm',
         ])->assertStatus(403);
     }
+
+    /**
+     * Test user list search and role filtering.
+     */
+    public function test_user_list_search_and_role_filter(): void
+    {
+        $superadmin = User::factory()->superadmin()->create(['name' => 'Super User Admin', 'email' => 'super@trm.ac.id']);
+        $userA = User::factory()->adminAkademik()->create(['name' => 'Andi Kurniawan', 'email' => 'andi.akademik@trm.ac.id']);
+        $userB = User::factory()->adminKonten()->create(['name' => 'Dewi Lestari', 'email' => 'dewi.konten@trm.ac.id']);
+
+        // Search by name "Andi"
+        $responseA = $this->actingAs($superadmin)->get('/admin/crud/users?q=Andi');
+        $responseA->assertStatus(200);
+        $responseA->assertSee('Andi Kurniawan');
+        $responseA->assertDontSee('Dewi Lestari');
+
+        // Search by email "dewi.konten"
+        $responseB = $this->actingAs($superadmin)->get('/admin/crud/users?q=dewi.konten');
+        $responseB->assertStatus(200);
+        $responseB->assertSee('Dewi Lestari');
+        $responseB->assertDontSee('Andi Kurniawan');
+
+        // Filter by role "admin-akademik"
+        $responseRole = $this->actingAs($superadmin)->get('/admin/crud/users?role=admin-akademik');
+        $responseRole->assertStatus(200);
+        $responseRole->assertSee('Andi Kurniawan');
+        $responseRole->assertDontSee('Dewi Lestari');
+    }
+
+    /**
+     * Test user list pagination.
+     */
+    public function test_user_list_pagination(): void
+    {
+        $superadmin = User::factory()->superadmin()->create();
+
+        // Create 12 users
+        User::factory()->count(12)->create();
+
+        // Page 1 with 5 per page
+        $responsePage1 = $this->actingAs($superadmin)->get('/admin/crud/users?per_page=5&page=1');
+        $responsePage1->assertStatus(200);
+        $responsePage1->assertSee('Menampilkan');
+        $responsePage1->assertSee('sampai');
+        $responsePage1->assertSee('data terdaftar');
+        $responsePage1->assertSee('Selanjutnya');
+
+        // Page 2 with 5 per page
+        $responsePage2 = $this->actingAs($superadmin)->get('/admin/crud/users?per_page=5&page=2');
+        $responsePage2->assertStatus(200);
+        $responsePage2->assertSee('Sebelumnya');
+        $responsePage2->assertSee('Selanjutnya');
+    }
+
+    /**
+     * Test roles search and status filtering.
+     */
+    public function test_roles_search_and_filtering(): void
+    {
+        $superadmin = User::factory()->superadmin()->create();
+
+        // Search role by name
+        $response = $this->actingAs($superadmin)->get('/admin/crud/roles?q=Akademik');
+        $response->assertStatus(200);
+        $response->assertSee('Administrator Akademik');
+        $response->assertDontSee('Operator Lab &amp; Fasilitas', false);
+    }
+
+    /**
+     * Test permissions search and module filtering.
+     */
+    public function test_permissions_search_and_filtering(): void
+    {
+        $superadmin = User::factory()->superadmin()->create();
+
+        // Search permission by slug
+        $response = $this->actingAs($superadmin)->get('/admin/crud/permissions?q=manage-news');
+        $response->assertStatus(200);
+        $response->assertSee('manage-news');
+        $response->assertDontSee('manage-facilities');
+
+        // Filter permission by module
+        $responseModule = $this->actingAs($superadmin)->get('/admin/crud/permissions?module='.urlencode('Sarana & Prasarana'));
+        $responseModule->assertStatus(200);
+        $responseModule->assertSee('manage-facilities');
+        $responseModule->assertDontSee('manage-academic');
+    }
 }
