@@ -21,15 +21,19 @@
     @include('layouts.partials.splash-screen')
 
     <!-- Navbar -->
-    @include('layouts.partials.public-navbar')
+    @unless(View::hasSection('hide_navbar'))
+        @include('layouts.partials.public-navbar')
+    @endunless
 
     <!-- Main Content -->
-    <main class="flex-grow">
+    <main class="flex-grow flex flex-col">
         @yield('content')
     </main>
 
     <!-- Footer -->
-    @include('layouts.partials.public-footer')
+    @unless(View::hasSection('hide_footer'))
+        @include('layouts.partials.public-footer')
+    @endunless
 
     @stack('scripts')
 </body>

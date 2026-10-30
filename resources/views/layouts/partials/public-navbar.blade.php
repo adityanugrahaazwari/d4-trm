@@ -426,7 +426,7 @@ class="fixed top-0 inset-x-0 z-50 pointer-events-none transition-all duration-30
                     </a>
                 </nav>
 
-                <!-- Desktop Action Right: Search Icon + Portal Admin (Clean & Compact) -->
+                <!-- Desktop Action Right: Search Icon (Clean & Compact) -->
                 <div class="hidden lg:flex items-center gap-2">
                     
                     <!-- Quick Search Trigger -->
@@ -438,18 +438,8 @@ class="fixed top-0 inset-x-0 z-50 pointer-events-none transition-all duration-30
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                         <span class="text-[11px] text-slate-500">Cari</span>
-                        <kbd class="hidden xl:inline-block px-1.5 py-0.2 text-[9px] font-mono font-medium text-slate-500 bg-white rounded border border-slate-300 shadow-2xs">âŒ˜K</kbd>
+                        <kbd class="hidden xl:inline-block px-1.5 py-0.2 text-[9px] font-mono font-medium text-slate-500 bg-white rounded border border-slate-300 shadow-2xs">⌘K</kbd>
                     </button>
-
-                    <!-- Portal Admin Button -->
-                    <a href="{{ route('login') }}" 
-                       class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold text-slate-700 hover:text-brand-primary bg-slate-100 hover:bg-slate-200 transition-colors border border-slate-200/60"
-                       title="Masuk ke Portal Admin">
-                        <svg class="w-3.5 h-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                        </svg>
-                        <span>Portal</span>
-                    </a>
                 </div>
 
                 <!-- Mobile Action & Hamburger Controls -->
@@ -462,12 +452,6 @@ class="fixed top-0 inset-x-0 z-50 pointer-events-none transition-all duration-30
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </button>
-
-                    <a href="{{ route('login') }}" 
-                       class="px-2.5 py-1 rounded-full text-xs font-semibold text-slate-700 bg-slate-100 border border-slate-200"
-                       title="Portal">
-                        Portal
-                    </a>
                     
                     <button type="button" 
                             @click="mobileMenuOpen = !mobileMenuOpen" 
@@ -596,17 +580,6 @@ class="fixed top-0 inset-x-0 z-50 pointer-events-none transition-all duration-30
                     </svg>
                     <span>Kontak &amp; Lokasi</span>
                 </a>
-
-                <!-- Mobile Action: Portal Link Only -->
-                <div class="pt-3 mt-2 border-t border-slate-100">
-                    <a href="{{ route('login') }}" 
-                       class="flex items-center justify-center gap-2 w-full py-2.5 rounded-full text-slate-700 bg-slate-100 hover:bg-slate-200 font-semibold text-xs transition-colors">
-                        <svg class="w-3.5 h-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                        </svg>
-                        <span>Portal Masuk Staf / Admin</span>
-                    </a>
-                </div>
             </div>
         </div>
     </div>
