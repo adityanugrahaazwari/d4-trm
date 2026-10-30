@@ -2,10 +2,14 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class LayoutsAndRoutesTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * Test public home page loads successfully.
      */
@@ -43,16 +47,18 @@ class LayoutsAndRoutesTest extends TestCase
     }
 
     /**
-     * Test admin dashboard and sample CRUD render properly.
+     * Test admin dashboard and sample CRUD render properly for authenticated user.
      */
     public function test_admin_dashboard_and_crud_render_properly(): void
     {
-        $dashboard = $this->get('/admin/dashboard');
+        $user = User::factory()->create();
+
+        $dashboard = $this->actingAs($user)->get('/admin/dashboard');
         $dashboard->assertStatus(200);
         $dashboard->assertSee('Dashboard Ringkasan');
         $dashboard->assertSee('Panel Administrasi');
 
-        $crud = $this->get('/admin/crud/berita');
+        $crud = $this->actingAs($user)->get('/admin/crud/berita');
         $crud->assertStatus(200);
         $crud->assertSee('Berita Program Studi');
     }
@@ -67,7 +73,8 @@ class LayoutsAndRoutesTest extends TestCase
         $home->assertSee('page-splash-screen');
         $home->assertSee('Memuat halaman');
 
-        $admin = $this->get('/admin/dashboard');
+        $user = User::factory()->create();
+        $admin = $this->actingAs($user)->get('/admin/dashboard');
         $admin->assertStatus(200);
         $admin->assertSee('page-splash-screen');
         $admin->assertSee('Memuat halaman');

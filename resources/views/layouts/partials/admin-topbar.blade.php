@@ -28,11 +28,11 @@
         <div class="relative" x-data="{ profileMenu: false }" @click.outside="profileMenu = false">
             <button type="button" @click="profileMenu = !profileMenu" class="flex items-center gap-2.5 p-1 rounded-full hover:bg-slate-100 transition-colors">
                 <div class="w-9 h-9 rounded-full bg-brand-primary text-white font-bold text-xs flex items-center justify-center">
-                    AD
+                    {{ strtoupper(substr(auth()->user()->name ?? 'AD', 0, 2)) }}
                 </div>
                 <div class="hidden md:block text-left pr-1">
-                    <span class="block text-xs font-bold text-brand-dark leading-tight">Admin TRM</span>
-                    <span class="block text-[10px] text-brand-muted">Pengelola</span>
+                    <span class="block text-xs font-bold text-brand-dark leading-tight">{{ auth()->user()->name ?? 'Admin TRM' }}</span>
+                    <span class="block text-[10px] text-brand-muted capitalize">{{ auth()->user()->role ?? 'Pengelola' }}</span>
                 </div>
             </button>
 
@@ -52,9 +52,15 @@
                     Pengaturan
                 </a>
                 <div class="border-t border-slate-100 my-1"></div>
-                <a href="{{ route('login') }}" class="block px-3 py-2 rounded-lg text-rose-600 hover:bg-rose-50 font-semibold transition-colors">
-                    Keluar Sistem
-                </a>
+                <form method="POST" action="{{ route('logout') }}" class="block w-full">
+                    @csrf
+                    <button type="submit" class="w-full text-left px-3 py-2 rounded-lg text-rose-600 hover:bg-rose-50 font-semibold transition-colors flex items-center justify-between">
+                        <span>Keluar Sistem</span>
+                        <svg class="w-3.5 h-3.5 text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                    </button>
+                </form>
             </div>
         </div>
     </div>

@@ -22,29 +22,70 @@
             <p class="text-xs text-brand-muted">Gunakan akun administrator D-IV TRM POLITALA</p>
         </div>
 
-        <!-- Form Login Mockup -->
-        <form action="{{ route('admin.dashboard') }}" method="GET" class="space-y-4">
+        <!-- Status Notification -->
+        @if (session('status'))
+            <div class="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center gap-2">
+                <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span>{{ session('status') }}</span>
+            </div>
+        @endif
+
+        <!-- Form Login Fungsional -->
+        <form action="{{ route('login.store') }}" method="POST" class="space-y-4">
+            @csrf
+
             <div>
-                <label class="block text-xs font-bold text-brand-dark mb-1.5">Alamat Email Pengelola</label>
-                <input type="email" value="admin@politala.ac.id" placeholder="admin@politala.ac.id" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all">
+                <label for="email" class="block text-xs font-bold text-brand-dark mb-1.5">Alamat Email Pengelola</label>
+                <input id="email" 
+                       type="email" 
+                       name="email" 
+                       value="{{ old('email', 'admin@politala.ac.id') }}" 
+                       required 
+                       autofocus 
+                       placeholder="admin@politala.ac.id" 
+                       class="w-full px-4 py-2.5 rounded-xl border @error('email') border-rose-300 bg-rose-50/30 text-rose-900 @else border-slate-200 text-brand-dark @enderror text-xs focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all">
+                @error('email')
+                    <p class="mt-1.5 text-xs text-rose-600 font-medium flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>{{ $message }}</span>
+                    </p>
+                @enderror
             </div>
 
             <div>
                 <div class="flex items-center justify-between mb-1.5">
-                    <label class="block text-xs font-bold text-brand-dark">Kata Sandi</label>
+                    <label for="password" class="block text-xs font-bold text-brand-dark">Kata Sandi</label>
                     <span class="text-[11px] text-brand-secondary hover:underline cursor-pointer">Lupa sandi?</span>
                 </div>
-                <input type="password" value="password" placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all">
+                <input id="password" 
+                       type="password" 
+                       name="password" 
+                       value="password" 
+                       required 
+                       placeholder="••••••••" 
+                       class="w-full px-4 py-2.5 rounded-xl border @error('password') border-rose-300 bg-rose-50/30 text-rose-900 @else border-slate-200 text-brand-dark @enderror text-xs focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all">
+                @error('password')
+                    <p class="mt-1.5 text-xs text-rose-600 font-medium flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>{{ $message }}</span>
+                    </p>
+                @enderror
             </div>
 
             <div class="flex items-center justify-between text-xs text-brand-muted">
                 <label class="flex items-center gap-2 cursor-pointer">
-                    <input type="checkbox" checked class="rounded border-slate-300 text-brand-primary focus:ring-brand-primary">
+                    <input type="checkbox" name="remember" value="1" {{ old('remember', true) ? 'checked' : '' }} class="rounded border-slate-300 text-brand-primary focus:ring-brand-primary">
                     <span>Ingat sesi saya</span>
                 </label>
             </div>
 
-            <!-- Tombol Masuk langsung ke Dashboard -->
+            <!-- Tombol Masuk -->
             <button type="submit" class="w-full py-3 rounded-xl bg-brand-primary hover:bg-brand-primary-hover text-white text-xs font-bold shadow-md shadow-brand-primary/20 transition-all flex items-center justify-center gap-2 hover:shadow-lg">
                 <span>Masuk ke Dashboard Admin</span>
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

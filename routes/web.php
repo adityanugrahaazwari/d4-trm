@@ -53,11 +53,18 @@ Route::get('/fasilitas', fn () => view('public.facilities.index'))->name('public
 Route::get('/galeri', fn () => view('public.gallery.index'))->name('public.gallery.index');
 Route::get('/kontak', fn () => view('public.contact'))->name('public.contact');
 
-// Auth (Akan diselesaikan di Tahap 6, sementara disiapkan route namanya)
-Route::get('/admin/login', fn () => view('admin.auth.login'))->name('login');
+use App\Http\Controllers\Admin\AuthController;
 
-// Panel Admin (Tahap 5 Layout & UI Kit)
-Route::prefix('admin')->name('admin.')->group(function () {
+// Auth Routes (Tahap 6 - Autentikasi dan Keamanan)
+Route::middleware('guest')->group(function () {
+    Route::get('/admin/login', [AuthController::class, 'create'])->name('login');
+    Route::post('/admin/login', [AuthController::class, 'store'])->name('login.store');
+});
+
+Route::post('/admin/logout', [AuthController::class, 'destroy'])->name('logout')->middleware('auth');
+
+// Panel Admin (Tahap 5 Layout & UI Kit, diproteksi auth pada Tahap 6)
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/dashboard', fn () => view('admin.dashboard'))->name('dashboard');
     Route::get('/crud/{section}', function ($section) {
         return view('admin.sample-crud', compact('section'));
