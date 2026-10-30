@@ -47,12 +47,14 @@
         </div>
 
         <!-- Konten Website -->
+        @if(auth()->user()->canManageProfile() || auth()->user()->canManageStaff() || auth()->user()->canManageAcademic() || auth()->user()->canManageNews() || auth()->user()->canManageFacilities() || auth()->user()->canManageGallery())
         <div class="space-y-1">
             <div class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
                 Konten Website
             </div>
 
             <!-- Profil Prodi Accordion -->
+            @if(auth()->user()->canManageProfile())
             <div>
                 <button type="button" @click="profileOpen = !profileOpen" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white transition-colors {{ $isProfile ? 'text-white font-semibold' : '' }}">
                     <span class="flex items-center gap-3 font-medium">
@@ -72,8 +74,10 @@
                     <a href="{{ route('admin.crud.sample', ['section' => 'struktur']) }}" class="block px-2.5 py-1.5 rounded-lg transition-colors {{ $currentSection === 'struktur' ? 'bg-brand-primary text-white font-bold' : 'hover:text-white hover:bg-slate-800' }}">Struktur Organisasi</a>
                 </div>
             </div>
+            @endif
 
             <!-- SDM Accordion -->
+            @if(auth()->user()->canManageStaff())
             <div>
                 <button type="button" @click="staffOpen = !staffOpen" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white transition-colors {{ $isStaff ? 'text-white font-semibold' : '' }}">
                     <span class="flex items-center gap-3 font-medium">
@@ -91,8 +95,10 @@
                     <a href="{{ route('admin.crud.sample', ['section' => 'tendik']) }}" class="block px-2.5 py-1.5 rounded-lg transition-colors {{ $currentSection === 'tendik' ? 'bg-brand-primary text-white font-bold' : 'hover:text-white hover:bg-slate-800' }}">Tenaga Kependidikan</a>
                 </div>
             </div>
+            @endif
 
             <!-- Akademik Accordion -->
+            @if(auth()->user()->canManageAcademic())
             <div>
                 <button type="button" @click="academicOpen = !academicOpen" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white transition-colors {{ $isAcademic ? 'text-white font-semibold' : '' }}">
                     <span class="flex items-center gap-3 font-medium">
@@ -113,8 +119,10 @@
                     <a href="{{ route('admin.crud.sample', ['section' => 'profil-lulusan']) }}" class="block px-2.5 py-1.5 rounded-lg transition-colors {{ $currentSection === 'profil-lulusan' ? 'bg-brand-primary text-white font-bold' : 'hover:text-white hover:bg-slate-800' }}">Profil Lulusan</a>
                 </div>
             </div>
+            @endif
 
             <!-- Berita & Pengumuman Accordion -->
+            @if(auth()->user()->canManageNews())
             <div>
                 <button type="button" @click="newsOpen = !newsOpen" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white transition-colors {{ $isNews ? 'text-white font-semibold' : '' }}">
                     <span class="flex items-center gap-3 font-medium">
@@ -134,16 +142,20 @@
                     <a href="{{ route('admin.crud.sample', ['section' => 'agenda']) }}" class="block px-2.5 py-1.5 rounded-lg transition-colors {{ $currentSection === 'agenda' ? 'bg-brand-primary text-white font-bold' : 'hover:text-white hover:bg-slate-800' }}">Agenda Kegiatan</a>
                 </div>
             </div>
+            @endif
 
             <!-- Fasilitas Link -->
+            @if(auth()->user()->canManageFacilities())
             <a href="{{ route('admin.crud.sample', ['section' => 'fasilitas']) }}" class="flex items-center gap-3 px-3 py-2 rounded-xl font-medium transition-colors {{ $currentSection === 'fasilitas' ? 'bg-brand-primary text-white font-bold' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
                 <svg class="w-4 h-4 text-brand-sky" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
                 </svg>
                 <span>Fasilitas</span>
             </a>
+            @endif
 
             <!-- Galeri Accordion -->
+            @if(auth()->user()->canManageGallery())
             <div>
                 <button type="button" @click="galleryOpen = !galleryOpen" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white transition-colors {{ $isGallery ? 'text-white font-semibold' : '' }}">
                     <span class="flex items-center gap-3 font-medium">
@@ -161,14 +173,18 @@
                     <a href="{{ route('admin.crud.sample', ['section' => 'foto-galeri']) }}" class="block px-2.5 py-1.5 rounded-lg transition-colors {{ $currentSection === 'foto-galeri' ? 'bg-brand-primary text-white font-bold' : 'hover:text-white hover:bg-slate-800' }}">Foto &amp; Dokumentasi</a>
                 </div>
             </div>
+            @endif
         </div>
+        @endif
 
         <!-- Konfigurasi Website -->
+        @if(auth()->user()->canManageSettings() || auth()->user()->canManageMedia())
         <div class="space-y-1">
             <div class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
                 Konfigurasi Website
             </div>
 
+            @if(auth()->user()->canManageSettings())
             <div>
                 <button type="button" @click="configOpen = !configOpen" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white transition-colors {{ $isConfig ? 'text-white font-semibold' : '' }}">
                     <span class="flex items-center gap-3 font-medium">
@@ -189,7 +205,9 @@
                     <a href="{{ route('admin.crud.sample', ['section' => 'logo-favicon']) }}" class="block px-2.5 py-1.5 rounded-lg transition-colors {{ $currentSection === 'logo-favicon' ? 'bg-brand-primary text-white font-bold' : 'hover:text-white hover:bg-slate-800' }}">Logo &amp; Favicon</a>
                 </div>
             </div>
+            @endif
 
+            @if(auth()->user()->canManageMedia())
             <div>
                 <button type="button" @click="mediaOpen = !mediaOpen" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white transition-colors {{ $isMedia ? 'text-white font-semibold' : '' }}">
                     <span class="flex items-center gap-3 font-medium">
@@ -207,7 +225,9 @@
                     <a href="{{ route('admin.crud.sample', ['section' => 'media-upload']) }}" class="block px-2.5 py-1.5 rounded-lg transition-colors {{ $currentSection === 'media-upload' ? 'bg-brand-primary text-white font-bold' : 'hover:text-white hover:bg-slate-800' }}">Unggah Media</a>
                 </div>
             </div>
+            @endif
         </div>
+        @endif
 
         <!-- Administrasi -->
         <div class="space-y-1">
@@ -215,6 +235,7 @@
                 Administrasi
             </div>
 
+            @if(auth()->user()->canManageRbac())
             <div>
                 <button type="button" @click="rbacOpen = !rbacOpen" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white transition-colors {{ $isRbac ? 'text-white font-semibold' : '' }}">
                     <span class="flex items-center gap-3 font-medium">
@@ -233,6 +254,7 @@
                     <a href="{{ route('admin.crud.sample', ['section' => 'permissions']) }}" class="block px-2.5 py-1.5 rounded-lg transition-colors {{ $currentSection === 'permissions' ? 'bg-brand-primary text-white font-bold' : 'hover:text-white hover:bg-slate-800' }}">Hak Akses (Permissions)</a>
                 </div>
             </div>
+            @endif
 
             <a href="{{ route('admin.crud.sample', ['section' => 'my-profile']) }}" class="flex items-center gap-3 px-3 py-2 rounded-xl font-medium transition-colors {{ $currentSection === 'my-profile' ? 'bg-brand-primary text-white font-bold' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
                 <svg class="w-4 h-4 text-brand-sky" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -258,7 +280,7 @@
             </div>
             <div class="truncate">
                 <div class="text-xs font-semibold text-white truncate">{{ auth()->user()->name ?? 'Administrator' }}</div>
-                <div class="text-[11px] text-brand-sky truncate capitalize">{{ auth()->user()->role ?? 'Super Admin' }}</div>
+                <div class="text-[11px] text-brand-sky truncate">{{ auth()->user()->role_label }}</div>
             </div>
         </div>
         <form method="POST" action="{{ route('logout') }}" class="inline">

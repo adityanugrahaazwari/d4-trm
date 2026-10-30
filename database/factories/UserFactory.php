@@ -53,4 +53,44 @@ class UserFactory extends Factory
             'role' => User::ROLE_SUPERADMIN,
         ]);
     }
+
+    /**
+     * Indicate that the user is an academic administrator.
+     */
+    public function adminAkademik(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => User::ROLE_ADMIN_AKADEMIK,
+        ]);
+    }
+
+    /**
+     * Indicate that the user is a content administrator.
+     */
+    public function adminKonten(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => User::ROLE_ADMIN_KONTEN,
+        ]);
+    }
+
+    /**
+     * Indicate that the user is a laboratory operator.
+     */
+    public function operatorLab(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => User::ROLE_OPERATOR_LAB,
+        ]);
+    }
+
+    /**
+     * Indicate that the user is an editor.
+     */
+    public function editor(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => User::ROLE_EDITOR,
+        ]);
+    }
 }

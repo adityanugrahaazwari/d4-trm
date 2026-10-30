@@ -47,11 +47,11 @@ class LayoutsAndRoutesTest extends TestCase
     }
 
     /**
-     * Test admin dashboard and sample CRUD render properly for authenticated user.
+     * Test admin dashboard and sample CRUD render properly for authenticated superadmin.
      */
     public function test_admin_dashboard_and_crud_render_properly(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->superadmin()->create();
 
         $dashboard = $this->actingAs($user)->get('/admin/dashboard');
         $dashboard->assertStatus(200);

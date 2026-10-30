@@ -67,6 +67,10 @@ Route::post('/admin/logout', [AuthController::class, 'destroy'])->name('logout')
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/dashboard', fn () => view('admin.dashboard'))->name('dashboard');
     Route::get('/crud/{section}', function ($section) {
+        if (! auth()->user()->canAccessSection($section)) {
+            abort(403, 'Akses Ditolak: Anda tidak memiliki wewenang untuk mengakses modul ini.');
+        }
+
         return view('admin.sample-crud', compact('section'));
     })->name('crud.sample');
 });

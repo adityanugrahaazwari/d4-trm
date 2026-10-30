@@ -32,7 +32,7 @@
                 </div>
                 <div class="hidden md:block text-left pr-1">
                     <span class="block text-xs font-bold text-brand-dark leading-tight">{{ auth()->user()->name ?? 'Admin TRM' }}</span>
-                    <span class="block text-[10px] text-brand-muted capitalize">{{ auth()->user()->role ?? 'Pengelola' }}</span>
+                    <span class="block text-[10px] text-brand-muted">{{ auth()->user()->role_label }}</span>
                 </div>
             </button>
 
@@ -48,9 +48,11 @@
                 <a href="{{ route('admin.crud.sample', ['section' => 'my-profile']) }}" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50 hover:text-brand-primary transition-colors">
                     Profil Akun
                 </a>
+                @if(auth()->user()->canManageSettings())
                 <a href="{{ route('admin.crud.sample', ['section' => 'identitas']) }}" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50 hover:text-brand-primary transition-colors">
                     Pengaturan
                 </a>
+                @endif
                 <div class="border-t border-slate-100 my-1"></div>
                 <form method="POST" action="{{ route('logout') }}" class="block w-full">
                     @csrf
