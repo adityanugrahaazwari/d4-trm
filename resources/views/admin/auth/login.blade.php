@@ -3,8 +3,8 @@
 @section('title', 'Masuk Panel Admin - D-IV TRM')
 
 @section('content')
-<div class="min-h-[70vh] flex items-center justify-center py-16 px-4 bg-slate-50/50">
-    <div class="w-full max-w-md bg-white p-8 sm:p-10 rounded-3xl border border-slate-200/80 shadow-lg space-y-6">
+<div class="min-h-[85vh] flex items-center justify-center pt-28 sm:pt-32 lg:pt-36 pb-16 px-4 bg-slate-50/50">
+    <div class="w-full max-w-md bg-white p-8 sm:p-10 rounded-3xl border border-slate-200/80 shadow-lg space-y-6 my-auto">
         <!-- Logo & Header -->
         <div class="text-center space-y-2">
             <div class="w-12 h-12 rounded-2xl bg-brand-primary text-white font-black text-xl flex items-center justify-center mx-auto shadow-md shadow-brand-primary/20">
