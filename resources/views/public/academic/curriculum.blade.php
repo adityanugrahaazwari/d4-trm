@@ -318,31 +318,90 @@
             </div>
         </div>
 
-        <!-- Semester Tabs Bar (1 to 8) -->
-        <div class="flex items-center gap-2 overflow-x-auto pb-2 border-b border-slate-200/80 scrollbar-none">
-            @for ($sem = 1; $sem <= 8; $sem++)
-                <button type="button" 
-                        @click="activeSemester = {{ $sem }}" 
-                        :class="activeSemester === {{ $sem }} 
-                            ? 'bg-brand-primary text-white shadow-sm ring-2 ring-brand-primary/30 font-bold' 
-                            : 'bg-white text-slate-700 hover:bg-slate-100 hover:text-brand-primary border border-slate-200/80 font-medium'"
-                        class="px-4 py-2.5 rounded-xl text-xs transition-all whitespace-nowrap flex items-center gap-2">
-                    <span>Semester {{ $sem }}</span>
-                    <span :class="activeSemester === {{ $sem }} ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'" 
-                          class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold">
-                        @switch($sem)
-                            @case(1) 20 @break
-                            @case(2) 20 @break
-                            @case(3) 19 @break
-                            @case(4) 19 @break
-                            @case(5) 19 @break
-                            @case(6) 18 @break
-                            @case(7) 20 @break
-                            @case(8) 9 @break
-                        @endswitch SKS
-                    </span>
-                </button>
-            @endfor
+        <!-- Semester Tabs Bar with Horizontal Scroll (Scroll-X) -->
+        <div class="relative" 
+             x-data="{
+                canScrollLeft: false,
+                canScrollRight: true,
+                checkScroll() {
+                    const el = this.$refs.semesterScroll;
+                    if (!el) return;
+                    this.canScrollLeft = el.scrollLeft > 15;
+                    this.canScrollRight = el.scrollLeft < (el.scrollWidth - el.clientWidth - 15);
+                },
+                scrollPrev() {
+                    this.$refs.semesterScroll.scrollBy({ left: -260, behavior: 'smooth' });
+                },
+                scrollNext() {
+                    this.$refs.semesterScroll.scrollBy({ left: 260, behavior: 'smooth' });
+                }
+             }" 
+             x-init="setTimeout(() => checkScroll(), 150)" 
+             @resize.window.debounce.100ms="checkScroll()">
+
+            <!-- Left Scroll Arrow Button -->
+            <button type="button" 
+                    x-show="canScrollLeft" 
+                    x-transition:enter="transition ease-out duration-200"
+                    x-transition:enter-start="opacity-0 scale-75"
+                    x-transition:enter-end="opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-150"
+                    x-transition:leave-start="opacity-100 scale-100"
+                    x-transition:leave-end="opacity-0 scale-75"
+                    @click="scrollPrev()" 
+                    aria-label="Scroll pilihan semester ke kiri"
+                    class="absolute -left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white text-brand-dark hover:text-brand-primary shadow-md border border-slate-200 flex items-center justify-center transition-all hover:scale-110 active:scale-95" 
+                    style="display: none;">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+
+            <!-- Right Scroll Arrow Button -->
+            <button type="button" 
+                    x-show="canScrollRight" 
+                    x-transition:enter="transition ease-out duration-200"
+                    x-transition:enter-start="opacity-0 scale-75"
+                    x-transition:enter-end="opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-150"
+                    x-transition:leave-start="opacity-100 scale-100"
+                    x-transition:leave-end="opacity-0 scale-75"
+                    @click="scrollNext()" 
+                    aria-label="Scroll pilihan semester ke kanan"
+                    class="absolute -right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white text-brand-dark hover:text-brand-primary shadow-md border border-slate-200 flex items-center justify-center transition-all hover:scale-110 active:scale-95">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
+
+            <!-- Scrollable Tab Buttons Track -->
+            <div x-ref="semesterScroll"
+                 @scroll.passive="checkScroll()"
+                 class="flex items-center gap-2.5 overflow-x-auto pb-3 pt-1 border-b border-slate-200/80 scroll-smooth snap-x custom-scroll-x">
+                @for ($sem = 1; $sem <= 8; $sem++)
+                    <button type="button" 
+                            @click="activeSemester = {{ $sem }}; $el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });" 
+                            :class="activeSemester === {{ $sem }} 
+                                ? 'bg-brand-primary text-white shadow-sm ring-2 ring-brand-primary/30 font-bold' 
+                                : 'bg-white text-slate-700 hover:bg-slate-100 hover:text-brand-primary border border-slate-200/80 font-medium'"
+                            class="shrink-0 snap-start px-4 py-2.5 rounded-xl text-xs transition-all whitespace-nowrap flex items-center gap-2 shadow-2xs">
+                        <span>Semester {{ $sem }}</span>
+                        <span :class="activeSemester === {{ $sem }} ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'" 
+                              class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold">
+                            @switch($sem)
+                                @case(1) 20 @break
+                                @case(2) 20 @break
+                                @case(3) 19 @break
+                                @case(4) 19 @break
+                                @case(5) 19 @break
+                                @case(6) 18 @break
+                                @case(7) 20 @break
+                                @case(8) 9 @break
+                            @endswitch SKS
+                        </span>
+                    </button>
+                @endfor
+            </div>
         </div>
 
         <!-- Semester Info Banner -->
@@ -373,7 +432,7 @@
 
         <!-- Course Table -->
         <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
-            <div class="overflow-x-auto">
+            <div class="overflow-x-auto custom-scroll-x">
                 <table class="w-full text-left text-xs">
                     <thead class="bg-slate-50 border-b border-slate-200/80 text-slate-600 uppercase tracking-wider font-bold">
                         <tr>
@@ -495,3 +554,33 @@
 
 </div>
 @endsection
+
+@push('styles')
+<style>
+/* Custom styled horizontal scrollbar for scroll-x elements */
+.custom-scroll-x {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f8fafc;
+    -webkit-overflow-scrolling: touch;
+}
+
+.custom-scroll-x::-webkit-scrollbar {
+    height: 6px;
+}
+
+.custom-scroll-x::-webkit-scrollbar-track {
+    background: #f8fafc;
+    border-radius: 9999px;
+}
+
+.custom-scroll-x::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 9999px;
+    transition: background-color 0.2s ease;
+}
+
+.custom-scroll-x::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+</style>
+@endpush
