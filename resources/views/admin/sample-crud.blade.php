@@ -36,6 +36,157 @@
     $title = $titleMap[$sec] ?? ucfirst(str_replace('-', ' ', $sec));
     $isFormOnly = in_array($sec, ['sejarah', 'visi-misi', 'sambutan', 'struktur', 'identitas', 'homepage', 'kontak-sosmed', 'logo-favicon', 'my-profile', 'media-upload']);
     $isMediaGrid = ($sec === 'media-list');
+
+    // Data Pengguna Terotentikasi dari Database
+    $userList = ($sec === 'users') ? \App\Models\User::all() : collect();
+
+    // Data Peran (Roles) RBAC
+    $roleList = [
+        [
+            'id' => 1,
+            'name' => 'Super Administrator',
+            'slug' => 'superadmin',
+            'desc' => 'Akses penuh tanpa batas ke semua modul, konfigurasi keamanan, dan hak istimewa sistem.',
+            'permissions' => ['Semua Hak Akses (Full Privileges)'],
+            'users_count' => 2,
+            'badge' => 'bg-purple-100 text-purple-800 border-purple-200',
+            'status' => 'Aktif',
+        ],
+        [
+            'id' => 2,
+            'name' => 'Administrator Akademik',
+            'slug' => 'admin-akademik',
+            'desc' => 'Pengelolaan data kurikulum, silabus mata kuliah, kalender akademik, CPL, profil lulusan, dosen & tendik.',
+            'permissions' => ['manage-academic', 'manage-staff', 'upload-media'],
+            'users_count' => 1,
+            'badge' => 'bg-blue-100 text-blue-800 border-blue-200',
+            'status' => 'Aktif',
+        ],
+        [
+            'id' => 3,
+            'name' => 'Administrator Konten & Media',
+            'slug' => 'admin-konten',
+            'desc' => 'Penerbitan warta berita, agenda kegiatan, pengumuman resmi, album dokumentasi galeri, dan berkas media.',
+            'permissions' => ['manage-news', 'manage-events', 'manage-gallery', 'upload-media'],
+            'users_count' => 1,
+            'badge' => 'bg-emerald-100 text-emerald-800 border-emerald-200',
+            'status' => 'Aktif',
+        ],
+        [
+            'id' => 4,
+            'name' => 'Operator Fasilitas & Laboratorium',
+            'slug' => 'operator-lab',
+            'desc' => 'Pencatatan sarana prasarana, spesifikasi alat multimedia, jadwal studio animasi, dan lab komputer grafik.',
+            'permissions' => ['manage-facilities', 'upload-media'],
+            'users_count' => 1,
+            'badge' => 'bg-amber-100 text-amber-800 border-amber-200',
+            'status' => 'Aktif',
+        ],
+        [
+            'id' => 5,
+            'name' => 'Editor Publikasi',
+            'slug' => 'editor',
+            'desc' => 'Menyusun draf berita, pengumuman, dan artikel informasi sebelum disetujui untuk dipublikasikan.',
+            'permissions' => ['manage-news', 'upload-media'],
+            'users_count' => 0,
+            'badge' => 'bg-slate-100 text-slate-800 border-slate-200',
+            'status' => 'Aktif',
+        ],
+    ];
+
+    // Data Hak Akses (Permissions) Granular
+    $permissionList = [
+        [
+            'id' => 1,
+            'name' => 'Kelola Pengguna & Peran',
+            'slug' => 'manage-users',
+            'module' => 'Administrasi & Keamanan',
+            'desc' => 'Membuat, mengubah peran, mengatur hak akses, dan menonaktifkan akun pengelola',
+            'roles' => ['Super Administrator'],
+            'status' => 'Aktif',
+        ],
+        [
+            'id' => 2,
+            'name' => 'Kelola Konfigurasi Website',
+            'slug' => 'manage-settings',
+            'module' => 'Konfigurasi Sistem',
+            'desc' => 'Mengatur identitas situs, logo, favicon, homepage banner hero, dan tautan sosial media',
+            'roles' => ['Super Administrator'],
+            'status' => 'Aktif',
+        ],
+        [
+            'id' => 3,
+            'name' => 'Kelola Kurikulum & Akademik',
+            'slug' => 'manage-academic',
+            'module' => 'Akademik & Pengajaran',
+            'desc' => 'Mengelola struktur kurikulum, sebaran SKS mata kuliah, kalender akademik, CPL, dan profil lulusan',
+            'roles' => ['Super Administrator', 'Administrator Akademik'],
+            'status' => 'Aktif',
+        ],
+        [
+            'id' => 4,
+            'name' => 'Kelola Data Dosen & Tendik',
+            'slug' => 'manage-staff',
+            'module' => 'Akademik & Pengajaran',
+            'desc' => 'Memperbarui profil tenaga pengajar, bidang keahlian dosen, NIDN, dan tenaga kependidikan',
+            'roles' => ['Super Administrator', 'Administrator Akademik'],
+            'status' => 'Aktif',
+        ],
+        [
+            'id' => 5,
+            'name' => 'Kelola Berita & Pengumuman',
+            'slug' => 'manage-news',
+            'module' => 'Konten & Publikasi',
+            'desc' => 'Menulis, mengedit, mempublikasikan, dan menghapus artikel warta berita, kategori, serta pengumuman',
+            'roles' => ['Super Administrator', 'Administrator Konten', 'Editor Publikasi'],
+            'status' => 'Aktif',
+        ],
+        [
+            'id' => 6,
+            'name' => 'Kelola Agenda Kegiatan',
+            'slug' => 'manage-events',
+            'module' => 'Konten & Publikasi',
+            'desc' => 'Menjadwalkan dan memperbarui kegiatan prodi seperti seminar, kuliah tamu, workshop, dan expo pameran',
+            'roles' => ['Super Administrator', 'Administrator Konten', 'Editor Publikasi'],
+            'status' => 'Aktif',
+        ],
+        [
+            'id' => 7,
+            'name' => 'Kelola Album & Foto Galeri',
+            'slug' => 'manage-gallery',
+            'module' => 'Konten & Publikasi',
+            'desc' => 'Mengelola album kegiatan, dokumentasi pameran, dan showcase karya animasi/game mahasiswa',
+            'roles' => ['Super Administrator', 'Administrator Konten'],
+            'status' => 'Aktif',
+        ],
+        [
+            'id' => 8,
+            'name' => 'Kelola Fasilitas & Laboratorium',
+            'slug' => 'manage-facilities',
+            'module' => 'Sarana & Prasarana',
+            'desc' => 'Mengelola inventaris studio multimedia, lab komputer rendering, alat rekam audio, dan spesifikasi lab',
+            'roles' => ['Super Administrator', 'Operator Fasilitas'],
+            'status' => 'Aktif',
+        ],
+        [
+            'id' => 9,
+            'name' => 'Manajemen Berkas Media',
+            'slug' => 'upload-media',
+            'module' => 'Media & Aset',
+            'desc' => 'Mengunggah gambar, dokumen pendukung, panduan akademik, dan file aset multimedia ke server',
+            'roles' => ['Super Administrator', 'Administrator Akademik', 'Administrator Konten', 'Operator Fasilitas', 'Editor Publikasi'],
+            'status' => 'Aktif',
+        ],
+    ];
+
+    // Data Peran Badges Styling
+    $roleBadges = [
+        'superadmin' => ['label' => 'Super Administrator', 'badge' => 'bg-purple-100 text-purple-800 border-purple-200'],
+        'admin-akademik' => ['label' => 'Administrator Akademik', 'badge' => 'bg-blue-100 text-blue-800 border-blue-200'],
+        'admin-konten' => ['label' => 'Administrator Konten & Media', 'badge' => 'bg-emerald-100 text-emerald-800 border-emerald-200'],
+        'operator-lab' => ['label' => 'Operator Lab & Studio', 'badge' => 'bg-amber-100 text-amber-800 border-amber-200'],
+        'editor' => ['label' => 'Editor Publikasi', 'badge' => 'bg-slate-100 text-slate-800 border-slate-200'],
+    ];
 @endphp
 
 @section('title', $title)
@@ -49,7 +200,19 @@
     selectedItem: null,
     savedSuccess: false,
     modalTitle: 'Tambah Data',
-    formData: { id: null, title: '', category: 'Umum', status: 'published' }
+    formData: { 
+        id: null, 
+        title: '', 
+        name: '', 
+        email: '', 
+        role: 'admin-akademik', 
+        password: '',
+        slug: '', 
+        module: 'Akademik & Pengajaran', 
+        desc: '', 
+        category: 'Umum', 
+        status: 'published' 
+    }
 }" class="space-y-6">
 
     <!-- Flash Helper Banner -->
@@ -58,9 +221,19 @@
             <svg class="w-4 h-4 text-brand-primary shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span><strong>Kerangka UI Modul: {{ $title }}</strong> (Simulasi Antarmuka Tahap 5). Pada tahap backend (Tahap 7â€“12), modul ini dihubungkan langsung ke Controller dan database.</span>
+            @if($sec === 'users')
+                <span><strong>Manajemen Pengguna Sistem:</strong> Menampilkan seluruh akun pengelola yang terdaftar pada database sistem autentikasi D-IV TRM POLITALA.</span>
+            @elseif($sec === 'roles')
+                <span><strong>Manajemen Peran (RBAC):</strong> Struktur peran pengguna untuk membatasi wewenang dan pembagian tugas operasional website.</span>
+            @elseif($sec === 'permissions')
+                <span><strong>Hak Akses Granular:</strong> Katalog izin per modul yang dipetakan ke masing-masing peran pengguna sistem.</span>
+            @else
+                <span><strong>Kerangka UI Modul: {{ $title }}</strong> (Simulasi Antarmuka Tahap 5). Pada tahap backend (Tahap 7–12), modul ini dihubungkan langsung ke Controller dan database.</span>
+            @endif
         </div>
-        <span class="text-[10px] uppercase font-bold text-brand-primary bg-white px-2 py-0.5 rounded shadow-xs">Data Simulasi</span>
+        <span class="text-[10px] uppercase font-bold text-brand-primary bg-white px-2 py-0.5 rounded shadow-xs">
+            {{ in_array($sec, ['users', 'roles', 'permissions']) ? 'Data RBAC' : 'Data Simulasi' }}
+        </span>
     </div>
 
     <!-- Alert Sukses Simpan Dummy -->
@@ -241,7 +414,15 @@
             </div>
 
             <button type="button" 
-                    @click="modalTitle = 'Tambah ' + '{{ $title }}'; formData = { id: null, title: '', category: 'Utama', status: 'published' }; modalOpen = true" 
+                    @if($sec === 'users')
+                        @click="modalTitle = 'Tambah Pengguna Pengelola'; formData = { id: null, name: '', email: '', role: 'admin-akademik', password: '', status: 'published' }; modalOpen = true"
+                    @elseif($sec === 'roles')
+                        @click="modalTitle = 'Tambah Peran (Role) Baru'; formData = { id: null, name: '', slug: '', desc: '', status: 'published' }; modalOpen = true"
+                    @elseif($sec === 'permissions')
+                        @click="modalTitle = 'Tambah Hak Akses (Permission)'; formData = { id: null, name: '', slug: '', module: 'Akademik & Pengajaran', desc: '', status: 'published' }; modalOpen = true"
+                    @else
+                        @click="modalTitle = 'Tambah ' + '{{ $title }}'; formData = { id: null, title: '', category: 'Utama', status: 'published' }; modalOpen = true"
+                    @endif
                     class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-brand-primary hover:bg-brand-primary-hover text-white text-xs font-bold shadow-sm transition-colors">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -276,6 +457,20 @@
                                 <th class="py-3.5 px-4">Peran (Role)</th>
                                 <th class="py-3.5 px-4">Tanggal Registrasi</th>
                                 <th class="py-3.5 px-4">Status Akun</th>
+                            @elseif($sec === 'roles')
+                                <th class="py-3.5 px-4">Nama Peran</th>
+                                <th class="py-3.5 px-4">Kode Slug</th>
+                                <th class="py-3.5 px-4">Deskripsi Wewenang</th>
+                                <th class="py-3.5 px-4 text-center">Cakupan Izin</th>
+                                <th class="py-3.5 px-4 text-center">Pengguna</th>
+                                <th class="py-3.5 px-4">Status</th>
+                            @elseif($sec === 'permissions')
+                                <th class="py-3.5 px-4">Nama Hak Akses</th>
+                                <th class="py-3.5 px-4">Kode Izin (Slug)</th>
+                                <th class="py-3.5 px-4">Modul Sistem</th>
+                                <th class="py-3.5 px-4">Deskripsi Tindakan</th>
+                                <th class="py-3.5 px-4">Peran Terkait</th>
+                                <th class="py-3.5 px-4">Status</th>
                             @else
                                 <th class="py-3.5 px-4">Nama / Judul Item</th>
                                 <th class="py-3.5 px-4">Kategori / Klasifikasi</th>
@@ -286,90 +481,248 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100 text-brand-dark font-medium">
-                        @for ($k = 1; $k <= 4; $k++)
-                            <tr class="hover:bg-slate-50/80 transition-colors">
-                                <td class="py-3.5 px-6 text-center text-slate-400 font-bold">{{ $k }}</td>
-                                
-                                @if(in_array($sec, ['dosen', 'tendik']))
-                                    <td class="py-3.5 px-4 font-bold text-brand-dark flex items-center gap-2.5">
-                                        <div class="w-7 h-7 rounded-full bg-brand-primary-light text-brand-primary flex items-center justify-center font-bold text-[10px]">
-                                            D{{ $k }}
+                        @if($sec === 'users')
+                            @foreach($userList as $k => $u)
+                                @php
+                                    $roleInfo = $roleBadges[$u->role] ?? ['label' => ucfirst($u->role), 'badge' => 'bg-slate-100 text-slate-800 border-slate-200'];
+                                    $initials = collect(explode(' ', $u->name))->map(fn($seg) => mb_substr($seg, 0, 1))->take(2)->implode('');
+                                @endphp
+                                <tr class="hover:bg-slate-50/80 transition-colors">
+                                    <td class="py-3.5 px-6 text-center text-slate-400 font-bold">{{ $k + 1 }}</td>
+                                    <td class="py-3.5 px-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-full bg-brand-primary text-white flex items-center justify-center font-bold text-xs uppercase shadow-xs shrink-0">
+                                                {{ $initials ?: 'U' }}
+                                            </div>
+                                            <div>
+                                                <div class="font-bold text-brand-dark">{{ $u->name }}</div>
+                                                <div class="text-[10px] text-brand-muted">ID Akun: #USR-0{{ $u->id }}</div>
+                                            </div>
                                         </div>
-                                        <span>[Dosen Simulasi {{ $k }}, M.Kom.]</span>
                                     </td>
-                                    <td class="py-3.5 px-4 font-mono text-slate-500">19880115201903100{{ $k }}</td>
-                                    <td class="py-3.5 px-4 text-brand-muted">Lektor / Pengajar</td>
-                                    <td class="py-3.5 px-4 text-slate-700">Game Tech &amp; Multimedia 3D</td>
+                                    <td class="py-3.5 px-4 font-mono text-slate-600 font-medium">{{ $u->email }}</td>
                                     <td class="py-3.5 px-4">
-                                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">Aktif</span>
-                                    </td>
-                                @elseif(in_array($sec, ['kurikulum', 'mata-kuliah']))
-                                    <td class="py-3.5 px-4 font-mono font-bold text-brand-primary">TRM10{{ $k }}</td>
-                                    <td class="py-3.5 px-4 font-bold text-brand-dark">[Mata Kuliah {{ $k }}] Pemrograman Multimedia &amp; Game</td>
-                                    <td class="py-3.5 px-4 text-center">1</td>
-                                    <td class="py-3.5 px-4 text-center">2</td>
-                                    <td class="py-3.5 px-4 text-center">Semester {{ $k }}</td>
-                                    <td class="py-3.5 px-4 text-center">
-                                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 text-blue-700">Wajib</span>
-                                    </td>
-                                @elseif($sec === 'users')
-                                    <td class="py-3.5 px-4 font-bold text-brand-dark">Admin Pengelola {{ $k }}</td>
-                                    <td class="py-3.5 px-4 font-mono text-slate-500">admin{{ $k }}@politala.ac.id</td>
-                                    <td class="py-3.5 px-4">
-                                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-brand-primary-light text-brand-primary">
-                                            {{ $k === 1 ? 'Super Admin' : ($k === 2 ? 'Admin Konten' : 'Admin Akademik') }}
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold border {{ $roleInfo['badge'] }}">
+                                            {{ $roleInfo['label'] }}
                                         </span>
                                     </td>
-                                    <td class="py-3.5 px-4 text-slate-400">10 Okt 2026</td>
+                                    <td class="py-3.5 px-4 text-slate-500 font-medium">
+                                        {{ $u->created_at ? $u->created_at->format('d M Y, H:i') : '10 Okt 2026' }}
+                                    </td>
                                     <td class="py-3.5 px-4">
-                                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">Aktif</span>
+                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                            <span>Aktif</span>
+                                        </span>
                                     </td>
-                                @else
-                                    <td class="py-3.5 px-4 font-bold text-brand-dark">
-                                        [Data Simulasi {{ $k }}] Item Terkait Modul {{ $title }}
+                                    <td class="py-3.5 px-6 text-center">
+                                        <div class="inline-flex items-center gap-1.5">
+                                            <button type="button" 
+                                                    @click="modalTitle = 'Ubah Pengguna: {{ addslashes($u->name) }}'; formData = { id: {{ $u->id }}, name: '{{ addslashes($u->name) }}', email: '{{ $u->email }}', role: '{{ $u->role }}', password: '', status: 'published' }; modalOpen = true" 
+                                                    class="p-1.5 rounded-lg text-slate-500 hover:text-brand-primary hover:bg-slate-100 transition-colors" title="Ubah Data">
+                                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                            </button>
+                                            <button type="button" 
+                                                    @click="selectedItem = 'Pengguna {{ addslashes($u->name) }} ({{ $u->email }})'; deleteModalOpen = true" 
+                                                    class="p-1.5 rounded-lg text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition-colors" title="Hapus Data">
+                                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
+                                        </div>
                                     </td>
-                                    <td class="py-3.5 px-4 text-brand-muted">Kategori Terpilih</td>
+                                </tr>
+                            @endforeach
+                        @elseif($sec === 'roles')
+                            @foreach($roleList as $k => $r)
+                                <tr class="hover:bg-slate-50/80 transition-colors">
+                                    <td class="py-3.5 px-6 text-center text-slate-400 font-bold">{{ $k + 1 }}</td>
+                                    <td class="py-3.5 px-4 font-bold text-brand-dark">{{ $r['name'] }}</td>
+                                    <td class="py-3.5 px-4 font-mono">
+                                        <span class="text-[11px] font-semibold text-brand-primary bg-brand-primary-light/60 px-2 py-0.5 rounded-md border border-brand-sky">
+                                            {{ $r['slug'] }}
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-slate-600 max-w-sm text-xs leading-relaxed">
+                                        {{ $r['desc'] }}
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <div class="flex flex-wrap gap-1 justify-center max-w-xs mx-auto">
+                                            @foreach($r['permissions'] as $perm)
+                                                <span class="text-[10px] px-2 py-0.5 rounded-md font-mono bg-slate-100 text-slate-700 border border-slate-200/80">
+                                                    {{ $perm }}
+                                                </span>
+                                            @endforeach
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200">
+                                            {{ $r['users_count'] }} Akun
+                                        </span>
+                                    </td>
                                     <td class="py-3.5 px-4">
-                                        @if($k % 2 === 1)
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
-                                                Dipublikasikan
-                                            </span>
-                                        @else
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800">
-                                                Draf Sementara
-                                            </span>
-                                        @endif
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                            <span>{{ $r['status'] }}</span>
+                                        </span>
                                     </td>
-                                    <td class="py-3.5 px-4 text-slate-400">{{ date('d M Y, H:i') }}</td>
-                                @endif
+                                    <td class="py-3.5 px-6 text-center">
+                                        <div class="inline-flex items-center gap-1.5">
+                                            <button type="button" 
+                                                    @click="modalTitle = 'Ubah Peran: {{ addslashes($r['name']) }}'; formData = { id: {{ $r['id'] }}, name: '{{ addslashes($r['name']) }}', slug: '{{ $r['slug'] }}', desc: '{{ addslashes($r['desc']) }}', status: 'published' }; modalOpen = true" 
+                                                    class="p-1.5 rounded-lg text-slate-500 hover:text-brand-primary hover:bg-slate-100 transition-colors" title="Ubah Data">
+                                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                            </button>
+                                            <button type="button" 
+                                                    @click="selectedItem = 'Peran {{ addslashes($r['name']) }}'; deleteModalOpen = true" 
+                                                    class="p-1.5 rounded-lg text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition-colors" title="Hapus Data">
+                                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @elseif($sec === 'permissions')
+                            @foreach($permissionList as $k => $p)
+                                <tr class="hover:bg-slate-50/80 transition-colors">
+                                    <td class="py-3.5 px-6 text-center text-slate-400 font-bold">{{ $k + 1 }}</td>
+                                    <td class="py-3.5 px-4 font-bold text-brand-dark">{{ $p['name'] }}</td>
+                                    <td class="py-3.5 px-4 font-mono">
+                                        <span class="text-[11px] font-semibold text-brand-primary bg-brand-primary-light/60 px-2 py-0.5 rounded-md border border-brand-sky">
+                                            {{ $p['slug'] }}
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200">
+                                            {{ $p['module'] }}
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-slate-600 max-w-sm text-xs leading-relaxed">
+                                        {{ $p['desc'] }}
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <div class="flex flex-wrap gap-1">
+                                            @foreach($p['roles'] as $roleName)
+                                                <span class="text-[10px] px-2 py-0.5 rounded-md font-medium bg-brand-sky-light text-brand-primary border border-brand-sky">
+                                                    {{ $roleName }}
+                                                </span>
+                                            @endforeach
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                            <span>{{ $p['status'] }}</span>
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-6 text-center">
+                                        <div class="inline-flex items-center gap-1.5">
+                                            <button type="button" 
+                                                    @click="modalTitle = 'Ubah Hak Akses: {{ addslashes($p['name']) }}'; formData = { id: {{ $p['id'] }}, name: '{{ addslashes($p['name']) }}', slug: '{{ $p['slug'] }}', module: '{{ addslashes($p['module']) }}', desc: '{{ addslashes($p['desc']) }}', status: 'published' }; modalOpen = true" 
+                                                    class="p-1.5 rounded-lg text-slate-500 hover:text-brand-primary hover:bg-slate-100 transition-colors" title="Ubah Data">
+                                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                            </button>
+                                            <button type="button" 
+                                                    @click="selectedItem = 'Hak Akses {{ addslashes($p['name']) }}'; deleteModalOpen = true" 
+                                                    class="p-1.5 rounded-lg text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition-colors" title="Hapus Data">
+                                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            @for ($k = 1; $k <= 4; $k++)
+                                <tr class="hover:bg-slate-50/80 transition-colors">
+                                    <td class="py-3.5 px-6 text-center text-slate-400 font-bold">{{ $k }}</td>
+                                    
+                                    @if(in_array($sec, ['dosen', 'tendik']))
+                                        <td class="py-3.5 px-4 font-bold text-brand-dark flex items-center gap-2.5">
+                                            <div class="w-7 h-7 rounded-full bg-brand-primary-light text-brand-primary flex items-center justify-center font-bold text-[10px]">
+                                                D{{ $k }}
+                                            </div>
+                                            <span>[Dosen Simulasi {{ $k }}, M.Kom.]</span>
+                                        </td>
+                                        <td class="py-3.5 px-4 font-mono text-slate-500">19880115201903100{{ $k }}</td>
+                                        <td class="py-3.5 px-4 text-brand-muted">Lektor / Pengajar</td>
+                                        <td class="py-3.5 px-4 text-slate-700">Game Tech &amp; Multimedia 3D</td>
+                                        <td class="py-3.5 px-4">
+                                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">Aktif</span>
+                                        </td>
+                                    @elseif(in_array($sec, ['kurikulum', 'mata-kuliah']))
+                                        <td class="py-3.5 px-4 font-mono font-bold text-brand-primary">TRM10{{ $k }}</td>
+                                        <td class="py-3.5 px-4 font-bold text-brand-dark">[Mata Kuliah {{ $k }}] Pemrograman Multimedia &amp; Game</td>
+                                        <td class="py-3.5 px-4 text-center">1</td>
+                                        <td class="py-3.5 px-4 text-center">2</td>
+                                        <td class="py-3.5 px-4 text-center">Semester {{ $k }}</td>
+                                        <td class="py-3.5 px-4 text-center">
+                                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 text-blue-700">Wajib</span>
+                                        </td>
+                                    @else
+                                        <td class="py-3.5 px-4 font-bold text-brand-dark">
+                                            [Data Simulasi {{ $k }}] Item Terkait Modul {{ $title }}
+                                        </td>
+                                        <td class="py-3.5 px-4 text-brand-muted">Kategori Terpilih</td>
+                                        <td class="py-3.5 px-4">
+                                            @if($k % 2 === 1)
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                                                    Dipublikasikan
+                                                </span>
+                                            @else
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800">
+                                                    Draf Sementara
+                                                </span>
+                                            @endif
+                                        </td>
+                                        <td class="py-3.5 px-4 text-slate-400">{{ date('d M Y, H:i') }}</td>
+                                    @endif
 
-                                <td class="py-3.5 px-6 text-center">
-                                    <div class="inline-flex items-center gap-1.5">
-                                        <button type="button" 
-                                                @click="modalTitle = 'Ubah Data #{{ $k }}'; formData = { id: {{ $k }}, title: '[Data Simulasi {{ $k }}]', category: 'Utama', status: 'published' }; modalOpen = true" 
-                                                class="p-1.5 rounded-lg text-slate-500 hover:text-brand-primary hover:bg-slate-100 transition-colors" title="Ubah Data">
-                                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                            </svg>
-                                        </button>
-                                        <button type="button" 
-                                                @click="selectedItem = 'Item #{{ $k }}'; deleteModalOpen = true" 
-                                                class="p-1.5 rounded-lg text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition-colors" title="Hapus Data">
-                                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endfor
+                                    <td class="py-3.5 px-6 text-center">
+                                        <div class="inline-flex items-center gap-1.5">
+                                            <button type="button" 
+                                                    @click="modalTitle = 'Ubah Data #{{ $k }}'; formData = { id: {{ $k }}, title: '[Data Simulasi {{ $k }}]', category: 'Utama', status: 'published' }; modalOpen = true" 
+                                                    class="p-1.5 rounded-lg text-slate-500 hover:text-brand-primary hover:bg-slate-100 transition-colors" title="Ubah Data">
+                                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                            </button>
+                                            <button type="button" 
+                                                    @click="selectedItem = 'Item #{{ $k }}'; deleteModalOpen = true" 
+                                                    class="p-1.5 rounded-lg text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition-colors" title="Hapus Data">
+                                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endfor
+                        @endif
                     </tbody>
                 </table>
             </div>
 
-            <!-- Pagination UI Mockup -->
+            <!-- Dynamic Pagination Summary -->
+            @php
+                $totalCount = match($sec) {
+                    'users' => $userList->count(),
+                    'roles' => count($roleList),
+                    'permissions' => count($permissionList),
+                    default => 4
+                };
+            @endphp
             <div class="px-6 py-4 bg-slate-50/70 border-t border-slate-100 flex items-center justify-between text-xs text-brand-muted">
-                <span>Menampilkan 1 sampai 4 dari 4 data simulasi</span>
+                <span>Menampilkan 1 sampai {{ $totalCount }} dari {{ $totalCount }} data {{ in_array($sec, ['users', 'roles', 'permissions']) ? 'terdaftar' : 'simulasi' }}</span>
                 <div class="flex items-center gap-1">
                     <button disabled class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-300 font-semibold cursor-not-allowed">Sebelumnya</button>
                     <button class="px-3 py-1.5 rounded-lg bg-brand-primary text-white font-bold">1</button>
@@ -410,33 +763,146 @@
                     </div>
 
                     <form @submit.prevent="modalOpen = false; savedSuccess = true" class="space-y-4 text-xs">
-                        <div>
-                            <label class="block font-bold text-brand-dark mb-1.5">Nama / Judul <span class="text-rose-500">*</span></label>
-                            <input type="text" x-model="formData.title" placeholder="Masukkan judul..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
-                        </div>
-
-                        <div>
-                            <label class="block font-bold text-brand-dark mb-1.5">Kategori / Klasifikasi</label>
-                            <select x-model="formData.category" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
-                                <option value="Utama">Utama</option>
-                                <option value="Akademik">Akademik</option>
-                                <option value="Industri">Industri</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label class="block font-bold text-brand-dark mb-1.5">Status</label>
-                            <div class="flex items-center gap-4 text-xs">
-                                <label class="flex items-center gap-2">
-                                    <input type="radio" value="published" x-model="formData.status" class="text-brand-primary">
-                                    <span>Aktif / Terbitkan</span>
-                                </label>
-                                <label class="flex items-center gap-2">
-                                    <input type="radio" value="draft" x-model="formData.status" class="text-brand-primary">
-                                    <span>Draf Sementara</span>
-                                </label>
+                        @if($sec === 'users')
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Nama Lengkap Pengguna <span class="text-rose-500">*</span></label>
+                                <input type="text" x-model="formData.name" placeholder="cth: Dr. Ir. Budi Santoso, M.T." required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
                             </div>
-                        </div>
+
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Alamat Email Login <span class="text-rose-500">*</span></label>
+                                <input type="email" x-model="formData.email" placeholder="cth: budi@politala.ac.id" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                            </div>
+
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Peran / Wewenang Akses (Role) <span class="text-rose-500">*</span></label>
+                                <select x-model="formData.role" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                    <option value="superadmin">Super Administrator (Akses Penuh)</option>
+                                    <option value="admin-akademik">Administrator Akademik (Kurikulum, CPL, Dosen)</option>
+                                    <option value="admin-konten">Administrator Konten & Media (Berita, Agenda, Galeri)</option>
+                                    <option value="operator-lab">Operator Fasilitas & Lab (Studio, Sarana)</option>
+                                    <option value="editor">Editor Publikasi (Draf Warta)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Kata Sandi</label>
+                                <input type="password" x-model="formData.password" placeholder="Kosongkan jika tidak ingin mengubah sandi..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                <span class="text-[10px] text-brand-muted mt-1 block">Minimal 8 karakter untuk kata sandi akun baru.</span>
+                            </div>
+
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Status Akun</label>
+                                <div class="flex items-center gap-4 text-xs">
+                                    <label class="flex items-center gap-2">
+                                        <input type="radio" value="published" x-model="formData.status" class="text-brand-primary">
+                                        <span>Aktif</span>
+                                    </label>
+                                    <label class="flex items-center gap-2">
+                                        <input type="radio" value="draft" x-model="formData.status" class="text-brand-primary">
+                                        <span>Nonaktif</span>
+                                    </label>
+                                </div>
+                            </div>
+                        @elseif($sec === 'roles')
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Nama Peran (Role Name) <span class="text-rose-500">*</span></label>
+                                <input type="text" x-model="formData.name" placeholder="cth: Administrator Kemahasiswaan" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                            </div>
+
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Kode Identifikasi (Slug) <span class="text-rose-500">*</span></label>
+                                <input type="text" x-model="formData.slug" placeholder="cth: admin-kemahasiswaan" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-mono focus:ring-2 focus:ring-brand-primary/20">
+                            </div>
+
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Deskripsi Wewenang & Batasan <span class="text-rose-500">*</span></label>
+                                <textarea rows="3" x-model="formData.desc" placeholder="Jelaskan ruang lingkup wewenang dan batasan peran ini..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20"></textarea>
+                            </div>
+
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Status Peran</label>
+                                <div class="flex items-center gap-4 text-xs">
+                                    <label class="flex items-center gap-2">
+                                        <input type="radio" value="published" x-model="formData.status" class="text-brand-primary">
+                                        <span>Aktif</span>
+                                    </label>
+                                    <label class="flex items-center gap-2">
+                                        <input type="radio" value="draft" x-model="formData.status" class="text-brand-primary">
+                                        <span>Nonaktif</span>
+                                    </label>
+                                </div>
+                            </div>
+                        @elseif($sec === 'permissions')
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Nama Hak Akses (Permission) <span class="text-rose-500">*</span></label>
+                                <input type="text" x-model="formData.name" placeholder="cth: Kelola Prestasi Mahasiswa" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                            </div>
+
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Kode Izin (Slug) <span class="text-rose-500">*</span></label>
+                                <input type="text" x-model="formData.slug" placeholder="cth: manage-achievements" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-mono focus:ring-2 focus:ring-brand-primary/20">
+                            </div>
+
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Modul Sistem Terkait <span class="text-rose-500">*</span></label>
+                                <select x-model="formData.module" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                    <option value="Administrasi & Keamanan">Administrasi & Keamanan</option>
+                                    <option value="Konfigurasi Sistem">Konfigurasi Sistem</option>
+                                    <option value="Akademik & Pengajaran">Akademik & Pengajaran</option>
+                                    <option value="Konten & Publikasi">Konten & Publikasi</option>
+                                    <option value="Sarana & Prasarana">Sarana & Prasarana</option>
+                                    <option value="Media & Aset">Media & Aset</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Deskripsi Tindakan Izin <span class="text-rose-500">*</span></label>
+                                <textarea rows="3" x-model="formData.desc" placeholder="Tindakan apa saja yang diizinkan oleh hak akses ini..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20"></textarea>
+                            </div>
+
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Status</label>
+                                <div class="flex items-center gap-4 text-xs">
+                                    <label class="flex items-center gap-2">
+                                        <input type="radio" value="published" x-model="formData.status" class="text-brand-primary">
+                                        <span>Aktif</span>
+                                    </label>
+                                    <label class="flex items-center gap-2">
+                                        <input type="radio" value="draft" x-model="formData.status" class="text-brand-primary">
+                                        <span>Nonaktif</span>
+                                    </label>
+                                </div>
+                            </div>
+                        @else
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Nama / Judul <span class="text-rose-500">*</span></label>
+                                <input type="text" x-model="formData.title" placeholder="Masukkan judul..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                            </div>
+
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Kategori / Klasifikasi</label>
+                                <select x-model="formData.category" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                    <option value="Utama">Utama</option>
+                                    <option value="Akademik">Akademik</option>
+                                    <option value="Industri">Industri</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Status</label>
+                                <div class="flex items-center gap-4 text-xs">
+                                    <label class="flex items-center gap-2">
+                                        <input type="radio" value="published" x-model="formData.status" class="text-brand-primary">
+                                        <span>Aktif / Terbitkan</span>
+                                    </label>
+                                    <label class="flex items-center gap-2">
+                                        <input type="radio" value="draft" x-model="formData.status" class="text-brand-primary">
+                                        <span>Draf Sementara</span>
+                                    </label>
+                                </div>
+                            </div>
+                        @endif
 
                         <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
                             <button type="button" @click="modalOpen = false" class="px-4 py-2 rounded-xl border border-slate-200 font-semibold text-slate-600 hover:bg-slate-50">

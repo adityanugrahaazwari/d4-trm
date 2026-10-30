@@ -61,6 +61,23 @@ class LayoutsAndRoutesTest extends TestCase
         $crud = $this->actingAs($user)->get('/admin/crud/berita');
         $crud->assertStatus(200);
         $crud->assertSee('Berita Program Studi');
+
+        $usersCrud = $this->actingAs($user)->get('/admin/crud/users');
+        $usersCrud->assertStatus(200);
+        $usersCrud->assertSee('Manajemen Pengguna');
+        $usersCrud->assertSee($user->email);
+
+        $rolesCrud = $this->actingAs($user)->get('/admin/crud/roles');
+        $rolesCrud->assertStatus(200);
+        $rolesCrud->assertSee('Manajemen Peran (Roles)');
+        $rolesCrud->assertSee('superadmin');
+        $rolesCrud->assertSee('Super Administrator');
+
+        $permissionsCrud = $this->actingAs($user)->get('/admin/crud/permissions');
+        $permissionsCrud->assertStatus(200);
+        $permissionsCrud->assertSee('Hak Akses Sistem (Permissions)');
+        $permissionsCrud->assertSee('manage-users');
+        $permissionsCrud->assertSee('manage-academic');
     }
 
     /**
