@@ -59,13 +59,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="p-5 pt-0 border-t border-slate-100 mt-2">
-                    <span class="text-xs text-brand-primary hover:underline flex items-center gap-1.5 font-medium">
-                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="p-5 border-t border-slate-100 mt-2">
+                    <a href="mailto:{{ $d['email'] }}" class="text-xs text-brand-primary hover:underline flex items-center gap-1.5 font-medium">
+                        <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
-                        <span>{{ $d['email'] }}</span>
-                    </span>
+                        <span class="truncate">{{ $d['email'] }}</span>
+                    </a>
                 </div>
             </div>
         @endforeach
