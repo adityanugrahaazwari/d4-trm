@@ -7,20 +7,20 @@
 @theme {
     --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-    --color-brand-primary: #086288;
-    --color-brand-primary-hover: #064e6e;
-    --color-brand-primary-dark: #053b53;
-    --color-brand-primary-light: #ebf6fa;
-    --color-brand-secondary: #4D8DBA;
-    --color-brand-secondary-hover: #3c739a;
-    --color-brand-sky: #97D7FF;
-    --color-brand-sky-light: #eaf6ff;
-    --color-brand-cream: #FFEFC4;
-    --color-brand-cream-light: #fffaf0;
-    --color-brand-dark: #243746;
-    --color-brand-muted: #526777;
-    --color-brand-surface: #F8FAFC;
-    --color-brand-border: #E2E8F0;
+    --color-brand-primary: #500071;
+    --color-brand-primary-hover: #3f0059;
+    --color-brand-primary-dark: #290044;
+    --color-brand-primary-light: #f6eef8;
+    --color-brand-secondary: #8A2A78;
+    --color-brand-secondary-hover: #732063;
+    --color-brand-sky: #CE93D8;
+    --color-brand-sky-light: #f7f0fb;
+    --color-brand-cream: #EEE3B0;
+    --color-brand-cream-light: #fcf9ef;
+    --color-brand-dark: #290044;
+    --color-brand-muted: #6A5873;
+    --color-brand-surface: #FAF7FB;
+    --color-brand-border: #E9E0EC;
 
     --animate-float: float 4s ease-in-out infinite;
     --animate-float-reverse: float-reverse 5s ease-in-out infinite;

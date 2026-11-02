@@ -112,7 +112,7 @@
             <div class="space-y-3">
                 <div class="rounded-3xl overflow-hidden border border-slate-200 bg-gradient-to-tr from-brand-primary-dark via-brand-primary to-slate-800 text-white relative shadow-sm aspect-16/9 flex flex-col justify-between p-8 sm:p-12">
                     {{-- Decorative Studio Tech Graphics --}}
-                    <div class="absolute inset-0 bg-[radial-gradient(#97D7FF_1px,transparent_1px)] [background-size:20px_20px] opacity-15 pointer-events-none"></div>
+                    <div class="absolute inset-0 bg-[radial-gradient(#CE93D8_1px,transparent_1px)] [background-size:20px_20px] opacity-15 pointer-events-none"></div>
                     <div class="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-brand-secondary/30 blur-3xl pointer-events-none"></div>
 
                     <div class="relative z-10 flex items-center justify-between">
