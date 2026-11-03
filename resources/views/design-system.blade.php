@@ -25,27 +25,27 @@
             <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
                 <div class="bg-brand-primary text-white p-4 rounded-xl shadow-sm">
                     <span class="block font-semibold">Primary</span>
-                    <span class="text-xs opacity-90">#007A7A</span>
+                    <span class="text-xs opacity-90">#008080</span>
                 </div>
                 <div class="bg-brand-secondary text-white p-4 rounded-xl shadow-sm">
                     <span class="block font-semibold">Secondary</span>
-                    <span class="text-xs opacity-90">#148787</span>
+                    <span class="text-xs opacity-90">#117373</span>
                 </div>
                 <div class="bg-brand-tertiary text-white p-4 rounded-xl shadow-sm">
                     <span class="block font-semibold">Tertiary</span>
-                    <span class="text-xs opacity-90">#2C9494</span>
+                    <span class="text-xs opacity-90">#1F6767</span>
                 </div>
-                <div class="bg-brand-sky text-white p-4 rounded-xl shadow-sm">
-                    <span class="block font-semibold">Light Teal</span>
-                    <span class="text-xs opacity-90">#48A0A0</span>
+                <div class="bg-brand-quaternary text-white p-4 rounded-xl shadow-sm">
+                    <span class="block font-semibold">Quaternary</span>
+                    <span class="text-xs opacity-90">#295A5A</span>
                 </div>
                 <div class="bg-brand-complimentary text-white p-4 rounded-xl shadow-sm">
                     <span class="block font-semibold">Complimentary</span>
-                    <span class="text-xs opacity-90">#7A1F00</span>
+                    <span class="text-xs opacity-90">#802000</span>
                 </div>
-                <div class="bg-brand-cream text-brand-dark p-4 rounded-xl shadow-sm">
-                    <span class="block font-semibold">Warm Highlight</span>
-                    <span class="text-xs opacity-90">#FFE3D1</span>
+                <div class="bg-brand-light-grey text-brand-dark p-4 rounded-xl shadow-sm border border-slate-300">
+                    <span class="block font-semibold">Light Grey</span>
+                    <span class="text-xs opacity-90">#D3D3D3</span>
                 </div>
             </div>
         </section>
