@@ -97,20 +97,22 @@ Menyamakan gaya visual agar halaman publik dan admin konsisten.
 
 | Nama | Kode | Penggunaan yang disarankan |
 |---|---|---|
-| Primary | `#007A7A` | Navbar, footer, tombol utama, judul penting |
-| Secondary | `#148787` | Tautan dan aksen sekunder |
-| Tertiary | `#2C9494` | Elemen intermediate dan borders |
-| Sky / Cyan | `#48A0A0` | Latar aksen yang segar, glowing text di latar gelap |
-| Complimentary | `#7A1F00` | Aksen kontras tinggi, badge & CTA komplementer |
+| Primary | `#008080` | Navbar, footer, tombol utama, judul penting |
+| Secondary | `#117373` | Tautan dan aksen sekunder |
+| Tertiary | `#1F6767` | Elemen intermediate dan aksen terstruktur |
+| Quaternary | `#295A5A` | Shade monokromatik dalam dan kartu penunjang |
+| Sky / Cyan | `#3AA3A3` | Latar aksen segar, glowing text di latar gelap |
+| Complimentary | `#802000` | Aksen kontras tinggi, badge & CTA komplementer |
+| Light Grey | `#D3D3D3` | Border kartu, divider, dan outline |
 | Warm Cream | `#FFE3D1` | Sorotan teks dan latar badge hangat |
-| Dark | `#002B2B` | Teks utama, judul gelap, background kontras tinggi |
+| Dark | `#162828` | Teks utama, judul gelap, background kontras tinggi |
 | White | `#FFFFFF` | Latar utama |
 
 Warna teks yang disarankan:
-- Teks utama: `#002B2B`
-- Teks sekunder: `#3D6666`
+- Teks utama: `#162828`
+- Teks sekunder: `#435858`
 
-Gunakan teks gelap pada latar aksen muda dan krem. Periksa kontras sebelum menggunakan teks putih di atas warna sekunder.
+Gunakan teks gelap pada latar abu-abu muda dan krem. Periksa kontras sebelum menggunakan teks putih di atas warna sekunder.
 
 ## Langkah kerja
 - [ ] Tentukan font dan skala ukuran teks.
@@ -126,24 +128,26 @@ Jika proyek menggunakan Tailwind CSS v4, token warna dapat didefinisikan dalam `
 @import "tailwindcss";
 
 @theme {
-    --color-brand-primary: #007A7A;
-    --color-brand-primary-hover: #006363;
-    --color-brand-primary-dark: #003838;
-    --color-brand-primary-light: #e6f5f5;
-    --color-brand-secondary: #148787;
-    --color-brand-secondary-hover: #0f6e6e;
-    --color-brand-tertiary: #2C9494;
-    --color-brand-sky: #48A0A0;
-    --color-brand-sky-light: #edf7f7;
-    --color-brand-complimentary: #7A1F00;
-    --color-brand-complimentary-hover: #942700;
+    --color-brand-primary: #008080;
+    --color-brand-primary-hover: #006b6b;
+    --color-brand-primary-dark: #003d3d;
+    --color-brand-primary-light: #e6f2f2;
+    --color-brand-secondary: #117373;
+    --color-brand-secondary-hover: #0d5e5e;
+    --color-brand-tertiary: #1F6767;
+    --color-brand-quaternary: #295A5A;
+    --color-brand-sky: #3AA3A3;
+    --color-brand-sky-light: #eef7f7;
+    --color-brand-complimentary: #802000;
+    --color-brand-complimentary-hover: #992600;
     --color-brand-complimentary-light: #faece6;
     --color-brand-cream: #FFE3D1;
     --color-brand-cream-light: #fff4ed;
-    --color-brand-dark: #002B2B;
-    --color-brand-muted: #3d6666;
-    --color-brand-surface: #F4F9F9;
-    --color-brand-border: #C5E5E5;
+    --color-brand-light-grey: #D3D3D3;
+    --color-brand-dark: #162828;
+    --color-brand-muted: #435858;
+    --color-brand-surface: #F5F8F8;
+    --color-brand-border: #D3D3D3;
 }
 ```
 
