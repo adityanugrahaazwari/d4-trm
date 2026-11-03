@@ -22,26 +22,30 @@
         <!-- Palette Showcase -->
         <section class="space-y-4">
             <h2 class="text-xl font-bold text-brand-dark">Palet Warna Resmi</h2>
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+            <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
                 <div class="bg-brand-primary text-white p-4 rounded-xl shadow-sm">
                     <span class="block font-semibold">Primary</span>
-                    <span class="text-xs opacity-90">#287A74</span>
+                    <span class="text-xs opacity-90">#007A7A</span>
                 </div>
                 <div class="bg-brand-secondary text-white p-4 rounded-xl shadow-sm">
                     <span class="block font-semibold">Secondary</span>
-                    <span class="text-xs opacity-90">#55A9A0</span>
+                    <span class="text-xs opacity-90">#148787</span>
                 </div>
-                <div class="bg-brand-sky text-brand-dark p-4 rounded-xl shadow-sm">
-                    <span class="block font-semibold">Mint / Sky</span>
-                    <span class="text-xs opacity-90">#AEEED3</span>
+                <div class="bg-brand-tertiary text-white p-4 rounded-xl shadow-sm">
+                    <span class="block font-semibold">Tertiary</span>
+                    <span class="text-xs opacity-90">#2C9494</span>
+                </div>
+                <div class="bg-brand-sky text-white p-4 rounded-xl shadow-sm">
+                    <span class="block font-semibold">Light Teal</span>
+                    <span class="text-xs opacity-90">#48A0A0</span>
+                </div>
+                <div class="bg-brand-complimentary text-white p-4 rounded-xl shadow-sm">
+                    <span class="block font-semibold">Complimentary</span>
+                    <span class="text-xs opacity-90">#7A1F00</span>
                 </div>
                 <div class="bg-brand-cream text-brand-dark p-4 rounded-xl shadow-sm">
-                    <span class="block font-semibold">Cream</span>
-                    <span class="text-xs opacity-90">#FFF8B0</span>
-                </div>
-                <div class="bg-brand-dark text-white p-4 rounded-xl shadow-sm">
-                    <span class="block font-semibold">Dark</span>
-                    <span class="text-xs opacity-90">#133d3a</span>
+                    <span class="block font-semibold">Warm Highlight</span>
+                    <span class="text-xs opacity-90">#FFE3D1</span>
                 </div>
             </div>
         </section>
