@@ -120,7 +120,7 @@
     position: absolute;
     inset: -3px;
     border-radius: 9999px;
-    border: 2px solid rgba(174, 238, 211, 0.6);
+    border: 2px solid rgba(72, 160, 160, 0.6);
     animation: splashPing 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
@@ -128,11 +128,11 @@
     width: 4.75rem;
     height: 4.75rem;
     border-radius: 1.25rem;
-    background: linear-gradient(135deg, #287A74 0%, #133d3a 45%, #55A9A0 100%);
+    background: linear-gradient(135deg, #007A7A 0%, #003838 45%, #148787 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 12px 28px -5px rgba(40, 122, 116, 0.38), 0 8px 12px -6px rgba(40, 122, 116, 0.25);
+    box-shadow: 0 12px 28px -5px rgba(0, 122, 122, 0.38), 0 8px 12px -6px rgba(0, 122, 122, 0.25);
     border: 3px solid #ffffff;
     animation: splashBadgeFloat 3s ease-in-out infinite;
 }
@@ -152,7 +152,7 @@
 .splash-brand-title {
     font-size: 0.875rem;
     font-weight: 800;
-    color: #133d3a;
+    color: #002B2B;
     letter-spacing: 0.09em;
     text-transform: uppercase;
     margin: 0 0 0.25rem 0;
@@ -162,7 +162,7 @@
 .splash-brand-sub {
     font-size: 0.72rem;
     font-weight: 600;
-    color: #476864;
+    color: #3d6666;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     margin: 0;
@@ -184,11 +184,11 @@
     animation: splashBarWave 1.2s ease-in-out infinite alternate;
 }
 
-.splash-equalizer .bar-1 { background-color: #287A74; height: 10px; animation-delay: 0s; }
-.splash-equalizer .bar-2 { background-color: #55A9A0; height: 16px; animation-delay: 0.2s; }
-.splash-equalizer .bar-3 { background-color: #AEEED3; height: 22px; animation-delay: 0.4s; }
-.splash-equalizer .bar-4 { background-color: #55A9A0; height: 16px; animation-delay: 0.6s; }
-.splash-equalizer .bar-5 { background-color: #287A74; height: 10px; animation-delay: 0.8s; }
+.splash-equalizer .bar-1 { background-color: #007A7A; height: 10px; animation-delay: 0s; }
+.splash-equalizer .bar-2 { background-color: #148787; height: 16px; animation-delay: 0.2s; }
+.splash-equalizer .bar-3 { background-color: #48A0A0; height: 22px; animation-delay: 0.4s; }
+.splash-equalizer .bar-4 { background-color: #2C9494; height: 16px; animation-delay: 0.6s; }
+.splash-equalizer .bar-5 { background-color: #007A7A; height: 10px; animation-delay: 0.8s; }
 
 .splash-progress-track {
     width: 10.5rem;
@@ -206,7 +206,7 @@
     bottom: 0;
     width: 45%;
     border-radius: 9999px;
-    background: linear-gradient(90deg, #287A74 0%, #55A9A0 50%, #AEEED3 100%);
+    background: linear-gradient(90deg, #007A7A 0%, #148787 50%, #48A0A0 100%);
     animation: splashProgressBar 1.3s ease-in-out infinite;
 }
 
