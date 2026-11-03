@@ -296,7 +296,7 @@
             <!-- Featured Banner Card -->
             <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-primary-dark via-brand-primary to-brand-secondary text-white p-7 sm:p-10 shadow-xl">
                 <!-- Ambient Glow & Pattern -->
-                <div class="absolute inset-0 bg-[radial-gradient(#97D7FF_1.2px,transparent_1.2px)] [background-size:24px_24px] opacity-15 pointer-events-none"></div>
+                <div class="absolute inset-0 bg-[radial-gradient(#AEEED3_1.2px,transparent_1.2px)] [background-size:24px_24px] opacity-15 pointer-events-none"></div>
                 <div class="absolute -right-16 -bottom-16 w-80 h-80 rounded-full bg-brand-sky/20 blur-3xl pointer-events-none"></div>
 
                 <div class="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">

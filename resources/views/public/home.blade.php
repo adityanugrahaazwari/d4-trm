@@ -27,9 +27,9 @@
         <!-- Ambient Cyber-Grid & Cinematic Background Layer with Slow Pulsing Orbs -->
         <div class="absolute inset-0 z-0 pointer-events-none">
             <!-- 3D Cyber-Grid Pattern -->
-            <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(151,215,255,0.07)_1px,transparent_1px),linear-gradient(to_bottom,rgba(151,215,255,0.07)_1px,transparent_1px)] bg-[size:36px_36px] opacity-30"></div>
+            <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(174,238,211,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(174,238,211,0.1)_1px,transparent_1px)] bg-[size:36px_36px] opacity-30"></div>
             <!-- Radial Dot Matrix -->
-            <div class="absolute inset-0 bg-[radial-gradient(#97D7FF_1.2px,transparent_1.2px)] [background-size:24px_24px] opacity-15"></div>
+            <div class="absolute inset-0 bg-[radial-gradient(#AEEED3_1.2px,transparent_1.2px)] [background-size:24px_24px] opacity-15"></div>
             <!-- Gradient Overlay: menjaga keterbacaan teks dan kedalaman warna -->
             <div class="absolute inset-0 bg-gradient-to-r from-brand-primary-dark/95 via-brand-primary/90 to-brand-primary/80 z-10"></div>
             <!-- Ambient Glowing Color Orbs (with smooth breathing animations) -->
@@ -241,7 +241,7 @@
                                         </div>
                                         <div>
                                             <span class="block text-sm font-extrabold text-white tracking-wide">Pengembangan Game 2D &amp; 3D</span>
-                                            <span class="block text-[11px] text-slate-300 font-mono">Unreal Engine â€¢ Unity â€¢ C# &amp; Blueprints</span>
+                                            <span class="block text-[11px] text-slate-300 font-mono">Unreal Engine &bull; Unity &bull; C# &amp; Blueprints</span>
                                         </div>
                                     </div>
 
@@ -256,7 +256,7 @@
                                         </div>
                                         <div>
                                             <span class="block text-sm font-extrabold text-white tracking-wide">Pemodelan 3D, Rigging &amp; VFX</span>
-                                            <span class="block text-[11px] text-slate-300 font-mono">Blender 4 â€¢ Autodesk Maya â€¢ ZBrush</span>
+                                            <span class="block text-[11px] text-slate-300 font-mono">Blender 4 &bull; Autodesk Maya &bull; ZBrush</span>
                                         </div>
                                     </div>
 
@@ -271,7 +271,7 @@
                                         </div>
                                         <div>
                                             <span class="block text-sm font-extrabold text-white tracking-wide">Teknologi Imersif (VR/AR/XR)</span>
-                                            <span class="block text-[11px] text-slate-300 font-mono">Spatial Audio â€¢ Hand Tracking â€¢ 360 Video</span>
+                                            <span class="block text-[11px] text-slate-300 font-mono">Spatial Audio &bull; Hand Tracking &bull; 360 Video</span>
                                         </div>
                                     </div>
                                 </div>
@@ -341,7 +341,7 @@
 
                     <div class="card-fade-up rounded-2xl bg-gradient-to-tr from-brand-secondary/20 via-brand-sky/20 to-brand-primary/10 border border-brand-border p-6 sm:p-7 flex flex-col justify-between shadow-inner hover:shadow-xl hover:border-brand-primary/30 transition-all duration-500 relative overflow-hidden group" data-card-delay="0">
                         <!-- Ambient Grid Background -->
-                        <div class="absolute inset-0 bg-[radial-gradient(#086288_1px,transparent_1px)] [background-size:16px_16px] opacity-10 pointer-events-none"></div>
+                        <div class="absolute inset-0 bg-[radial-gradient(#287A74_1px,transparent_1px)] [background-size:16px_16px] opacity-10 pointer-events-none"></div>
 
                         <div class="relative z-10 flex items-center justify-between">
                             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white border border-slate-200 text-xs font-semibold text-brand-primary shadow-xs">
@@ -882,7 +882,7 @@
             <!-- Ambient Glowing Color Orbs -->
             <div class="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-brand-sky/20 blur-3xl animate-pulse-slow pointer-events-none"></div>
             <div class="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-brand-secondary/30 blur-3xl animate-pulse-slow [animation-delay:2s] pointer-events-none"></div>
-            <div class="absolute inset-0 bg-[radial-gradient(#97D7FF_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none"></div>
+            <div class="absolute inset-0 bg-[radial-gradient(#AEEED3_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none"></div>
 
             <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div class="lg:col-span-7 space-y-6">
