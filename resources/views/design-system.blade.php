@@ -25,23 +25,23 @@
             <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
                 <div class="bg-brand-primary text-white p-4 rounded-xl shadow-sm">
                     <span class="block font-semibold">Primary</span>
-                    <span class="text-xs opacity-90">#086288</span>
+                    <span class="text-xs opacity-90">#287A74</span>
                 </div>
                 <div class="bg-brand-secondary text-white p-4 rounded-xl shadow-sm">
                     <span class="block font-semibold">Secondary</span>
-                    <span class="text-xs opacity-90">#4D8DBA</span>
+                    <span class="text-xs opacity-90">#55A9A0</span>
                 </div>
                 <div class="bg-brand-sky text-brand-dark p-4 rounded-xl shadow-sm">
-                    <span class="block font-semibold">Light Blue (Sky)</span>
-                    <span class="text-xs opacity-90">#97D7FF</span>
+                    <span class="block font-semibold">Mint / Sky</span>
+                    <span class="text-xs opacity-90">#AEEED3</span>
                 </div>
                 <div class="bg-brand-cream text-brand-dark p-4 rounded-xl shadow-sm">
                     <span class="block font-semibold">Cream</span>
-                    <span class="text-xs opacity-90">#FFEFC4</span>
+                    <span class="text-xs opacity-90">#FFF8B0</span>
                 </div>
-                <div class="bg-white border border-brand-border text-brand-dark p-4 rounded-xl shadow-sm">
-                    <span class="block font-semibold">White / Surface</span>
-                    <span class="text-xs text-brand-muted">#FFFFFF</span>
+                <div class="bg-brand-dark text-white p-4 rounded-xl shadow-sm">
+                    <span class="block font-semibold">Dark</span>
+                    <span class="text-xs opacity-90">#133d3a</span>
                 </div>
             </div>
         </section>

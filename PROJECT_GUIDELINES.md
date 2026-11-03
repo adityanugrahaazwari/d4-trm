@@ -97,17 +97,18 @@ Menyamakan gaya visual agar halaman publik dan admin konsisten.
 
 | Nama | Kode | Penggunaan yang disarankan |
 |---|---|---|
-| Primary | `#086288` | Navbar, footer, tombol utama, judul penting |
-| Secondary | `#4D8DBA` | Tautan dan aksen sekunder |
-| Light Blue | `#97D7FF` | Latar aksen yang ringan |
-| Cream | `#FFEFC4` | Sorotan atau latar aksen |
+| Primary | `#287A74` | Navbar, footer, tombol utama, judul penting |
+| Secondary | `#55A9A0` | Tautan dan aksen sekunder |
+| Mint / Sky | `#AEEED3` | Latar aksen yang segar, glowing text di latar gelap |
+| Cream | `#FFF8B0` | Sorotan atau latar aksen hangat |
+| Dark | `#133d3a` | Teks utama, judul gelap, background kontras tinggi |
 | White | `#FFFFFF` | Latar utama |
 
 Warna teks yang disarankan:
-- Teks utama: `#243746`
-- Teks sekunder: `#526777`
+- Teks utama: `#133d3a`
+- Teks sekunder: `#476864`
 
-Gunakan teks gelap pada latar biru muda dan krem. Periksa kontras sebelum menggunakan teks putih di atas warna sekunder.
+Gunakan teks gelap pada latar mint muda dan krem. Periksa kontras sebelum menggunakan teks putih di atas warna sekunder.
 
 ## Langkah kerja
 - [ ] Tentukan font dan skala ukuran teks.
@@ -123,11 +124,20 @@ Jika proyek menggunakan Tailwind CSS v4, token warna dapat didefinisikan dalam `
 @import "tailwindcss";
 
 @theme {
-    --color-brand-primary: #086288;
-    --color-brand-secondary: #4D8DBA;
-    --color-brand-sky: #97D7FF;
-    --color-brand-cream: #FFEFC4;
-    --color-brand-white: #FFFFFF;
+    --color-brand-primary: #287A74;
+    --color-brand-primary-hover: #1e635e;
+    --color-brand-primary-dark: #133d3a;
+    --color-brand-primary-light: #eaf7f5;
+    --color-brand-secondary: #55A9A0;
+    --color-brand-secondary-hover: #438f87;
+    --color-brand-sky: #AEEED3;
+    --color-brand-sky-light: #f0fbf6;
+    --color-brand-cream: #FFF8B0;
+    --color-brand-cream-light: #fffef0;
+    --color-brand-dark: #133d3a;
+    --color-brand-muted: #476864;
+    --color-brand-surface: #F4FAF8;
+    --color-brand-border: #CFEAE3;
 }
 ```
 
