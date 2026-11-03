@@ -14,9 +14,7 @@
         <!-- Logo & Header -->
         <div class="text-center space-y-2">
             <a href="{{ route('home') }}" class="inline-block group" title="Kembali ke Beranda">
-                <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-primary via-brand-primary to-brand-secondary text-white font-black text-2xl flex items-center justify-center mx-auto shadow-md shadow-brand-primary/25 group-hover:scale-105 transition-transform duration-300">
-                    TRM
-                </div>
+                <img src="{{ asset('assets/logo.png') }}" alt="Logo D-IV TRM POLITALA" class="w-16 h-16 rounded-2xl object-cover mx-auto shadow-md shadow-brand-primary/25 group-hover:scale-105 transition-transform duration-300 ring-2 ring-brand-primary/20">
             </a>
             <h2 class="text-2xl font-bold text-brand-dark">Masuk Panel Pengelola</h2>
             <p class="text-xs text-brand-muted">Gunakan akun administrator D-IV TRM POLITALA</p>

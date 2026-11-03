@@ -7,6 +7,7 @@
 
     <title>@yield('title', 'Program Studi D-IV Teknik Rekayasa Multimedia') - POLITALA</title>
     <meta name="description" content="@yield('meta_description', 'Website resmi Program Studi D-IV Teknik Rekayasa Multimedia - Politeknik Negeri Tanah Laut.')">
+    <link rel="icon" type="image/png" href="{{ asset('assets/logo.png') }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">

@@ -13,9 +13,7 @@
 <aside class="w-72 bg-brand-dark text-white flex-shrink-0 flex flex-col h-screen sticky top-0 border-r border-slate-700/50 shadow-xl overflow-hidden">
     <!-- Brand / Logo -->
     <div class="h-20 px-6 flex items-center gap-3.5 border-b border-slate-700/60 bg-brand-dark/95">
-        <div class="w-10 h-10 rounded-xl bg-brand-primary flex items-center justify-center text-white font-extrabold text-lg shadow-sm">
-            TRM
-        </div>
+        <img src="{{ asset('assets/logo.png') }}" alt="Logo D-IV TRM POLITALA" class="w-10 h-10 rounded-xl object-cover ring-1 ring-white/20 shadow-sm shrink-0">
         <div class="flex flex-col">
             <span class="font-bold text-sm tracking-wide text-white leading-tight">Panel Pengelola</span>
             <span class="text-[11px] text-brand-sky font-medium">D-IV Rekayasa Multimedia</span>

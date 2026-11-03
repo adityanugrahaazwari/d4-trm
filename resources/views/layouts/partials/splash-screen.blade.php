@@ -11,8 +11,8 @@
             <div class="splash-ring splash-ring-pulse"></div>
 
             <!-- Badge TRM -->
-            <div class="splash-badge">
-                <span class="splash-badge-text">TRM</span>
+            <div class="splash-badge overflow-hidden p-1.5">
+                <img src="{{ asset('assets/logo.png') }}" alt="Logo D-IV TRM POLITALA" class="w-full h-full object-cover rounded-xl">
             </div>
         </div>
 

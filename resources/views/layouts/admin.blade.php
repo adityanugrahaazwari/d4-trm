@@ -6,6 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', 'Admin Panel') - D-IV Teknik Rekayasa Multimedia</title>
+    <link rel="icon" type="image/png" href="{{ asset('assets/logo.png') }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">

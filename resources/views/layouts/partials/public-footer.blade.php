@@ -4,9 +4,7 @@
             <!-- Kolom 1: Profil Brand -->
             <div class="space-y-4">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-lg bg-white text-brand-primary font-black flex items-center justify-center text-lg shadow-sm">
-                        TRM
-                    </div>
+                    <img src="{{ asset('assets/logo.png') }}" alt="Logo D-IV TRM POLITALA" class="w-10 h-10 rounded-xl object-cover shadow-sm ring-1 ring-white/20 shrink-0">
                     <div>
                         <span class="block text-xs uppercase tracking-wider text-brand-sky font-semibold">Program Studi</span>
                         <h3 class="font-bold text-base text-white leading-tight">D-IV Teknik Rekayasa Multimedia</h3>

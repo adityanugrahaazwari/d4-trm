@@ -47,9 +47,7 @@ class="fixed top-0 inset-x-0 z-50 pointer-events-none transition-all duration-30
                 <!-- Brand Logo & Identity -->
                 <a href="{{ route('home') }}" class="flex items-center gap-2.5 sm:gap-3 group shrink-0" title="D-IV Teknik Rekayasa Multimedia POLITALA">
                     <div class="relative flex items-center justify-center">
-                        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-tr from-brand-primary via-brand-primary to-brand-secondary text-white font-black text-xs sm:text-sm flex items-center justify-center shadow-md shadow-brand-primary/25 group-hover:scale-105 transition-all duration-300 ring-2 ring-brand-sky/40">
-                            TRM
-                        </div>
+                        <img src="{{ asset('assets/logo.png') }}" alt="Logo D-IV TRM POLITALA" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover shadow-md shadow-brand-primary/25 group-hover:scale-105 transition-all duration-300 ring-2 ring-brand-sky/40">
                         <span class="absolute -bottom-0.5 -right-0.5 flex h-2 w-2 sm:h-2.5 sm:w-2.5">
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-full w-full bg-emerald-500 ring-2 ring-white"></span>
