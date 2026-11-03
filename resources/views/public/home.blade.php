@@ -241,7 +241,7 @@
                                         </div>
                                         <div>
                                             <span class="block text-sm font-extrabold text-white tracking-wide">Pengembangan Game 2D &amp; 3D</span>
-                                            <span class="block text-[11px] text-slate-300 font-mono">Unreal Engine â€¢ Unity â€¢ C# &amp; Blueprints</span>
+                                            <span class="block text-[11px] text-slate-300 font-mono">Unreal Engine &bull; Unity &bull; C# &amp; Blueprints</span>
                                         </div>
                                     </div>
 
@@ -256,7 +256,7 @@
                                         </div>
                                         <div>
                                             <span class="block text-sm font-extrabold text-white tracking-wide">Pemodelan 3D, Rigging &amp; VFX</span>
-                                            <span class="block text-[11px] text-slate-300 font-mono">Blender 4 â€¢ Autodesk Maya â€¢ ZBrush</span>
+                                            <span class="block text-[11px] text-slate-300 font-mono">Blender 4 &bull; Autodesk Maya &bull; ZBrush</span>
                                         </div>
                                     </div>
 
@@ -271,7 +271,7 @@
                                         </div>
                                         <div>
                                             <span class="block text-sm font-extrabold text-white tracking-wide">Teknologi Imersif (VR/AR/XR)</span>
-                                            <span class="block text-[11px] text-slate-300 font-mono">Spatial Audio â€¢ Hand Tracking â€¢ 360 Video</span>
+                                            <span class="block text-[11px] text-slate-300 font-mono">Spatial Audio &bull; Hand Tracking &bull; 360 Video</span>
                                         </div>
                                     </div>
                                 </div>

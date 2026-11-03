@@ -80,7 +80,7 @@
                         </div>
                         <div>
                             <span class="font-bold text-brand-dark block">Jam Layanan:</span>
-                            <span class="text-brand-muted text-xs block mt-0.5">Senin â€“ Jumat: 08:00 â€“ 16:30 WITA</span>
+                            <span class="text-brand-muted text-xs block mt-0.5">Senin – Jumat: 08:00 – 16:30 WITA</span>
                             <span class="text-rose-500 text-xs block">Sabtu, Minggu &amp; Libur Nasional: Tutup</span>
                         </div>
                     </div>

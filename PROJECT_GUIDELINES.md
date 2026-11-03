@@ -40,7 +40,7 @@ Jangan menganggap suatu tahap selesai hanya karena kode sudah ditulis. Hasilnya 
 
 ---
 
-# Tahap 1 â€” Persiapan dan pemeriksaan proyek
+# Tahap 1 — Persiapan dan pemeriksaan proyek
 
 ## Tujuan
 Memastikan lingkungan pengembangan dan proyek siap digunakan tanpa mengulang instalasi yang sebenarnya sudah dilakukan.
@@ -88,7 +88,7 @@ Jangan memakai contoh commit ini jika perubahan aktual tidak sesuai. Jika proyek
 
 ---
 
-# Tahap 2 â€” Menetapkan fondasi desain
+# Tahap 2 — Menetapkan fondasi desain
 
 ## Tujuan
 Menyamakan gaya visual agar halaman publik dan admin konsisten.
@@ -153,7 +153,7 @@ Contoh: `style(design): define website design tokens`
 
 ---
 
-# Tahap 3 â€” Membuat layout website publik
+# Tahap 3 — Membuat layout website publik
 
 ## Tujuan
 Membangun kerangka umum yang dipakai halaman publik.
@@ -205,7 +205,7 @@ Contoh: `feat(public): add shared public layout`
 
 ---
 
-# Tahap 4 â€” Membuat halaman beranda
+# Tahap 4 — Membuat halaman beranda
 
 ## Urutan bagian beranda
 1. Header dan navigasi
@@ -239,7 +239,7 @@ Contoh: `feat(public): build homepage sections`
 
 ---
 
-# Tahap 5 â€” Membuat layout dan kerangka panel admin
+# Tahap 5 — Membuat layout dan kerangka panel admin
 
 ## Tujuan
 Menyiapkan tampilan admin sebelum menghubungkan seluruh fitur ke database.
@@ -313,7 +313,7 @@ Contoh: `feat(admin): add admin layout and UI components`
 
 ---
 
-# Tahap 6 â€” Autentikasi dan dasar keamanan
+# Tahap 6 — Autentikasi dan dasar keamanan
 
 ## Tujuan
 Memastikan hanya pengguna yang berhak dapat mengakses area admin.
@@ -341,7 +341,7 @@ Contoh: `feat(auth): add protected admin access`
 
 ---
 
-# Tahap 7 â€” Menyiapkan pola backend untuk setiap fitur
+# Tahap 7 — Menyiapkan pola backend untuk setiap fitur
 
 ## Tujuan
 Menentukan pola implementasi yang konsisten sebelum membuat CRUD satu per satu.
@@ -380,15 +380,15 @@ Contoh: `refactor(backend): establish feature implementation pattern`
 
 ---
 
-# Tahap 8 â€” Implementasi fitur konten inti
+# Tahap 8 — Implementasi fitur konten inti
 
 Kerjakan satu fitur sampai selesai sebelum berpindah ke fitur berikutnya.
 
 Urutan yang disarankan:
 
-1. **Pengaturan identitas website** â€” nama website, logo, favicon, kontak, dan media sosial.
-2. **Profil program studi** â€” sejarah, visi-misi, sambutan, dan struktur organisasi.
-3. **Dosen dan tenaga kependidikan** â€” hanya data yang layak dipublikasikan.
+1. **Pengaturan identitas website** — nama website, logo, favicon, kontak, dan media sosial.
+2. **Profil program studi** — sejarah, visi-misi, sambutan, dan struktur organisasi.
+3. **Dosen dan tenaga kependidikan** — hanya data yang layak dipublikasikan.
 4. **Berita dan kategori berita**.
 5. **Pengumuman akademik**.
 6. **Agenda kegiatan**.
@@ -415,7 +415,7 @@ Contoh commit:
 
 ---
 
-# Tahap 9 â€” Implementasi fitur akademik
+# Tahap 9 — Implementasi fitur akademik
 
 Kerjakan satu per satu:
 1. Kurikulum
@@ -438,7 +438,7 @@ Gunakan satu commit untuk satu unit perubahan yang selesai, misalnya `feat(acade
 
 ---
 
-# Tahap 10 â€” Implementasi fasilitas, galeri, dan media
+# Tahap 10 — Implementasi fasilitas, galeri, dan media
 
 ## Fasilitas
 - [ ] Buat daftar fasilitas.
@@ -467,7 +467,7 @@ Contoh: `feat(gallery): manage photo albums`
 
 ---
 
-# Tahap 11 â€” Menghubungkan konten ke website publik
+# Tahap 11 — Menghubungkan konten ke website publik
 
 ## Tujuan
 Mengganti data dummy dengan data database yang sebenarnya.
@@ -490,7 +490,7 @@ Contoh: `feat(public): connect pages to database content`
 
 ---
 
-# Tahap 12 â€” Pengguna, peran, dan hak akses
+# Tahap 12 — Pengguna, peran, dan hak akses
 
 ## Tujuan
 Menerapkan RBAC jika kebutuhan pengelolaan memerlukan beberapa jenis admin.
@@ -513,7 +513,7 @@ Contoh: `feat(auth): implement role-based permissions`
 
 ---
 
-# Tahap 13 â€” Pengujian dan pemeriksaan kualitas
+# Tahap 13 — Pengujian dan pemeriksaan kualitas
 
 ## Daftar pemeriksaan
 - [ ] Uji alur tambah, lihat, ubah, dan hapus setiap fitur.
@@ -543,7 +543,7 @@ Contoh: `test(app): cover core website workflows`
 
 ---
 
-# Tahap 14 â€” Persiapan deployment
+# Tahap 14 — Persiapan deployment
 
 ## Langkah kerja
 - [ ] Tentukan lingkungan server dan domain.
