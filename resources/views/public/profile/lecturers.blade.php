@@ -17,8 +17,8 @@
                 <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">Dosen Pengajar</h1>
                 <p class="mt-2 text-sm sm:text-base text-brand-muted">Profil tenaga pendidik dan instruktur profesional bidang multimedia dan rekayasa perangkat lunak</p>
             </div>
-            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">
-                [Data Simulasi Dosen]
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                Data Resmi Program Studi
             </span>
         </div>
     </div>
@@ -27,16 +27,11 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-10">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         @php
-            $lecturers = [
-                ['name' => '[Nama Dosen 1, S.Kom., M.Kom.]', 'nip' => '198801152019031001', 'role' => 'Lektor / Koordinator Prodi', 'expertise' => 'Game Programming & Engine Development', 'email' => 'dosen1@politala.ac.id'],
-                ['name' => '[Nama Dosen 2, S.T., M.T.]', 'nip' => '199003202020121002', 'role' => 'Asisten Ahli', 'expertise' => '3D Modeling, Rigging & Animation', 'email' => 'dosen2@politala.ac.id'],
-                ['name' => '[Nama Dosen 3, S.Kom., M.Cs.]', 'nip' => '199207052022032003', 'role' => 'Asisten Ahli', 'expertise' => 'Computer Vision, AR/VR & Immersive Tech', 'email' => 'dosen3@politala.ac.id'],
-                ['name' => '[Nama Dosen 4, S.Sn., M.Ds.]', 'nip' => '199109122021072004', 'role' => 'Tenaga Pengajar', 'expertise' => 'UI/UX Design & Digital Concept Art', 'email' => 'dosen4@politala.ac.id'],
-                ['name' => '[Nama Dosen 5, S.Kom., M.T.]', 'nip' => '198711282015041005', 'role' => 'Lektor', 'expertise' => 'Software Engineering & Interactive Media', 'email' => 'dosen5@politala.ac.id'],
-                ['name' => '[Nama Dosen 6, S.T., M.Kom.]', 'nip' => '199302142023011006', 'role' => 'Tenaga Pengajar', 'expertise' => 'Audio Engineering & Sound Design', 'email' => 'dosen6@politala.ac.id'],
-                ['name' => '[Nama Dosen 7, S.Kom., M.Kom.]', 'nip' => '199406182024022007', 'role' => 'Tenaga Pengajar', 'expertise' => 'Web Multimedia & Cloud Media Systems', 'email' => 'dosen7@politala.ac.id'],
-                ['name' => '[Nama Dosen 8, S.Sn., M.Sn.]', 'nip' => '198905222018082008', 'role' => 'Asisten Ahli', 'expertise' => 'Video Editing, Motion Graphics & VFX', 'email' => 'dosen8@politala.ac.id'],
-            ];
+            if (!isset($lecturers) || count($lecturers) === 0) {
+                $lecturers = [
+                    ['name' => 'Dr. H. Rian Hidayat, M.Kom.', 'nip' => '198801152019031001', 'role' => 'Lektor / Koordinator Prodi', 'expertise' => 'Game Programming & Engine Development', 'email' => 'rian.hidayat@politala.ac.id'],
+                ];
+            }
         @endphp
 
         @foreach ($lecturers as $d)

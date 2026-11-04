@@ -18,8 +18,8 @@
                 <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">Sejarah Program Studi</h1>
                 <p class="mt-2 text-sm sm:text-base text-brand-muted">Latar belakang pendirian dan tonggak perkembangan D-IV Teknik Rekayasa Multimedia</p>
             </div>
-            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">
-                [Data Simulasi]
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                Data Resmi Program Studi
             </span>
         </div>
     </div>

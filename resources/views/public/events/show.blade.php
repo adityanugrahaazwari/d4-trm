@@ -181,9 +181,52 @@
         ]
     ];
 
-    // Pick active event by slug or fallback to the first one
-    $currentSlug = $slug ?? 'kuliah-pakar-pipeline-animasi-3d-studio-hollywood';
-    $event = $allEvents[$currentSlug] ?? $allEvents['kuliah-pakar-pipeline-animasi-3d-studio-hollywood'];
+    // Check if an Eloquent Event was passed from Controller
+    $currentSlug = $slug ?? (isset($event) && $event instanceof \App\Models\Event ? $event->slug : 'kuliah-pakar-pipeline-animasi-3d-studio-hollywood');
+
+    if (isset($event) && $event instanceof \App\Models\Event) {
+        $event = [
+            'slug' => $event->slug,
+            'title' => $event->title,
+            'category' => 'Agenda Resmi',
+            'status' => $event->status ?? 'Pendaftaran Dibuka',
+            'status_color' => 'emerald',
+            'mode' => 'Hybrid / Kampus POLITALA',
+            'day' => $event->day ?? '01',
+            'month' => $event->month ?? 'OKT',
+            'year' => '2026',
+            'date_full' => $event->event_date ? $event->event_date->translatedFormat('l, d F Y') : 'Jadwal Resmi',
+            'time' => ($event->start_time ?? '09:00') . ' - ' . ($event->end_time ?? '15:00 WITA'),
+            'location' => $event->location ?? 'Politeknik Negeri Tanah Laut',
+            'location_sub' => 'Kampus POLITALA, Pelaihari',
+            'fee' => 'Gratis (Sivitas Akademika & Umum)',
+            'quota' => '100 Peserta',
+            'speaker' => [
+                'name' => $event->speaker ?? 'Dosen / Praktisi Industri',
+                'role' => 'Pemateri & Narasumber',
+                'company' => 'Program Studi D-IV TRM POLITALA',
+                'bio' => 'Narasumber ahli bidang multimedia terapan dan industri kreatif digital.'
+            ],
+            'description' => $event->description ?? 'Deskripsi agenda sedang dalam proses publikasi oleh panitia penyelenggara.',
+            'rundown' => [
+                ['time' => '08:30 - 09:00 WITA', 'activity' => 'Registrasi Ulang Peserta & Verifikasi'],
+                ['time' => '09:00 - Selesai', 'activity' => 'Sesi Pemaparan Materi, Praktik Terapan & Tanya Jawab']
+            ],
+            'benefits' => [
+                'E-Sertifikat Resmi Berbobot SKP Kemahasiswaan',
+                'Materi Presentasi & File Praktik',
+                'Konsumsi & Jaringan Komunitas'
+            ],
+            'requirements' => [
+                'Terbuka bagi mahasiswa D-IV TRM dan sivitas akademika.',
+                'Membawa perlengkapan pencatatan / laptop mandiri bila diperlukan.'
+            ],
+            'contact_person' => '0812-5555-8821 (Humas TRM POLITALA)',
+            'registration_url' => $event->registration_url ?? route('public.events.index')
+        ];
+    } else {
+        $event = $allEvents[$currentSlug] ?? $allEvents['kuliah-pakar-pipeline-animasi-3d-studio-hollywood'];
+    }
 @endphp
 
 @section('title', $event['title'] . ' - Agenda D-IV TRM POLITALA')

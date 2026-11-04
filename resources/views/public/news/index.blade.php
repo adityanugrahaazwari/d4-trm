@@ -17,8 +17,8 @@
                 <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">Berita &amp; Artikel Terkini</h1>
                 <p class="mt-2 text-sm sm:text-base text-brand-muted">Kabar kegiatan, riset, kerja sama industri, dan wawasan teknologi multimedia terapan</p>
             </div>
-            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">
-                [Data Simulasi Berita]
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                Data Resmi Program Studi
             </span>
         </div>
     </div>
@@ -74,39 +74,32 @@
 
     <!-- News Grid -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        @php
-            $newsList = [
-                ['title' => '[Contoh Berita] Workshop Animasi 3D & Rigging Karakter Bersama Praktisi Industri Film', 'slug' => 'workshop-animasi-3d-rigging-karakter', 'cat' => 'Workshop & Riset', 'date' => '22 Okt 2026', 'desc' => 'Pelatihan intensif pemodelan karakter dan pipeline animasi 3D menggunakan Blender dan Maya untuk mahasiswa.'],
-                ['title' => '[Contoh Berita] Persiapan Pelaksanaan Uji Kompetensi Skema Junior Game Programmer BNSP', 'slug' => 'uji-kompetensi-junior-game-programmer', 'cat' => 'Akademik', 'date' => '19 Okt 2026', 'desc' => 'Standarisasi kompetensi lulusan sarjana terapan vokasi melalui skema sertifikasi profesi bidang pemrograman game.'],
-                ['title' => '[Contoh Berita] Pengadaan Workstation Komputer Grafis Terkini di Lab Multimedia TRM', 'slug' => 'pengadaan-workstation-komputer-grafis', 'cat' => 'Fasilitas', 'date' => '15 Okt 2026', 'desc' => 'Dukungan kartu grafis RTX dan layar color-accurate untuk mendukung praktikum rendering 3D dan game development.'],
-                ['title' => '[Contoh Berita] Sosialisasi Jalur Penerimaan Mahasiswa Baru Sarjana Terapan Tahun 2027', 'slug' => 'sosialisasi-jalur-penerimaan-mahasiswa-baru-2027', 'cat' => 'Akademik', 'date' => '10 Okt 2026', 'desc' => 'Informasi jalur SNBP, SNBT, dan Jalur Mandiri Konsorsium Vokasi bagi siswa SMA/SMK sederajat.'],
-                ['title' => '[Contoh Berita] Seminar Tren Media Imersif: Potensi Virtual Reality dalam Sektor Industri', 'slug' => 'seminar-tren-media-imersif-vr', 'cat' => 'Workshop & Riset', 'date' => '05 Okt 2026', 'desc' => 'Eksplorasi penggunaan simulasi virtual untuk keselamatan kerja K3 pertambangan dan simulasi operasional alat berat.'],
-                ['title' => '[Contoh Berita] Dosen TRM Rilis Kajian Penerapan UI/UX Berbasis Budaya Lokal Banjar', 'slug' => 'dosen-trm-kajian-uiux-budaya-lokal-banjar', 'cat' => 'Riset Dosen', 'date' => '01 Okt 2026', 'desc' => 'Publikasi ilmiah penggabungan ornamen khas kearifan lokal Kalimantan Selatan ke dalam elemen desain visual modern.'],
-            ];
-        @endphp
-
-        @foreach ($newsList as $item)
+        @forelse ($newsList as $item)
             <article class="bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-md transition-all flex flex-col justify-between">
                 <div>
-                    <a href="{{ route('public.news.show', $item['slug']) }}" class="block aspect-16/9 bg-slate-100 flex items-center justify-center text-slate-400 relative hover:opacity-90 transition-opacity">
-                        <span class="text-xs font-medium">[Thumbnail Berita]</span>
+                    <a href="{{ route('public.news.show', $item->slug ?? $item['slug']) }}" class="block aspect-16/9 bg-slate-100 flex items-center justify-center text-slate-400 relative hover:opacity-90 transition-opacity">
+                        @if(!empty($item->featured_image))
+                            <img src="{{ asset($item->featured_image) }}" alt="{{ $item->title }}" class="w-full h-full object-cover">
+                        @else
+                            <img src="{{ asset('assets/undraw_press-play_1y41.svg') }}" alt="Berita TRM" class="h-28 w-auto object-contain p-4">
+                        @endif
                     </a>
                     <div class="p-6 space-y-3">
                         <div class="flex items-center gap-2 text-xs text-brand-muted">
-                            <span>{{ $item['date'] }}</span>
+                            <span>{{ !empty($item->published_at) ? $item->published_at->format('d M Y') : date('d M Y') }}</span>
                             <span>&bull;</span>
-                            <span class="text-brand-secondary font-bold">{{ $item['cat'] }}</span>
+                            <span class="text-brand-secondary font-bold">{{ $item->category?->name ?? 'Informasi' }}</span>
                         </div>
                         <h3 class="font-bold text-base text-brand-dark leading-snug line-clamp-2 hover:text-brand-primary transition-colors">
-                            <a href="{{ route('public.news.show', $item['slug']) }}">{{ $item['title'] }}</a>
+                            <a href="{{ route('public.news.show', $item->slug ?? $item['slug']) }}">{{ $item->title ?? $item['title'] }}</a>
                         </h3>
                         <p class="text-xs text-brand-muted leading-relaxed line-clamp-2">
-                            {{ $item['desc'] }}
+                            {{ $item->excerpt ?? Str::limit(strip_tags($item->content ?? ''), 120) }}
                         </p>
                     </div>
                 </div>
                 <div class="p-6 pt-0 border-t border-slate-100 mt-4">
-                    <a href="{{ route('public.news.show', $item['slug']) }}" class="text-xs font-bold text-brand-primary hover:underline inline-flex items-center gap-1">
+                    <a href="{{ route('public.news.show', $item->slug ?? $item['slug']) }}" class="text-xs font-bold text-brand-primary hover:underline inline-flex items-center gap-1">
                         <span>Baca Selengkapnya</span>
                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -114,15 +107,17 @@
                     </a>
                 </div>
             </article>
-        @endforeach
+        @empty
+            <div class="col-span-3 text-center py-12 text-slate-500">
+                Belum ada artikel berita yang dipublikasikan saat ini.
+            </div>
+        @endforelse
     </div>
 
-    <!-- Pagination Mockup -->
-    <div class="pt-8 flex items-center justify-center gap-2 text-xs font-bold">
-        <button disabled class="px-4 py-2 rounded-xl bg-slate-100 text-slate-400 cursor-not-allowed">Sebelumnya</button>
-        <button class="px-4 py-2 rounded-xl bg-brand-primary text-white shadow-sm">1</button>
-        <button class="px-4 py-2 rounded-xl bg-white border border-slate-200 text-brand-dark hover:bg-slate-50">2</button>
-        <button class="px-4 py-2 rounded-xl bg-white border border-slate-200 text-brand-dark hover:bg-slate-50">Selanjutnya</button>
-    </div>
+    @if(method_exists($newsList, 'links'))
+        <div class="pt-8">
+            {{ $newsList->links() }}
+        </div>
+    @endif
 </div>
 @endsection

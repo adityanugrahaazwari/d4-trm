@@ -17,68 +17,92 @@
                 <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">Capaian Pembelajaran Lulusan (CPL)</h1>
                 <p class="mt-2 text-sm sm:text-base text-brand-muted">Standar kompetensi dan kualifikasi lulusan D-IV TRM sesuai Kerangka Kualifikasi Nasional Indonesia (KKNI Level 6)</p>
             </div>
-            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">
-                [Data Simulasi CPL]
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                Data Resmi Program Studi
             </span>
         </div>
     </div>
 </div>
 
 <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-12">
-    <!-- Sikap (Attitude) -->
-    <div class="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs space-y-4">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-blue-50 text-brand-primary flex items-center justify-center font-bold">
-                S
+    @if(isset($cpls) && count($cpls) > 0)
+        @foreach($cpls as $category => $items)
+            <div class="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-brand-primary-light text-brand-primary flex items-center justify-center font-bold">
+                        {{ strtoupper(substr($category, 0, 2)) }}
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-bold text-brand-dark">{{ $category }}</h2>
+                        <p class="text-xs text-brand-muted">Capaian Pembelajaran Lulusan ranah {{ strtolower($category) }}</p>
+                    </div>
+                </div>
+                <ul class="space-y-3 text-xs sm:text-sm text-slate-700 leading-relaxed">
+                    @foreach($items as $cpl)
+                        <li class="flex items-start gap-2.5">
+                            <span class="px-2 py-0.5 rounded font-mono text-[10px] font-bold bg-brand-sky-light text-brand-primary shrink-0 mt-0.5">{{ $cpl->code }}</span>
+                            <span>{{ $cpl->description }}</span>
+                        </li>
+                    @endforeach
+                </ul>
             </div>
-            <div>
-                <h2 class="text-lg font-bold text-brand-dark">Unsur Sikap &amp; Tata Nilai (CPL 1)</h2>
-                <p class="text-xs text-brand-muted">Integritas moral, profesionalisme vokasi, dan etika kerja industri</p>
+        @endforeach
+    @else
+        <!-- Sikap (Attitude) -->
+        <div class="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs space-y-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-brand-primary flex items-center justify-center font-bold">
+                    S
+                </div>
+                <div>
+                    <h2 class="text-lg font-bold text-brand-dark">Unsur Sikap &amp; Tata Nilai (CPL 1)</h2>
+                    <p class="text-xs text-brand-muted">Integritas moral, profesionalisme vokasi, dan etika kerja industri</p>
+                </div>
             </div>
+            <ul class="space-y-2 text-xs sm:text-sm text-slate-700 list-disc list-inside leading-relaxed">
+                <li>Bertaqwa kepada Tuhan Yang Maha Esa dan mampu menunjukkan sikap religius dalam kehidupan profesional.</li>
+                <li>Menjunjung tinggi penegakan hukum, hak cipta (HaKI), dan etika profesi di industri kreatif serta teknologi digital.</li>
+                <li>Menunjukkan sikap bertanggung jawab atas pekerjaan di bidang keahliannya secara mandiri maupun tim kerja multidisiplin.</li>
+            </ul>
         </div>
-        <ul class="space-y-2 text-xs sm:text-sm text-slate-700 list-disc list-inside leading-relaxed">
-            <li>Bertaqwa kepada Tuhan Yang Maha Esa dan mampu menunjukkan sikap religius dalam kehidupan profesional.</li>
-            <li>Menjunjung tinggi penegakan hukum, hak cipta (HaKI), dan etika profesi di industri kreatif serta teknologi digital.</li>
-            <li>Menunjukkan sikap bertanggung jawab atas pekerjaan di bidang keahliannya secara mandiri maupun tim kerja multidisiplin.</li>
-        </ul>
-    </div>
 
-    <!-- Keterampilan Khusus (Special Skills) -->
-    <div class="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs space-y-4">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-brand-primary-light text-brand-primary flex items-center justify-center font-bold">
-                KK
+        <!-- Keterampilan Khusus (Special Skills) -->
+        <div class="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs space-y-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-brand-primary-light text-brand-primary flex items-center justify-center font-bold">
+                    KK
+                </div>
+                <div>
+                    <h2 class="text-lg font-bold text-brand-dark">Keterampilan Khusus (CPL 2)</h2>
+                    <p class="text-xs text-brand-muted">Keahlian teknis utama bidang rekayasa multimedia dan game development</p>
+                </div>
             </div>
-            <div>
-                <h2 class="text-lg font-bold text-brand-dark">Keterampilan Khusus (CPL 2)</h2>
-                <p class="text-xs text-brand-muted">Keahlian teknis utama bidang rekayasa multimedia dan game development</p>
-            </div>
+            <ul class="space-y-2 text-xs sm:text-sm text-slate-700 list-disc list-inside leading-relaxed">
+                <li>Mampu merancang dan mengimplementasikan sistem multimedia interaktif berbasis arsitektur komputasi modern.</li>
+                <li>Mampu memproduksi aset 2D/3D, animasi digital, visual effect (VFX), dan audio sound design berstandar industri.</li>
+                <li>Mampu mengembangkan logika mekanik permainan (gameplay mechanics) menggunakan game engine standar industri (Unity / Unreal Engine).</li>
+                <li>Mampu membangun aplikasi imersif berbasis teknologi Virtual Reality (VR), Augmented Reality (AR), dan Mixed Reality (MR).</li>
+                <li>Mampu menerapkan prinsip UI/UX design thinking untuk menghasilkan prototipe interaktif yang berorientasi pada kepuasan pengguna.</li>
+            </ul>
         </div>
-        <ul class="space-y-2 text-xs sm:text-sm text-slate-700 list-disc list-inside leading-relaxed">
-            <li>Mampu merancang dan mengimplementasikan sistem multimedia interaktif berbasis arsitektur komputasi modern.</li>
-            <li>Mampu memproduksi aset 2D/3D, animasi digital, visual effect (VFX), dan audio sound design berstandar industri.</li>
-            <li>Mampu mengembangkan logika mekanik permainan (gameplay mechanics) menggunakan game engine standar industri (Unity / Unreal Engine).</li>
-            <li>Mampu membangun aplikasi imersif berbasis teknologi Virtual Reality (VR), Augmented Reality (AR), dan Mixed Reality (MR).</li>
-            <li>Mampu menerapkan prinsip UI/UX design thinking untuk menghasilkan prototipe interaktif yang berorientasi pada kepuasan pengguna.</li>
-        </ul>
-    </div>
 
-    <!-- Pengetahuan (Knowledge) -->
-    <div class="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs space-y-4">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold">
-                P
+        <!-- Pengetahuan (Knowledge) -->
+        <div class="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs space-y-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold">
+                    P
+                </div>
+                <div>
+                    <h2 class="text-lg font-bold text-brand-dark">Penguasaan Pengetahuan (CPL 3)</h2>
+                    <p class="text-xs text-brand-muted">Landasan konseptual rekayasa komputasi dan grafika komputer</p>
+                </div>
             </div>
-            <div>
-                <h2 class="text-lg font-bold text-brand-dark">Penguasaan Pengetahuan (CPL 3)</h2>
-                <p class="text-xs text-brand-muted">Landasan konseptual rekayasa komputasi dan grafika komputer</p>
-            </div>
+            <ul class="space-y-2 text-xs sm:text-sm text-slate-700 list-disc list-inside leading-relaxed">
+                <li>Menguasai konsep teoretis grafika komputer, rendering pipa (render pipeline), dan pemrosesan citra digital.</li>
+                <li>Menguasai struktur data, algoritma pengoptimalan media, dan arsitektur komputasi awan untuk streaming multimedia.</li>
+                <li>Menguasai metodologi pengembangan proyek perangkat lunak interaktif secara tangkas (Agile/Scrum).</li>
+            </ul>
         </div>
-        <ul class="space-y-2 text-xs sm:text-sm text-slate-700 list-disc list-inside leading-relaxed">
-            <li>Menguasai konsep teoretis grafika komputer, rendering pipa (render pipeline), dan pemrosesan citra digital.</li>
-            <li>Menguasai struktur data, algoritma pengoptimalan media, dan arsitektur komputasi awan untuk streaming multimedia.</li>
-            <li>Menguasai metodologi pengembangan proyek perangkat lunak interaktif secara tangkas (Agile/Scrum).</li>
-        </ul>
-    </div>
+    @endif
 </div>
 @endsection
