@@ -593,12 +593,18 @@ class ContentController extends Controller
     {
         $validated = $request->validated();
 
+        $data = [
+            'title' => $validated['title'],
+            'content' => $validated['content'],
+        ];
+
+        if ($request->has('meta')) {
+            $data['meta'] = $request->input('meta');
+        }
+
         StudyProgramProfile::updateOrCreate(
             ['section' => $validated['section']],
-            [
-                'title' => $validated['title'],
-                'content' => $validated['content'],
-            ]
+            $data
         );
 
         return redirect()->route('admin.crud.sample', ['section' => $validated['section']])

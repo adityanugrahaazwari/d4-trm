@@ -327,8 +327,137 @@
 
                     <div class="space-y-1.5">
                         <label class="block font-bold text-brand-dark">Isi Konten / Uraian Resmi <span class="text-rose-500">*</span></label>
-                        <textarea name="content" rows="10" required class="w-full px-4 py-3 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary leading-relaxed">{{ old('content', $profileRecord->content ?? '') }}</textarea>
+                        <textarea name="content" rows="8" required class="w-full px-4 py-3 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary leading-relaxed">{{ old('content', $profileRecord->content ?? '') }}</textarea>
                     </div>
+
+                    @if($sec === 'sejarah')
+                        @php
+                            $existingTimeline = data_get($profileRecord, 'meta.timeline', [
+                                [
+                                    'year' => '2024',
+                                    'title' => 'Inisiasi Pendirian & Analisis Kebutuhan Industri',
+                                    'badge' => 'Tahap Awal',
+                                    'status' => 'completed',
+                                    'description' => 'Pembentukan satuan tugas perumus pendirian prodi dan penyusunan naskah akademik berkolaborasi dengan asosiasi industri.',
+                                ],
+                                [
+                                    'year' => '2025',
+                                    'title' => 'Pembangunan Laboratorium Studio & Pengajuan Izin',
+                                    'badge' => 'Infrastruktur',
+                                    'status' => 'completed',
+                                    'description' => 'Pengadaan fasilitas workstation grafis dan pembangunan Studio Motion Capture.',
+                                ],
+                                [
+                                    'year' => '2026',
+                                    'title' => 'Penerbitan SK Resmi & Penerimaan Angkatan Perdana',
+                                    'badge' => 'Operasional Resmi',
+                                    'status' => 'current',
+                                    'description' => 'Diterbitkannya SK izin operasional resmi dan penerimaan mahasiswa baru angkatan pertama.',
+                                ],
+                                [
+                                    'year' => '2027+',
+                                    'title' => 'Ekspansi Inkubator Game, Render Farm & Akreditasi Unggul',
+                                    'badge' => 'Akselerasi Masa Depan',
+                                    'status' => 'upcoming',
+                                    'description' => 'Pengembangan teaching factory dan hilirisasi karya game & animasi ke pasar global.',
+                                ],
+                            ]);
+                        @endphp
+
+                        <!-- Meta Informasi Tambahan -->
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4 rounded-2xl bg-brand-surface border border-slate-200">
+                            <div class="space-y-1">
+                                <label class="block font-bold text-brand-dark text-xs">Tahun Pendirian</label>
+                                <input type="text" name="meta[established_year]" value="{{ old('meta.established_year', data_get($profileRecord, 'meta.established_year', '2026')) }}" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs">
+                            </div>
+                            <div class="space-y-1">
+                                <label class="block font-bold text-brand-dark text-xs">Nomor SK Pendirian</label>
+                                <input type="text" name="meta[sk_number]" value="{{ old('meta.sk_number', data_get($profileRecord, 'meta.sk_number', 'SK Kemendiktisaintek RI No. 124/D/OT/2026')) }}" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs">
+                            </div>
+                            <div class="space-y-1">
+                                <label class="block font-bold text-brand-dark text-xs">Gelar Akademik Lulusan</label>
+                                <input type="text" name="meta[degree_title]" value="{{ old('meta.degree_title', data_get($profileRecord, 'meta.degree_title', 'Sarjana Terapan Komputer (S.Tr.Kom.)')) }}" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs">
+                            </div>
+                        </div>
+
+                        <!-- Alpine Repeater for Timeline -->
+                        <div class="space-y-4 pt-4 border-t border-slate-100" 
+                             x-data="{ 
+                                 timeline: {{ Js::from($existingTimeline) }},
+                                 addMilestone() {
+                                     this.timeline.push({
+                                         year: '2028',
+                                         title: 'Tonggak Baru',
+                                         badge: 'Pengembangan',
+                                         status: 'upcoming',
+                                         description: 'Keterangan pencapaian tonggak...'
+                                     });
+                                 },
+                                 removeMilestone(index) {
+                                     if (this.timeline.length > 1) {
+                                         this.timeline.splice(index, 1);
+                                     }
+                                 }
+                             }">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-bold text-brand-dark">Linimasa Tonggak Sejarah (Timeline Milestones)</h4>
+                                    <p class="text-xs text-brand-muted">Daftar tonggak peristiwa penting yang akan tampil pada halaman sejarah dan beranda (homepage).</p>
+                                </div>
+                                <button type="button" @click="addMilestone()" class="px-3 py-1.5 rounded-xl bg-brand-primary-light text-brand-primary text-xs font-bold hover:bg-brand-primary hover:text-white transition-all flex items-center gap-1.5">
+                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                    </svg>
+                                    <span>Tambah Tonggak</span>
+                                </button>
+                            </div>
+
+                            <div class="space-y-3">
+                                <template x-for="(item, idx) in timeline" :key="idx">
+                                    <div class="p-4 rounded-2xl bg-white border border-slate-200 space-y-3 shadow-2xs">
+                                        <div class="flex items-center justify-between gap-3">
+                                            <span class="text-xs font-bold text-brand-secondary" x-text="'Tonggak #' + (idx + 1)"></span>
+                                            <button type="button" @click="removeMilestone(idx)" class="text-rose-500 hover:text-rose-700 text-xs font-semibold flex items-center gap-1">
+                                                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                                <span>Hapus</span>
+                                            </button>
+                                        </div>
+
+                                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                            <div>
+                                                <label class="block text-[11px] font-semibold text-brand-muted mb-1">Tahun / Periode</label>
+                                                <input type="text" :name="'meta[timeline][' + idx + '][year]'" x-model="item.year" required class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs">
+                                            </div>
+                                            <div>
+                                                <label class="block text-[11px] font-semibold text-brand-muted mb-1">Label / Badge</label>
+                                                <input type="text" :name="'meta[timeline][' + idx + '][badge]'" x-model="item.badge" class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs">
+                                            </div>
+                                            <div>
+                                                <label class="block text-[11px] font-semibold text-brand-muted mb-1">Status Tonggak</label>
+                                                <select :name="'meta[timeline][' + idx + '][status]'" x-model="item.status" class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs">
+                                                    <option value="completed">Terealisasi (Completed)</option>
+                                                    <option value="current">Berjalan Saat Ini (Current)</option>
+                                                    <option value="upcoming">Rencana Mendatang (Upcoming)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-[11px] font-semibold text-brand-muted mb-1">Judul Tonggak</label>
+                                            <input type="text" :name="'meta[timeline][' + idx + '][title]'" x-model="item.title" required class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs">
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-[11px] font-semibold text-brand-muted mb-1">Uraian Ringkas</label>
+                                            <textarea :name="'meta[timeline][' + idx + '][description]'" x-model="item.description" rows="2" class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs"></textarea>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    @endif
 
                     <div class="pt-6 border-t border-slate-100 flex items-center justify-end gap-3">
                         <button type="submit" class="px-6 py-2.5 rounded-xl bg-brand-primary hover:bg-brand-primary-hover text-white text-xs font-bold shadow-sm transition-all flex items-center gap-2">

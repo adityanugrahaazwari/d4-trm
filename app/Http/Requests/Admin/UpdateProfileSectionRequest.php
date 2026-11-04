@@ -21,6 +21,7 @@ class UpdateProfileSectionRequest extends FormRequest
             'section' => ['required', 'string', 'in:sejarah,visi-misi,sambutan,struktur'],
             'title' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string'],
+            'meta' => ['nullable', 'array'],
         ];
     }
 }

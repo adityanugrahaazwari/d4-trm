@@ -328,8 +328,8 @@
         </div>
     </section>
 
-    {{-- 3. Pengenalan Program Studi --}}
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {{-- 3. Pengenalan Program Studi & Tonggak Sejarah --}}
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div class="lg:col-span-5 order-2 lg:order-1">
                 <div class="relative">
@@ -367,9 +367,10 @@
                         </div>
                         <div class="relative z-10 pt-3 mt-3 border-t border-slate-200/80 flex items-center justify-between text-xs text-brand-muted">
                             <span class="flex items-center gap-1.5">
-                                <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-                                <span>Akreditasi: [Dalam Proses Akreditasi BAN-PT/LAM-INFOKOM]</span>
+                                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                                <span>Gelar: {{ data_get($historyProfile, 'meta.degree_title', 'S.Tr.Kom.') }}</span>
                             </span>
+                            <span class="font-bold text-brand-primary">Tahun {{ data_get($historyProfile, 'meta.established_year', '2026') }}</span>
                         </div>
                     </div>
                 </div>
@@ -384,12 +385,26 @@
                     Program Studi Vokasi Unggulan di Bidang Rekayasa Multimedia
                 </h2>
                 <div class="space-y-4 text-brand-muted leading-relaxed">
-                    <p>
-                        Program Studi D-IV Teknik Rekayasa Multimedia dirancang untuk menjawab tingginya kebutuhan industri kreatif dan teknologi digital terhadap tenaga ahli terapan yang menguasai perancangan sistem multimedia interaktif, produksi konten animasi, perancangan game, dan UI/UX modern.
-                    </p>
-                    <p>
-                        Dengan kurikulum berbasis praktik (Hands-on Learning) serta kolaborasi erat bersama Dunia Usaha dan Dunia Industri (DUDI), mahasiswa dibekali kemampuan teknis dan portofolio profesional sejak dini.
-                    </p>
+                    @if(!empty($historyProfile?->content))
+                        @php
+                            $historyParagraphs = explode("\n\n", trim($historyProfile->content));
+                        @endphp
+                        <p>
+                            {{ Str::limit($historyParagraphs[0], 280) }}
+                        </p>
+                        @if(isset($historyParagraphs[1]))
+                            <p>
+                                {{ Str::limit($historyParagraphs[1], 250) }}
+                            </p>
+                        @endif
+                    @else
+                        <p>
+                            Program Studi D-IV Teknik Rekayasa Multimedia dirancang untuk menjawab tingginya kebutuhan industri kreatif dan teknologi digital terhadap tenaga ahli terapan yang menguasai perancangan sistem multimedia interaktif, produksi konten animasi, perancangan game, dan UI/UX modern.
+                        </p>
+                        <p>
+                            Dengan kurikulum berbasis praktik (Hands-on Learning) serta kolaborasi erat bersama Dunia Usaha dan Dunia Industri (DUDI), mahasiswa dibekali kemampuan teknis dan portofolio profesional sejak dini.
+                        </p>
+                    @endif
                 </div>
 
                 <!-- Interactive Pillars Highlight -->
@@ -412,6 +427,148 @@
                     <a href="{{ route('public.profile.history') }}" class="group text-sm font-bold text-brand-primary hover:text-brand-primary-hover flex items-center gap-1.5 transition-colors">
                         <span>Baca Sejarah &amp; Selengkapnya</span>
                         <svg class="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        @php
+            $defaultHomeMilestones = [
+                [
+                    'year' => '2024',
+                    'title' => 'Inisiasi Pendirian & Analisis Kebutuhan Industri',
+                    'badge' => 'Tahap Awal',
+                    'status' => 'completed',
+                    'description' => 'Pembentukan satuan tugas perumus pendirian prodi dan penyusunan naskah akademik berkolaborasi dengan asosiasi industri game & animasi nasional (AINAKI & AGI).',
+                ],
+                [
+                    'year' => '2025',
+                    'title' => 'Pembangunan Laboratorium Studio & Pengajuan Izin',
+                    'badge' => 'Infrastruktur',
+                    'status' => 'completed',
+                    'description' => 'Pengadaan fasilitas workstation grafis spesifikasi tinggi, studio motion capture & audio, serta pengajuan berkas perizinan ke Kemendiktisaintek.',
+                ],
+                [
+                    'year' => '2026',
+                    'title' => 'Penerbitan SK Resmi & Penerimaan Angkatan Perdana',
+                    'badge' => 'Operasional Resmi',
+                    'status' => 'current',
+                    'description' => 'Diterbitkannya SK Izin Operasional resmi D-IV TRM POLITALA dan dibukanya pendaftaran mahasiswa baru angkatan pertama jalur SNBP, SNBT, dan Mandiri.',
+                ],
+                [
+                    'year' => '2027+',
+                    'title' => 'Ekspansi Inkubator Game, Render Farm & Akreditasi Unggul',
+                    'badge' => 'Akselerasi Masa Depan',
+                    'status' => 'upcoming',
+                    'description' => 'Realisasi Teaching Factory komersial terpadu, render farm mandiri, hilirisasi karya game & animasi ke pasar global, serta pemantapan akreditasi Unggul.',
+                ],
+            ];
+
+            $homeMilestones = !empty($timeline) && is_array($timeline) ? $timeline : $defaultHomeMilestones;
+        @endphp
+
+        <!-- Interactive Homepage Timeline Component -->
+        <div class="card-fade-up rounded-3xl bg-white border border-slate-200/80 p-6 sm:p-8 lg:p-10 shadow-xs space-y-8" 
+             x-data="{ 
+                 activeStep: 2, 
+                 milestones: {{ Js::from($homeMilestones) }} 
+             }">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-slate-100 pb-6">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-brand-surface text-brand-secondary text-xs font-bold uppercase tracking-wider mb-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-brand-secondary"></span>
+                        <span>Jejak Perjalanan</span>
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight">
+                        Tonggak Sejarah &amp; Linimasa TRM
+                    </h3>
+                    <p class="text-xs sm:text-sm text-brand-muted mt-1">
+                        Pencapaian penting dari inisiasi pendirian hingga akselerasi menuju pusat keunggulan teknologi multimedia.
+                    </p>
+                </div>
+                <a href="{{ route('public.profile.history') }}" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-brand-primary hover:text-brand-primary-hover shrink-0 transition-colors">
+                    <span>Lihat Rincian Lengkap</span>
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Stepper Navigation Nodes -->
+            <div class="relative">
+                <div class="hidden sm:block absolute top-1/2 left-6 right-6 -translate-y-1/2 h-1 bg-slate-200 z-0"></div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 relative z-10">
+                    <template x-for="(m, idx) in milestones" :key="idx">
+                        <button type="button" 
+                                @click="activeStep = idx" 
+                                class="p-3 sm:p-4 rounded-2xl border text-left transition-all duration-300 relative group flex flex-col justify-between"
+                                :class="activeStep === idx 
+                                    ? 'bg-brand-surface border-brand-primary ring-2 ring-brand-primary/20 shadow-sm' 
+                                    : 'bg-white border-slate-200/80 hover:border-brand-primary/40 hover:bg-slate-50/50'">
+                            <div class="flex items-center justify-between w-full mb-2">
+                                <span class="text-xs sm:text-sm font-black px-2.5 py-0.5 rounded-lg transition-colors"
+                                      :class="activeStep === idx 
+                                          ? 'bg-brand-primary text-white' 
+                                          : (m.status === 'current' ? 'bg-brand-complimentary text-white' : 'bg-slate-100 text-slate-700')"
+                                      x-text="m.year">
+                                </span>
+                                <span class="w-2.5 h-2.5 rounded-full"
+                                      :class="m.status === 'current' ? 'bg-brand-complimentary animate-ping' : (m.status === 'completed' ? 'bg-brand-primary' : 'bg-slate-300')">
+                                </span>
+                            </div>
+                            <span class="text-[11px] sm:text-xs font-bold line-clamp-1 transition-colors"
+                                  :class="activeStep === idx ? 'text-brand-dark' : 'text-brand-muted group-hover:text-brand-dark'"
+                                  x-text="m.badge || ('Tahap ' + (idx + 1))">
+                            </span>
+                        </button>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Active Milestone Display Box -->
+            <div class="p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-brand-surface via-white to-brand-primary-light/30 border border-brand-primary/20 relative overflow-hidden transition-all duration-300">
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+                    <div class="flex items-center gap-2">
+                        <span class="px-3 py-1 rounded-xl text-xs font-black bg-brand-primary text-white shadow-xs" 
+                              x-text="milestones[activeStep].year">
+                        </span>
+                        <span class="px-2.5 py-0.5 rounded-lg text-xs font-bold bg-white border border-slate-200 text-brand-dark" 
+                              x-text="milestones[activeStep].badge || 'Tonggak Penting'">
+                        </span>
+                    </div>
+                    <template x-if="milestones[activeStep].status === 'current'">
+                        <span class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-complimentary bg-white px-2.5 py-1 rounded-full border border-brand-complimentary/20">
+                            <span class="w-2 h-2 rounded-full bg-brand-complimentary animate-pulse"></span>
+                            <span>Fase Operasional Saat Ini</span>
+                        </span>
+                    </template>
+                    <template x-if="milestones[activeStep].status === 'completed'">
+                        <span class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Telah Terealisasi</span>
+                        </span>
+                    </template>
+                    <template x-if="milestones[activeStep].status === 'upcoming'">
+                        <span class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-muted bg-white px-2.5 py-1 rounded-full border border-slate-200">
+                            <span>Rencana Tahap Akselerasi</span>
+                        </span>
+                    </template>
+                </div>
+
+                <h4 class="text-lg sm:text-xl font-bold text-brand-dark" x-text="milestones[activeStep].title"></h4>
+                <p class="mt-2 text-xs sm:text-sm text-brand-muted leading-relaxed" x-text="milestones[activeStep].description"></p>
+
+                <div class="mt-5 pt-4 border-t border-slate-200/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+                    <span class="text-brand-muted">
+                        D-IV Teknik Rekayasa Multimedia &bull; Politeknik Negeri Tanah Laut
+                    </span>
+                    <a href="{{ route('public.profile.history') }}" class="font-bold text-brand-primary hover:text-brand-primary-hover flex items-center gap-1">
+                        <span>Buka Riwayat Sejarah Lengkap</span>
+                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
                     </a>

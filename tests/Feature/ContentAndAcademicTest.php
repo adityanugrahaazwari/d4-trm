@@ -122,7 +122,8 @@ class ContentAndAcademicTest extends TestCase
         ]);
 
         // Test Public Routes
-        $this->get(route('home'))->assertStatus(200)->assertSee('Laboratorium Motion Capture & Audio');
+        $this->get(route('home'))->assertStatus(200)->assertSee('Laboratorium Motion Capture & Audio')->assertSee('Tonggak Sejarah');
+        $this->get(route('public.profile.history'))->assertStatus(200)->assertSee('Sejarah Program Studi')->assertSee('Tonggak Sejarah');
         $this->get(route('public.profile.lecturers'))->assertStatus(200)->assertSee('Dr. Ir. Pengajar TRM, M.Kom.');
         $this->get(route('public.profile.staff'))->assertStatus(200)->assertSee('Staf Administrasi Akademik');
         $this->get(route('public.academic.curriculum'))->assertStatus(200)->assertSee('TRM201');
@@ -235,17 +236,31 @@ class ContentAndAcademicTest extends TestCase
     {
         $this->actingAs($this->adminUser);
 
-        // Update Profile Section
+        // Update Profile Section with Timeline Meta
         $response = $this->post(route('admin.profile-section.update'), [
             'section' => 'sejarah',
             'title' => 'Sejarah Lengkap TRM',
             'content' => 'Program studi ini didirikan untuk menjawab kebutuhan industri kreatif digital di Tanah Laut dan Kalimantan Selatan.',
+            'meta' => [
+                'established_year' => '2026',
+                'timeline' => [
+                    [
+                        'year' => '2024',
+                        'title' => 'Inisiasi Kurikulum TRM',
+                        'badge' => 'Awal',
+                        'status' => 'completed',
+                        'description' => 'Penyusunan kurikulum awal.',
+                    ],
+                ],
+            ],
         ]);
         $response->assertRedirect(route('admin.crud.sample', ['section' => 'sejarah']));
         $this->assertDatabaseHas('study_program_profiles', [
             'section' => 'sejarah',
             'title' => 'Sejarah Lengkap TRM',
         ]);
+
+        $this->get(route('public.profile.history'))->assertStatus(200)->assertSee('Inisiasi Kurikulum TRM');
 
         // Update Settings
         $settingsResponse = $this->post(route('admin.settings.update'), [

@@ -53,7 +53,42 @@ class ContentSeeder extends Seeder
             [
                 'section' => 'sejarah',
                 'title' => 'Sejarah Pendirian Program Studi',
-                'content' => 'Program Studi Sarjana Terapan (D-IV) Teknik Rekayasa Multimedia Politeknik Negeri Tanah Laut didirikan untuk menjawab kebutuhan mendesak talenta industri kreatif digital di tingkat regional maupun nasional. Perkembangan pesat industri game, animasi 3D, efek visual film, dan komputasi interaktif memerlukan tenaga ahli terapan yang tidak hanya menguasai coding perangkat lunak tetapi juga memiliki kepekaan estetika visual yang tinggi.',
+                'content' => "Program Studi Sarjana Terapan (D-IV) Teknik Rekayasa Multimedia di Politeknik Negeri Tanah Laut didirikan sebagai inisiatif strategis menjawab percepatan industri kreatif digital, teknologi komputasi interaktif, serta tingginya permintaan talenta profesional di bidang produksi animasi, pengembangan game komersial, dan rekayasa media imersif (AR/VR).\n\nBerakar dari perkembangan Jurusan Komputer dan Bisnis POLITALA, pendirian program studi ini melewati tahapan kajian kelayakan mendalam bersama asosiasi industri kreatif nasional. TRM dirancang dengan kurikulum vokasi modern 70% praktik langsung (hands-on project) yang memadukan keahlian logika pemrograman (Software Engineering) dengan estetika seni digital (Digital Arts & Design).\n\nMelalui SK Resmi Kemendiktisaintek RI, program studi ini resmi dibuka dan beroperasi penuh mempersiapkan Sarjana Terapan Komputer (S.Tr.Kom.) berdaya saing global yang siap memimpin transformasi ekonomi kreatif digital Indonesia.",
+                'meta' => [
+                    'established_year' => '2026',
+                    'sk_number' => 'SK Kemendiktisaintek RI No. 124/D/OT/2026',
+                    'degree_title' => 'Sarjana Terapan Komputer (S.Tr.Kom.)',
+                    'timeline' => [
+                        [
+                            'year' => '2024',
+                            'title' => 'Inisiasi Pendirian & Analisis Kebutuhan Industri',
+                            'badge' => 'Tahap Awal',
+                            'status' => 'completed',
+                            'description' => 'Pembentukan satuan tugas perumus pendirian prodi dan penyusunan naskah akademik berkolaborasi dengan asosiasi industri game & animasi nasional (AINAKI & AGI) guna merumuskan Profil Lulusan berbasis KKNI Level 6.',
+                        ],
+                        [
+                            'year' => '2025',
+                            'title' => 'Pembangunan Laboratorium Studio & Pengajuan Izin',
+                            'badge' => 'Infrastruktur',
+                            'status' => 'completed',
+                            'description' => 'Pengadaan fasilitas workstation grafis berspesifikasi tinggi, pembangunan Studio Motion Capture & Audio Spasial berstandar industri, serta pengajuan resmi berkas perizinan ke kementerian.',
+                        ],
+                        [
+                            'year' => '2026',
+                            'title' => 'Penerbitan SK Resmi & Penerimaan Angkatan Perdana',
+                            'badge' => 'Operasional Resmi',
+                            'status' => 'current',
+                            'description' => 'Diterbitkannya SK Izin Operasional resmi Program Studi D-IV TRM POLITALA dan dibukanya pendaftaran mahasiswa baru angkatan perdana melalui jalur seleksi nasional SNBP, SNBT, dan Jalur Mandiri POLITALA.',
+                        ],
+                        [
+                            'year' => '2027+',
+                            'title' => 'Ekspansi Inkubator Game, Render Farm & Akreditasi Unggul',
+                            'badge' => 'Akselerasi Masa Depan',
+                            'status' => 'upcoming',
+                            'description' => 'Realisasi Teaching Factory komersial terpadu, render farm mandiri, hilirisasi karya game & film animasi mahasiswa ke pasar global, serta pemantapan akreditasi prodi berpredikat Unggul.',
+                        ],
+                    ],
+                ],
             ],
             [
                 'section' => 'visi_misi',

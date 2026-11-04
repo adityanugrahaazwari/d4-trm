@@ -39,8 +39,10 @@ class PublicController extends Controller
 
         $lecturersCount = Staff::lecturers()->active()->count();
         $profile = StudyProgramProfile::forSection('visi_misi');
+        $historyProfile = StudyProgramProfile::forSection('sejarah');
+        $timeline = data_get($historyProfile, 'meta.timeline', []);
 
-        return view('public.home', compact('latestNews', 'upcomingEvents', 'facilities', 'lecturersCount', 'profile'));
+        return view('public.home', compact('latestNews', 'upcomingEvents', 'facilities', 'lecturersCount', 'profile', 'historyProfile', 'timeline'));
     }
 
     /**
@@ -49,8 +51,9 @@ class PublicController extends Controller
     public function history(): View
     {
         $profile = StudyProgramProfile::forSection('sejarah');
+        $timeline = data_get($profile, 'meta.timeline', []);
 
-        return view('public.profile.history', compact('profile'));
+        return view('public.profile.history', compact('profile', 'timeline'));
     }
 
     /**
