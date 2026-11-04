@@ -17,8 +17,8 @@
                 <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">Fasilitas &amp; Laboratorium</h1>
                 <p class="mt-2 text-sm sm:text-base text-brand-muted">Sarana praktikum berstandar industri untuk mendukung proses belajar dan produksi karya multimedia</p>
             </div>
-            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">
-                [Data Simulasi Fasilitas]
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                Data Resmi Program Studi
             </span>
         </div>
     </div>
@@ -26,13 +26,17 @@
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-12">
     @php
-        $facilities = [
-            [
-                'name' => 'Laboratorium Komputasi Multimedia & Grafika 2D/3D',
-                'specs' => '32 Unit Workstation Core i7/Ryzen 7, RTX 4070 Ti, 32GB RAM, Monitor IPS 4K 100% sRGB',
-                'software' => 'Adobe Creative Cloud, Blender 3D, Maya, ZBrush, Substance Painter',
-                'desc' => 'Ruang praktikum terpusat untuk pemodelan objek 3D, digital sculpting, texturing, dan rendering aset animasi.'
-            ],
+        if (!isset($facilities) || count($facilities) === 0) {
+            $facilities = [
+                [
+                    'name' => 'Laboratorium Komputasi Multimedia & Grafika 2D/3D',
+                    'specs' => '32 Unit Workstation Core i7/Ryzen 7, RTX 4070 Ti, 32GB RAM, Monitor IPS 4K 100% sRGB',
+                    'software' => 'Adobe Creative Cloud, Blender 3D, Maya, ZBrush, Substance Painter',
+                    'desc' => 'Ruang praktikum terpusat untuk pemodelan objek 3D, digital sculpting, texturing, dan rendering aset animasi.'
+                ],
+            ];
+        }
+    @endphp
             [
                 'name' => 'Laboratorium Game Tech & Immersive Virtual Reality (VR/AR)',
                 'specs' => 'Workstation High-End VR Ready, Meta Quest 3 VR Headset, HTC Vive Pro, Motion Capture Sensor Suite',

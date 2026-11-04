@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'D-IV TRM POLITALA Jalin Kerjasama Strategis dengan Studio Game Nasional - Berita TRM POLITALA')
+@section('title', ($news->title ?? 'Detail Berita') . ' - Berita TRM POLITALA')
 
 @section('content')
 {{-- Breadcrumbs & Top Meta Header --}}
@@ -41,7 +41,7 @@
 
         {{-- Main Headline --}}
         <h1 class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black text-brand-dark tracking-tight leading-tight sm:leading-snug max-w-5xl">
-            D-IV TRM POLITALA Jalin Kerjasama Strategis dengan Studio Game &amp; Animasi Nasional untuk Penguatan MBKM Vokasi
+            {{ $news->title ?? 'Judul Berita' }}
         </h1>
 
         {{-- Article Metadata Bar --}}
@@ -151,6 +151,11 @@
 
             {{-- Rich Article Text Content --}}
             <div class="prose prose-slate max-w-none text-slate-700 leading-relaxed space-y-6 text-sm sm:text-base">
+                @if(!empty($news->content))
+                    <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 text-brand-dark font-medium leading-relaxed">
+                        {!! nl2br(e($news->content)) !!}
+                    </div>
+                @endif
                 
                 {{-- Lead Paragraph --}}
                 <p class="text-base sm:text-lg font-medium text-brand-dark leading-relaxed">

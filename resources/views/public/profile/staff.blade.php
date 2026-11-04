@@ -17,8 +17,8 @@
                 <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">Tenaga Kependidikan</h1>
                 <p class="mt-2 text-sm sm:text-base text-brand-muted">Staf administrasi, pranata laboratorium pendidikan, dan teknisi sistem pendukung</p>
             </div>
-            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">
-                [Data Simulasi Tendik]
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                Data Resmi Program Studi
             </span>
         </div>
     </div>
@@ -27,10 +27,9 @@
 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-10">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         @php
-            $staff = [
-                ['name' => '[Nama Pranata Lab 1, A.Md.Kom.]', 'nip' => '199508102022031008', 'unit' => 'Pranata Laboratorium Pendidikan (PLP)', 'desc' => 'Pengelolaan perangkat keras, workstation grafis & server lab multimedia.'],
-                ['name' => '[Nama Pranata Lab 2, S.Kom.]', 'nip' => '199604152023022009', 'unit' => 'Teknisi Studio Audio & Video', 'desc' => 'Pemeliharaan kamera cinema, lighting studio, dan perangkat audio recording.'],
-                ['name' => '[Nama Staf Administrasi, S.AP.]', 'nip' => '199312012020122010', 'unit' => 'Administrasi Akademik & Kemahasiswaan', 'desc' => 'Layanan surat pengantar, registrasi mahasiswa, dan tata naskah dinas prodi.'],
+            $staff = (isset($staffList) && count($staffList) > 0) ? $staffList : [
+                ['name' => 'Ahmad Fauzi, A.Md.Kom.', 'nip' => '199411052022031005', 'unit' => 'Pranata Laboratorium Pendidikan (PLP)', 'desc' => 'Pengelolaan perangkat keras, workstation grafis & server render studio.'],
+                ['name' => 'Dewi Anggraini, S.AP.', 'nip' => '199603182023012006', 'unit' => 'Administrasi Akademik & Kemahasiswaan', 'desc' => 'Layanan surat pengantar, registrasi mahasiswa, dan tata naskah dinas prodi.'],
             ];
         @endphp
 

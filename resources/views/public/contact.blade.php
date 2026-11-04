@@ -17,8 +17,8 @@
                 <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">Hubungi Kami</h1>
                 <p class="mt-2 text-sm sm:text-base text-brand-muted">Layanan informasi akademik, kemitraan industri, dan sekretariat program studi</p>
             </div>
-            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">
-                [Data Kontak Resmi POLITALA]
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                Data Kontak Resmi POLITALA
             </span>
         </div>
     </div>

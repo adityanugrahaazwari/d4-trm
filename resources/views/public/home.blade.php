@@ -807,71 +807,50 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-                <!-- Lab 1 -->
-                <div class="card-fade-up group bg-white rounded-2xl border border-slate-200/80 p-6 space-y-4 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300" data-card-delay="0">
-                    <div class="aspect-video rounded-xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4 border border-slate-200/60 overflow-hidden relative group-hover:border-brand-primary/30 transition-colors">
-                        <img src="{{ asset('assets/undraw_work-from-anywhere_tpk5.svg') }}" alt="Lab Komputasi Multimedia &amp; Desain" class="h-32 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform duration-500">
-                    </div>
-                    <div>
-                        <div class="flex items-center justify-between mb-1.5">
-                            <span class="text-[10px] uppercase font-bold tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 inline-block">
-                                [Data Contoh]
-                            </span>
-                            <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                                Lab Aktif
-                            </span>
+                @forelse($facilities ?? [] as $index => $fac)
+                    <div class="card-fade-up group bg-white rounded-2xl border border-slate-200/80 p-6 space-y-4 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300" data-card-delay="{{ $index * 150 }}">
+                        <div class="aspect-video rounded-xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4 border border-slate-200/60 overflow-hidden relative group-hover:border-brand-primary/30 transition-colors">
+                            <img src="{{ asset($fac->image ?? ($index === 0 ? 'assets/undraw_work-from-anywhere_tpk5.svg' : ($index === 1 ? 'assets/undraw_3d-modeling_j8a3.svg' : 'assets/undraw_augmented-reality_3ie0.svg'))) }}" alt="{{ $fac->name }}" class="h-32 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform duration-500">
                         </div>
-                        <h3 class="font-bold text-base text-brand-dark group-hover:text-brand-primary transition-colors">Lab Komputasi Multimedia &amp; Desain</h3>
-                        <p class="text-xs text-brand-muted mt-1 leading-relaxed">
-                            Dilengkapi PC berspesifikasi tinggi untuk pengolahan grafis 2D/3D, audio-video editing, dan UI prototyping.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Lab 2 -->
-                <div class="card-fade-up group bg-white rounded-2xl border border-slate-200/80 p-6 space-y-4 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300" data-card-delay="150">
-                    <div class="aspect-video rounded-xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4 border border-slate-200/60 overflow-hidden relative group-hover:border-brand-primary/30 transition-colors">
-                        <img src="{{ asset('assets/undraw_3d-modeling_j8a3.svg') }}" alt="Studio Animasi &amp; Green Screen" class="h-32 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform duration-500">
-                    </div>
-                    <div>
-                        <div class="flex items-center justify-between mb-1.5">
-                            <span class="text-[10px] uppercase font-bold tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 inline-block">
-                                [Data Contoh]
-                            </span>
-                            <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                                Studio Aktif
-                            </span>
+                        <div>
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span class="text-[10px] uppercase font-bold tracking-wider text-brand-primary bg-brand-primary-light px-2 py-0.5 rounded border border-brand-primary/20 inline-block">
+                                    {{ $fac->category }}
+                                </span>
+                                <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                    Fasilitas Aktif
+                                </span>
+                            </div>
+                            <h3 class="font-bold text-base text-brand-dark group-hover:text-brand-primary transition-colors">{{ $fac->name }}</h3>
+                            <p class="text-xs text-brand-muted mt-1 leading-relaxed">
+                                {{ Str::limit($fac->description, 130) }}
+                            </p>
                         </div>
-                        <h3 class="font-bold text-base text-brand-dark group-hover:text-brand-primary transition-colors">Studio Animasi &amp; Green Screen</h3>
-                        <p class="text-xs text-brand-muted mt-1 leading-relaxed">
-                            Fasilitas pengambilan gambar, motion capture, rekaman audio voice-over, dan produksi visual effect.
-                        </p>
                     </div>
-                </div>
-
-                <!-- Lab 3 -->
-                <div class="card-fade-up group bg-white rounded-2xl border border-slate-200/80 p-6 space-y-4 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300" data-card-delay="300">
-                    <div class="aspect-video rounded-xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4 border border-slate-200/60 overflow-hidden relative group-hover:border-brand-primary/30 transition-colors">
-                        <img src="{{ asset('assets/undraw_augmented-reality_3ie0.svg') }}" alt="Lab Game Tech &amp; Immersive VR/AR" class="h-32 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform duration-500">
-                    </div>
-                    <div>
-                        <div class="flex items-center justify-between mb-1.5">
-                            <span class="text-[10px] uppercase font-bold tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 inline-block">
-                                [Data Contoh]
-                            </span>
-                            <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                                Lab Riset Aktif
-                            </span>
+                @empty
+                    <!-- Lab 1 -->
+                    <div class="card-fade-up group bg-white rounded-2xl border border-slate-200/80 p-6 space-y-4 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300" data-card-delay="0">
+                        <div class="aspect-video rounded-xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4 border border-slate-200/60 overflow-hidden relative group-hover:border-brand-primary/30 transition-colors">
+                            <img src="{{ asset('assets/undraw_work-from-anywhere_tpk5.svg') }}" alt="Lab Komputasi Multimedia &amp; Desain" class="h-32 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform duration-500">
                         </div>
-                        <h3 class="font-bold text-base text-brand-dark group-hover:text-brand-primary transition-colors">Lab Game Tech &amp; Immersive VR/AR</h3>
-                        <p class="text-xs text-brand-muted mt-1 leading-relaxed">
-                            Eksperimen perangkat VR Headset, pengembangan interaktif simulator 3D, dan pengujian platform game.
-                        </p>
+                        <div>
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span class="text-[10px] uppercase font-bold tracking-wider text-brand-primary bg-brand-primary-light px-2 py-0.5 rounded border border-brand-primary/20 inline-block">
+                                    Laboratorium
+                                </span>
+                                <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                    Lab Aktif
+                                </span>
+                            </div>
+                            <h3 class="font-bold text-base text-brand-dark group-hover:text-brand-primary transition-colors">Lab Komputasi Multimedia &amp; Desain</h3>
+                            <p class="text-xs text-brand-muted mt-1 leading-relaxed">
+                                Dilengkapi PC berspesifikasi tinggi untuk pengolahan grafis 2D/3D, audio-video editing, dan UI prototyping.
+                            </p>
+                        </div>
                     </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </section>

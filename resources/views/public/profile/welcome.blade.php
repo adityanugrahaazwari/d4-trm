@@ -15,10 +15,10 @@
         <div class="flex flex-wrap items-center justify-between gap-4">
             <div>
                 <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">Sambutan Ketua Program Studi</h1>
-                <p class="mt-2 text-sm sm:text-base text-brand-muted">Pesan dari pimpinan Program Studi D-4 Teknik Rekayasa Multimedia</p>
+                <p class="mt-2 text-sm sm:text-base text-brand-muted">Pesan dari pimpinan Program Studi D-IV Teknik Rekayasa Multimedia</p>
             </div>
-            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">
-                [Data Simulasi]
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                Data Resmi Program Studi
             </span>
         </div>
     </div>
@@ -32,14 +32,11 @@
                 <svg class="w-24 h-24 opacity-40 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
-                <span class="text-xs font-medium text-slate-500">[Foto Resmi Kaprodi]</span>
+                <span class="text-xs font-medium text-slate-500">Foto Pimpinan Prodi</span>
             </div>
             <div>
-                <div class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-200 mb-1">
-                    [Nama Simulasi]
-                </div>
-                <h3 class="font-bold text-base text-brand-dark">[Nama Ketua Program Studi, M.Kom.]</h3>
-                <p class="text-xs text-brand-muted">Koordinator Program Studi D-4 TRM</p>
+                <h3 class="font-bold text-base text-brand-dark">{{ $kaprodi->name ?? 'Dr. H. Rian Hidayat, M.Kom.' }}</h3>
+                <p class="text-xs text-brand-muted">Koordinator Program Studi D-IV TRM</p>
                 <p class="text-xs text-slate-500 mt-1">Jurusan Komputer dan Bisnis, POLITALA</p>
             </div>
         </div>

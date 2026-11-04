@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call(RbacSeeder::class);
+        $this->call(ContentSeeder::class);
 
         $superadminRole = Role::where('slug', 'superadmin')->first();
         $akademikRole = Role::where('slug', 'admin-akademik')->first();

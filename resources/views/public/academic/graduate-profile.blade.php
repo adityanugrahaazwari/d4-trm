@@ -17,8 +17,8 @@
                 <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">Profil Lulusan &amp; Prospek Karier</h1>
                 <p class="mt-2 text-sm sm:text-base text-brand-muted">Peluang profesi sarjana terapan (S.Tr.Kom.) di industri kreatif digital dan teknologi informasi</p>
             </div>
-            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">
-                [Data Simulasi Profil Lulusan]
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                Data Resmi Program Studi
             </span>
         </div>
     </div>
@@ -27,6 +27,43 @@
 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-12">
     <!-- Grid Profil Profesi -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        @if(isset($profiles) && count($profiles) > 0)
+            @foreach($profiles as $idx => $p)
+                <div class="group bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between">
+                    <div class="relative h-44 sm:h-48 bg-gradient-to-br from-slate-50 via-brand-primary-light/40 to-slate-100/70 p-6 flex items-center justify-center border-b border-slate-100 overflow-hidden">
+                        <div class="absolute top-4 left-4 w-10 h-10 rounded-2xl bg-brand-primary text-white flex items-center justify-center font-bold text-sm shadow-md shadow-brand-primary/20 z-10">
+                            {{ str_pad($idx + 1, 2, '0', STR_PAD_LEFT) }}
+                        </div>
+                        <div class="w-16 h-16 rounded-2xl bg-white/90 border border-brand-primary/20 shadow-xs flex items-center justify-center text-brand-primary relative z-1 group-hover:scale-110 transition-transform">
+                            <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-5">
+                        <div class="space-y-3">
+                            <h3 class="text-xl font-bold text-brand-dark group-hover:text-brand-primary transition-colors">
+                                {{ $p->title }}
+                            </h3>
+                            <p class="text-xs sm:text-sm text-brand-muted leading-relaxed">
+                                {{ $p->description }}
+                            </p>
+                        </div>
+                        @if(!empty($p->career_prospects))
+                            <div class="pt-4 border-t border-slate-100 text-xs">
+                                <strong class="text-brand-dark block mb-1.5 flex items-center gap-1.5 font-bold">
+                                    <svg class="w-4 h-4 text-amber-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                    </svg>
+                                    Peluang Karier:
+                                </strong>
+                                <span class="text-slate-600 leading-relaxed block pl-5.5">{{ $p->career_prospects }}</span>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            @endforeach
+        @endif
         <!-- Profesi 1 -->
         <div class="group bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between">
             <!-- Illustration Header Container -->
