@@ -62,8 +62,13 @@ class PublicController extends Controller
     public function visionMission(): View
     {
         $profile = StudyProgramProfile::forSection('visi_misi');
+        $vision = data_get($profile, 'meta.vision_statement', 'Menjadi pusat pendidikan tinggi vokasi unggulan dan rujukan di bidang teknologi rekayasa multimedia terapan yang berdaya saing global, inovatif, dan berjiwa wirausaha pada tahun 2030.');
+        $targetYear = data_get($profile, 'meta.target_year', '2030');
+        $missions = data_get($profile, 'meta.missions', []);
+        $goals = data_get($profile, 'meta.goals', []);
+        $coreValues = data_get($profile, 'meta.core_values', []);
 
-        return view('public.profile.vision-mission', compact('profile'));
+        return view('public.profile.vision-mission', compact('profile', 'vision', 'targetYear', 'missions', 'goals', 'coreValues'));
     }
 
     /**

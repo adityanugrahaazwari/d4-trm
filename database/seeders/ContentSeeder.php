@@ -93,7 +93,57 @@ class ContentSeeder extends Seeder
             [
                 'section' => 'visi_misi',
                 'title' => 'Visi & Misi Program Studi',
-                'content' => 'Visi: Menjadi program studi terkemuka dalam bidang rekayasa multimedia yang menghasilkan sarjana terapan unggul, inovatif, dan berjiwa wirausaha di tingkat nasional dan internasional pada tahun 2030.\n\nMisi:\n1. Menyelenggarakan pendidikan vokasi terapan berstandar industri dengan kurikulum berbasis proyek pada domain game, animasi, dan teknologi imersif.\n2. Mengembangkan penelitian terapan dan karya rekayasa multimedia yang bermanfaat bagi masyarakat dan industri.\n3. Membangun jejaring kemitraan strategis dengan studio game, rumah produksi animasi, dan industri teknologi multimedia berskala nasional.',
+                'content' => "Visi Program Studi:\nMenjadi pusat pendidikan vokasi unggulan dan rujukan di bidang teknologi rekayasa multimedia terapan yang berdaya saing global, inovatif, dan berjiwa wirausaha pada tahun 2030.\n\nMisi Program Studi:\n1. Menyelenggarakan pendidikan sarjana terapan berbasis Project-Based Learning yang mengintegrasikan rekayasa sistem komputer dan kreativitas seni multimedia sesuai kebutuhan industri.\n2. Mengembangkan penelitian terapan dan menghasilkan karya inovasi tepat guna di bidang game development, animasi 3D, simulasi virtual, dan media interaktif.\n3. Menerapkan produk teknologi multimedia terapan guna mengakselerasi transformasi digital masyarakat, UMKM daerah, instansi publik, dan industri kreatif.\n4. Memperkuat jejaring kemitraan strategis dengan Dunia Usaha dan Dunia Industri (DUDI) skala nasional maupun global dalam skema magang, riset bersama, dan sertifikasi profesi.",
+                'meta' => [
+                    'vision_statement' => 'Menjadi pusat pendidikan tinggi vokasi unggulan dan rujukan di bidang teknologi rekayasa multimedia terapan yang berdaya saing global, inovatif, dan berjiwa wirausaha pada tahun 2030.',
+                    'target_year' => '2030',
+                    'missions' => [
+                        [
+                            'number' => 1,
+                            'title' => 'Pendidikan Vokasi Selaras Industri & OBE',
+                            'description' => 'Menyelenggarakan pendidikan sarjana terapan berbasis Outcome-Based Education (OBE) dan Project-Based Learning (PBL) yang memadukan rekayasa perangkat lunak dan estetika seni digital.',
+                        ],
+                        [
+                            'number' => 2,
+                            'title' => 'Penelitian Terapan & Inovasi Tepat Guna',
+                            'description' => 'Mengembangkan penelitian terapan dan hilirisasi produk karya multimedia interaktif (game, animasi, dan realitas virtual) yang berdaya guna serta bernilai paten/HKI.',
+                        ],
+                        [
+                            'number' => 3,
+                            'title' => 'Pengabdian Masyarakat & Transformasi Digital',
+                            'description' => 'Menerapkan produk teknologi rekayasa multimedia untuk memberdayakan masyarakat, mendukung digitalisasi UMKM daerah, instansi pemerintah, dan sektor pendidikan.',
+                        ],
+                        [
+                            'number' => 4,
+                            'title' => 'Kemitraan Strategis Bersama DUDI & Asosiasi',
+                            'description' => 'Memperluas kolaborasi strategis dengan studio game, rumah produksi animasi, dan ekosistem industri kreatif nasional maupun global dalam skema magang, pengajaran praktisi, dan sertifikasi kompetensi.',
+                        ],
+                    ],
+                    'goals' => [
+                        [
+                            'title' => 'Lulusan Kompeten & Bersertifikasi Profesi',
+                            'description' => 'Menghasilkan Sarjana Terapan Komputer (S.Tr.Kom.) berkarakter unggul, kompeten di bidang multimedia, dan tersertifikasi profesi nasional (BNSP) maupun internasional.',
+                        ],
+                        [
+                            'title' => 'Produk Karya Siap Komersial & Bernilai HKI',
+                            'description' => 'Menghasilkan karya rekayasa multimedia, game komersial, animasi 3D, dan media imersif yang teruji industri dan terdaftar Hak Kekayaan Intelektual.',
+                        ],
+                        [
+                            'title' => 'Inkubasi Technopreneurship Kreatif Mahasiswa',
+                            'description' => 'Mendorong lahirnya rintisan usaha teknologi dan studio kreatif mahasiswa melalui teaching factory dan kolaborasi inkubator bisnis kampus.',
+                        ],
+                        [
+                            'title' => 'Tata Kelola Unggul & Akreditasi Berkualitas',
+                            'description' => 'Mewujudkan tata kelola program studi yang modern, transparan, akuntabel, dan berdaya saing tinggi berstandar mutu penjaminan internal dan eksternal.',
+                        ],
+                    ],
+                    'core_values' => [
+                        ['title' => 'Integrity', 'description' => 'Menjunjung tinggi etika akademik dan profesionalisme.'],
+                        ['title' => 'Innovation', 'description' => 'Kreatif menciptakan terobosan karya media interaktif.'],
+                        ['title' => 'Collaboration', 'description' => 'Sinergis bersama industri dan komunitas vokasi.'],
+                        ['title' => 'Competence', 'description' => 'Menguasai keterampilan teknis mutakhir siap industri.'],
+                    ],
+                ],
             ],
             [
                 'section' => 'sambutan',

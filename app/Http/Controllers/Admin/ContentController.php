@@ -602,8 +602,10 @@ class ContentController extends Controller
             $data['meta'] = $request->input('meta');
         }
 
+        $dbSection = str_replace('-', '_', $validated['section']);
+
         StudyProgramProfile::updateOrCreate(
-            ['section' => $validated['section']],
+            ['section' => $dbSection],
             $data
         );
 

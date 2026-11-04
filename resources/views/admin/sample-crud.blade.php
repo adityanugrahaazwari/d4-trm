@@ -457,6 +457,156 @@
                                 </template>
                             </div>
                         </div>
+                    @elseif($sec === 'visi-misi')
+                        @php
+                            $existingMissions = data_get($profileRecord, 'meta.missions', [
+                                ['number' => 1, 'title' => 'Pendidikan Vokasi Selaras Industri & OBE', 'description' => 'Menyelenggarakan pendidikan sarjana terapan berbasis Outcome-Based Education (OBE) dan Project-Based Learning (PBL).'],
+                                ['number' => 2, 'title' => 'Penelitian Terapan & Inovasi Tepat Guna', 'description' => 'Mengembangkan penelitian terapan dan menghasilkan produk teknologi rekayasa multimedia yang inovatif dan bernilai HKI.'],
+                                ['number' => 3, 'title' => 'Pengabdian Masyarakat & Transformasi Digital', 'description' => 'Menerapkan produk teknologi rekayasa multimedia untuk memberdayakan masyarakat dan UMKM daerah.'],
+                                ['number' => 4, 'title' => 'Kemitraan Strategis Bersama DUDI & Asosiasi', 'description' => 'Memperluas jejaring kemitraan strategis dengan studio game dan rumah produksi animasi global.'],
+                            ]);
+
+                            $existingGoals = data_get($profileRecord, 'meta.goals', [
+                                ['title' => 'Lulusan Kompeten & Bersertifikasi Profesi', 'description' => 'Menghasilkan Sarjana Terapan Komputer (S.Tr.Kom.) berkarakter unggul dan tersertifikasi BNSP.'],
+                                ['title' => 'Produk Karya Siap Komersial & Bernilai HKI', 'description' => 'Menghasilkan karya rekayasa multimedia komersial yang terdaftar Hak Kekayaan Intelektual.'],
+                                ['title' => 'Inkubasi Technopreneurship Kreatif Mahasiswa', 'description' => 'Mendorong lahirnya rintisan usaha teknologi dan studio kreatif mahasiswa melalui teaching factory.'],
+                                ['title' => 'Tata Kelola Unggul & Akreditasi Berkualitas', 'description' => 'Mewujudkan tata kelola program studi yang modern, akuntabel, dan berakreditasi Unggul.'],
+                            ]);
+                        @endphp
+
+                        <!-- Pernyataan Visi & Target Tahun -->
+                        <div class="p-5 rounded-2xl bg-brand-surface border border-slate-200 space-y-4">
+                            <h4 class="font-bold text-brand-dark">Pernyataan Visi Resmi Program Studi</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                                <div class="sm:col-span-3 space-y-1">
+                                    <label class="block text-xs font-semibold text-brand-muted">Teks Kalimat Visi</label>
+                                    <textarea name="meta[vision_statement]" rows="3" required class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">{{ old('meta.vision_statement', data_get($profileRecord, 'meta.vision_statement', 'Menjadi pusat pendidikan tinggi vokasi unggulan dan rujukan di bidang teknologi rekayasa multimedia terapan yang berdaya saing global, inovatif, dan berjiwa wirausaha pada tahun 2030.')) }}</textarea>
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="block text-xs font-semibold text-brand-muted">Target Tahun Visi</label>
+                                    <input type="text" name="meta[target_year]" value="{{ old('meta.target_year', data_get($profileRecord, 'meta.target_year', '2030')) }}" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Repeater Misi -->
+                        <div class="space-y-4 pt-4 border-t border-slate-100"
+                             x-data="{ 
+                                 missions: {{ Js::from($existingMissions) }},
+                                 addMission() {
+                                     this.missions.push({
+                                         number: this.missions.length + 1,
+                                         title: 'Misi Baru',
+                                         description: 'Uraian pelaksanaan misi...'
+                                     });
+                                 },
+                                 removeMission(idx) {
+                                     if (this.missions.length > 1) {
+                                         this.missions.splice(idx, 1);
+                                     }
+                                 }
+                             }">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-bold text-brand-dark">Daftar Misi Program Studi</h4>
+                                    <p class="text-xs text-brand-muted">Pilar pelaksanaan Tridharma dan kemitraan industri.</p>
+                                </div>
+                                <button type="button" @click="addMission()" class="px-3 py-1.5 rounded-xl bg-brand-primary-light text-brand-primary text-xs font-bold hover:bg-brand-primary hover:text-white transition-all flex items-center gap-1.5">
+                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                    </svg>
+                                    <span>Tambah Misi</span>
+                                </button>
+                            </div>
+
+                            <div class="space-y-3">
+                                <template x-for="(m, idx) in missions" :key="idx">
+                                    <div class="p-4 rounded-2xl bg-white border border-slate-200 space-y-3 shadow-2xs">
+                                        <div class="flex items-center justify-between gap-3">
+                                            <span class="text-xs font-bold text-brand-primary" x-text="'Misi #' + (idx + 1)"></span>
+                                            <button type="button" @click="removeMission(idx)" class="text-rose-500 hover:text-rose-700 text-xs font-semibold flex items-center gap-1">
+                                                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                                <span>Hapus</span>
+                                            </button>
+                                        </div>
+
+                                        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+                                            <div class="sm:col-span-1">
+                                                <label class="block text-[11px] font-semibold text-brand-muted mb-1">Nomor Urut</label>
+                                                <input type="number" :name="'meta[missions][' + idx + '][number]'" :value="idx + 1" class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs">
+                                            </div>
+                                            <div class="sm:col-span-3">
+                                                <label class="block text-[11px] font-semibold text-brand-muted mb-1">Judul Misi</label>
+                                                <input type="text" :name="'meta[missions][' + idx + '][title]'" x-model="m.title" required class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs">
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-[11px] font-semibold text-brand-muted mb-1">Uraian Misi</label>
+                                            <textarea :name="'meta[missions][' + idx + '][description]'" x-model="m.description" rows="2" required class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs"></textarea>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- Repeater Tujuan Program Studi -->
+                        <div class="space-y-4 pt-4 border-t border-slate-100"
+                             x-data="{ 
+                                 goals: {{ Js::from($existingGoals) }},
+                                 addGoal() {
+                                     this.goals.push({
+                                         title: 'Tujuan Baru',
+                                         description: 'Uraian tujuan strategis...'
+                                     });
+                                 },
+                                 removeGoal(idx) {
+                                     if (this.goals.length > 1) {
+                                         this.goals.splice(idx, 1);
+                                     }
+                                 }
+                             }">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-bold text-brand-dark">Tujuan Program Studi (Educational Goals)</h4>
+                                    <p class="text-xs text-brand-muted">Target capaian lulusan dan kelembagaan prodi.</p>
+                                </div>
+                                <button type="button" @click="addGoal()" class="px-3 py-1.5 rounded-xl bg-brand-primary-light text-brand-primary text-xs font-bold hover:bg-brand-primary hover:text-white transition-all flex items-center gap-1.5">
+                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                    </svg>
+                                    <span>Tambah Tujuan</span>
+                                </button>
+                            </div>
+
+                            <div class="space-y-3">
+                                <template x-for="(g, idx) in goals" :key="idx">
+                                    <div class="p-4 rounded-2xl bg-white border border-slate-200 space-y-3 shadow-2xs">
+                                        <div class="flex items-center justify-between gap-3">
+                                            <span class="text-xs font-bold text-brand-secondary" x-text="'Tujuan #' + (idx + 1)"></span>
+                                            <button type="button" @click="removeGoal(idx)" class="text-rose-500 hover:text-rose-700 text-xs font-semibold flex items-center gap-1">
+                                                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                                <span>Hapus</span>
+                                            </button>
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-[11px] font-semibold text-brand-muted mb-1">Judul / Sasaran Tujuan</label>
+                                            <input type="text" :name="'meta[goals][' + idx + '][title]'" x-model="g.title" required class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs">
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-[11px] font-semibold text-brand-muted mb-1">Uraian Rinci</label>
+                                            <textarea :name="'meta[goals][' + idx + '][description]'" x-model="g.description" rows="2" class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs"></textarea>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
                     @endif
 
                     <div class="pt-6 border-t border-slate-100 flex items-center justify-end gap-3">

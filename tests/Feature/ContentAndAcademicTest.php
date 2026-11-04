@@ -124,6 +124,7 @@ class ContentAndAcademicTest extends TestCase
         // Test Public Routes
         $this->get(route('home'))->assertStatus(200)->assertSee('Laboratorium Motion Capture & Audio')->assertSee('Tonggak Sejarah');
         $this->get(route('public.profile.history'))->assertStatus(200)->assertSee('Sejarah Program Studi')->assertSee('Tonggak Sejarah');
+        $this->get(route('public.profile.vision-mission'))->assertStatus(200)->assertSee('Visi, Misi')->assertSee('Misi Program Studi');
         $this->get(route('public.profile.lecturers'))->assertStatus(200)->assertSee('Dr. Ir. Pengajar TRM, M.Kom.');
         $this->get(route('public.profile.staff'))->assertStatus(200)->assertSee('Staf Administrasi Akademik');
         $this->get(route('public.academic.curriculum'))->assertStatus(200)->assertSee('TRM201');
@@ -261,6 +262,25 @@ class ContentAndAcademicTest extends TestCase
         ]);
 
         $this->get(route('public.profile.history'))->assertStatus(200)->assertSee('Inisiasi Kurikulum TRM');
+
+        // Update Vision Mission Section
+        $visiMisiResponse = $this->post(route('admin.profile-section.update'), [
+            'section' => 'visi-misi',
+            'title' => 'Visi dan Misi Strategis TRM',
+            'content' => 'Uraian visi dan misi lengkap...',
+            'meta' => [
+                'vision_statement' => 'Menjadi pusat unggulan teknologi multimedia 2030.',
+                'target_year' => '2030',
+                'missions' => [
+                    ['number' => 1, 'title' => 'Misi Riset Terapan Inovatif', 'description' => 'Mengembangkan riset terapan.'],
+                ],
+                'goals' => [
+                    ['title' => 'Tujuan Lulusan Bersertifikasi', 'description' => '100% lulusan memiliki sertifikat.'],
+                ],
+            ],
+        ]);
+        $visiMisiResponse->assertRedirect(route('admin.crud.sample', ['section' => 'visi-misi']));
+        $this->get(route('public.profile.vision-mission'))->assertStatus(200)->assertSee('Misi Riset Terapan Inovatif');
 
         // Update Settings
         $settingsResponse = $this->post(route('admin.settings.update'), [

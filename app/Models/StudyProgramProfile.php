@@ -32,6 +32,10 @@ class StudyProgramProfile extends Model
 
     public static function forSection(string $section): ?self
     {
-        return static::where('section', $section)->first();
+        $normalized = str_replace('-', '_', $section);
+
+        return static::where('section', $normalized)
+            ->orWhere('section', $section)
+            ->first();
     }
 }
