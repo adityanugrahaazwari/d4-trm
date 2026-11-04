@@ -3,30 +3,27 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StorePermissionRequest;
+use App\Http\Requests\Admin\StoreRoleRequest;
+use App\Http\Requests\Admin\StoreUserRequest;
+use App\Http\Requests\Admin\UpdatePermissionRequest;
+use App\Http\Requests\Admin\UpdateRoleRequest;
+use App\Http\Requests\Admin\UpdateUserRequest;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 
 class RbacController extends Controller
 {
     /**
      * Store a newly created role with its permissions.
      */
-    public function storeRole(Request $request): RedirectResponse
+    public function storeRole(StoreRoleRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:100', 'unique:roles,slug'],
-            'description' => ['nullable', 'string'],
-            'permissions' => ['nullable', 'array'],
-            'permissions.*' => ['exists:permissions,id'],
-            'status' => ['nullable', 'string', 'in:published,draft'],
-        ]);
+        $validated = $request->validated();
 
         $slug = ! empty($validated['slug']) ? Str::slug($validated['slug']) : Str::slug($validated['name']);
 
@@ -48,16 +45,9 @@ class RbacController extends Controller
     /**
      * Update the specified role and its permissions.
      */
-    public function updateRole(Request $request, Role $role): RedirectResponse
+    public function updateRole(UpdateRoleRequest $request, Role $role): RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:100', Rule::unique('roles', 'slug')->ignore($role->id)],
-            'description' => ['nullable', 'string'],
-            'permissions' => ['nullable', 'array'],
-            'permissions.*' => ['exists:permissions,id'],
-            'status' => ['nullable', 'string', 'in:published,draft'],
-        ]);
+        $validated = $request->validated();
 
         $slug = ! empty($validated['slug']) ? Str::slug($validated['slug']) : $role->slug;
 
@@ -98,15 +88,9 @@ class RbacController extends Controller
     /**
      * Store a newly created permission.
      */
-    public function storePermission(Request $request): RedirectResponse
+    public function storePermission(StorePermissionRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:100', 'unique:permissions,slug'],
-            'module' => ['required', 'string', 'max:100'],
-            'description' => ['nullable', 'string'],
-            'status' => ['nullable', 'string', 'in:published,draft'],
-        ]);
+        $validated = $request->validated();
 
         $slug = ! empty($validated['slug']) ? Str::slug($validated['slug']) : Str::slug($validated['name']);
 
@@ -124,15 +108,9 @@ class RbacController extends Controller
     /**
      * Update the specified permission.
      */
-    public function updatePermission(Request $request, Permission $permission): RedirectResponse
+    public function updatePermission(UpdatePermissionRequest $request, Permission $permission): RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:100', Rule::unique('permissions', 'slug')->ignore($permission->id)],
-            'module' => ['required', 'string', 'max:100'],
-            'description' => ['nullable', 'string'],
-            'status' => ['nullable', 'string', 'in:published,draft'],
-        ]);
+        $validated = $request->validated();
 
         $slug = ! empty($validated['slug']) ? Str::slug($validated['slug']) : $permission->slug;
 
@@ -161,14 +139,9 @@ class RbacController extends Controller
     /**
      * Store a newly created user with role assignment.
      */
-    public function storeUser(Request $request): RedirectResponse
+    public function storeUser(StoreUserRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'role_id' => ['required', 'exists:roles,id'],
-            'password' => ['required', 'string', 'min:8'],
-        ]);
+        $validated = $request->validated();
 
         $role = Role::findOrFail($validated['role_id']);
 
@@ -187,14 +160,9 @@ class RbacController extends Controller
     /**
      * Update the specified user and their role assignment.
      */
-    public function updateUser(Request $request, User $user): RedirectResponse
+    public function updateUser(UpdateUserRequest $request, User $user): RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
-            'role_id' => ['required', 'exists:roles,id'],
-            'password' => ['nullable', 'string', 'min:8'],
-        ]);
+        $validated = $request->validated();
 
         $role = Role::findOrFail($validated['role_id']);
 
