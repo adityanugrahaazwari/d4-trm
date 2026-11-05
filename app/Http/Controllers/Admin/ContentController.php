@@ -340,13 +340,18 @@ class ContentController extends Controller
         $validated = $request->validated();
         $code = ! empty($validated['code']) ? $validated['code'] : 'KUR-'.Str::slug($validated['year']);
 
+        $isActive = true;
+        if (isset($validated['is_active'])) {
+            $isActive = in_array($validated['is_active'], [1, '1', true, 'true', 'published'], true);
+        }
+
         Curriculum::create([
             'name' => $validated['name'],
             'code' => $code,
             'year' => $validated['year'],
             'description' => $validated['description'] ?? null,
             'total_sks' => $validated['total_credits'] ?? $validated['total_sks'] ?? 144,
-            'is_active' => (bool) ($validated['is_active'] ?? true),
+            'is_active' => $isActive,
         ]);
 
         return redirect()->route('admin.crud.sample', ['section' => 'kurikulum'])
@@ -357,12 +362,17 @@ class ContentController extends Controller
     {
         $validated = $request->validated();
 
+        $isActive = $curriculum->is_active;
+        if (isset($validated['is_active'])) {
+            $isActive = in_array($validated['is_active'], [1, '1', true, 'true', 'published'], true);
+        }
+
         $curriculum->update([
             'name' => $validated['name'],
             'year' => $validated['year'],
             'description' => $validated['description'] ?? $curriculum->description,
             'total_sks' => $validated['total_credits'] ?? $validated['total_sks'] ?? $curriculum->total_sks,
-            'is_active' => isset($validated['is_active']) ? (bool) $validated['is_active'] : $curriculum->is_active,
+            'is_active' => $isActive,
         ]);
 
         return redirect()->route('admin.crud.sample', ['section' => 'kurikulum'])

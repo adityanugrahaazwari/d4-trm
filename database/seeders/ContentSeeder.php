@@ -401,25 +401,66 @@ class ContentSeeder extends Seeder
         );
 
         $coursesData = [
-            ['curriculum_id' => $curriculum->id, 'code' => 'TRM101', 'name' => 'Dasar Pemrograman Multimedia', 'semester' => 1, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
-            ['curriculum_id' => $curriculum->id, 'code' => 'TRM102', 'name' => 'Menggambar Bentuk & Desain 2D', 'semester' => 1, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
-            ['curriculum_id' => $curriculum->id, 'code' => 'TRM103', 'name' => 'Pengantar Teknologi Rekayasa Multimedia', 'semester' => 1, 'sks' => 2, 'theory_sks' => 2, 'practical_sks' => 0, 'type' => 'Wajib'],
-            ['curriculum_id' => $curriculum->id, 'code' => 'TRM104', 'name' => 'Matematika Terapan untuk Game & Grafika', 'semester' => 1, 'sks' => 3, 'theory_sks' => 2, 'practical_sks' => 1, 'type' => 'Wajib'],
-            ['curriculum_id' => $curriculum->id, 'code' => 'TRM105', 'name' => 'Bahasa Inggris Vokasi', 'semester' => 1, 'sks' => 2, 'theory_sks' => 1, 'practical_sks' => 1, 'type' => 'Wajib'],
+            // Semester 1 (20 SKS)
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM101', 'name' => 'Algoritma & Pemrograman Multimedia', 'semester' => 1, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM102', 'name' => 'Dasar Desain Grafis & Tipografi Digital', 'semester' => 1, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM103', 'name' => 'Matematika Komputasi & Vektor Grafika', 'semester' => 1, 'sks' => 3, 'theory_sks' => 2, 'practical_sks' => 1, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM104', 'name' => 'Pengantar Teknologi Media Interaktif & Game', 'semester' => 1, 'sks' => 3, 'theory_sks' => 2, 'practical_sks' => 1, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM105', 'name' => 'Fotografi Digital & Sinematografi Dasar', 'semester' => 1, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'WKW101', 'name' => 'Pendidikan Pancasila & Kewarganegaraan', 'semester' => 1, 'sks' => 2, 'theory_sks' => 2, 'practical_sks' => 0, 'type' => 'Institusi'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'WKW102', 'name' => 'Bahasa Indonesia Akademik & Teknis', 'semester' => 1, 'sks' => 2, 'theory_sks' => 2, 'practical_sks' => 0, 'type' => 'Institusi'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'WKW103', 'name' => 'Bahasa Inggris Komunikasi Teknik', 'semester' => 1, 'sks' => 1, 'theory_sks' => 1, 'practical_sks' => 0, 'type' => 'Institusi'],
 
-            ['curriculum_id' => $curriculum->id, 'code' => 'TRM201', 'name' => 'Pemrograman Berorientasi Objek (OOP)', 'semester' => 2, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
-            ['curriculum_id' => $curriculum->id, 'code' => 'TRM202', 'name' => 'Pemodelan Objek 3D Dasar', 'semester' => 2, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
-            ['curriculum_id' => $curriculum->id, 'code' => 'TRM203', 'name' => 'Desain Antarmuka & UX Design', 'semester' => 2, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
-            ['curriculum_id' => $curriculum->id, 'code' => 'TRM204', 'name' => 'Struktur Data & Algoritma Grafika', 'semester' => 2, 'sks' => 3, 'theory_sks' => 2, 'practical_sks' => 1, 'type' => 'Wajib'],
+            // Semester 2 (20 SKS)
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM201', 'name' => 'Pemrograman Berorientasi Objek Multimedia (C#/C++)', 'semester' => 2, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM202', 'name' => 'Desain Antarmuka & Pengalaman Pengguna (UI/UX)', 'semester' => 2, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM203', 'name' => 'Dasar Pemodelan 3D & Digital Asset (Blender)', 'semester' => 2, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM204', 'name' => 'Audio Engineering & Sound Design', 'semester' => 2, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM205', 'name' => 'Sistem Basis Data Multimedia', 'semester' => 2, 'sks' => 3, 'theory_sks' => 2, 'practical_sks' => 1, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM206', 'name' => 'Animasi 2D Digital & Motion Graphics', 'semester' => 2, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'WKW201', 'name' => 'Pendidikan Agama', 'semester' => 2, 'sks' => 2, 'theory_sks' => 2, 'practical_sks' => 0, 'type' => 'Institusi'],
 
-            ['curriculum_id' => $curriculum->id, 'code' => 'TRM301', 'name' => 'Game Engine Architecture (Unity/Godot)', 'semester' => 3, 'sks' => 4, 'theory_sks' => 1, 'practical_sks' => 3, 'type' => 'Wajib'],
-            ['curriculum_id' => $curriculum->id, 'code' => 'TRM302', 'name' => 'Rigging & Karakter Animasi 3D', 'semester' => 3, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
-            ['curriculum_id' => $curriculum->id, 'code' => 'TRM303', 'name' => 'Pemrograman Web Multimedia', 'semester' => 3, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
-            ['curriculum_id' => $curriculum->id, 'code' => 'TRM304', 'name' => 'Audio & Desain Suara Interaktif', 'semester' => 3, 'sks' => 2, 'theory_sks' => 1, 'practical_sks' => 1, 'type' => 'Wajib'],
+            // Semester 3 (19 SKS)
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM301', 'name' => 'Pemodelan Karakter 3D & Digital Sculpting', 'semester' => 3, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM302', 'name' => 'Pemrograman Game 2D & Game Engine I (Unity)', 'semester' => 3, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM303', 'name' => 'Pengembangan Web Multimedia & Frontend Interaktif', 'semester' => 3, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM304', 'name' => 'Rigging & Animasi Karakter 3D', 'semester' => 3, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM305', 'name' => 'Visual Effects (VFX) & Compositing', 'semester' => 3, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM306', 'name' => 'Statistika & Probabilitas Komputasi', 'semester' => 3, 'sks' => 2, 'theory_sks' => 2, 'practical_sks' => 0, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'WKW301', 'name' => 'Etika Profesi & Hukum Siber Multimedia', 'semester' => 3, 'sks' => 2, 'theory_sks' => 2, 'practical_sks' => 0, 'type' => 'Institusi'],
 
-            ['curriculum_id' => $curriculum->id, 'code' => 'TRM401', 'name' => 'Virtual Reality & Augmented Reality', 'semester' => 4, 'sks' => 4, 'theory_sks' => 1, 'practical_sks' => 3, 'type' => 'Wajib'],
-            ['curriculum_id' => $curriculum->id, 'code' => 'TRM402', 'name' => 'Visual Effects (VFX) & Compositing', 'semester' => 4, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
-            ['curriculum_id' => $curriculum->id, 'code' => 'TRM403', 'name' => 'PBL: Proyek Produksi Game 2D/3D', 'semester' => 4, 'sks' => 4, 'theory_sks' => 0, 'practical_sks' => 4, 'type' => 'Wajib'],
+            // Semester 4 (19 SKS)
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM401', 'name' => 'Pemrograman Game 3D & Game Engine II (Unreal Engine 5)', 'semester' => 4, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM402', 'name' => 'Virtual Reality (VR) & Augmented Reality (AR) Fundamental', 'semester' => 4, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM403', 'name' => 'Environment Art & Lighting 3D', 'semester' => 4, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM404', 'name' => 'Produksi Video Digital & Color Grading', 'semester' => 4, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM405', 'name' => 'Rekayasa Perangkat Lunak Multimedia', 'semester' => 4, 'sks' => 3, 'theory_sks' => 2, 'practical_sks' => 1, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM406', 'name' => 'Proyek Terintegrasi Multimedia I (PBL Studio)', 'semester' => 4, 'sks' => 4, 'theory_sks' => 1, 'practical_sks' => 3, 'type' => 'Wajib'],
+
+            // Semester 5 (19 SKS)
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM501', 'name' => 'Pengembangan Aplikasi Imersif Lanjut (Mixed Reality & XR)', 'semester' => 5, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM502', 'name' => 'Kecerdasan Buatan dalam Game (Game AI)', 'semester' => 5, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM503', 'name' => 'Mobile Interactive App Development', 'semester' => 5, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM504', 'name' => 'Computer Vision & Interaksi Manusia Komputer', 'semester' => 5, 'sks' => 3, 'theory_sks' => 2, 'practical_sks' => 1, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM505', 'name' => 'Manajemen Proyek Multimedia & Agile/Scrum', 'semester' => 5, 'sks' => 3, 'theory_sks' => 2, 'practical_sks' => 1, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM506', 'name' => 'Proyek Terintegrasi Multimedia II (PBL Industri)', 'semester' => 5, 'sks' => 4, 'theory_sks' => 1, 'practical_sks' => 3, 'type' => 'Wajib'],
+
+            // Semester 6 (18 SKS)
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM601', 'name' => 'Game Engine Architecture & Optimasi Kinerja', 'semester' => 6, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM602', 'name' => 'Desain Audio Spasial & Komposisi Interaktif', 'semester' => 6, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM603', 'name' => 'Kewirausahaan Digital & Manajemen Bisnis Kreatif', 'semester' => 6, 'sks' => 3, 'theory_sks' => 2, 'practical_sks' => 1, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM604', 'name' => 'Metodologi Riset Terapan Multimedia', 'semester' => 6, 'sks' => 3, 'theory_sks' => 2, 'practical_sks' => 1, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM605', 'name' => 'MK Pilihan I: Virtual Production & MoCap Pipeline', 'semester' => 6, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Pilihan'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM606', 'name' => 'MK Pilihan II: Technical Art & Shader Programming', 'semester' => 6, 'sks' => 3, 'theory_sks' => 1, 'practical_sks' => 2, 'type' => 'Pilihan'],
+
+            // Semester 7 (20 SKS)
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM701', 'name' => 'Magang Industri Bersertifikat (MBKM Vokasi DUDI)', 'semester' => 7, 'sks' => 16, 'theory_sks' => 0, 'practical_sks' => 16, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM702', 'name' => 'Portofolio Industri & Presentasi Proyek Mitra', 'semester' => 7, 'sks' => 4, 'theory_sks' => 0, 'practical_sks' => 4, 'type' => 'Wajib'],
+
+            // Semester 8 (9 SKS)
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM801', 'name' => 'Seminar Proposal Tugas Akhir', 'semester' => 8, 'sks' => 2, 'theory_sks' => 0, 'practical_sks' => 2, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM802', 'name' => 'Tugas Akhir / Skripsi Terapan (Capstone Multimedia Product)', 'semester' => 8, 'sks' => 6, 'theory_sks' => 0, 'practical_sks' => 6, 'type' => 'Wajib'],
+            ['curriculum_id' => $curriculum->id, 'code' => 'TRM803', 'name' => 'Uji Sertifikasi Kompetensi Profesi Multimedia (BNSP)', 'semester' => 8, 'sks' => 1, 'theory_sks' => 0, 'practical_sks' => 1, 'type' => 'Wajib'],
         ];
 
         foreach ($coursesData as $c) {
@@ -429,20 +470,117 @@ class ContentSeeder extends Seeder
             );
         }
 
-        AcademicCalendar::updateOrCreate(
-            ['academic_year' => '2026/2027', 'semester' => 'semua'],
+        $calendarData = [
             [
-                'title' => 'Kalender Akademik Tahun Ajaran 2026/2027 POLITALA',
-                'description' => 'Jadwal registrasi ulang, perkuliahan semester ganjil/genap, pekan UTS, UAS, dan yudisium program sarjana terapan.',
+                'academic_year' => '2026/2027',
+                'semester' => 'ganjil',
+                'title' => 'Registrasi Ulang & Pembayaran UKT Semester Ganjil',
+                'start_date' => '2026-08-01',
+                'end_date' => '2026-08-15',
+                'description' => 'Pembayaran biaya pendidikan UKT dan pengisian Kartu Rencana Studi (KRS) online melalui sistem informasi akademik.',
                 'is_active' => true,
-            ]
-        );
+            ],
+            [
+                'academic_year' => '2026/2027',
+                'semester' => 'ganjil',
+                'title' => 'Pengenalan Kehidupan Kampus Mahasiswa Baru (PKKMB)',
+                'start_date' => '2026-08-18',
+                'end_date' => '2026-08-22',
+                'description' => 'Masa orientasi mahasiswa baru Politeknik Negeri Tanah Laut dan pengenalan laboratorium prodi TRM.',
+                'is_active' => true,
+            ],
+            [
+                'academic_year' => '2026/2027',
+                'semester' => 'ganjil',
+                'title' => 'Perkuliahan & Praktikum Aktif Semester Ganjil (Tahap I)',
+                'start_date' => '2026-08-25',
+                'end_date' => '2026-10-17',
+                'description' => 'Perkuliahan tatap muka dan praktikum intensif laboratorium minggu ke-1 s.d. minggu ke-8.',
+                'is_active' => true,
+            ],
+            [
+                'academic_year' => '2026/2027',
+                'semester' => 'ganjil',
+                'title' => 'Ujian Tengah Semester (UTS) Ganjil',
+                'start_date' => '2026-10-20',
+                'end_date' => '2026-10-31',
+                'description' => 'Evaluasi capaian tengah semester teori dan ujian performa portofolio praktikum.',
+                'is_active' => true,
+            ],
+            [
+                'academic_year' => '2026/2027',
+                'semester' => 'ganjil',
+                'title' => 'Perkuliahan Aktif & Pengerjaan Proyek PBL (Tahap II)',
+                'start_date' => '2026-11-03',
+                'end_date' => '2026-12-19',
+                'description' => 'Penyelesaian proyek berbasis industri (Project-Based Learning) dan asistensi studio.',
+                'is_active' => true,
+            ],
+            [
+                'academic_year' => '2026/2027',
+                'semester' => 'ganjil',
+                'title' => 'Ujian Akhir Semester (UAS) & Showcase Proyek Multimedia',
+                'start_date' => '2026-12-22',
+                'end_date' => '2027-01-09',
+                'description' => 'Ujian akhir semester, pameran karya tugas besar mahasiswa TRM, dan input nilai KHS.',
+                'is_active' => true,
+            ],
+            [
+                'academic_year' => '2026/2027',
+                'semester' => 'genap',
+                'title' => 'Registrasi Ulang & KRS Semester Genap 2026/2027',
+                'start_date' => '2027-01-15',
+                'end_date' => '2027-01-30',
+                'description' => 'Konsultasi Dosen Penasihat Akademik (PA) dan pengisian KRS semester genap.',
+                'is_active' => true,
+            ],
+            [
+                'academic_year' => '2026/2027',
+                'semester' => 'genap',
+                'title' => 'Masa Perkuliahan & Magang Industri MBKM Semester Genap',
+                'start_date' => '2027-02-08',
+                'end_date' => '2027-06-19',
+                'description' => 'Perkuliahan semester genap dan keberangkatan mahasiswa magang bersertifikat DUDI 6 bulan.',
+                'is_active' => true,
+            ],
+            [
+                'academic_year' => '2026/2027',
+                'semester' => 'genap',
+                'title' => 'Sidang Tugas Akhir Capstone & Yudisium Sarjana Terapan',
+                'start_date' => '2027-07-05',
+                'end_date' => '2027-07-24',
+                'description' => 'Sidang dewan penguji tugas akhir bersama mitra industri, yudisium kelulusan, dan uji kompetensi BNSP.',
+                'is_active' => true,
+            ],
+        ];
+
+        foreach ($calendarData as $cal) {
+            AcademicCalendar::updateOrCreate(
+                ['academic_year' => $cal['academic_year'], 'title' => $cal['title']],
+                $cal
+            );
+        }
 
         $cplData = [
-            ['code' => 'CPL-01', 'category' => 'sikap', 'description' => 'Bertaqwa kepada Tuhan Yang Maha Esa dan mampu menunjukkan sikap profesional, etis, dan bertanggung jawab atas pekerjaan di bidang teknologi multimedia.', 'order' => 1],
-            ['code' => 'CPL-02', 'category' => 'pengetahuan', 'description' => 'Menguasai konsep teoretis matematika grafika, arsitektur game engine, dan pipeline produksi animasi 3D.', 'order' => 2],
-            ['code' => 'CPL-03', 'category' => 'keterampilan_umum', 'description' => 'Mampu menerapkan pemikiran logis, kritis, inovatif, dan bermutu dalam konteks penerapan ilmu pengetahuan dan teknologi terapan.', 'order' => 3],
-            ['code' => 'CPL-04', 'category' => 'keterampilan_khusus', 'description' => 'Mampu merancang, mengimplementasikan, dan menguji aplikasi game interaktif, simulasi VR/AR, dan film animasi 3D standar industri.', 'order' => 4],
+            // Sikap (Attitude)
+            ['code' => 'CPL-01', 'category' => 'sikap', 'description' => 'Bertaqwa kepada Tuhan Yang Maha Esa dan mampu menunjukkan sikap religius, disiplin, beretika moral, dan berintegritas tinggi dalam kehidupan bermasyarakat dan bernegara.', 'order' => 1],
+            ['code' => 'CPL-02', 'category' => 'sikap', 'description' => 'Menjunjung tinggi penegakan hukum, menghargai orisinalitas karya, mematuhi etika profesi, serta menghormati hak cipta (HaKI) di industri media kreatif digital.', 'order' => 2],
+            ['code' => 'CPL-03', 'category' => 'sikap', 'description' => 'Menunjukkan sikap bertanggung jawab, tangguh, berjiwa kewirausahaan (technopreneurship), dan memiliki komitmen mutu atas pekerjaan di bidang teknologi multimedia baik mandiri maupun tim multidisiplin.', 'order' => 3],
+
+            // Penguasaan Pengetahuan (Knowledge)
+            ['code' => 'CPL-04', 'category' => 'pengetahuan', 'description' => 'Menguasai konsep teoretis matematika komputasi grafika, rendering pipeline, struktur data multimedia, dan algoritma pengoptimalan performa game engine.', 'order' => 4],
+            ['code' => 'CPL-05', 'category' => 'pengetahuan', 'description' => 'Menguasai prinsip interaksi manusia dan komputer (HCI), metodologi User Experience (UI/UX Design Thinking), serta arsitektur komputasi awan dan web spasial.', 'order' => 5],
+            ['code' => 'CPL-06', 'category' => 'pengetahuan', 'description' => 'Menguasai metodologi rekayasa perangkat lunak interaktif modern, prinsip manajemen proyek berbasis Agile/Scrum, dan pipeline produksi animasi 3D sinematik standar DUDI.', 'order' => 6],
+
+            // Keterampilan Umum (General Skills)
+            ['code' => 'CPL-07', 'category' => 'keterampilan_umum', 'description' => 'Mampu menerapkan pemikiran logis, kritis, inovatif, dan bermutu dalam menyelesaikan pekerjaan rekayasa teknologi terapan yang memperhatikan nilai humaniora.', 'order' => 7],
+            ['code' => 'CPL-08', 'category' => 'keterampilan_umum', 'description' => 'Mampu mengkaji implikasi pengembangan atau implementasi ilmu pengetahuan dan teknologi serta mempresentasikan solusi karya terapan secara efektif kepada pemangku kepentingan.', 'order' => 8],
+            ['code' => 'CPL-09', 'category' => 'keterampilan_umum', 'description' => 'Mampu mengambil keputusan secara tepat dalam konteks penyelesaian masalah di bidang multimedia berdasarkan analisis data dan informasi yang valid.', 'order' => 9],
+
+            // Keterampilan Khusus (Specific Skills)
+            ['code' => 'CPL-10', 'category' => 'keterampilan_khusus', 'description' => 'Mampu merekayasa arsitektur permainan (gameplay mechanics), kecerdasan buatan game (Game AI), dan optimasi shader menggunakan game engine standar industri (Unreal Engine & Unity).', 'order' => 10],
+            ['code' => 'CPL-11', 'category' => 'keterampilan_khusus', 'description' => 'Mampu memproduksi aset grafis 3D berkualitas tinggi, rigging karakter, penangkapan gerak (motion capture), animasi dinamis, visual effects (VFX), dan audio spasial terstandarisasi.', 'order' => 11],
+            ['code' => 'CPL-12', 'category' => 'keterampilan_khusus', 'description' => 'Mampu merancang, membangun, dan menguji aplikasi imersif berbasis teknologi Virtual Reality (VR), Augmented Reality (AR), dan Mixed Reality (XR) untuk kebutuhan simulasi industri dan edukasi.', 'order' => 12],
         ];
 
         foreach ($cplData as $cpl) {
@@ -451,28 +589,46 @@ class ContentSeeder extends Seeder
 
         $gradProfiles = [
             [
-                'title' => 'Technical Game Programmer',
-                'description' => 'Ahli pemrograman sistem permainan, mekanika interaktif, shader, arsitektur gameplay, dan integrasi fisika dalam Unreal Engine dan Unity.',
-                'career_roles' => 'Gameplay Programmer, AI Programmer, Engine Developer, Mobile Game Developer',
+                'title' => 'Technical Game Developer & Gameplay Programmer',
+                'description' => 'Sarjana terapan yang menguasai perancangan arsitektur sistem permainan, mekanika interaktif, Game AI, network multiplayer, dan integrasi fisika dalam Unreal Engine 5 dan Unity.',
+                'career_roles' => 'Gameplay Programmer, Game AI Engineer, Game Engine Optimizer, Mobile Game Developer, Technical Game Designer',
+                'icon' => 'gamepad',
                 'order' => 1,
             ],
             [
-                'title' => '3D Technical Artist & Animator',
-                'description' => 'Spesialis pemodelan 3D, rigging karakter, teknik animasi gerak dinamis, teksturing PBR, lighting, dan efek visual (VFX) sinematik.',
-                'career_roles' => '3D Modeler, Character Rigger, 3D Animator, VFX Compositor, Lighting Artist',
+                'title' => '3D Technical Artist, Modeler & Character Rigger',
+                'description' => 'Spesialis yang menjembatani seni visual dan komputasi teknis melalui pemodelan 3D hard-surface/organic, rigging tulang karakter, texturing PBR, lighting, dan visual effects (VFX).',
+                'career_roles' => '3D Modeler, Character Rigger, Technical Artist, VFX Compositor, Real-time Lighting Artist, Motion Capture Operator',
+                'icon' => 'cube',
                 'order' => 2,
             ],
             [
-                'title' => 'XR & Virtual Reality Developer',
-                'description' => 'Pengembang aplikasi realitas tertambah (AR), realitas virtual (VR), dan metaversal simulation untuk edukasi, kedokteran, dan simulator industri.',
-                'career_roles' => 'VR Developer, AR Application Engineer, Simulation Software Specialist',
+                'title' => 'XR & Immersive Simulation Engineer (AR/VR/MR)',
+                'description' => 'Pengembang aplikasi imersif spasial berkinerja tinggi untuk simulator pelatihan keselamatan kerja, simulasi medis, tur virtual interaktif, dan komputasi spasial industri modern.',
+                'career_roles' => 'VR Application Developer, AR Specialist, Spatial Computing Engineer, Interactive Simulator Developer',
+                'icon' => 'vr',
                 'order' => 3,
             ],
             [
-                'title' => 'Web Multimedia & UI/UX Engineer',
-                'description' => 'Perekayasa aplikasi web kaya multimedia modern, desain antarmuka imersif, dan sistem interaktif berbasis teknologi komputasi awan.',
-                'career_roles' => 'Frontend Multimedia Developer, UI/UX Designer, Creative Web Technologist',
+                'title' => 'Creative Multimedia Web & UI/UX Technologist',
+                'description' => 'Perekayasa aplikasi web multimedia interaktif dengan kemampuan riset usability testing, desain antarmuka responsif modern, web graphics (WebGL/Three.js), dan integrasi API.',
+                'career_roles' => 'UI/UX Designer, Frontend Multimedia Engineer, Creative Web Technologist, Design System Lead',
+                'icon' => 'code',
                 'order' => 4,
+            ],
+            [
+                'title' => 'Technical Video Producer & Cinema VFX Compositor',
+                'description' => 'Profesional produksi video sinematik dengan keahlian tata kamera cinema 6K, pencahayaan studio, live broadcasting, chroma keying cyclorama, dan grading warna DaVinci Resolve.',
+                'career_roles' => 'Broadcast Video Director, Motion Graphic Designer, Colorist, VFX Compositor, Video Production Manager',
+                'icon' => 'video',
+                'order' => 5,
+            ],
+            [
+                'title' => 'Interactive Audio Designer & Sound Engineer',
+                'description' => 'Spesialis perancangan tata suara interaktif, rekaman foley, sulih suara (voice acting), aransemen musik orisinal, serta implementasi audio adaptif dalam game dan film animasi.',
+                'career_roles' => 'Game Audio Engineer, Foley Artist, Sound Designer, Music Producer, Voice Director',
+                'icon' => 'music',
+                'order' => 6,
             ],
         ];
 

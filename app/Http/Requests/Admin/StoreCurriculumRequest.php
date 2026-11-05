@@ -22,7 +22,7 @@ class StoreCurriculumRequest extends FormRequest
             'year' => ['required', 'string', 'max:10'],
             'description' => ['nullable', 'string'],
             'total_credits' => ['nullable', 'integer'],
-            'is_active' => ['nullable', 'boolean'],
+            'is_active' => ['nullable', 'in:0,1,true,false,published,draft'],
         ];
     }
 }

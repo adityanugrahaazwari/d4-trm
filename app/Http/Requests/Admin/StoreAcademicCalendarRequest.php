@@ -19,7 +19,7 @@ class StoreAcademicCalendarRequest extends FormRequest
     {
         return [
             'academic_year' => ['required', 'string', 'max:50'],
-            'semester' => ['required', 'in:ganjil,genap'],
+            'semester' => ['required', 'in:ganjil,genap,semua'],
             'title' => ['required', 'string', 'max:255'],
             'start_date' => ['required', 'date'],
             'end_date' => ['nullable', 'date'],

@@ -321,22 +321,93 @@ class PublicController extends Controller
     /**
      * Kurikulum & Mata Kuliah.
      */
-    public function curriculum(): View
+    public function curriculum(Request $request): View
     {
-        $curriculum = Curriculum::where('is_active', true)->with('courses')->first();
+        $allCurricula = Curriculum::orderByDesc('is_active')->orderByDesc('year')->get();
+
+        $selectedId = $request->query('kurikulum');
+        if ($selectedId) {
+            $curriculum = Curriculum::with('courses')->find($selectedId);
+        } else {
+            $curriculum = Curriculum::where('is_active', true)->with('courses')->latest('year')->first();
+        }
+
+        if (! $curriculum) {
+            $curriculum = Curriculum::with('courses')->first();
+        }
+
+        $coursesGrouped = [];
+        for ($i = 1; $i <= 8; $i++) {
+            $coursesGrouped[$i] = [];
+        }
+
+        if ($curriculum && $curriculum->courses->isNotEmpty()) {
+            foreach ($curriculum->courses as $course) {
+                $sem = (int) $course->semester;
+                if ($sem >= 1 && $sem <= 8) {
+                    $coursesGrouped[$sem][] = [
+                        'code' => $course->code,
+                        'name' => $course->name,
+                        'theory' => (int) $course->theory_sks,
+                        'practice' => (int) $course->practical_sks,
+                        'total' => (int) ($course->sks ?: ($course->theory_sks + $course->practical_sks)),
+                        'type' => $course->type,
+                        'description' => $course->description ?? '',
+                    ];
+                }
+            }
+        }
+
+        $totalSks = $curriculum?->total_sks ?? 144;
+        $totalCourses = $curriculum ? $curriculum->courses->count() : 0;
         $courses = $curriculum ? $curriculum->courses->groupBy('semester') : collect();
 
-        return view('public.academic.curriculum', compact('curriculum', 'courses'));
+        return view('public.academic.curriculum', compact(
+            'curriculum',
+            'allCurricula',
+            'courses',
+            'coursesGrouped',
+            'totalSks',
+            'totalCourses'
+        ));
     }
 
     /**
      * Kalender Akademik.
      */
-    public function calendar(): View
+    public function calendar(Request $request): View
     {
-        $calendars = AcademicCalendar::where('is_active', true)->latest()->get();
+        $selectedSemester = trim((string) $request->input('semester', 'semua'));
+        $search = trim((string) $request->input('q', ''));
 
-        return view('public.academic.calendar', compact('calendars'));
+        $query = AcademicCalendar::where('is_active', true);
+
+        if ($selectedSemester !== '' && $selectedSemester !== 'semua') {
+            $query->where(function ($q) use ($selectedSemester) {
+                $q->where('semester', $selectedSemester)->orWhere('semester', 'semua');
+            });
+        }
+
+        if ($search !== '') {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+
+        $calendars = $query->orderBy('start_date', 'asc')->get();
+
+        $academicYears = AcademicCalendar::where('is_active', true)
+            ->pluck('academic_year')
+            ->unique()
+            ->values();
+
+        return view('public.academic.calendar', compact(
+            'calendars',
+            'selectedSemester',
+            'search',
+            'academicYears'
+        ));
     }
 
     /**
@@ -344,9 +415,14 @@ class PublicController extends Controller
      */
     public function cpl(): View
     {
-        $cpls = Cpl::orderBy('order')->get()->groupBy('category');
+        $allCpls = Cpl::ordered()->get();
+        $cpls = $allCpls->groupBy(function ($item) {
+            return strtolower(trim($item->category));
+        });
 
-        return view('public.academic.cpl', compact('cpls'));
+        $totalCpl = $allCpls->count();
+
+        return view('public.academic.cpl', compact('cpls', 'allCpls', 'totalCpl'));
     }
 
     /**
@@ -354,7 +430,7 @@ class PublicController extends Controller
      */
     public function graduateProfile(): View
     {
-        $profiles = GraduateProfile::orderBy('order')->get();
+        $profiles = GraduateProfile::ordered()->get();
 
         return view('public.academic.graduate-profile', compact('profiles'));
     }

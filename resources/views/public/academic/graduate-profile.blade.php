@@ -1,280 +1,184 @@
 @extends('layouts.public')
 
-@section('title', 'Profil Lulusan - D-IV TRM POLITALA')
+@section('title', 'Profil Lulusan & Prospek Karier - D-IV TRM POLITALA')
 
 @section('content')
-<div class="bg-gradient-to-b from-brand-primary/10 via-brand-surface to-white border-b border-slate-100 pt-28 sm:pt-32 lg:pt-36 pb-12 lg:pb-16">
+<!-- Header Page -->
+<div class="bg-gradient-to-b from-brand-primary/10 via-brand-surface to-white border-b border-slate-100 pt-32 sm:pt-36 lg:pt-40 pb-12 lg:pb-16 mt-2 sm:mt-4">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <nav class="flex items-center gap-2 text-xs font-semibold text-brand-muted uppercase tracking-wider mb-3">
-            <a href="{{ route('home') }}" class="hover:text-brand-primary">Beranda</a>
+        <nav class="flex items-center gap-2 text-xs font-semibold text-brand-muted uppercase tracking-wider mb-4 mt-2">
+            <a href="{{ route('home') }}" class="hover:text-brand-primary transition-colors">Beranda</a>
             <span>/</span>
             <span class="text-brand-secondary">Akademik</span>
             <span>/</span>
             <span class="text-brand-dark">Profil Lulusan</span>
         </nav>
-        <div class="flex flex-wrap items-center justify-between gap-4">
-            <div>
-                <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">Profil Lulusan &amp; Prospek Karier</h1>
-                <p class="mt-2 text-sm sm:text-base text-brand-muted">Peluang profesi sarjana terapan (S.Tr.Kom.) di industri kreatif digital dan teknologi informasi</p>
+        <div class="flex flex-wrap items-center justify-between gap-6 mt-6 sm:mt-8">
+            <div class="max-w-3xl space-y-3">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-brand-primary/10 text-brand-primary border border-brand-primary/20">
+                    <span class="w-2 h-2 rounded-full bg-brand-primary animate-pulse"></span>
+                    <span>Gelar Akademik: Sarjana Terapan Komputer (S.Tr.Kom.)</span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-brand-dark tracking-tight leading-tight">
+                    Profil Lulusan &amp; Prospek Karier
+                </h1>
+                <p class="text-sm sm:text-base text-brand-muted leading-relaxed">
+                    Peluang profesi masa depan sarjana terapan di ekosistem industri kreatif digital, teknologi game komersial, produksi animasi 3D, dan rekayasa komputasi spasial imersif.
+                </p>
             </div>
-            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
-                Data Resmi Program Studi
-            </span>
+
+            <div class="flex flex-wrap items-center gap-2">
+                <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 shadow-xs">
+                    Level 6 KKNI Nasional
+                </span>
+                <span class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-brand-primary-light text-brand-primary border border-brand-primary/20">
+                    {{ $profiles->count() }} Profil Utama
+                </span>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-12">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16 space-y-16">
     <!-- Grid Profil Profesi -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        @if(isset($profiles) && count($profiles) > 0)
-            @foreach($profiles as $idx => $p)
-                <div class="group bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between">
-                    <div class="relative h-44 sm:h-48 bg-gradient-to-br from-slate-50 via-brand-primary-light/40 to-slate-100/70 p-6 flex items-center justify-center border-b border-slate-100 overflow-hidden">
-                        <div class="absolute top-4 left-4 w-10 h-10 rounded-2xl bg-brand-primary text-white flex items-center justify-center font-bold text-sm shadow-md shadow-brand-primary/20 z-10">
+        @foreach($profiles as $idx => $p)
+            <div class="group bg-white rounded-3xl border border-slate-200/90 overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+                <div>
+                    <!-- Card Top Header Illustration Container -->
+                    <div class="relative h-44 sm:h-48 bg-gradient-to-br from-slate-900 via-brand-dark to-slate-800 p-6 flex items-center justify-center border-b border-slate-100 overflow-hidden">
+                        <div class="absolute -right-6 -bottom-6 w-32 h-32 rounded-full bg-brand-primary/20 blur-xl"></div>
+                        <div class="absolute -left-6 -top-6 w-32 h-32 rounded-full bg-brand-secondary/20 blur-xl"></div>
+
+                        <!-- Number Badge -->
+                        <div class="absolute top-4 left-4 w-9 h-9 rounded-2xl bg-white/10 backdrop-blur-md text-white border border-white/15 flex items-center justify-center font-black text-xs shadow-xs z-10 font-mono">
                             {{ str_pad($idx + 1, 2, '0', STR_PAD_LEFT) }}
                         </div>
-                        <div class="w-16 h-16 rounded-2xl bg-white/90 border border-brand-primary/20 shadow-xs flex items-center justify-center text-brand-primary relative z-1 group-hover:scale-110 transition-transform">
-                            <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
+
+                        <!-- Category Tag -->
+                        <div class="absolute top-4 right-4 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-brand-primary text-white shadow-xs z-10">
+                            @if(str_contains(strtolower($p->title), 'game'))
+                                Game Engineering
+                            @elseif(str_contains(strtolower($p->title), '3d') || str_contains(strtolower($p->title), 'animat'))
+                                3D &amp; CGI Pipeline
+                            @elseif(str_contains(strtolower($p->title), 'xr') || str_contains(strtolower($p->title), 'vr'))
+                                Spatial Computing
+                            @elseif(str_contains(strtolower($p->title), 'web') || str_contains(strtolower($p->title), 'ui'))
+                                Creative Web &amp; UX
+                            @elseif(str_contains(strtolower($p->title), 'video') || str_contains(strtolower($p->title), 'vfx'))
+                                Cinema Production
+                            @elseif(str_contains(strtolower($p->title), 'audio') || str_contains(strtolower($p->title), 'sound'))
+                                Sound Engineering
+                            @else
+                                Multimedia Tech
+                            @endif
+                        </div>
+
+                        <!-- Center Tech Graphic -->
+                        <div class="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-md flex items-center justify-center text-brand-sky relative z-10 group-hover:scale-110 transition-transform duration-300">
+                            @if(str_contains(strtolower($p->title), 'game'))
+                                <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            @elseif(str_contains(strtolower($p->title), '3d') || str_contains(strtolower($p->title), 'animat'))
+                                <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                </svg>
+                            @elseif(str_contains(strtolower($p->title), 'xr') || str_contains(strtolower($p->title), 'vr'))
+                                <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                            @elseif(str_contains(strtolower($p->title), 'web') || str_contains(strtolower($p->title), 'ui'))
+                                <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                                </svg>
+                            @elseif(str_contains(strtolower($p->title), 'video') || str_contains(strtolower($p->title), 'vfx'))
+                                <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                </svg>
+                            @else
+                                <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+                                </svg>
+                            @endif
                         </div>
                     </div>
-                    <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-5">
-                        <div class="space-y-3">
-                            <h3 class="text-xl font-bold text-brand-dark group-hover:text-brand-primary transition-colors">
-                                {{ $p->title }}
-                            </h3>
-                            <p class="text-xs sm:text-sm text-brand-muted leading-relaxed">
-                                {{ $p->description }}
-                            </p>
-                        </div>
-                        @if(!empty($p->career_prospects))
-                            <div class="pt-4 border-t border-slate-100 text-xs">
-                                <strong class="text-brand-dark block mb-1.5 flex items-center gap-1.5 font-bold">
-                                    <svg class="w-4 h-4 text-amber-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+
+                    <!-- Card Body -->
+                    <div class="p-6 sm:p-8 space-y-4">
+                        <h3 class="text-xl font-extrabold text-brand-dark group-hover:text-brand-primary transition-colors leading-snug">
+                            {{ $p->title }}
+                        </h3>
+
+                        <p class="text-xs sm:text-sm text-brand-muted leading-relaxed">
+                            {{ $p->description }}
+                        </p>
+
+                        <!-- Career Roles Chips -->
+                        @if(!empty($p->career_roles_list) && count($p->career_roles_list) > 0)
+                            <div class="pt-4 border-t border-slate-100 space-y-2">
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block flex items-center gap-1.5">
+                                    <svg class="w-3.5 h-3.5 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                     </svg>
-                                    Peluang Karier:
-                                </strong>
-                                <span class="text-slate-600 leading-relaxed block pl-5.5">{{ $p->career_prospects }}</span>
+                                    <span>Peluang Jabatan &amp; Profesi Karier:</span>
+                                </span>
+                                <div class="flex flex-wrap gap-1.5">
+                                    @foreach($p->career_roles_list as $role)
+                                        <span class="px-2.5 py-1 rounded-lg bg-brand-surface text-brand-dark text-xs font-semibold border border-slate-200">
+                                            {{ $role }}
+                                        </span>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @elseif(!empty($p->career_prospects))
+                            <div class="pt-4 border-t border-slate-100 text-xs space-y-1">
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Peluang Jabatan:</span>
+                                <p class="text-slate-700 font-medium leading-relaxed">{{ $p->career_prospects }}</p>
                             </div>
                         @endif
                     </div>
                 </div>
-            @endforeach
-        @endif
-        <!-- Profesi 1 -->
-        <div class="group bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between">
-            <!-- Illustration Header Container -->
-            <div class="relative h-52 sm:h-56 bg-gradient-to-br from-slate-50 via-brand-primary-light/40 to-slate-100/70 p-6 flex items-center justify-center border-b border-slate-100 overflow-hidden">
-                <div class="absolute -top-10 -right-10 w-32 h-32 bg-brand-primary/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
-                <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-brand-secondary/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
-                
-                <!-- Badge Number -->
-                <div class="absolute top-4 left-4 w-10 h-10 rounded-2xl bg-brand-primary text-white flex items-center justify-center font-bold text-sm shadow-md shadow-brand-primary/20 z-10">
-                    01
-                </div>
 
-                <!-- Tag Kategori -->
-                <div class="absolute top-4 right-4 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-white/90 text-brand-primary border border-brand-primary/20 shadow-2xs backdrop-blur-xs z-10">
-                    Game Tech
-                </div>
-
-                <!-- Illustration SVG -->
-                <img src="{{ asset('assets/undraw_virtual-reality_4fo0.svg') }}" 
-                     alt="Game Developer & Gameplay Engineer" 
-                     class="h-full max-h-40 w-auto object-contain transition-transform duration-500 group-hover:scale-105 relative z-1"
-                     loading="lazy">
-            </div>
-
-            <!-- Card Body Content -->
-            <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-5">
-                <div class="space-y-3">
-                    <h3 class="text-xl font-bold text-brand-dark group-hover:text-brand-primary transition-colors">
-                        Game Developer &amp; Gameplay Engineer
-                    </h3>
-                    <p class="text-xs sm:text-sm text-brand-muted leading-relaxed">
-                        Bertanggung jawab dalam merancang arsitektur permainan, kecerdasan buatan (Game AI), fisika objek, dan gameplay logic menggunakan Unity atau Unreal Engine.
-                    </p>
-                </div>
-
-                <div class="pt-4 border-t border-slate-100 text-xs">
-                    <strong class="text-brand-dark block mb-1.5 flex items-center gap-1.5 font-bold">
-                        <svg class="w-4 h-4 text-brand-primary shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                        </svg>
-                        Peluang Instansi / Perusahaan:
-                    </strong>
-                    <span class="text-slate-600 leading-relaxed block pl-5.5">Studio Game Nasional &amp; Internasional, Perusahaan Simulasi Militer/Aviasi, Edutech Games.</span>
+                <!-- Footer Card -->
+                <div class="p-6 pt-0">
+                    <span class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-3 py-1.5 rounded-xl w-full justify-center">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>Daya Serap Industri Tinggi (DUDI Kreatif)</span>
+                    </span>
                 </div>
             </div>
-        </div>
-
-        <!-- Profesi 2 -->
-        <div class="group bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between">
-            <!-- Illustration Header Container -->
-            <div class="relative h-52 sm:h-56 bg-gradient-to-br from-slate-50 via-brand-secondary/10 to-slate-100/70 p-6 flex items-center justify-center border-b border-slate-100 overflow-hidden">
-                <div class="absolute -top-10 -right-10 w-32 h-32 bg-brand-secondary/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
-                <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-brand-primary/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
-                
-                <!-- Badge Number -->
-                <div class="absolute top-4 left-4 w-10 h-10 rounded-2xl bg-brand-secondary text-white flex items-center justify-center font-bold text-sm shadow-md shadow-brand-secondary/20 z-10">
-                    02
-                </div>
-
-                <!-- Tag Kategori -->
-                <div class="absolute top-4 right-4 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-white/90 text-brand-secondary border border-brand-secondary/20 shadow-2xs backdrop-blur-xs z-10">
-                    3D &amp; Animation
-                </div>
-
-                <!-- Illustration SVG -->
-                <img src="{{ asset('assets/undraw_3d-modeling_j8a3.svg') }}" 
-                     alt="3D Technical Artist & Animator" 
-                     class="h-full max-h-40 w-auto object-contain transition-transform duration-500 group-hover:scale-105 relative z-1"
-                     loading="lazy">
-            </div>
-
-            <!-- Card Body Content -->
-            <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-5">
-                <div class="space-y-3">
-                    <h3 class="text-xl font-bold text-brand-dark group-hover:text-brand-primary transition-colors">
-                        3D Technical Artist &amp; Animator
-                    </h3>
-                    <p class="text-xs sm:text-sm text-brand-muted leading-relaxed">
-                        Menghubungkan aspek seni dan pemrograman melalui pemodelan 3D, shader visual, rigging karakter, dan optimalisasi aset real-time render.
-                    </p>
-                </div>
-
-                <div class="pt-4 border-t border-slate-100 text-xs">
-                    <strong class="text-brand-dark block mb-1.5 flex items-center gap-1.5 font-bold">
-                        <svg class="w-4 h-4 text-brand-secondary shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                        </svg>
-                        Peluang Instansi / Perusahaan:
-                    </strong>
-                    <span class="text-slate-600 leading-relaxed block pl-5.5">Studio Animasi Film, Perusahaan Periklanan/CGI, Agensi Visual Efek, Industri Arsitektur 3D.</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Profesi 3 -->
-        <div class="group bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between">
-            <!-- Illustration Header Container -->
-            <div class="relative h-52 sm:h-56 bg-gradient-to-br from-slate-50 via-brand-sky-light to-slate-100/70 p-6 flex items-center justify-center border-b border-slate-100 overflow-hidden">
-                <div class="absolute -top-10 -right-10 w-32 h-32 bg-brand-sky/20 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
-                <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-brand-primary/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
-                
-                <!-- Badge Number -->
-                <div class="absolute top-4 left-4 w-10 h-10 rounded-2xl bg-brand-primary text-white flex items-center justify-center font-bold text-sm shadow-md shadow-brand-primary/20 z-10">
-                    03
-                </div>
-
-                <!-- Tag Kategori -->
-                <div class="absolute top-4 right-4 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-white/90 text-brand-primary border border-brand-primary/20 shadow-2xs backdrop-blur-xs z-10">
-                    Immersive XR
-                </div>
-
-                <!-- Illustration SVG -->
-                <img src="{{ asset('assets/undraw_augmented-reality_3ie0.svg') }}" 
-                     alt="Interactive Media & Immersive Tech Specialist (XR)" 
-                     class="h-full max-h-40 w-auto object-contain transition-transform duration-500 group-hover:scale-105 relative z-1"
-                     loading="lazy">
-            </div>
-
-            <!-- Card Body Content -->
-            <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-5">
-                <div class="space-y-3">
-                    <h3 class="text-xl font-bold text-brand-dark group-hover:text-brand-primary transition-colors">
-                        Interactive Media &amp; Immersive Tech Specialist (XR)
-                    </h3>
-                    <p class="text-xs sm:text-sm text-brand-muted leading-relaxed">
-                        Membangun aplikasi virtual reality, augmented reality, dan interactive museum/exhibition untuk pelatihan industri, pariwisata, dan edukasi interaktif.
-                    </p>
-                </div>
-
-                <div class="pt-4 border-t border-slate-100 text-xs">
-                    <strong class="text-brand-dark block mb-1.5 flex items-center gap-1.5 font-bold">
-                        <svg class="w-4 h-4 text-brand-primary shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                        </svg>
-                        Peluang Instansi / Perusahaan:
-                    </strong>
-                    <span class="text-slate-600 leading-relaxed block pl-5.5">Perusahaan Teknologi Imersif, BUMN, Sektor Pertambangan &amp; Energi (VR Safety Training).</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Profesi 4 -->
-        <div class="group bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between">
-            <!-- Illustration Header Container -->
-            <div class="relative h-52 sm:h-56 bg-gradient-to-br from-slate-50 via-amber-50/50 to-slate-100/70 p-6 flex items-center justify-center border-b border-slate-100 overflow-hidden">
-                <div class="absolute -top-10 -right-10 w-32 h-32 bg-amber-200/20 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
-                <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-brand-primary/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
-                
-                <!-- Badge Number -->
-                <div class="absolute top-4 left-4 w-10 h-10 rounded-2xl bg-amber-500 text-white flex items-center justify-center font-bold text-sm shadow-md shadow-amber-500/20 z-10">
-                    04
-                </div>
-
-                <!-- Tag Kategori -->
-                <div class="absolute top-4 right-4 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-white/90 text-amber-800 border border-amber-200/80 shadow-2xs backdrop-blur-xs z-10">
-                    UI/UX &amp; Product
-                </div>
-
-                <!-- Illustration SVG -->
-                <img src="{{ asset('assets/undraw_brainstorming_gny9.svg') }}" 
-                     alt="UI/UX Designer & Creative Technologist" 
-                     class="h-full max-h-40 w-auto object-contain transition-transform duration-500 group-hover:scale-105 relative z-1"
-                     loading="lazy">
-            </div>
-
-            <!-- Card Body Content -->
-            <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-5">
-                <div class="space-y-3">
-                    <h3 class="text-xl font-bold text-brand-dark group-hover:text-brand-primary transition-colors">
-                        UI/UX Designer &amp; Creative Technologist
-                    </h3>
-                    <p class="text-xs sm:text-sm text-brand-muted leading-relaxed">
-                        Mendesain pengalaman interaksi pengguna yang intuitif, visual storytelling digital, serta prototipe interaktif untuk web, mobile, dan sistem pintar.
-                    </p>
-                </div>
-
-                <div class="pt-4 border-t border-slate-100 text-xs">
-                    <strong class="text-brand-dark block mb-1.5 flex items-center gap-1.5 font-bold">
-                        <svg class="w-4 h-4 text-amber-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                        </svg>
-                        Peluang Instansi / Perusahaan:
-                    </strong>
-                    <span class="text-slate-600 leading-relaxed block pl-5.5">Startup Digital, Perbankan/Fintech, Software House, Digital Creative Agency.</span>
-                </div>
-            </div>
-        </div>
+        @endforeach
     </div>
 
-    <!-- Career Guidance & Accreditation Info Banner -->
-    <div class="bg-gradient-to-r from-brand-primary via-brand-primary to-brand-primary-dark rounded-3xl p-8 sm:p-10 text-white shadow-xl relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-6">
-        <div class="absolute -right-16 -top-16 w-64 h-64 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="space-y-2 text-center lg:text-left relative z-10">
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white/15 text-brand-sky border border-white/20">
-                Pendidikan Vokasi Berbasis Proyek (PBL)
-            </span>
-            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Kesiapan Kerja &amp; Sertifikasi Kompetensi</h2>
-            <p class="text-xs sm:text-sm text-slate-200 max-w-2xl leading-relaxed">
-                Setiap lulusan D-IV TRM dibekali ijazah Sarjana Terapan Komputer (S.Tr.Kom.), Surat Keterangan Pendamping Ijazah (SKPI), serta sertifikasi kompetensi keahlian nasional BNSP untuk percepatan serapan industri.
-            </p>
-        </div>
-        <div class="flex items-center gap-3 shrink-0 relative z-10">
-            <a href="{{ route('public.academic.curriculum') }}" class="px-5 py-3 rounded-2xl bg-white text-brand-primary font-bold text-xs hover:bg-brand-surface shadow-md hover:shadow-lg transition-all flex items-center gap-2">
-                <span>Lihat Kurikulum Terkait</span>
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-            </a>
-            <a href="{{ route('public.contact') }}" class="px-5 py-3 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs border border-white/20 transition-all">
-                Konsultasi Studi
-            </a>
+    <!-- Certification & Employability Banner -->
+    <div class="rounded-3xl bg-gradient-to-r from-brand-dark via-slate-900 to-brand-primary p-8 sm:p-12 text-white relative overflow-hidden shadow-xl">
+        <div class="absolute right-0 top-0 w-96 h-96 bg-brand-primary/20 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+            <div class="space-y-3 max-w-2xl">
+                <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/10 text-brand-cream border border-white/10">
+                    Sertifikasi &amp; Portofolio Wisuda
+                </span>
+                <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+                    Setiap Lulusan Dibekali Portofolio Rill &amp; Sertifikat BNSP
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    Sebelum menyelesaikan studi sarjana terapan, mahasiswa D-IV TRM POLITALA wajib mengikuti Uji Kompetensi Lembaga Sertifikasi Profesi (LSP P-1 POLITALA / BNSP) serta menghasilkan portofolio karya komersial bersama mitra industri.
+                </p>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-3 shrink-0">
+                <a href="{{ route('public.academic.curriculum') }}" 
+                   class="px-5 py-3 rounded-2xl bg-white text-brand-dark hover:bg-brand-cream text-xs font-bold transition-all shadow-md flex items-center gap-2">
+                    <span>Lihat Kurikulum Terapan</span>
+                </a>
+                <a href="{{ route('public.facilities.index') }}" 
+                   class="px-5 py-3 rounded-2xl bg-white/10 hover:bg-white/20 text-white border border-white/20 text-xs font-bold transition-all flex items-center gap-2">
+                    <span>Fasilitas Studio Lab</span>
+                </a>
+            </div>
         </div>
     </div>
 </div>

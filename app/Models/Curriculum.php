@@ -17,6 +17,7 @@ class Curriculum extends Model
         'code',
         'year',
         'total_sks',
+        'total_credits',
         'description',
         'is_active',
     ];
@@ -32,5 +33,15 @@ class Curriculum extends Model
     public function courses(): HasMany
     {
         return $this->hasMany(Course::class)->orderBy('semester')->orderBy('code');
+    }
+
+    public function getTotalCreditsAttribute(): int
+    {
+        return (int) ($this->total_sks ?? 144);
+    }
+
+    public function setTotalCreditsAttribute($value): void
+    {
+        $this->attributes['total_sks'] = $value;
     }
 }

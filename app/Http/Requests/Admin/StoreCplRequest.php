@@ -19,7 +19,7 @@ class StoreCplRequest extends FormRequest
     {
         return [
             'code' => ['required', 'string', 'max:50'],
-            'category' => ['required', 'in:Sikap,Keterampilan Umum,Keterampilan Khusus,Pengetahuan'],
+            'category' => ['required', 'in:Sikap,Keterampilan Umum,Keterampilan Khusus,Pengetahuan,sikap,keterampilan_umum,keterampilan_khusus,pengetahuan'],
             'description' => ['required', 'string'],
             'order' => ['nullable', 'integer'],
         ];

@@ -609,4 +609,352 @@ class ContentAndAcademicTest extends TestCase
         $destroyResponse->assertRedirect(route('admin.crud.sample', ['section' => 'fasilitas']));
         $this->assertDatabaseMissing('facilities', ['id' => $facility->id]);
     }
+
+    public function test_public_academic_pages_render_and_filter(): void
+    {
+        $curriculum = Curriculum::create([
+            'name' => 'Kurikulum OBE Vokasi 2026',
+            'code' => 'KUR-OBE-2026',
+            'year' => '2026',
+            'total_sks' => 144,
+            'description' => 'Kurikulum vokasi berbasis Outcome-Based Education.',
+            'is_active' => true,
+        ]);
+
+        $archivedCurriculum = Curriculum::create([
+            'name' => 'Kurikulum Vokasi 2020 Lampau',
+            'code' => 'KUR-2020',
+            'year' => '2020',
+            'total_sks' => 144,
+            'description' => 'Kurikulum arsip angkatan lama.',
+            'is_active' => false,
+        ]);
+
+        Course::create([
+            'curriculum_id' => $curriculum->id,
+            'code' => 'TRM101',
+            'name' => 'Algoritma & Logika Pemrograman',
+            'semester' => 1,
+            'sks' => 3,
+            'theory_sks' => 1,
+            'practical_sks' => 2,
+            'type' => 'Wajib',
+        ]);
+
+        Course::create([
+            'curriculum_id' => $curriculum->id,
+            'code' => 'TRM401',
+            'name' => 'Desain User Experience Lanjut',
+            'semester' => 4,
+            'sks' => 3,
+            'theory_sks' => 1,
+            'practical_sks' => 2,
+            'type' => 'Pilihan',
+        ]);
+
+        AcademicCalendar::create([
+            'title' => 'Ujian Akhir Semester Ganjil',
+            'academic_year' => '2026/2027',
+            'semester' => 'ganjil',
+            'start_date' => now()->addDays(10),
+            'end_date' => now()->addDays(20),
+            'description' => 'Pelaksanaan evaluasi akhir semester ganjil.',
+            'is_active' => true,
+        ]);
+
+        AcademicCalendar::create([
+            'title' => 'Pendaftaran Yudisium Gelombang I',
+            'academic_year' => '2026/2027',
+            'semester' => 'genap',
+            'start_date' => now()->addMonths(4),
+            'end_date' => now()->addMonths(4)->addDays(7),
+            'description' => 'Pendaftaran yudisium kelulusan diploma empat.',
+            'is_active' => true,
+        ]);
+
+        Cpl::create([
+            'code' => 'CPL-SK-01',
+            'category' => 'sikap',
+            'description' => 'Bertaqwa kepada Tuhan Yang Maha Esa dan beretika profesi.',
+            'order' => 1,
+        ]);
+
+        Cpl::create([
+            'code' => 'CPL-KK-01',
+            'category' => 'keterampilan_khusus',
+            'description' => 'Mampu memprogram interaksi real-time untuk aplikasi spasial 3D.',
+            'order' => 2,
+        ]);
+
+        GraduateProfile::create([
+            'title' => 'Technical Director VR/AR',
+            'description' => 'Memimpin pengembangan sistem spasial dan integrasi aset 3D interaktif.',
+            'career_roles' => 'Immersive Developer, XR Pipeline Architect, Lead Technical Artist',
+            'order' => 1,
+        ]);
+
+        // 1. Kurikulum Page
+        $this->get(route('public.academic.curriculum'))
+            ->assertStatus(200)
+            ->assertSee('Kurikulum OBE Vokasi 2026')
+            ->assertSee('Status: Berlaku')
+            ->assertSee('TRM101')
+            ->assertSee('TRM401')
+            ->assertSee('Semester 1')
+            ->assertSee('Semester 4');
+
+        $this->get(route('public.academic.curriculum', ['kurikulum' => $archivedCurriculum->id]))
+            ->assertStatus(200)
+            ->assertSee('Kurikulum Vokasi 2020 Lampau')
+            ->assertSee('Status: Tidak Berlaku (Arsip)');
+
+        // 2. Kalender Page & Filters
+        $this->get(route('public.academic.calendar'))
+            ->assertStatus(200)
+            ->assertSee('Kalender Akademik')
+            ->assertSee('Ujian Akhir Semester Ganjil')
+            ->assertSee('Pendaftaran Yudisium Gelombang I');
+
+        $this->get(route('public.academic.calendar', ['semester' => 'ganjil']))
+            ->assertStatus(200)
+            ->assertSee('Ujian Akhir Semester Ganjil')
+            ->assertDontSee('Pendaftaran Yudisium Gelombang I');
+
+        $this->get(route('public.academic.calendar', ['q' => 'Yudisium']))
+            ->assertStatus(200)
+            ->assertSee('Pendaftaran Yudisium Gelombang I')
+            ->assertDontSee('Ujian Akhir Semester Ganjil');
+
+        // 3. CPL Page
+        $this->get(route('public.academic.cpl'))
+            ->assertStatus(200)
+            ->assertSee('Capaian Pembelajaran Lulusan')
+            ->assertSee('CPL-SK-01')
+            ->assertSee('CPL-KK-01')
+            ->assertSee('Bertaqwa kepada Tuhan Yang Maha Esa')
+            ->assertSee('Mampu memprogram interaksi real-time');
+
+        // 4. Profil Lulusan Page
+        $this->get(route('public.academic.graduate-profile'))
+            ->assertStatus(200)
+            ->assertSee('Profil Lulusan & Prospek Karier')
+            ->assertSee('Technical Director VR/AR')
+            ->assertSee('XR Pipeline Architect')
+            ->assertSee('Lead Technical Artist');
+    }
+
+    public function test_admin_can_crud_curriculum_and_courses(): void
+    {
+        $this->actingAs($this->adminUser);
+
+        // --- 1. CRUD Curriculum ---
+        $curriculumResponse = $this->post(route('admin.curricula.store'), [
+            'name' => 'Kurikulum MBKM TRM 2027',
+            'year' => '2027',
+            'total_credits' => 146,
+            'description' => 'Kurikulum magang industri penuh 2 semester.',
+            'is_active' => 1,
+        ]);
+        $curriculumResponse->assertRedirect(route('admin.crud.sample', ['section' => 'kurikulum']));
+
+        $this->assertDatabaseHas('curricula', [
+            'name' => 'Kurikulum MBKM TRM 2027',
+            'year' => '2027',
+            'total_sks' => 146,
+        ]);
+
+        $curr = Curriculum::where('name', 'Kurikulum MBKM TRM 2027')->firstOrFail();
+
+        $updateCurr = $this->put(route('admin.curricula.update', $curr), [
+            'name' => 'Kurikulum MBKM TRM 2027 Revisi',
+            'year' => '2027',
+            'total_credits' => 148,
+            'description' => 'Deskripsi kurikulum diperbarui.',
+            'is_active' => 0,
+        ]);
+        $updateCurr->assertRedirect(route('admin.crud.sample', ['section' => 'kurikulum']));
+        $this->assertDatabaseHas('curricula', [
+            'id' => $curr->id,
+            'name' => 'Kurikulum MBKM TRM 2027 Revisi',
+            'total_sks' => 148,
+            'is_active' => 0,
+        ]);
+
+        // --- 2. CRUD Course ---
+        $courseResponse = $this->post(route('admin.courses.store'), [
+            'curriculum_id' => $curr->id,
+            'code' => 'TRM505',
+            'name' => 'Spasial Audio 3D & Akustik Virtual',
+            'theory_credits' => 1,
+            'practice_credits' => 2,
+            'semester' => 5,
+            'is_mandatory' => 1,
+            'description' => 'Rekayasa audio binaural dan simulasi ruang virtual.',
+        ]);
+        $courseResponse->assertRedirect(route('admin.crud.sample', ['section' => 'mata-kuliah']));
+
+        $this->assertDatabaseHas('courses', [
+            'curriculum_id' => $curr->id,
+            'code' => 'TRM505',
+            'name' => 'Spasial Audio 3D & Akustik Virtual',
+            'sks' => 3,
+            'theory_sks' => 1,
+            'practical_sks' => 2,
+            'semester' => 5,
+        ]);
+
+        $course = Course::where('code', 'TRM505')->firstOrFail();
+
+        $updateCourse = $this->put(route('admin.courses.update', $course), [
+            'curriculum_id' => $curr->id,
+            'code' => 'TRM505',
+            'name' => 'Audio Spasial Imersif & Akustik VR',
+            'theory_credits' => 2,
+            'practice_credits' => 2,
+            'semester' => 5,
+            'is_mandatory' => 1,
+            'description' => 'Mata kuliah diperbarui.',
+        ]);
+        $updateCourse->assertRedirect(route('admin.crud.sample', ['section' => 'mata-kuliah']));
+
+        $this->assertDatabaseHas('courses', [
+            'id' => $course->id,
+            'name' => 'Audio Spasial Imersif & Akustik VR',
+            'sks' => 4,
+        ]);
+
+        // Delete Course
+        $deleteCourse = $this->delete(route('admin.courses.destroy', $course));
+        $deleteCourse->assertRedirect(route('admin.crud.sample', ['section' => 'mata-kuliah']));
+        $this->assertDatabaseMissing('courses', ['id' => $course->id]);
+
+        // Delete Curriculum
+        $deleteCurr = $this->delete(route('admin.curricula.destroy', $curr));
+        $deleteCurr->assertRedirect(route('admin.crud.sample', ['section' => 'kurikulum']));
+        $this->assertDatabaseMissing('curricula', ['id' => $curr->id]);
+    }
+
+    public function test_admin_can_crud_academic_calendar(): void
+    {
+        $this->actingAs($this->adminUser);
+
+        // Store
+        $response = $this->post(route('admin.calendars.store'), [
+            'title' => 'Workshop Pra-Tugas Akhir Multimedia',
+            'academic_year' => '2026/2027',
+            'semester' => 'genap',
+            'start_date' => '2027-03-01',
+            'end_date' => '2027-03-05',
+            'description' => 'Bimbingan intensif persiapan proposal TA mahasiswa semester 8.',
+            'is_active' => 1,
+        ]);
+        $response->assertRedirect(route('admin.crud.sample', ['section' => 'kalender']));
+
+        $this->assertDatabaseHas('academic_calendars', [
+            'title' => 'Workshop Pra-Tugas Akhir Multimedia',
+            'academic_year' => '2026/2027',
+            'semester' => 'genap',
+        ]);
+
+        $calendar = AcademicCalendar::where('title', 'Workshop Pra-Tugas Akhir Multimedia')->firstOrFail();
+
+        // Update
+        $updateResponse = $this->put(route('admin.calendars.update', $calendar), [
+            'title' => 'Workshop Pra-Tugas Akhir & Portofolio',
+            'academic_year' => '2026/2027',
+            'semester' => 'genap',
+            'start_date' => '2027-03-02',
+            'end_date' => '2027-03-06',
+            'description' => 'Deskripsi update.',
+            'is_active' => 1,
+        ]);
+        $updateResponse->assertRedirect(route('admin.crud.sample', ['section' => 'kalender']));
+
+        $this->assertDatabaseHas('academic_calendars', [
+            'id' => $calendar->id,
+            'title' => 'Workshop Pra-Tugas Akhir & Portofolio',
+        ]);
+        $this->assertEquals('2027-03-02', $calendar->fresh()->start_date->toDateString());
+
+        // Destroy
+        $deleteResponse = $this->delete(route('admin.calendars.destroy', $calendar));
+        $deleteResponse->assertRedirect(route('admin.crud.sample', ['section' => 'kalender']));
+        $this->assertDatabaseMissing('academic_calendars', ['id' => $calendar->id]);
+    }
+
+    public function test_admin_can_crud_cpl_and_graduate_profiles(): void
+    {
+        $this->actingAs($this->adminUser);
+
+        // --- 1. CRUD CPL ---
+        $cplResponse = $this->post(route('admin.cpls.store'), [
+            'code' => 'cpl-ku-05',
+            'category' => 'keterampilan_umum',
+            'description' => 'Mampu mengambil keputusan secara tepat dalam konteks penyelesaian masalah di bidang rekayasa multimedia.',
+            'order' => 5,
+        ]);
+        $cplResponse->assertRedirect(route('admin.crud.sample', ['section' => 'cpl']));
+
+        $this->assertDatabaseHas('cpls', [
+            'code' => 'CPL-KU-05',
+            'category' => 'keterampilan_umum',
+            'order' => 5,
+        ]);
+
+        $cpl = Cpl::where('code', 'CPL-KU-05')->firstOrFail();
+
+        $updateCpl = $this->put(route('admin.cpls.update', $cpl), [
+            'code' => 'cpl-ku-05-rev',
+            'category' => 'keterampilan_umum',
+            'description' => 'Mampu mengambil keputusan strategis berbasis data analitik media.',
+            'order' => 6,
+        ]);
+        $updateCpl->assertRedirect(route('admin.crud.sample', ['section' => 'cpl']));
+
+        $this->assertDatabaseHas('cpls', [
+            'id' => $cpl->id,
+            'code' => 'CPL-KU-05-REV',
+            'order' => 6,
+        ]);
+
+        $deleteCpl = $this->delete(route('admin.cpls.destroy', $cpl));
+        $deleteCpl->assertRedirect(route('admin.crud.sample', ['section' => 'cpl']));
+        $this->assertDatabaseMissing('cpls', ['id' => $cpl->id]);
+
+        // --- 2. CRUD Graduate Profile ---
+        $gradResponse = $this->post(route('admin.graduate-profiles.store'), [
+            'title' => 'AI Virtual Human Producer',
+            'career_prospects' => 'Virtual Influencer Specialist, Motion Capture Director, Metahuman Artist',
+            'description' => 'Mampu memproduksi karakter virtual hiper-realistik berbasis kecerdasan buatan.',
+            'order' => 10,
+        ]);
+        $gradResponse->assertRedirect(route('admin.crud.sample', ['section' => 'profil-lulusan']));
+
+        $this->assertDatabaseHas('graduate_profiles', [
+            'title' => 'AI Virtual Human Producer',
+            'career_roles' => 'Virtual Influencer Specialist, Motion Capture Director, Metahuman Artist',
+            'order' => 10,
+        ]);
+
+        $profile = GraduateProfile::where('title', 'AI Virtual Human Producer')->firstOrFail();
+
+        $updateGrad = $this->put(route('admin.graduate-profiles.update', $profile), [
+            'title' => 'AI Virtual Human & Metahuman Director',
+            'career_prospects' => 'Metahuman Specialist, AI Prompt Director',
+            'description' => 'Deskripsi update metahuman.',
+            'order' => 11,
+        ]);
+        $updateGrad->assertRedirect(route('admin.crud.sample', ['section' => 'profil-lulusan']));
+
+        $this->assertDatabaseHas('graduate_profiles', [
+            'id' => $profile->id,
+            'title' => 'AI Virtual Human & Metahuman Director',
+            'career_roles' => 'Metahuman Specialist, AI Prompt Director',
+            'order' => 11,
+        ]);
+
+        $deleteGrad = $this->delete(route('admin.graduate-profiles.destroy', $profile));
+        $deleteGrad->assertRedirect(route('admin.crud.sample', ['section' => 'profil-lulusan']));
+        $this->assertDatabaseMissing('graduate_profiles', ['id' => $profile->id]);
+    }
 }

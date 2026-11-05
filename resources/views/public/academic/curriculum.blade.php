@@ -23,16 +23,44 @@
                     Struktur kurikulum Sarjana Terapan D-IV TRM berbasis Outcome-Based Education (OBE), Project-Based Learning (PBL), serta sebaran mata kuliah teori dan praktikum per semester (1–8).
                 </p>
             </div>
-            <div class="flex items-center gap-2">
+            <div class="flex flex-wrap items-center gap-2">
                 <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-brand-primary-light text-brand-primary border border-brand-primary/20">
-                    Kurikulum Terapan 2026
+                    {{ $curriculum->name ?? 'Kurikulum Terapan 2026' }}
                 </span>
-                <span class="px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    144 SKS Penuh
+                @if($curriculum && $curriculum->is_active)
+                    <span class="px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Status: Berlaku
+                    </span>
+                @elseif($curriculum)
+                    <span class="px-3 py-1.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200 flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                        Status: Tidak Berlaku (Arsip)
+                    </span>
+                @endif
+                <span class="px-3 py-1.5 rounded-full text-xs font-semibold bg-brand-surface text-brand-dark border border-slate-200 flex items-center gap-1.5">
+                    {{ $totalSks ?? 144 }} SKS Penuh
                 </span>
             </div>
         </div>
+
+        @if(isset($allCurricula) && $allCurricula->count() > 1)
+            <div class="mt-4 p-3 bg-brand-surface rounded-2xl border border-slate-200/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+                <div class="flex items-center gap-2">
+                    <span class="font-bold text-brand-dark">Pilih Versi Kurikulum:</span>
+                    <span class="text-slate-500">Lihat sebaran mata kuliah kurikulum aktif atau arsip</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <select onchange="if(this.value) window.location.href='{{ route('public.academic.curriculum') }}?kurikulum=' + this.value" class="text-xs font-semibold rounded-xl border border-slate-200 px-3 py-1.5 bg-white text-brand-dark focus:ring-brand-primary focus:border-brand-primary shadow-2xs">
+                        @foreach($allCurricula as $cItem)
+                            <option value="{{ $cItem->id }}" {{ $curriculum && $curriculum->id === $cItem->id ? 'selected' : '' }}>
+                                {{ $cItem->name }} ({{ $cItem->year }}) - {{ $cItem->is_active ? 'Berlaku' : 'Arsip' }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        @endif
 
         <!-- Quick Jump Links -->
         <div class="mt-8 flex flex-wrap items-center gap-2 pt-4 border-t border-slate-200/60 text-xs font-medium">
@@ -199,73 +227,11 @@
         </div>
     </section>
 
-    <!-- 3. Sebaran Mata Kuliah Per Semester (Interactive Full Data) -->
+    <!-- 3. Sebaran Mata Kuliah Per Semester (Interactive Dynamic Data) -->
     <section id="mata-kuliah" class="space-y-6 pt-4" x-data="{
         activeSemester: 1,
         searchQuery: '',
-        courses: {
-            1: [
-                { code: 'TRM101', name: 'Algoritma & Pemrograman Multimedia', theory: 1, practice: 2, total: 3, type: 'Wajib' },
-                { code: 'TRM102', name: 'Dasar Desain Grafis & Tipografi Digital', theory: 1, practice: 2, total: 3, type: 'Wajib' },
-                { code: 'TRM103', name: 'Matematika Komputasi & Vektor', theory: 2, practice: 1, total: 3, type: 'Wajib' },
-                { code: 'TRM104', name: 'Pengantar Teknologi Media Interaktif & Game', theory: 2, practice: 1, total: 3, type: 'Wajib' },
-                { code: 'TRM105', name: 'Fotografi Digital & Sinematografi Dasar', theory: 1, practice: 2, total: 3, type: 'Wajib' },
-                { code: 'WKW101', name: 'Pendidikan Pancasila & Kewarganegaraan', theory: 2, practice: 0, total: 2, type: 'Institusi' },
-                { code: 'WKW102', name: 'Bahasa Indonesia Akademik & Teknis', theory: 2, practice: 0, total: 2, type: 'Institusi' },
-                { code: 'WKW103', name: 'Bahasa Inggris Komunikasi Teknik', theory: 1, practice: 0, total: 1, type: 'Institusi' }
-            ],
-            2: [
-                { code: 'TRM201', name: 'Pemrograman Berorientasi Objek Multimedia (C#/C++)', theory: 1, practice: 2, total: 3, type: 'Wajib' },
-                { code: 'TRM202', name: 'Desain Antarmuka & Pengalaman Pengguna (UI/UX)', theory: 1, practice: 2, total: 3, type: 'Wajib' },
-                { code: 'TRM203', name: 'Dasar Pemodelan 3D & Digital Asset (Blender)', theory: 1, practice: 2, total: 3, type: 'Wajib' },
-                { code: 'TRM204', name: 'Audio Engineering & Sound Design', theory: 1, practice: 2, total: 3, type: 'Wajib' },
-                { code: 'TRM205', name: 'Sistem Manajemen Basis Data Multimedia', theory: 2, practice: 1, total: 3, type: 'Wajib' },
-                { code: 'TRM206', name: 'Animasi 2D Digital & Motion Graphics', theory: 1, practice: 2, total: 3, type: 'Wajib' },
-                { code: 'WKW201', name: 'Pendidikan Agama', theory: 2, practice: 0, total: 2, type: 'Institusi' }
-            ],
-            3: [
-                { code: 'TRM301', name: 'Pemodelan Karakter 3D & Digital Sculpting', theory: 1, practice: 2, total: 3, type: 'Wajib' },
-                { code: 'TRM302', name: 'Pemrograman Game 2D & Game Engine I (Unity)', theory: 1, practice: 2, total: 3, type: 'Wajib' },
-                { code: 'TRM303', name: 'Pengembangan Web Multimedia & Frontend Interaktif', theory: 1, practice: 2, total: 3, type: 'Wajib' },
-                { code: 'TRM304', name: 'Rigging & Animasi Karakter 3D', theory: 1, practice: 2, total: 3, type: 'Wajib' },
-                { code: 'TRM305', name: 'Visual Effects (VFX) & Compositing', theory: 1, practice: 2, total: 3, type: 'Wajib' },
-                { code: 'TRM306', name: 'Statistika & Probabilitas Komputasi', theory: 2, practice: 0, total: 2, type: 'Wajib' },
-                { code: 'WKW301', name: 'Etika Profesi & Hukum Siber Multimedia', theory: 2, practice: 0, total: 2, type: 'Institusi' }
-            ],
-            4: [
-                { code: 'TRM401', name: 'Pemrograman Game 3D & Game Engine II (Unreal Engine)', theory: 1, practice: 2, total: 3, type: 'Wajib' },
-                { code: 'TRM402', name: 'Virtual Reality (VR) & Augmented Reality (AR) Fundamental', theory: 1, practice: 2, total: 3, type: 'Wajib' },
-                { code: 'TRM403', name: 'Environment Art & Lighting 3D', theory: 1, practice: 2, total: 3, type: 'Wajib' },
-                { code: 'TRM404', name: 'Produksi Video Digital & Color Grading', theory: 1, practice: 2, total: 3, type: 'Wajib' },
-                { code: 'TRM405', name: 'Rekayasa Perangkat Lunak Multimedia', theory: 2, practice: 1, total: 3, type: 'Wajib' },
-                { code: 'TRM406', name: 'Proyek Terintegrasi Multimedia I (PBL Studio)', theory: 1, practice: 3, total: 4, type: 'Wajib' }
-            ],
-            5: [
-                { code: 'TRM501', name: 'Pengembangan Aplikasi Imersif Lanjut (Mixed Reality & XR)', theory: 1, practice: 2, total: 3, type: 'Wajib' },
-                { code: 'TRM502', name: 'Kecerdasan Buatan dalam Game (Game AI)', theory: 1, practice: 2, total: 3, type: 'Wajib' },
-                { code: 'TRM503', name: 'Mobile Interactive App Development', theory: 1, practice: 2, total: 3, type: 'Wajib' },
-                { code: 'TRM504', name: 'Computer Vision & Interaksi Manusia Komputer', theory: 2, practice: 1, total: 3, type: 'Wajib' },
-                { code: 'TRM505', name: 'Manajemen Proyek Multimedia & Agile/Scrum', theory: 2, practice: 1, total: 3, type: 'Wajib' },
-                { code: 'TRM506', name: 'Proyek Terintegrasi Multimedia II (PBL Industri)', theory: 1, practice: 3, total: 4, type: 'Wajib' }
-            ],
-            6: [
-                { code: 'TRM601', name: 'Game Engine Architecture & Optimasi Kinerja', theory: 1, practice: 2, total: 3, type: 'Wajib' },
-                { code: 'TRM602', name: 'Desain Audio Spasial & Komposisi Interaktif', theory: 1, practice: 2, total: 3, type: 'Wajib' },
-                { code: 'TRM603', name: 'Kewirausahaan Digital & Manajemen Bisnis Kreatif', theory: 2, practice: 1, total: 3, type: 'Wajib' },
-                { code: 'TRM604', name: 'Metodologi Riset Terapan Multimedia', theory: 2, practice: 1, total: 3, type: 'Wajib' },
-                { code: 'TRM605', name: 'MK Pilihan I: Virtual Production & MoCap Pipeline', theory: 1, practice: 2, total: 3, type: 'Pilihan' },
-                { code: 'TRM606', name: 'MK Pilihan II: Technical Art & Shader Programming', theory: 1, practice: 2, total: 3, type: 'Pilihan' }
-            ],
-            7: [
-                { code: 'TRM701', name: 'Magang Industri Bersertifikat (MBKM Vokasi DUDI)', theory: 0, practice: 16, total: 16, type: 'Wajib' },
-                { code: 'TRM702', name: 'Portofolio Industri & Presentasi Proyek Mitra', theory: 0, practice: 4, total: 4, type: 'Wajib' }
-            ],
-            8: [
-                { code: 'TRM801', name: 'Seminar Proposal Tugas Akhir', theory: 0, practice: 2, total: 2, type: 'Wajib' },
-                { code: 'TRM802', name: 'Tugas Akhir / Skripsi Terapan (Capstone Multimedia Product)', theory: 0, practice: 6, total: 6, type: 'Wajib' },
-                { code: 'TRM803', name: 'Uji Sertifikasi Kompetensi Profesi Multimedia', theory: 0, practice: 1, total: 1, type: 'Wajib' }
-            ]
-        },
+        courses: {{ Js::from($coursesGrouped) }},
         semesterFocus: {
             1: 'Fondasi Logika Komputasi, Desain Visual 2D & Sinematografi Dasar',
             2: 'Pemrograman Berorientasi Objek, Basis Data & Aset 3D Dasar',

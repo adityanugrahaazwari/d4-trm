@@ -1333,7 +1333,7 @@
                     @elseif($sec === 'agenda')
                         @click="modalTitle = 'Jadwalkan Agenda Baru'; formAction = '{{ route('admin.events.store') }}'; formMethod = 'POST'; formData = { id: null, title: '', slug: '', location: '', event_date: '', start_time: '09:00', end_time: '15:00', speaker: '', status: 'Pendaftaran Dibuka' }; modalOpen = true"
                     @elseif($sec === 'kurikulum')
-                        @click="modalTitle = 'Tambah Kurikulum Baru'; formAction = '{{ route('admin.curricula.store') }}'; formMethod = 'POST'; formData = { id: null, name: '', year: '2026', total_credits: 144, desc: '', status: 'published' }; modalOpen = true"
+                        @click="modalTitle = 'Tambah Kurikulum Baru'; formAction = '{{ route('admin.curricula.store') }}'; formMethod = 'POST'; formData = { id: null, name: '', year: '2026', total_credits: 144, desc: '', is_active: '1' }; modalOpen = true"
                     @elseif($sec === 'mata-kuliah')
                         @click="modalTitle = 'Tambah Mata Kuliah'; formAction = '{{ route('admin.courses.store') }}'; formMethod = 'POST'; formData = { id: null, curriculum_id: '{{ $allCurricula->first()?->id ?? 1 }}', code: '', name: '', theory_credits: 2, practice_credits: 2, semester: 1, desc: '' }; modalOpen = true"
                     @elseif($sec === 'kalender')
@@ -1531,14 +1531,15 @@
                                         <td class="py-3.5 px-4 text-center">{{ $item->total_credits }} SKS</td>
                                         <td class="py-3.5 px-4 text-center">{{ $item->courses_count }} MK</td>
                                         <td class="py-3.5 px-4">
-                                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold {{ $item->is_active ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-600' }}">
-                                                {{ $item->is_active ? 'Berlaku' : 'Arsip' }}
+                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold {{ $item->is_active ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-600' }}">
+                                                <span class="w-1.5 h-1.5 rounded-full {{ $item->is_active ? 'bg-emerald-500' : 'bg-slate-400' }}"></span>
+                                                {{ $item->is_active ? 'Berlaku' : 'Tidak Berlaku (Arsip)' }}
                                             </span>
                                         </td>
                                         <td class="py-3.5 px-6 text-center">
                                             <div class="inline-flex items-center gap-1.5">
                                                 <button type="button" 
-                                                        @click="modalTitle = 'Ubah Kurikulum'; formAction = '{{ route('admin.curricula.update', $item) }}'; formMethod = 'PUT'; formData = { id: {{ $item->id }}, name: '{{ addslashes($item->name) }}', year: '{{ $item->year }}', total_credits: {{ $item->total_credits }}, desc: '{{ addslashes($item->description ?? '') }}', status: '{{ $item->is_active ? 'published' : 'draft' }}' }; modalOpen = true" 
+                                                        @click="modalTitle = 'Ubah Kurikulum'; formAction = '{{ route('admin.curricula.update', $item) }}'; formMethod = 'PUT'; formData = { id: {{ $item->id }}, name: '{{ addslashes($item->name) }}', year: '{{ $item->year }}', total_credits: {{ $item->total_credits }}, desc: '{{ addslashes($item->description ?? '') }}', is_active: '{{ $item->is_active ? '1' : '0' }}' }; modalOpen = true" 
                                                         class="p-1.5 rounded-lg text-slate-500 hover:text-brand-primary hover:bg-slate-100 transition-colors">
                                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -1575,6 +1576,48 @@
                                                 </button>
                                                 <button type="button" 
                                                         @click="selectedItem = 'Mata Kuliah {{ addslashes($item->name) }}'; deleteFormAction = '{{ route('admin.courses.destroy', $item) }}'; deleteModalOpen = true" 
+                                                        class="p-1.5 rounded-lg text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition-colors">
+                                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    @elseif($sec === 'kalender')
+                                        <td class="py-3.5 px-4 font-bold text-brand-dark">
+                                            <div class="font-extrabold text-brand-dark">{{ $item->title }}</div>
+                                            @if($item->description)
+                                                <div class="text-[11px] text-brand-muted line-clamp-1 mt-0.5">{{ $item->description }}</div>
+                                            @endif
+                                        </td>
+                                        <td class="py-3.5 px-4">
+                                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider
+                                                @if($item->semester === 'ganjil') bg-blue-50 text-blue-700 border border-blue-200
+                                                @elseif($item->semester === 'genap') bg-purple-50 text-purple-700 border border-purple-200
+                                                @else bg-emerald-50 text-emerald-700 border border-emerald-200 @endif">
+                                                Semester {{ ucfirst($item->semester) }}
+                                            </span>
+                                            <div class="text-[11px] text-slate-400 font-mono mt-0.5">{{ $item->academic_year }}</div>
+                                        </td>
+                                        <td class="py-3.5 px-4 text-slate-700 font-medium">
+                                            {{ $item->formatted_period }}
+                                        </td>
+                                        <td class="py-3.5 px-4">
+                                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold {{ $item->is_active ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-600' }}">
+                                                {{ $item->is_active ? 'Aktif' : 'Arsip' }}
+                                            </span>
+                                        </td>
+                                        <td class="py-3.5 px-6 text-center">
+                                            <div class="inline-flex items-center gap-1.5">
+                                                <button type="button" 
+                                                        @click="modalTitle = 'Ubah Agenda Kalender'; formAction = '{{ route('admin.calendars.update', $item) }}'; formMethod = 'PUT'; formData = { id: {{ $item->id }}, title: '{{ addslashes($item->title) }}', academic_year: '{{ $item->academic_year }}', semester: '{{ $item->semester }}', start_date: '{{ $item->start_date ? $item->start_date->format('Y-m-d') : '' }}', end_date: '{{ $item->end_date ? $item->end_date->format('Y-m-d') : '' }}', desc: '{{ addslashes($item->description ?? '') }}', is_active: {{ $item->is_active ? 1 : 0 }} }; modalOpen = true" 
+                                                        class="p-1.5 rounded-lg text-slate-500 hover:text-brand-primary hover:bg-slate-100 transition-colors">
+                                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </button>
+                                                <button type="button" 
+                                                        @click="selectedItem = 'Agenda {{ addslashes($item->title) }}'; deleteFormAction = '{{ route('admin.calendars.destroy', $item) }}'; deleteModalOpen = true" 
                                                         class="p-1.5 rounded-lg text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition-colors">
                                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -2034,16 +2077,24 @@
                             <div class="grid grid-cols-2 gap-3">
                                 <div>
                                     <label class="block font-bold text-brand-dark mb-1.5">Tahun Berlaku <span class="text-rose-500">*</span></label>
-                                    <input type="text" name="year" x-model="formData.year" placeholder="2026" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                                    <input type="text" name="year" x-model="formData.year" placeholder="2026" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-mono">
                                 </div>
                                 <div>
                                     <label class="block font-bold text-brand-dark mb-1.5">Total SKS</label>
-                                    <input type="number" name="total_credits" x-model="formData.total_credits" value="144" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                                    <input type="number" name="total_credits" x-model="formData.total_credits" value="144" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-mono">
                                 </div>
                             </div>
                             <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Status Berlaku Kurikulum <span class="text-rose-500">*</span></label>
+                                <select name="is_active" x-model="formData.is_active" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold bg-white">
+                                    <option value="1">Berlaku (Kurikulum Aktif Berjalan)</option>
+                                    <option value="0">Tidak Berlaku / Arsip</option>
+                                </select>
+                                <p class="text-[11px] text-slate-500 mt-1">Pilih status "Berlaku" agar kurikulum ini aktif dipublikasikan ke laman akademik mahasiswa.</p>
+                            </div>
+                            <div>
                                 <label class="block font-bold text-brand-dark mb-1.5">Deskripsi Ringkas</label>
-                                <textarea name="description" x-model="formData.desc" rows="3" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs"></textarea>
+                                <textarea name="description" x-model="formData.desc" rows="3" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs" placeholder="Keterangan fokus pembelajaran kurikulum..."></textarea>
                             </div>
                         @elseif($sec === 'mata-kuliah')
                             <div>
@@ -2079,6 +2130,43 @@
                                         <option value="{{ $s }}">Semester {{ $s }}</option>
                                     @endfor
                                 </select>
+                            </div>
+                        @elseif($sec === 'kalender')
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Nama Kegiatan / Agenda Akademik <span class="text-rose-500">*</span></label>
+                                <input type="text" name="title" x-model="formData.title" placeholder="cth: Perkuliahan & Praktikum Aktif Semester Ganjil" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                            </div>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block font-bold text-brand-dark mb-1.5">Tahun Akademik <span class="text-rose-500">*</span></label>
+                                    <input type="text" name="academic_year" x-model="formData.academic_year" placeholder="2026/2027" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-mono">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-brand-dark mb-1.5">Semester</label>
+                                    <select name="semester" x-model="formData.semester" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                                        <option value="ganjil">Semester Ganjil</option>
+                                        <option value="genap">Semester Genap</option>
+                                        <option value="semua">Semua Semester (Tahunan)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block font-bold text-brand-dark mb-1.5">Tanggal Mulai <span class="text-rose-500">*</span></label>
+                                    <input type="date" name="start_date" x-model="formData.start_date" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-brand-dark mb-1.5">Tanggal Selesai (Opsional)</label>
+                                    <input type="date" name="end_date" x-model="formData.end_date" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Keterangan / Uraian Rinci</label>
+                                <textarea name="description" x-model="formData.desc" rows="3" placeholder="Informasi tambahan terkait agenda akademik ini..." class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs"></textarea>
+                            </div>
+                            <div class="flex items-center gap-2 pt-1">
+                                <input type="checkbox" name="is_active" id="cal_is_active" value="1" :checked="formData.is_active === 1 || formData.is_active === true" class="rounded text-brand-primary focus:ring-brand-primary">
+                                <label for="cal_is_active" class="font-bold text-brand-dark text-xs cursor-pointer">Agenda aktif ditampilkan di kalender publik</label>
                             </div>
                         @elseif($sec === 'berita')
                             <div>
@@ -2205,6 +2293,47 @@
                             <div class="flex items-center gap-2 pt-1">
                                 <input type="checkbox" name="is_active" id="facility_is_active" value="1" :checked="formData.status === 'published' || formData.status === '1' || formData.status === true" class="rounded text-brand-primary focus:ring-brand-primary">
                                 <label for="facility_is_active" class="font-bold text-brand-dark text-xs cursor-pointer">Fasilitas aktif dan siap digunakan untuk perkuliahan/praktikum</label>
+                            </div>
+                        @elseif($sec === 'cpl')
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block font-bold text-brand-dark mb-1.5">Kode CPL <span class="text-rose-500">*</span></label>
+                                    <input type="text" name="code" x-model="formData.code" placeholder="CPL-01" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-mono uppercase">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-brand-dark mb-1.5">Kategori Ranah KKNI <span class="text-rose-500">*</span></label>
+                                    <select name="category" x-model="formData.category" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                                        <option value="sikap">Ranah Sikap &amp; Tata Nilai</option>
+                                        <option value="pengetahuan">Ranah Penguasaan Pengetahuan</option>
+                                        <option value="keterampilan_umum">Ranah Keterampilan Umum</option>
+                                        <option value="keterampilan_khusus">Ranah Keterampilan Khusus</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Uraian Kemampuan Lulusan (Deskripsi CPL) <span class="text-rose-500">*</span></label>
+                                <textarea name="description" x-model="formData.desc" rows="4" placeholder="Uraikan capaian pembelajaran lulusan secara spesifik dan terukur..." required class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs"></textarea>
+                            </div>
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Urutan Tampil</label>
+                                <input type="number" name="order" x-model="formData.order" placeholder="0" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                            </div>
+                        @elseif($sec === 'profil-lulusan')
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Judul Profil Lulusan / Profesi <span class="text-rose-500">*</span></label>
+                                <input type="text" name="title" x-model="formData.title" placeholder="cth: Technical Game Developer" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                            </div>
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Deskripsi Peran &amp; Kompetensi <span class="text-rose-500">*</span></label>
+                                <textarea name="description" x-model="formData.desc" rows="3" placeholder="Jelaskan ruang lingkup keahlian profil profesi ini..." required class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs"></textarea>
+                            </div>
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Peluang Jabatan / Peran Karier (Pisahkan dengan koma)</label>
+                                <input type="text" name="career_prospects" x-model="formData.career_prospects" placeholder="cth: Gameplay Programmer, Game AI Engineer, Tools Developer" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                            </div>
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Urutan Prioritas</label>
+                                <input type="number" name="order" x-model="formData.order" placeholder="0" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
                             </div>
                         @elseif($sec === 'users')
                             <div>
