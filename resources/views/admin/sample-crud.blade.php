@@ -49,7 +49,7 @@
 
     // Single Record Form Records
     $profileRecord = in_array($sec, ['sejarah', 'visi-misi', 'sambutan', 'struktur'])
-        ? \App\Models\StudyProgramProfile::where('section', $sec)->first()
+        ? \App\Models\StudyProgramProfile::forSection($sec)
         : null;
 
     $settingsRecord = in_array($sec, ['identitas', 'homepage', 'kontak-sosmed', 'logo-favicon'])
@@ -62,6 +62,8 @@
     $allModules = ($sec === 'permissions') ? \App\Models\Permission::select('module')->distinct()->pluck('module') : collect();
     $allCurricula = ($sec === 'mata-kuliah') ? \App\Models\Curriculum::where('is_active', true)->get() : collect();
     $allCategories = ($sec === 'berita') ? \App\Models\Category::all() : collect();
+    $allLecturers = in_array($sec, ['sambutan', 'struktur']) ? \App\Models\Staff::where('type', 'dosen')->where('is_active', true)->orderBy('order')->get() : collect();
+    $allStaff = ($sec === 'struktur') ? \App\Models\Staff::where('is_active', true)->orderBy('order')->get() : collect();
 
     // Query builder per section
     $paginator = null;
@@ -120,12 +122,17 @@
         if ($searchQuery !== '') {
             $staffQuery->where(function ($q) use ($searchQuery) {
                 $q->where('name', 'like', "%{$searchQuery}%")
-                  ->orWhere('nip', 'like', "%{$searchQuery}%")
-                  ->orWhere('nidn', 'like', "%{$searchQuery}%")
-                  ->orWhere('expertise', 'like', "%{$searchQuery}%");
+                  ->orWhere('nip_nidn', 'like', "%{$searchQuery}%")
+                  ->orWhere('position', 'like', "%{$searchQuery}%")
+                  ->orWhere('expertise', 'like', "%{$searchQuery}%")
+                  ->orWhere('education', 'like', "%{$searchQuery}%")
+                  ->orWhere('email', 'like', "%{$searchQuery}%");
             });
         }
-        $paginator = $staffQuery->orderBy('order')->paginate($perPage)->withQueryString();
+        if ($statusFilter !== '') {
+            $staffQuery->where('is_active', $statusFilter === 'active');
+        }
+        $paginator = $staffQuery->orderBy('order')->orderBy('id', 'asc')->paginate($perPage)->withQueryString();
     } elseif ($sec === 'berita') {
         $newsQuery = \App\Models\News::with(['category', 'author']);
         if ($searchQuery !== '') {
@@ -245,11 +252,16 @@
         title: '', 
         name: '', 
         email: '', 
+        phone: '',
         nidn: '',
         nip: '',
+        nip_nidn: '',
         position: '',
         academic_degree: '',
+        education: '',
         expertise: '',
+        photo: '',
+        order: 0,
         code: '',
         category: 'Umum',
         role_id: '{{ $allRoles->first()?->id ?? 1 }}',
@@ -316,7 +328,7 @@
             </div>
 
             @if(in_array($sec, ['sejarah', 'visi-misi', 'sambutan', 'struktur']))
-                <form method="POST" action="{{ route('admin.profile-section.update') }}" class="space-y-6 text-xs sm:text-sm">
+                <form method="POST" action="{{ route('admin.profile-section.update') }}" enctype="multipart/form-data" class="space-y-6 text-xs sm:text-sm">
                     @csrf
                     <input type="hidden" name="section" value="{{ $sec }}">
 
@@ -607,6 +619,563 @@
                                 </template>
                             </div>
                         </div>
+                    @elseif($sec === 'sambutan')
+                        @php
+                            $existingPoints = data_get($profileRecord, 'meta.key_points', [
+                                [
+                                    'badge' => 'Metode Belajar',
+                                    'title' => 'Pembelajaran Berbasis Proyek (PBL)',
+                                    'description' => 'Kurikulum vokasi 70% praktik yang membiasakan mahasiswa menyelesaikan proyek riil industri animasi, game, dan media interaktif sejak awal perkuliahan.',
+                                ],
+                                [
+                                    'badge' => 'Infrastruktur',
+                                    'title' => 'Laboratorium & Workstation Standar Industri',
+                                    'description' => 'Fasilitas Studio Motion Capture, Laboratorium Komputasi Grafis berkecepatan tinggi, dan Render Farm terintegrasi.',
+                                ],
+                                [
+                                    'badge' => 'Kemitraan DUDI',
+                                    'title' => 'Kolaborasi Ekosistem Industri Kreatif',
+                                    'description' => 'Kemitraan strategis dengan studio game komersial dan rumah produksi multimedia untuk program magang bersertifikat dan rekrutmen kerja.',
+                                ],
+                                [
+                                    'badge' => 'Kompetensi',
+                                    'title' => 'Sertifikasi Keahlian Berstandar Nasional (BNSP)',
+                                    'description' => 'Lulusan dibekali sertifikasi kompetensi profesi dan portofolio karya teruji sebelum wisuda untuk menjamin daya serap kerja.',
+                                ],
+                            ]);
+
+                            $lecturersJson = $allLecturers->map(function ($lecturer) {
+                                return [
+                                    'id' => $lecturer->id,
+                                    'name' => $lecturer->name,
+                                    'nip_nidn' => $lecturer->nip_nidn,
+                                    'position' => $lecturer->position,
+                                    'email' => $lecturer->email,
+                                    'photo' => $lecturer->photo,
+                                ];
+                            })->values();
+
+                            $currentKaprodiName = old('meta.kaprodi_name', data_get($profileRecord, 'meta.kaprodi_name', 'Dr. H. Rian Hidayat, M.Kom.'));
+                            $currentKaprodiNip = old('meta.kaprodi_nip', data_get($profileRecord, 'meta.kaprodi_nip', '198504122014041001'));
+                            $currentKaprodiPos = old('meta.kaprodi_position', data_get($profileRecord, 'meta.kaprodi_position', 'Koordinator Program Studi Sarjana Terapan TRM'));
+                            $currentKaprodiDept = old('meta.kaprodi_department', data_get($profileRecord, 'meta.kaprodi_department', 'Jurusan Komputer dan Bisnis, Politeknik Negeri Tanah Laut'));
+                            $currentKaprodiEmail = old('meta.kaprodi_email', data_get($profileRecord, 'meta.kaprodi_email', 'rian.hidayat@politala.ac.id'));
+                            $currentKaprodiPhoto = old('meta.kaprodi_photo_url', data_get($profileRecord, 'meta.kaprodi_photo_url', ''));
+                            $currentPeriod = old('meta.period', data_get($profileRecord, 'meta.period', 'Periode 2024 - 2028'));
+                        @endphp
+
+                        <div class="space-y-6 pt-4 border-t border-slate-100"
+                             x-data="{
+                                 lecturers: {{ Js::from($lecturersJson) }},
+                                 kaprodiName: '{{ addslashes($currentKaprodiName) }}',
+                                 kaprodiNip: '{{ addslashes($currentKaprodiNip) }}',
+                                 kaprodiPos: '{{ addslashes($currentKaprodiPos) }}',
+                                 kaprodiEmail: '{{ addslashes($currentKaprodiEmail) }}',
+                                 kaprodiPhotoUrl: '{{ addslashes($currentKaprodiPhoto) }}',
+                                 signatureName: '{{ addslashes(old('meta.signature_name', data_get($profileRecord, 'meta.signature_name', $currentKaprodiName))) }}',
+                                 previewPhoto: '{{ addslashes($currentKaprodiPhoto) }}',
+                                 selectedStaffId: '',
+                                 keyPoints: {{ Js::from($existingPoints) }},
+                                 applyStaff(id) {
+                                     const found = this.lecturers.find(l => String(l.id) === String(id));
+                                     if (found) {
+                                         this.kaprodiName = found.name || '';
+                                         this.kaprodiNip = found.nip_nidn || '';
+                                         this.kaprodiPos = found.position || '';
+                                         this.kaprodiEmail = found.email || '';
+                                         this.signatureName = found.name || '';
+                                         if (found.photo) {
+                                             this.kaprodiPhotoUrl = found.photo;
+                                             this.previewPhoto = found.photo;
+                                         }
+                                     }
+                                 },
+                                 handleFileChange(event) {
+                                     const file = event.target.files[0];
+                                     if (file) {
+                                         const reader = new FileReader();
+                                         reader.onload = (e) => {
+                                             this.previewPhoto = e.target.result;
+                                         };
+                                         reader.readAsDataURL(file);
+                                     }
+                                 },
+                                 addPoint() {
+                                     this.keyPoints.push({
+                                         badge: 'Fokus',
+                                         title: 'Pilar Baru',
+                                         description: 'Uraian pilar prioritas sambutan...'
+                                     });
+                                 },
+                                 removePoint(idx) {
+                                     if (this.keyPoints.length > 1) {
+                                         this.keyPoints.splice(idx, 1);
+                                     }
+                                 }
+                             }">
+
+                            <!-- Autofill dari Data Dosen -->
+                            <div class="p-4 sm:p-5 rounded-2xl bg-brand-surface border border-slate-200 space-y-3">
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                    <div>
+                                        <h4 class="font-bold text-brand-dark flex items-center gap-1.5">
+                                            <svg class="w-4 h-4 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                            </svg>
+                                            <span>Asisten Isi Otomatis Pimpinan</span>
+                                        </h4>
+                                        <p class="text-xs text-brand-muted">Pilih profil dari master data Dosen untuk mengisi nama, NIP, email, dan jabatan secara otomatis.</p>
+                                    </div>
+                                    <div class="w-full sm:w-64">
+                                        <select x-model="selectedStaffId" @change="applyStaff($event.target.value)" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white focus:ring-2 focus:ring-brand-primary/20">
+                                            <option value="">-- Pilih Dosen / Kaprodi --</option>
+                                            <template x-for="lect in lecturers" :key="lect.id">
+                                                <option :value="lect.id" x-text="lect.name + ' (' + (lect.position || 'Dosen') + ')'"></option>
+                                            </template>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Identitas & Kontak Pimpinan (Kaprodi) -->
+                            <div class="p-5 rounded-2xl bg-white border border-slate-200 space-y-4">
+                                <h4 class="font-bold text-brand-dark flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-brand-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                    </svg>
+                                    <span>Identitas &amp; Profil Ketua Program Studi</span>
+                                </h4>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="space-y-1">
+                                        <label class="block text-xs font-semibold text-brand-muted">Nama Lengkap &amp; Gelar <span class="text-rose-500">*</span></label>
+                                        <input type="text" name="meta[kaprodi_name]" x-model="kaprodiName" required class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                    </div>
+                                    <div class="space-y-1">
+                                        <label class="block text-xs font-semibold text-brand-muted">NIP / NIDN</label>
+                                        <input type="text" name="meta[kaprodi_nip]" x-model="kaprodiNip" placeholder="198504122014041001" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="space-y-1">
+                                        <label class="block text-xs font-semibold text-brand-muted">Jabatan Resmi</label>
+                                        <input type="text" name="meta[kaprodi_position]" x-model="kaprodiPos" placeholder="Koordinator Program Studi Sarjana Terapan TRM" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                    </div>
+                                    <div class="space-y-1">
+                                        <label class="block text-xs font-semibold text-brand-muted">Masa Jabatan / Periode</label>
+                                        <input type="text" name="meta[period]" value="{{ $currentPeriod }}" placeholder="Periode 2024 - 2028" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="space-y-1">
+                                        <label class="block text-xs font-semibold text-brand-muted">Unit Kerja / Jurusan</label>
+                                        <input type="text" name="meta[kaprodi_department]" value="{{ $currentKaprodiDept }}" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                    </div>
+                                    <div class="space-y-1">
+                                        <label class="block text-xs font-semibold text-brand-muted">Email Kontak Resmi</label>
+                                        <input type="email" name="meta[kaprodi_email]" x-model="kaprodiEmail" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                    </div>
+                                </div>
+
+                                <!-- Foto Kaprodi Upload & URL -->
+                                <div class="pt-3 border-t border-slate-100">
+                                    <label class="block text-xs font-semibold text-brand-muted mb-2">Foto Resmi Kaprodi</label>
+                                    <div class="flex flex-col sm:flex-row items-center gap-4">
+                                        <!-- Photo Preview Box -->
+                                        <div class="w-24 h-28 rounded-xl bg-slate-100 border border-slate-200 overflow-hidden shrink-0 flex items-center justify-center relative shadow-2xs">
+                                            <template x-if="previewPhoto">
+                                                <img :src="previewPhoto" alt="Preview Foto" class="w-full h-full object-cover">
+                                            </template>
+                                            <template x-if="!previewPhoto">
+                                                <div class="text-center p-2 text-slate-400">
+                                                    <svg class="w-8 h-8 mx-auto opacity-40 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                                    </svg>
+                                                    <span class="text-[9px] block">Tanpa Foto</span>
+                                                </div>
+                                            </template>
+                                        </div>
+
+                                        <div class="flex-1 w-full space-y-2">
+                                            <div>
+                                                <span class="text-[11px] font-semibold text-slate-600 block mb-1">Unggah Berkas Gambar (JPG, PNG, WebP &bull; Maks 2MB)</span>
+                                                <input type="file" name="kaprodi_photo_file" @change="handleFileChange($event)" accept="image/png,image/jpeg,image/webp" class="w-full px-3 py-1.5 rounded-xl border border-slate-200 text-xs file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-brand-primary-light file:text-brand-primary hover:file:bg-brand-primary hover:file:text-white">
+                                            </div>
+                                            <div>
+                                                <span class="text-[11px] font-semibold text-slate-500 block mb-1">Atau Tautan URL / Path Foto</span>
+                                                <input type="text" name="meta[kaprodi_photo_url]" x-model="kaprodiPhotoUrl" @input="previewPhoto = kaprodiPhotoUrl" placeholder="/storage/profiles/kaprodi.jpg atau https://..." class="w-full px-3 py-1.5 rounded-xl border border-slate-200 text-xs">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Pesan Sambutan Editorial -->
+                            <div class="p-5 rounded-2xl bg-white border border-slate-200 space-y-4">
+                                <h4 class="font-bold text-brand-dark flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                    </svg>
+                                    <span>Pesan &amp; Redaksi Editorial Sambutan</span>
+                                </h4>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="space-y-1">
+                                        <label class="block text-xs font-semibold text-brand-muted">Subjudul Sambutan</label>
+                                        <input type="text" name="meta[subtitle]" value="{{ old('meta.subtitle', data_get($profileRecord, 'meta.subtitle', 'Pesan dan visi kepemimpinan Program Studi Sarjana Terapan Teknik Rekayasa Multimedia')) }}" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                    </div>
+                                    <div class="space-y-1">
+                                        <label class="block text-xs font-semibold text-brand-muted">Salam Pembuka</label>
+                                        <input type="text" name="meta[greeting]" value="{{ old('meta.greeting', data_get($profileRecord, 'meta.greeting', 'Assalamu’alaikum Warahmatullahi Wabarakatuh & Salam Sejahtera,')) }}" required class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                    </div>
+                                </div>
+
+                                <div class="space-y-1">
+                                    <label class="block text-xs font-semibold text-brand-muted">Kutipan Kunci / Highlight Statement</label>
+                                    <textarea name="meta[quote]" rows="2" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20 leading-relaxed">{{ old('meta.quote', data_get($profileRecord, 'meta.quote', 'TRM POLITALA hadir untuk melahirkan talenta digital masa depan yang memadukan keunggulan rekayasa teknologi dan estetika seni multimedia.')) }}</textarea>
+                                    <span class="text-[10px] text-slate-400">Kalimat sorotan utama yang ditampilkan menonjol dalam kartu kutipan.</span>
+                                </div>
+
+                                <div class="space-y-1">
+                                    <label class="block text-xs font-semibold text-brand-muted">Tautan Video Sambutan (YouTube, Opsional)</label>
+                                    <input type="url" name="meta[video_url]" value="{{ old('meta.video_url', data_get($profileRecord, 'meta.video_url', '')) }}" placeholder="https://www.youtube.com/watch?v=..." class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-3 border-t border-slate-100">
+                                    <div class="space-y-1">
+                                        <label class="block text-xs font-semibold text-brand-muted">Salam Penutup</label>
+                                        <input type="text" name="meta[closing_greeting]" value="{{ old('meta.closing_greeting', data_get($profileRecord, 'meta.closing_greeting', 'Wassalamu’alaikum Warahmatullahi Wabarakatuh.')) }}" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs">
+                                    </div>
+                                    <div class="space-y-1">
+                                        <label class="block text-xs font-semibold text-brand-muted">Nama Penandatangan Digital</label>
+                                        <input type="text" name="meta[signature_name]" x-model="signatureName" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs">
+                                    </div>
+                                    <div class="space-y-1">
+                                        <label class="block text-xs font-semibold text-brand-muted">Keterangan Jabatan Penandatangan</label>
+                                        <input type="text" name="meta[signature_title]" value="{{ old('meta.signature_title', data_get($profileRecord, 'meta.signature_title', 'Koordinator Program Studi D-4 TRM POLITALA')) }}" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Repeater Pilar / Poin Kunci Sambutan -->
+                            <div class="p-5 rounded-2xl bg-brand-surface/70 border border-slate-200 space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-bold text-brand-dark flex items-center gap-2">
+                                            <svg class="w-4 h-4 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                            </svg>
+                                            <span>Pilar Keunggulan &amp; Poin Kunci Sambutan</span>
+                                        </h4>
+                                        <p class="text-xs text-brand-muted">Poin-poin prioritas yang ditekankan dalam sambutan Kaprodi.</p>
+                                    </div>
+                                    <button type="button" @click="addPoint()" class="px-3 py-1.5 rounded-xl bg-brand-primary-light text-brand-primary text-xs font-bold hover:bg-brand-primary hover:text-white transition-all flex items-center gap-1.5 shadow-2xs">
+                                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                        </svg>
+                                        <span>Tambah Pilar</span>
+                                    </button>
+                                </div>
+
+                                <div class="space-y-3">
+                                    <template x-for="(pt, idx) in keyPoints" :key="idx">
+                                        <div class="p-4 rounded-2xl bg-white border border-slate-200 space-y-3 shadow-2xs">
+                                            <div class="flex items-center justify-between gap-3">
+                                                <span class="text-xs font-bold text-brand-primary" x-text="'Pilar #' + (idx + 1)"></span>
+                                                <button type="button" @click="removePoint(idx)" class="text-rose-500 hover:text-rose-700 text-xs font-semibold flex items-center gap-1">
+                                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                    </svg>
+                                                    <span>Hapus</span>
+                                                </button>
+                                            </div>
+
+                                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                                <div>
+                                                    <label class="block text-[11px] font-semibold text-brand-muted mb-1">Kategori / Badge</label>
+                                                    <input type="text" :name="'meta[key_points][' + idx + '][badge]'" x-model="pt.badge" placeholder="Metode Belajar / Fasilitas" class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs">
+                                                </div>
+                                                <div class="sm:col-span-2">
+                                                    <label class="block text-[11px] font-semibold text-brand-muted mb-1">Judul Pilar</label>
+                                                    <input type="text" :name="'meta[key_points][' + idx + '][title]'" x-model="pt.title" required class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs">
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <label class="block text-[11px] font-semibold text-brand-muted mb-1">Keterangan / Uraian Rinci</label>
+                                                <textarea :name="'meta[key_points][' + idx + '][description]'" x-model="pt.description" rows="2" required class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs"></textarea>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    @elseif($sec === 'struktur')
+                        @php
+                            $existingUnits = data_get($profileRecord, 'meta.custom_units', [
+                                [
+                                    'unit' => 'Kelompok Bidang Keahlian (KBK) Game & XR',
+                                    'leader' => 'Bambang Trianto, S.Kom., M.Cs.',
+                                    'desc' => 'Fokus pengembangan kurikulum dan riset terapan bidang Game Engine Architecture & Immersive Tech (AR/VR).',
+                                ],
+                                [
+                                    'unit' => 'Kelompok Bidang Keahlian (KBK) Animasi & Media Digital',
+                                    'leader' => 'Fathurrahman, M.Sn.',
+                                    'desc' => 'Fokus perancangan aset grafis 3D, rigging, motion capture, visual effects, dan audio spasial.',
+                                ],
+                            ]);
+
+                            $currentSkNumber = old('meta.sk_number', data_get($profileRecord, 'meta.sk_number', 'SK Direktur POLITALA No. 124/PL34/OT/2026'));
+                            $currentAcademicYear = old('meta.academic_year', data_get($profileRecord, 'meta.academic_year', 'Tahun Akademik 2026/2027'));
+                            $currentDeptHeadName = old('meta.department_head_name', data_get($profileRecord, 'meta.department_head_name', 'Hj. Agustian Noor, S.Kom., M.Kom.'));
+                            $currentDeptHeadNip = old('meta.department_head_nip', data_get($profileRecord, 'meta.department_head_nip', '197908152005011002'));
+                            $currentDeptHeadDept = old('meta.department_head_dept', data_get($profileRecord, 'meta.department_head_dept', 'Jurusan Komputer & Bisnis, Politeknik Negeri Tanah Laut'));
+                            $currentGkmName = old('meta.gkm_name', data_get($profileRecord, 'meta.gkm_name', 'Tim Gugus Kendali Mutu (GKM) TRM'));
+                            $currentGkmNip = old('meta.gkm_nip', data_get($profileRecord, 'meta.gkm_nip', 'Pusat Penjaminan Mutu (P4M)'));
+
+                            $selectedKaprodiId = old('meta.kaprodi_id', data_get($profileRecord, 'meta.kaprodi_id', $allStaff->firstWhere('position', 'like', '%Koordinator%')?->id));
+                            $selectedKalabId = old('meta.kalab_id', data_get($profileRecord, 'meta.kalab_id', $allStaff->first(fn($s) => str_contains(strtolower($s->position ?? ''), 'studio') || str_contains(strtolower($s->position ?? ''), 'lab'))?->id));
+                            $selectedPlpId = old('meta.plp_id', data_get($profileRecord, 'meta.plp_id', $allStaff->firstWhere('position', 'like', '%PLP%')?->id));
+                            $selectedMbkmId = old('meta.mbkm_id', data_get($profileRecord, 'meta.mbkm_id', $allStaff->first(fn($s) => str_contains(strtolower($s->position ?? ''), 'mbkm'))?->id));
+                            $selectedKemahasiswaanId = old('meta.kemahasiswaan_id', data_get($profileRecord, 'meta.kemahasiswaan_id', $allStaff->first(fn($s) => str_contains(strtolower($s->position ?? ''), 'game'))?->id));
+                            $selectedAdminId = old('meta.admin_id', data_get($profileRecord, 'meta.admin_id', $allStaff->first(fn($s) => str_contains(strtolower($s->position ?? ''), 'administrasi'))?->id));
+                        @endphp
+
+                        <div class="space-y-6 pt-4 border-t border-slate-100"
+                             x-data="{
+                                 customUnits: {{ Js::from($existingUnits) }},
+                                 addUnit() {
+                                     this.customUnits.push({
+                                         unit: 'Unit / KBK Baru',
+                                         leader: '',
+                                         desc: 'Uraian lingkup tugas unit...'
+                                     });
+                                 },
+                                 removeUnit(idx) {
+                                     if (this.customUnits.length > 1) {
+                                         this.customUnits.splice(idx, 1);
+                                     }
+                                 }
+                             }">
+
+                            <!-- Info Sinkronisasi Otomatis Tree -->
+                            <div class="p-4 sm:p-5 rounded-2xl bg-brand-surface border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center shrink-0 mt-0.5">
+                                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-brand-dark">Integrasi Tree Otomatis Master Data</h4>
+                                        <p class="text-xs text-brand-muted mt-0.5">
+                                            Bagan pohon (*tree*) struktur organisasi secara cerdas membaca data dari master Dosen &amp; Tendik. Anda dapat menetapkan penugasan spesifik atau mengelola personil di menu masing-masing.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2 shrink-0">
+                                    <a href="{{ route('admin.crud.sample', ['section' => 'dosen']) }}" class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs font-bold text-brand-primary hover:bg-brand-primary hover:text-white transition-colors">
+                                        Data Dosen
+                                    </a>
+                                    <a href="{{ route('admin.crud.sample', ['section' => 'tendik']) }}" class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs font-bold text-brand-secondary hover:bg-brand-secondary hover:text-white transition-colors">
+                                        Data Tendik
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Legalitas SK & Periode -->
+                            <div class="p-5 rounded-2xl bg-white border border-slate-200 space-y-4">
+                                <h4 class="font-bold text-brand-dark flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                    <span>Legalitas SK &amp; Periode Struktur</span>
+                                </h4>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="space-y-1">
+                                        <label class="block text-xs font-semibold text-brand-muted">Nomor Surat Keputusan (SK)</label>
+                                        <input type="text" name="meta[sk_number]" value="{{ $currentSkNumber }}" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                    </div>
+                                    <div class="space-y-1">
+                                        <label class="block text-xs font-semibold text-brand-muted">Tahun Akademik / Masa Berlaku</label>
+                                        <input type="text" name="meta[academic_year]" value="{{ $currentAcademicYear }}" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Pimpinan Jurusan & GKM -->
+                            <div class="p-5 rounded-2xl bg-white border border-slate-200 space-y-4">
+                                <h4 class="font-bold text-brand-dark flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-brand-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                    </svg>
+                                    <span>Pimpinan Jurusan &amp; Penjaminan Mutu (GKM)</span>
+                                </h4>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                    <div class="space-y-1 sm:col-span-2">
+                                        <label class="block text-xs font-semibold text-brand-muted">Nama Ketua Jurusan &amp; Gelar</label>
+                                        <input type="text" name="meta[department_head_name]" value="{{ $currentDeptHeadName }}" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                    </div>
+                                    <div class="space-y-1">
+                                        <label class="block text-xs font-semibold text-brand-muted">NIP Ketua Jurusan</label>
+                                        <input type="text" name="meta[department_head_nip]" value="{{ $currentDeptHeadNip }}" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
+                                    <div class="space-y-1">
+                                        <label class="block text-xs font-semibold text-brand-muted">PIC / Koordinator Gugus Kendali Mutu (GKM)</label>
+                                        <input type="text" name="meta[gkm_name]" value="{{ $currentGkmName }}" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                    </div>
+                                    <div class="space-y-1">
+                                        <label class="block text-xs font-semibold text-brand-muted">Unit / Lembaga Penjaminan Mutu</label>
+                                        <input type="text" name="meta[gkm_nip]" value="{{ $currentGkmNip }}" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Pemetaan Pejabat Struktural Prodi dari Master Staf -->
+                            <div class="p-5 rounded-2xl bg-white border border-slate-200 space-y-4">
+                                <h4 class="font-bold text-brand-dark flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                                    </svg>
+                                    <span>Penetapan Pejabat Struktural Prodi (Pilih dari Staf)</span>
+                                </h4>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="space-y-1">
+                                        <label class="block text-xs font-semibold text-brand-muted">Koordinator Program Studi (Kaprodi)</label>
+                                        <select name="meta[kaprodi_id]" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white focus:ring-2 focus:ring-brand-primary/20">
+                                            <option value="">-- Otomatis Berdasarkan Jabatan --</option>
+                                            @foreach($allStaff as $stf)
+                                                <option value="{{ $stf->id }}" {{ (string)$selectedKaprodiId === (string)$stf->id ? 'selected' : '' }}>
+                                                    {{ $stf->name }} ({{ $stf->position ?? $stf->type }})
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="space-y-1">
+                                        <label class="block text-xs font-semibold text-brand-muted">Kepala Laboratorium &amp; Studio Multimedia</label>
+                                        <select name="meta[kalab_id]" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white focus:ring-2 focus:ring-brand-primary/20">
+                                            <option value="">-- Otomatis Berdasarkan Jabatan --</option>
+                                            @foreach($allStaff as $stf)
+                                                <option value="{{ $stf->id }}" {{ (string)$selectedKalabId === (string)$stf->id ? 'selected' : '' }}>
+                                                    {{ $stf->name }} ({{ $stf->position ?? $stf->type }})
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="space-y-1">
+                                        <label class="block text-xs font-semibold text-brand-muted">Pranata Laboratorium Pendidikan (PLP)</label>
+                                        <select name="meta[plp_id]" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white focus:ring-2 focus:ring-brand-primary/20">
+                                            <option value="">-- Otomatis Berdasarkan Jabatan --</option>
+                                            @foreach($allStaff as $stf)
+                                                <option value="{{ $stf->id }}" {{ (string)$selectedPlpId === (string)$stf->id ? 'selected' : '' }}>
+                                                    {{ $stf->name }} ({{ $stf->position ?? $stf->type }})
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="space-y-1">
+                                        <label class="block text-xs font-semibold text-brand-muted">Koordinator MBKM &amp; Kemitraan Industri</label>
+                                        <select name="meta[mbkm_id]" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white focus:ring-2 focus:ring-brand-primary/20">
+                                            <option value="">-- Otomatis Berdasarkan Jabatan --</option>
+                                            @foreach($allStaff as $stf)
+                                                <option value="{{ $stf->id }}" {{ (string)$selectedMbkmId === (string)$stf->id ? 'selected' : '' }}>
+                                                    {{ $stf->name }} ({{ $stf->position ?? $stf->type }})
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="space-y-1">
+                                        <label class="block text-xs font-semibold text-brand-muted">Pembina Kemahasiswaan &amp; Studio Game</label>
+                                        <select name="meta[kemahasiswaan_id]" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white focus:ring-2 focus:ring-brand-primary/20">
+                                            <option value="">-- Otomatis Berdasarkan Jabatan --</option>
+                                            @foreach($allStaff as $stf)
+                                                <option value="{{ $stf->id }}" {{ (string)$selectedKemahasiswaanId === (string)$stf->id ? 'selected' : '' }}>
+                                                    {{ $stf->name }} ({{ $stf->position ?? $stf->type }})
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="space-y-1">
+                                        <label class="block text-xs font-semibold text-brand-muted">Staf Administrasi &amp; Tata Usaha Prodi</label>
+                                        <select name="meta[admin_id]" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white focus:ring-2 focus:ring-brand-primary/20">
+                                            <option value="">-- Otomatis Berdasarkan Jabatan --</option>
+                                            @foreach($allStaff as $stf)
+                                                <option value="{{ $stf->id }}" {{ (string)$selectedAdminId === (string)$stf->id ? 'selected' : '' }}>
+                                                    {{ $stf->name }} ({{ $stf->position ?? $stf->type }})
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Repeater Unit / KBK Tambahan -->
+                            <div class="p-5 rounded-2xl bg-brand-surface/70 border border-slate-200 space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-bold text-brand-dark flex items-center gap-2">
+                                            <svg class="w-4 h-4 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                            </svg>
+                                            <span>Kelompok Bidang Keahlian (KBK) &amp; Unit Khusus</span>
+                                        </h4>
+                                        <p class="text-xs text-brand-muted">Unit penugasan riset dan instruksional di bawah naungan prodi.</p>
+                                    </div>
+                                    <button type="button" @click="addUnit()" class="px-3 py-1.5 rounded-xl bg-brand-primary-light text-brand-primary text-xs font-bold hover:bg-brand-primary hover:text-white transition-all flex items-center gap-1.5 shadow-2xs">
+                                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                        </svg>
+                                        <span>Tambah Unit/KBK</span>
+                                    </button>
+                                </div>
+
+                                <div class="space-y-3">
+                                    <template x-for="(u, idx) in customUnits" :key="idx">
+                                        <div class="p-4 rounded-2xl bg-white border border-slate-200 space-y-3 shadow-2xs">
+                                            <div class="flex items-center justify-between gap-3">
+                                                <span class="text-xs font-bold text-brand-primary" x-text="'Unit #' + (idx + 1)"></span>
+                                                <button type="button" @click="removeUnit(idx)" class="text-rose-500 hover:text-rose-700 text-xs font-semibold flex items-center gap-1">
+                                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                    </svg>
+                                                    <span>Hapus</span>
+                                                </button>
+                                            </div>
+
+                                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                                <div>
+                                                    <label class="block text-[11px] font-semibold text-brand-muted mb-1">Nama Unit / KBK</label>
+                                                    <input type="text" :name="'meta[custom_units][' + idx + '][unit]'" x-model="u.unit" required class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs">
+                                                </div>
+                                                <div>
+                                                    <label class="block text-[11px] font-semibold text-brand-muted mb-1">Koordinator / Penanggung Jawab</label>
+                                                    <input type="text" :name="'meta[custom_units][' + idx + '][leader]'" x-model="u.leader" placeholder="Nama Dosen..." class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs">
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <label class="block text-[11px] font-semibold text-brand-muted mb-1">Deskripsi Ruang Lingkup</label>
+                                                <textarea :name="'meta[custom_units][' + idx + '][desc]'" x-model="u.desc" rows="2" class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs"></textarea>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
                     @endif
 
                     <div class="pt-6 border-t border-slate-100 flex items-center justify-end gap-3">
@@ -756,7 +1325,7 @@
                     @elseif($sec === 'permissions')
                         @click="modalTitle = 'Tambah Hak Akses'; formAction = '{{ route('admin.rbac.permissions.store') }}'; formMethod = 'POST'; formData = { id: null, name: '', slug: '', module: 'Akademik & Pengajaran', desc: '', status: 'published' }; modalOpen = true"
                     @elseif(in_array($sec, ['dosen', 'tendik']))
-                        @click="modalTitle = 'Tambah {{ $sec === 'tendik' ? 'Tenaga Kependidikan' : 'Dosen Pengajar' }}'; formAction = '{{ route('admin.staff.store') }}'; formMethod = 'POST'; formData = { id: null, name: '', nidn: '', nip: '', position: '', academic_degree: '', expertise: '', email: '', status: 'published' }; modalOpen = true"
+                        @click="modalTitle = 'Tambah {{ $sec === 'tendik' ? 'Tenaga Kependidikan' : 'Dosen Pengajar' }}'; formAction = '{{ route('admin.staff.store') }}'; formMethod = 'POST'; formData = { id: null, name: '', nidn: '', nip: '', nip_nidn: '', position: '', academic_degree: '', education: '', expertise: '', email: '', phone: '', photo: '', order: 0, status: 'published' }; modalOpen = true"
                     @elseif($sec === 'berita')
                         @click="modalTitle = 'Tulis Berita Baru'; formAction = '{{ route('admin.news.store') }}'; formMethod = 'POST'; formData = { id: null, title: '', slug: '', category_id: '{{ $allCategories->first()?->id ?? '' }}', content: '', status: 'published' }; modalOpen = true"
                     @elseif($sec === 'pengumuman')
@@ -774,7 +1343,7 @@
                     @elseif($sec === 'profil-lulusan')
                         @click="modalTitle = 'Tambah Profil Lulusan'; formAction = '{{ route('admin.graduate-profiles.store') }}'; formMethod = 'POST'; formData = { id: null, title: '', desc: '', career_prospects: '' }; modalOpen = true"
                     @elseif($sec === 'fasilitas')
-                        @click="modalTitle = 'Tambah Fasilitas / Lab'; formAction = '{{ route('admin.facilities.store') }}'; formMethod = 'POST'; formData = { id: null, name: '', category: 'Laboratorium Komputer', capacity: 30, location: 'Gedung TI', desc: '' }; modalOpen = true"
+                        @click="modalTitle = 'Tambah Fasilitas / Lab'; formAction = '{{ route('admin.facilities.store') }}'; formMethod = 'POST'; formData = { id: null, name: '', category: 'Laboratorium Komputer', capacity: 36, location: 'Gedung TI Lantai 2', specifications: '', software: '', desc: '', order: 0, status: 'published', photo: '' }; modalOpen = true"
                     @elseif($sec === 'album-galeri')
                         @click="modalTitle = 'Buat Album Galeri'; formAction = '{{ route('admin.gallery-albums.store') }}'; formMethod = 'POST'; formData = { id: null, title: '', slug: '', desc: '' }; modalOpen = true"
                     @else
@@ -799,7 +1368,9 @@
                                 <th class="py-3.5 px-4">Nama Lengkap &amp; Gelar</th>
                                 <th class="py-3.5 px-4">NIP / NIDN</th>
                                 <th class="py-3.5 px-4">Jabatan</th>
-                                <th class="py-3.5 px-4">Bidang Keahlian</th>
+                                <th class="py-3.5 px-4">{{ $sec === 'tendik' ? 'Bidang Tugas' : 'Keahlian & Pendidikan' }}</th>
+                                <th class="py-3.5 px-4">Kontak</th>
+                                <th class="py-3.5 px-4 text-center">Urutan</th>
                                 <th class="py-3.5 px-4">Status</th>
                             @elseif($sec === 'kurikulum')
                                 <th class="py-3.5 px-4">Nama Kurikulum</th>
@@ -884,14 +1455,53 @@
 
                                     @if(in_array($sec, ['dosen', 'tendik']))
                                         <td class="py-3.5 px-4 font-bold text-brand-dark">
-                                            <div>{{ $item->name }}</div>
-                                            @if($item->academic_degree)
-                                                <div class="text-[10px] text-brand-muted font-normal">{{ $item->academic_degree }}</div>
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-10 h-10 rounded-xl overflow-hidden bg-brand-surface border border-slate-200 shrink-0 flex items-center justify-center shadow-2xs">
+                                                    @if(!empty($item->photo))
+                                                        <img src="{{ $item->photo_url }}" alt="{{ $item->name }}" class="w-full h-full object-cover">
+                                                    @else
+                                                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-tr from-brand-primary/10 to-brand-surface text-brand-primary font-bold text-xs">
+                                                            {{ strtoupper(substr($item->name, 0, 2)) }}
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                                <div>
+                                                    <div class="font-extrabold text-brand-dark leading-snug">{{ $item->name }}</div>
+                                                    @if($item->education)
+                                                        <div class="text-[10px] text-brand-muted font-normal mt-0.5">{{ $item->education }}</div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-3.5 px-4 font-mono text-slate-600 text-xs">{{ $item->nip_nidn ?? '-' }}</td>
+                                        <td class="py-3.5 px-4">
+                                            <span class="inline-block px-2.5 py-0.5 rounded-lg text-[11px] font-semibold bg-brand-primary-light text-brand-primary">
+                                                {{ $item->position ?? '-' }}
+                                            </span>
+                                        </td>
+                                        <td class="py-3.5 px-4 text-slate-700 max-w-xs">
+                                            <div class="text-xs font-medium truncate">{{ $item->expertise ?? '-' }}</div>
+                                            @if($item->education && $sec === 'dosen')
+                                                <div class="text-[10px] text-slate-500 truncate mt-0.5">{{ $item->education }}</div>
                                             @endif
                                         </td>
-                                        <td class="py-3.5 px-4 font-mono text-slate-500">{{ $item->nip ?? $item->nidn ?? '-' }}</td>
-                                        <td class="py-3.5 px-4 text-brand-muted">{{ $item->position ?? '-' }}</td>
-                                        <td class="py-3.5 px-4 text-slate-700">{{ $item->expertise ?? '-' }}</td>
+                                        <td class="py-3.5 px-4 text-xs">
+                                            @if($item->email)
+                                                <a href="mailto:{{ $item->email }}" class="text-brand-primary hover:underline flex items-center gap-1 font-medium truncate max-w-[150px]">
+                                                    <svg class="w-3 h-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                                    </svg>
+                                                    <span class="truncate">{{ $item->email }}</span>
+                                                </a>
+                                            @endif
+                                            @if($item->phone)
+                                                <span class="text-[10px] text-slate-500 block mt-0.5">{{ $item->phone }}</span>
+                                            @endif
+                                            @if(!$item->email && !$item->phone)
+                                                <span class="text-slate-400">-</span>
+                                            @endif
+                                        </td>
+                                        <td class="py-3.5 px-4 text-center font-bold text-slate-600">{{ $item->order }}</td>
                                         <td class="py-3.5 px-4">
                                             <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold {{ $item->is_active ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-600' }}">
                                                 {{ $item->is_active ? 'Aktif' : 'Nonaktif' }}
@@ -900,7 +1510,7 @@
                                         <td class="py-3.5 px-6 text-center">
                                             <div class="inline-flex items-center gap-1.5">
                                                 <button type="button" 
-                                                        @click="modalTitle = 'Ubah Staf: {{ addslashes($item->name) }}'; formAction = '{{ route('admin.staff.update', $item) }}'; formMethod = 'PUT'; formData = { id: {{ $item->id }}, name: '{{ addslashes($item->name) }}', nidn: '{{ $item->nidn }}', nip: '{{ $item->nip }}', position: '{{ addslashes($item->position ?? '') }}', academic_degree: '{{ addslashes($item->academic_degree ?? '') }}', expertise: '{{ addslashes($item->expertise ?? '') }}', email: '{{ $item->email }}', status: '{{ $item->is_active ? 'published' : 'draft' }}' }; modalOpen = true" 
+                                                        @click="modalTitle = 'Ubah Staf: {{ addslashes($item->name) }}'; formAction = '{{ route('admin.staff.update', $item) }}'; formMethod = 'PUT'; formData = { id: {{ $item->id }}, name: '{{ addslashes($item->name) }}', nidn: '{{ addslashes($item->nip_nidn ?? '') }}', nip: '{{ addslashes($item->nip_nidn ?? '') }}', nip_nidn: '{{ addslashes($item->nip_nidn ?? '') }}', position: '{{ addslashes($item->position ?? '') }}', academic_degree: '{{ addslashes($item->education ?? '') }}', education: '{{ addslashes($item->education ?? '') }}', expertise: '{{ addslashes($item->expertise ?? '') }}', email: '{{ addslashes($item->email ?? '') }}', phone: '{{ addslashes($item->phone ?? '') }}', photo: '{{ addslashes($item->photo ?? '') }}', order: {{ $item->order ?? 0 }}, status: '{{ $item->is_active ? 'published' : 'draft' }}' }; modalOpen = true" 
                                                         class="p-1.5 rounded-lg text-slate-500 hover:text-brand-primary hover:bg-slate-100 transition-colors" title="Ubah Data">
                                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -1059,9 +1669,39 @@
                                             </div>
                                         </td>
                                     @elseif($sec === 'fasilitas')
-                                        <td class="py-3.5 px-4 font-bold text-brand-dark">{{ $item->name }}</td>
-                                        <td class="py-3.5 px-4 text-brand-muted">{{ $item->category }}</td>
-                                        <td class="py-3.5 px-4 text-slate-700">{{ $item->capacity }} Unit &bull; {{ $item->location }}</td>
+                                        <td class="py-3.5 px-4 font-bold text-brand-dark">
+                                            <div class="flex items-center gap-3">
+                                                @if($item->image_url)
+                                                    <img src="{{ $item->image_url }}" alt="{{ $item->name }}" class="w-10 h-10 rounded-xl object-cover border border-slate-200 shrink-0">
+                                                @else
+                                                    <div class="w-10 h-10 rounded-xl bg-brand-primary-light text-brand-primary flex items-center justify-center font-bold text-xs shrink-0">
+                                                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                                                        </svg>
+                                                    </div>
+                                                @endif
+                                                <div>
+                                                    <div class="font-extrabold text-brand-dark">{{ $item->name }}</div>
+                                                    <div class="text-[11px] text-slate-400 font-mono">/fasilitas #{{ $item->order }}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-3.5 px-4">
+                                            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider
+                                                @if(str_contains(strtolower($item->category ?? ''), 'studio'))
+                                                    bg-purple-50 text-purple-700 border border-purple-200
+                                                @elseif(str_contains(strtolower($item->category ?? ''), 'sarana') || str_contains(strtolower($item->category ?? ''), 'pbl'))
+                                                    bg-amber-50 text-amber-700 border border-amber-200
+                                                @else
+                                                    bg-blue-50 text-blue-700 border border-blue-200
+                                                @endif">
+                                                {{ $item->category ?? 'Laboratorium' }}
+                                            </span>
+                                        </td>
+                                        <td class="py-3.5 px-4 text-slate-700">
+                                            <div class="font-semibold text-xs text-brand-dark">{{ $item->capacity }} Unit Workstation</div>
+                                            <div class="text-[11px] text-brand-muted mt-0.5">{{ $item->location ?? 'Gedung TI' }}</div>
+                                        </td>
                                         <td class="py-3.5 px-4">
                                             <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold {{ $item->is_active ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-600' }}">
                                                 {{ $item->is_active ? 'Tersedia' : 'Pemeliharaan' }}
@@ -1070,7 +1710,7 @@
                                         <td class="py-3.5 px-6 text-center">
                                             <div class="inline-flex items-center gap-1.5">
                                                 <button type="button" 
-                                                        @click="modalTitle = 'Ubah Fasilitas'; formAction = '{{ route('admin.facilities.update', $item) }}'; formMethod = 'PUT'; formData = { id: {{ $item->id }}, name: '{{ addslashes($item->name) }}', category: '{{ addslashes($item->category ?? '') }}', capacity: {{ $item->capacity ?? 30 }}, location: '{{ addslashes($item->location ?? '') }}', desc: '{{ addslashes($item->description ?? '') }}' }; modalOpen = true" 
+                                                        @click="modalTitle = 'Ubah Fasilitas'; formAction = '{{ route('admin.facilities.update', $item) }}'; formMethod = 'PUT'; formData = { id: {{ $item->id }}, name: '{{ addslashes($item->name) }}', category: '{{ addslashes($item->category ?? 'Laboratorium Komputer') }}', capacity: {{ $item->capacity ?? 30 }}, location: '{{ addslashes($item->location ?? '') }}', specifications: '{{ addslashes($item->specifications ?? '') }}', software: '{{ addslashes($item->software ?? '') }}', desc: '{{ addslashes($item->description ?? '') }}', order: {{ $item->order ?? 0 }}, status: '{{ $item->is_active ? 'published' : 'draft' }}', photo: '{{ $item->image_url ?? '' }}' }; modalOpen = true" 
                                                         class="p-1.5 rounded-lg text-slate-500 hover:text-brand-primary hover:bg-slate-100 transition-colors">
                                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -1320,7 +1960,7 @@
                         </button>
                     </div>
 
-                    <form :action="formAction" method="POST" class="space-y-4 text-xs">
+                    <form :action="formAction" method="POST" enctype="multipart/form-data" class="space-y-4 text-xs">
                         @csrf
                         <template x-if="formMethod === 'PUT'">
                             <input type="hidden" name="_method" value="PUT">
@@ -1344,21 +1984,47 @@
                             </div>
                             <div class="grid grid-cols-2 gap-3">
                                 <div>
-                                    <label class="block font-bold text-brand-dark mb-1.5">Jabatan</label>
-                                    <input type="text" name="position" x-model="formData.position" placeholder="cth: Lektor / Dosen" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                                    <label class="block font-bold text-brand-dark mb-1.5">Jabatan / Posisi</label>
+                                    <input type="text" name="position" x-model="formData.position" placeholder="{{ $sec === 'tendik' ? 'cth: Pranata Laboratorium Pendidikan' : 'cth: Koordinator Program Studi / Lektor' }}" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
                                 </div>
                                 <div>
-                                    <label class="block font-bold text-brand-dark mb-1.5">Gelar Akademik</label>
-                                    <input type="text" name="academic_degree" x-model="formData.academic_degree" placeholder="cth: S.T., M.Kom." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                                    <label class="block font-bold text-brand-dark mb-1.5">Urutan Tampilan</label>
+                                    <input type="number" name="order" x-model="formData.order" placeholder="0" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block font-bold text-brand-dark mb-1.5">{{ $sec === 'tendik' ? 'Bidang Tugas / Layanan' : 'Bidang Keahlian' }}</label>
+                                    <input type="text" name="expertise" x-model="formData.expertise" placeholder="{{ $sec === 'tendik' ? 'cth: Pengelolaan Lab Studio Komputer' : 'cth: Game Programming, 3D Animation' }}" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-brand-dark mb-1.5">Pendidikan Terakhir</label>
+                                    <input type="text" name="education" x-model="formData.education" placeholder="{{ $sec === 'tendik' ? 'cth: D-3 Teknik Informatika' : 'cth: S2 Ilmu Komputer - UGM' }}" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block font-bold text-brand-dark mb-1.5">Alamat Email</label>
+                                    <input type="email" name="email" x-model="formData.email" placeholder="cth: staf@politala.ac.id" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-brand-dark mb-1.5">Nomor Telepon / WhatsApp</label>
+                                    <input type="text" name="phone" x-model="formData.phone" placeholder="cth: 08123456789" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
                                 </div>
                             </div>
                             <div>
-                                <label class="block font-bold text-brand-dark mb-1.5">Bidang Keahlian</label>
-                                <input type="text" name="expertise" x-model="formData.expertise" placeholder="cth: Game Development, Animation 3D" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                                <label class="block font-bold text-brand-dark mb-1.5">Foto Profil</label>
+                                <div class="space-y-2">
+                                    <input type="file" name="photo_file" accept="image/png,image/jpeg,image/webp" class="w-full px-3 py-1.5 rounded-xl border border-slate-200 text-xs file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-brand-primary-light file:text-brand-primary hover:file:bg-brand-primary hover:file:text-white">
+                                    <input type="text" name="photo" x-model="formData.photo" placeholder="Atau masukkan path / URL foto (cth: /images/...)" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs">
+                                </div>
                             </div>
                             <div>
-                                <label class="block font-bold text-brand-dark mb-1.5">Alamat Email</label>
-                                <input type="email" name="email" x-model="formData.email" placeholder="cth: dosen@politala.ac.id" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                                <label class="block font-bold text-brand-dark mb-1.5">Status Keaktifan</label>
+                                <select name="is_active" x-model="formData.status" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                                    <option value="published">Aktif (Ditampilkan di Website)</option>
+                                    <option value="draft">Nonaktif (Disembunyikan)</option>
+                                </select>
                             </div>
                         @elseif($sec === 'kurikulum')
                             <div>
@@ -1482,21 +2148,63 @@
                         @elseif($sec === 'fasilitas')
                             <div>
                                 <label class="block font-bold text-brand-dark mb-1.5">Nama Fasilitas / Lab <span class="text-rose-500">*</span></label>
-                                <input type="text" name="name" x-model="formData.name" placeholder="cth: Lab Rendering & Animation" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                                <input type="text" name="name" x-model="formData.name" placeholder="cth: Studio Animasi 3D & Motion Capture" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
                             </div>
-                            <div class="grid grid-cols-2 gap-3">
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                                 <div>
-                                    <label class="block font-bold text-brand-dark mb-1.5">Kategori</label>
-                                    <input type="text" name="category" x-model="formData.category" placeholder="Laboratorium Komputer" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                                    <label class="block font-bold text-brand-dark mb-1.5">Kategori Fasilitas</label>
+                                    <select name="category" x-model="formData.category" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                                        <option value="Laboratorium Komputer">Laboratorium Komputer</option>
+                                        <option value="Studio Produksi & Cinema">Studio Produksi &amp; Cinema</option>
+                                        <option value="Sarana Pendukung & Riset">Sarana Pendukung &amp; Riset</option>
+                                    </select>
                                 </div>
                                 <div>
                                     <label class="block font-bold text-brand-dark mb-1.5">Kapasitas (PC/Orang)</label>
-                                    <input type="number" name="capacity" x-model="formData.capacity" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                                    <input type="number" name="capacity" x-model="formData.capacity" placeholder="36" min="0" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-brand-dark mb-1.5">Urutan Prioritas</label>
+                                    <input type="number" name="order" x-model="formData.order" placeholder="0" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
                                 </div>
                             </div>
+
                             <div>
                                 <label class="block font-bold text-brand-dark mb-1.5">Lokasi Gedung / Ruangan</label>
-                                <input type="text" name="location" x-model="formData.location" placeholder="Gedung TI Lt. 2 Ruang 204" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                                <input type="text" name="location" x-model="formData.location" placeholder="Gedung TI Lantai 2 - Ruang 201" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                            </div>
+
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Spesifikasi Hardware / Perangkat Keras</label>
+                                <textarea name="specifications" x-model="formData.specifications" rows="2" placeholder="cth: 36 Unit Workstation Core i9, Dual GPU RTX 4090, 64GB RAM, VR Headset..." class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs"></textarea>
+                            </div>
+
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Software &amp; Tools Utama (Pisahkan dengan koma)</label>
+                                <input type="text" name="software" x-model="formData.software" placeholder="Blender 4, Unreal Engine 5, Adobe After Effects, Maya, Unity" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                            </div>
+
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Uraian &amp; Fungsi Praktikum</label>
+                                <textarea name="description" x-model="formData.desc" rows="3" placeholder="Jelaskan peruntukan praktikum dan kegiatan riset pada fasilitas ini..." class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs"></textarea>
+                            </div>
+
+                            <div>
+                                <label class="block font-bold text-brand-dark mb-1.5">Foto Fasilitas (Unggah File Gambar)</label>
+                                <template x-if="formData.photo">
+                                    <div class="mb-2 flex items-center gap-3 p-2 bg-slate-50 rounded-xl border border-slate-200">
+                                        <img :src="formData.photo" alt="Preview Foto" class="w-16 h-12 rounded-lg object-cover border border-slate-200">
+                                        <div class="text-[11px] text-brand-muted">Foto saat ini tersimpan di sistem.</div>
+                                    </div>
+                                </template>
+                                <input type="file" name="image_file" accept="image/jpeg,image/png,image/webp" class="w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-brand-primary-light file:text-brand-primary hover:file:bg-brand-primary hover:file:text-white file:transition-colors">
+                                <p class="text-[11px] text-slate-400 mt-1">Format: JPG, PNG, WebP. Maks 4MB.</p>
+                            </div>
+
+                            <div class="flex items-center gap-2 pt-1">
+                                <input type="checkbox" name="is_active" id="facility_is_active" value="1" :checked="formData.status === 'published' || formData.status === '1' || formData.status === true" class="rounded text-brand-primary focus:ring-brand-primary">
+                                <label for="facility_is_active" class="font-bold text-brand-dark text-xs cursor-pointer">Fasilitas aktif dan siap digunakan untuk perkuliahan/praktikum</label>
                             </div>
                         @elseif($sec === 'users')
                             <div>

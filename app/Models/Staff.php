@@ -49,9 +49,39 @@ class Staff extends Model
         return $query->where('is_active', true);
     }
 
+    public function scopeSearch(Builder $query, string $search): Builder
+    {
+        return $query->where(function (Builder $q) use ($search) {
+            $q->where('name', 'like', "%{$search}%")
+                ->orWhere('nip_nidn', 'like', "%{$search}%")
+                ->orWhere('position', 'like', "%{$search}%")
+                ->orWhere('expertise', 'like', "%{$search}%")
+                ->orWhere('education', 'like', "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%");
+        });
+    }
+
     public function getNipAttribute(): string
     {
         return (string) ($this->nip_nidn ?? '-');
+    }
+
+    public function getNidnAttribute(): ?string
+    {
+        return $this->nip_nidn;
+    }
+
+    public function getPhotoUrlAttribute(): ?string
+    {
+        if (empty($this->photo)) {
+            return null;
+        }
+
+        if (str_starts_with($this->photo, 'http://') || str_starts_with($this->photo, 'https://') || str_starts_with($this->photo, '/')) {
+            return $this->photo;
+        }
+
+        return '/storage/'.$this->photo;
     }
 
     public function getRoleAttribute(): string

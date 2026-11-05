@@ -41,6 +41,7 @@ use App\Models\Setting;
 use App\Models\Staff;
 use App\Models\StudyProgramProfile;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ContentController extends Controller
@@ -53,19 +54,47 @@ class ContentController extends Controller
         $validated = $request->validated();
         $section = $validated['type'] === 'tendik' ? 'tendik' : 'dosen';
 
+        $photo = $validated['photo'] ?? null;
+        if ($request->hasFile('photo_file') && $request->file('photo_file')->isValid()) {
+            $path = $request->file('photo_file')->store('staff', 'public');
+            $photo = '/storage/'.$path;
+        }
+
+        $nipNidn = $validated['nip_nidn'] ?? null;
+        if (! $nipNidn) {
+            $nip = trim((string) ($validated['nip'] ?? ''));
+            $nidn = trim((string) ($validated['nidn'] ?? ''));
+            if ($nip !== '' && $nidn !== '') {
+                $nipNidn = "NIP. {$nip} / NIDN. {$nidn}";
+            } elseif ($nip !== '') {
+                $nipNidn = $nip;
+            } elseif ($nidn !== '') {
+                $nipNidn = $nidn;
+            }
+        }
+
+        $education = $validated['education'] ?? $validated['academic_degree'] ?? null;
+
+        $isActive = true;
+        if ($request->has('is_active')) {
+            $val = $request->input('is_active');
+            $isActive = in_array($val, [true, 1, '1', 'published', 'aktif', 'active'], true);
+        } elseif ($request->has('status')) {
+            $isActive = in_array($request->input('status'), ['published', 'active', 'aktif', '1'], true);
+        }
+
         Staff::create([
             'name' => $validated['name'],
-            'nidn' => $validated['nidn'] ?? null,
-            'nip' => $validated['nip'] ?? null,
             'type' => $validated['type'],
+            'nip_nidn' => $nipNidn,
             'position' => $validated['position'] ?? null,
-            'academic_degree' => $validated['academic_degree'] ?? null,
             'expertise' => $validated['expertise'] ?? null,
+            'education' => $education,
             'email' => $validated['email'] ?? null,
             'phone' => $validated['phone'] ?? null,
-            'bio' => $validated['bio'] ?? null,
-            'order' => $validated['order'] ?? 0,
-            'is_active' => (bool) ($validated['is_active'] ?? true),
+            'photo' => $photo,
+            'order' => (int) ($validated['order'] ?? 0),
+            'is_active' => $isActive,
         ]);
 
         return redirect()->route('admin.crud.sample', ['section' => $section])
@@ -77,19 +106,55 @@ class ContentController extends Controller
         $validated = $request->validated();
         $section = $staff->type === 'tendik' ? 'tendik' : 'dosen';
 
+        $photo = $staff->photo;
+        if ($request->hasFile('photo_file') && $request->file('photo_file')->isValid()) {
+            if ($staff->photo && str_starts_with($staff->photo, '/storage/')) {
+                $oldPath = str_replace('/storage/', '', $staff->photo);
+                Storage::disk('public')->delete($oldPath);
+            }
+            $path = $request->file('photo_file')->store('staff', 'public');
+            $photo = '/storage/'.$path;
+        } elseif (isset($validated['photo']) && $validated['photo'] !== '') {
+            $photo = $validated['photo'];
+        }
+
+        $nipNidn = $validated['nip_nidn'] ?? null;
+        if (! $nipNidn) {
+            $nip = trim((string) ($validated['nip'] ?? ''));
+            $nidn = trim((string) ($validated['nidn'] ?? ''));
+            if ($nip !== '' && $nidn !== '') {
+                $nipNidn = "NIP. {$nip} / NIDN. {$nidn}";
+            } elseif ($nip !== '') {
+                $nipNidn = $nip;
+            } elseif ($nidn !== '') {
+                $nipNidn = $nidn;
+            } else {
+                $nipNidn = $staff->nip_nidn;
+            }
+        }
+
+        $education = $validated['education'] ?? $validated['academic_degree'] ?? $staff->education;
+
+        $isActive = $staff->is_active;
+        if ($request->has('is_active')) {
+            $val = $request->input('is_active');
+            $isActive = in_array($val, [true, 1, '1', 'published', 'aktif', 'active'], true);
+        } elseif ($request->has('status')) {
+            $isActive = in_array($request->input('status'), ['published', 'active', 'aktif', '1'], true);
+        }
+
         $staff->update([
             'name' => $validated['name'],
-            'nidn' => $validated['nidn'] ?? null,
-            'nip' => $validated['nip'] ?? null,
-            'type' => $validated['type'],
-            'position' => $validated['position'] ?? null,
-            'academic_degree' => $validated['academic_degree'] ?? null,
-            'expertise' => $validated['expertise'] ?? null,
-            'email' => $validated['email'] ?? null,
-            'phone' => $validated['phone'] ?? null,
-            'bio' => $validated['bio'] ?? null,
-            'order' => $validated['order'] ?? $staff->order,
-            'is_active' => isset($validated['is_active']) ? (bool) $validated['is_active'] : $staff->is_active,
+            'type' => $validated['type'] ?? $staff->type,
+            'nip_nidn' => $nipNidn,
+            'position' => $validated['position'] ?? $staff->position,
+            'expertise' => $validated['expertise'] ?? $staff->expertise,
+            'education' => $education,
+            'email' => $validated['email'] ?? $staff->email,
+            'phone' => $validated['phone'] ?? $staff->phone,
+            'photo' => $photo,
+            'order' => isset($validated['order']) ? (int) $validated['order'] : $staff->order,
+            'is_active' => $isActive,
         ]);
 
         return redirect()->route('admin.crud.sample', ['section' => $section])
@@ -100,6 +165,12 @@ class ContentController extends Controller
     {
         $section = $staff->type === 'tendik' ? 'tendik' : 'dosen';
         $name = $staff->name;
+
+        if ($staff->photo && str_starts_with($staff->photo, '/storage/')) {
+            $oldPath = str_replace('/storage/', '', $staff->photo);
+            Storage::disk('public')->delete($oldPath);
+        }
+
         $staff->delete();
 
         return redirect()->route('admin.crud.sample', ['section' => $section])
@@ -500,18 +571,33 @@ class ContentController extends Controller
         $validated = $request->validated();
         $slug = ! empty($validated['slug']) ? Str::slug($validated['slug']) : Str::slug($validated['name']);
 
+        $image = $validated['image'] ?? null;
+        if ($request->hasFile('image_file') && $request->file('image_file')->isValid()) {
+            $image = $request->file('image_file')->store('facilities', 'public');
+        }
+
+        $isActive = true;
+        if ($request->has('is_active')) {
+            $val = $request->input('is_active');
+            $isActive = in_array($val, [true, 1, '1', 'aktif', 'active', 'published'], true);
+        }
+
         Facility::create([
             'name' => $validated['name'],
             'slug' => $slug,
             'category' => $validated['category'] ?? 'Laboratorium Komputer',
             'description' => $validated['description'] ?? null,
-            'capacity' => $validated['capacity'] ?? 30,
+            'specifications' => $validated['specifications'] ?? null,
+            'software' => $validated['software'] ?? null,
+            'capacity' => isset($validated['capacity']) ? (int) $validated['capacity'] : 30,
             'location' => $validated['location'] ?? 'Gedung TI POLITALA',
-            'is_active' => (bool) ($validated['is_active'] ?? true),
+            'image' => $image,
+            'order' => isset($validated['order']) ? (int) $validated['order'] : 0,
+            'is_active' => $isActive,
         ]);
 
         return redirect()->route('admin.crud.sample', ['section' => 'fasilitas'])
-            ->with('success', 'Fasilitas / laboratorium berhasil ditambahkan.');
+            ->with('success', "Fasilitas / laboratorium '{$validated['name']}' berhasil ditambahkan.");
     }
 
     public function updateFacility(UpdateFacilityRequest $request, Facility $facility): RedirectResponse
@@ -519,14 +605,34 @@ class ContentController extends Controller
         $validated = $request->validated();
         $slug = ! empty($validated['slug']) ? Str::slug($validated['slug']) : $facility->slug;
 
+        $image = $facility->image;
+        if ($request->hasFile('image_file') && $request->file('image_file')->isValid()) {
+            if ($facility->image && ! str_starts_with($facility->image, 'http') && ! str_starts_with($facility->image, '/assets') && Storage::disk('public')->exists($facility->image)) {
+                Storage::disk('public')->delete($facility->image);
+            }
+            $image = $request->file('image_file')->store('facilities', 'public');
+        } elseif ($request->filled('image')) {
+            $image = $validated['image'];
+        }
+
+        $isActive = $facility->is_active;
+        if ($request->has('is_active')) {
+            $val = $request->input('is_active');
+            $isActive = in_array($val, [true, 1, '1', 'aktif', 'active', 'published'], true);
+        }
+
         $facility->update([
             'name' => $validated['name'],
             'slug' => $slug,
             'category' => $validated['category'] ?? $facility->category,
             'description' => $validated['description'] ?? $facility->description,
-            'capacity' => $validated['capacity'] ?? $facility->capacity,
+            'specifications' => $validated['specifications'] ?? $facility->specifications,
+            'software' => $validated['software'] ?? $facility->software,
+            'capacity' => isset($validated['capacity']) ? (int) $validated['capacity'] : $facility->capacity,
             'location' => $validated['location'] ?? $facility->location,
-            'is_active' => isset($validated['is_active']) ? (bool) $validated['is_active'] : $facility->is_active,
+            'image' => $image,
+            'order' => isset($validated['order']) ? (int) $validated['order'] : $facility->order,
+            'is_active' => $isActive,
         ]);
 
         return redirect()->route('admin.crud.sample', ['section' => 'fasilitas'])
@@ -536,6 +642,9 @@ class ContentController extends Controller
     public function destroyFacility(Facility $facility): RedirectResponse
     {
         $name = $facility->name;
+        if ($facility->image && ! str_starts_with($facility->image, 'http') && ! str_starts_with($facility->image, '/assets') && Storage::disk('public')->exists($facility->image)) {
+            Storage::disk('public')->delete($facility->image);
+        }
         $facility->delete();
 
         return redirect()->route('admin.crud.sample', ['section' => 'fasilitas'])
@@ -592,21 +701,26 @@ class ContentController extends Controller
     public function updateProfileSection(UpdateProfileSectionRequest $request): RedirectResponse
     {
         $validated = $request->validated();
+        $dbSection = str_replace('-', '_', $validated['section']);
 
-        $data = [
-            'title' => $validated['title'],
-            'content' => $validated['content'],
-        ];
+        $existing = StudyProgramProfile::where('section', $dbSection)->first();
+        $currentMeta = is_array($existing?->meta) ? $existing->meta : [];
+        $inputMeta = $request->input('meta', []);
 
-        if ($request->has('meta')) {
-            $data['meta'] = $request->input('meta');
+        if ($request->hasFile('kaprodi_photo_file') && $request->file('kaprodi_photo_file')->isValid()) {
+            $path = $request->file('kaprodi_photo_file')->store('profiles', 'public');
+            $inputMeta['kaprodi_photo_url'] = '/storage/'.$path;
         }
 
-        $dbSection = str_replace('-', '_', $validated['section']);
+        $mergedMeta = array_merge($currentMeta, $inputMeta);
 
         StudyProgramProfile::updateOrCreate(
             ['section' => $dbSection],
-            $data
+            [
+                'title' => $validated['title'],
+                'content' => $validated['content'],
+                'meta' => $mergedMeta,
+            ]
         );
 
         return redirect()->route('admin.crud.sample', ['section' => $validated['section']])

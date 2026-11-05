@@ -22,6 +22,7 @@ class UpdateProfileSectionRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string'],
             'meta' => ['nullable', 'array'],
+            'kaprodi_photo_file' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         ];
     }
 }
