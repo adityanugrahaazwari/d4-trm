@@ -29,14 +29,23 @@ class LayoutsAndRoutesTest extends TestCase
     public function test_public_subpages_are_accessible(): void
     {
         $routes = [
+            '/profil/sejarah',
             '/profil/visi-misi',
+            '/profil/sambutan-kaprodi',
+            '/profil/struktur-organisasi',
+            '/profil/dosen',
+            '/profil/tenaga-kependidikan',
             '/akademik/kurikulum',
+            '/akademik/kalender-akademik',
+            '/akademik/capaian-pembelajaran',
+            '/akademik/profil-lulusan',
             '/berita',
             '/berita/d4-trm-politala-jalin-kerjasama-dengan-studio-game-nasional',
-            '/fasilitas',
-            '/galeri',
+            '/pengumuman',
             '/agenda',
             '/agenda/kuliah-pakar-pipeline-animasi-3d-studio-hollywood',
+            '/fasilitas',
+            '/galeri',
             '/kontak',
         ];
 
@@ -44,6 +53,10 @@ class LayoutsAndRoutesTest extends TestCase
             $response = $this->get($route);
             $response->assertStatus(200);
         }
+
+        // Test redirect route
+        $courseRedirect = $this->get('/akademik/mata-kuliah');
+        $courseRedirect->assertStatus(302);
     }
 
     /**
@@ -57,6 +70,12 @@ class LayoutsAndRoutesTest extends TestCase
         $dashboard->assertStatus(200);
         $dashboard->assertSee('Dashboard Ringkasan');
         $dashboard->assertSee('Panel Administrasi');
+        $dashboard->assertSee('Live DB');
+        $dashboard->assertDontSee('[Dummy]');
+
+        $home = $this->get('/');
+        $home->assertStatus(200);
+        $home->assertDontSee('[Data Contoh #1]');
 
         $crud = $this->actingAs($user)->get('/admin/crud/berita');
         $crud->assertStatus(200);
@@ -78,6 +97,23 @@ class LayoutsAndRoutesTest extends TestCase
         $permissionsCrud->assertSee('Hak Akses Sistem (Permissions)');
         $permissionsCrud->assertSee('manage-users');
         $permissionsCrud->assertSee('manage-academic');
+
+        // Test all 28 admin CRUD sections render without errors
+        $allSections = [
+            'sejarah', 'visi-misi', 'sambutan', 'struktur',
+            'dosen', 'tendik',
+            'kurikulum', 'mata-kuliah', 'kalender', 'cpl', 'profil-lulusan',
+            'berita', 'kategori-berita', 'pengumuman', 'agenda',
+            'fasilitas', 'album-galeri', 'foto-galeri',
+            'identitas', 'homepage', 'kontak-sosmed', 'logo-favicon',
+            'media-list', 'media-upload',
+            'users', 'roles', 'permissions', 'my-profile',
+        ];
+
+        foreach ($allSections as $section) {
+            $response = $this->actingAs($user)->get("/admin/crud/{$section}");
+            $response->assertStatus(200);
+        }
     }
 
     /**

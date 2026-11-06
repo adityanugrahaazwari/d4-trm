@@ -773,171 +773,281 @@
                 </a>
             </div>
 
-            <!-- Card Dosen Grid (Dengan penanda data contoh eksplisit) -->
+            <!-- Card Dosen Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                @for ($i = 1; $i <= 4; $i++)
-                    <div class="card-fade-up group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300" data-card-delay="{{ ($i - 1) * 120 }}">
-                        <div class="aspect-square bg-gradient-to-br from-slate-100 via-slate-50 to-brand-primary-light/30 flex items-center justify-center p-6 border-b border-slate-100 relative overflow-hidden">
-                            <!-- Avatar Ambient Shimmer -->
-                            <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-                            
-                            <img src="{{ asset('assets/undraw_educator_6dgp.svg') }}" alt="Tenaga Pendidik D-IV TRM" class="h-28 w-auto object-contain drop-shadow-xs group-hover:scale-110 transition-transform duration-500">
+                @forelse ($featuredLecturers as $index => $lecturer)
+                    <div class="card-fade-up group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-xl hover:-translate-y-2 hover:border-brand-primary/40 transition-all duration-300 flex flex-col justify-between" data-card-delay="{{ $index * 120 }}">
+                        <div>
+                            <div class="aspect-square bg-gradient-to-br from-slate-100 via-slate-50 to-brand-primary-light/30 flex items-center justify-center border-b border-slate-100 relative overflow-hidden">
+                                @if(!empty($lecturer->photo))
+                                    <img src="{{ $lecturer->photo_url }}" alt="{{ $lecturer->name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                @else
+                                    <div class="w-full h-full flex flex-col items-center justify-center p-6 bg-gradient-to-tr from-brand-primary/10 via-brand-surface to-slate-100 text-brand-primary">
+                                        <div class="w-20 h-20 rounded-full bg-brand-primary/10 flex items-center justify-center mb-2 font-black text-xl">
+                                            {{ strtoupper(substr($lecturer->name, 0, 2)) }}
+                                        </div>
+                                        <span class="text-[11px] font-bold text-brand-secondary">Dosen TRM</span>
+                                    </div>
+                                @endif
+
+                                @if(str_contains(strtolower($lecturer->position ?? ''), 'koordinator') || str_contains(strtolower($lecturer->position ?? ''), 'kaprodi'))
+                                    <div class="absolute top-3 right-3">
+                                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-brand-primary text-white shadow-xs">
+                                            Pimpinan
+                                        </span>
+                                    </div>
+                                @endif
+                            </div>
+
+                            <div class="p-5 space-y-2">
+                                <span class="text-[10px] uppercase font-bold tracking-wider text-brand-primary bg-brand-primary-light px-2.5 py-0.5 rounded-md inline-block">
+                                    {{ $lecturer->position ?? 'Dosen Pengajar' }}
+                                </span>
+                                <h3 class="font-bold text-sm text-brand-dark leading-snug group-hover:text-brand-primary transition-colors">
+                                    {{ $lecturer->name }}
+                                </h3>
+                                @if(!empty($lecturer->expertise))
+                                    <p class="text-xs text-brand-muted line-clamp-2">
+                                        <span class="font-medium text-slate-700">Keahlian:</span> {{ $lecturer->expertise }}
+                                    </p>
+                                @endif
+                            </div>
                         </div>
-                        <div class="p-5 space-y-2">
-                            <span class="text-[10px] uppercase font-bold tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 inline-block">
-                                [Data Contoh #{{ $i }}]
-                            </span>
-                            <h3 class="font-bold text-sm text-brand-dark leading-tight group-hover:text-brand-primary transition-colors">[Nama Dosen Pengajar {{ $i }}, M.Kom.]</h3>
-                            <p class="text-xs text-brand-muted">Keahlian: [Multimedia &amp; Grafika Komputer]</p>
+
+                        <div class="px-5 pb-5 pt-0">
+                            <a href="{{ route('public.profile.lecturers') }}" class="text-xs font-semibold text-brand-primary hover:text-brand-primary-hover flex items-center gap-1 group-hover:gap-1.5 transition-all">
+                                <span>Lihat Profil</span>
+                                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
                         </div>
                     </div>
-                @endfor
+                @empty
+                    <div class="col-span-full py-12 text-center text-brand-muted bg-white rounded-2xl border border-dashed border-slate-200">
+                        Belum ada data dosen pengajar yang dipublikasikan.
+                    </div>
+                @endforelse
             </div>
             <div class="text-xs text-slate-500 italic text-center">
-                * Data nama dosen dan riwayat akademik di atas merupakan data contoh (dummy) dan akan diperbarui dengan data resmi institusi.
+                * Dosen dan tenaga pengajar berkompeten di bidang animasi, game tech, UI/UX, dan komputasi multimedia terapan.
             </div>
         </div>
     </section>
 
-    {{-- 7. Berita dan Pengumuman --}}
+    {{-- 7. Berita, Pengumuman, dan Agenda --}}
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div class="space-y-3">
                 <span class="inline-flex px-3 py-1 rounded-full bg-brand-sky-light text-brand-primary text-xs font-bold uppercase tracking-wider shadow-xs">
-                    Kabar &amp; Agenda
+                    Kabar &amp; Informasi
                 </span>
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">
-                    Berita &amp; Pengumuman Terbaru
+                    Berita Terkini &amp; Warta Kampus
                 </h2>
                 <p class="text-brand-muted text-sm sm:text-base">
-                    Publikasi berita kegiatan dan pengumuman resmi program studi.
+                    Publikasi kegiatan akademik, riset teknologi terapan, prestasi, dan kemitraan industri terkini.
                 </p>
             </div>
-            <div class="flex items-center gap-3">
+            <div class="flex flex-wrap items-center gap-2.5">
                 <a href="{{ route('public.news.index') }}" class="px-4 py-2 rounded-lg text-xs font-bold bg-brand-primary-light text-brand-primary hover:bg-brand-primary hover:text-white hover:scale-105 active:scale-95 transition-all shadow-xs">
                     Semua Berita
                 </a>
                 <a href="{{ route('public.announcements.index') }}" class="px-4 py-2 rounded-lg text-xs font-bold border border-slate-200 text-brand-dark hover:border-brand-primary hover:text-brand-primary hover:scale-105 active:scale-95 transition-all shadow-xs">
-                    Semua Pengumuman
+                    Pengumuman
+                </a>
+                <a href="{{ route('public.events.index') }}" class="px-4 py-2 rounded-lg text-xs font-bold border border-slate-200 text-brand-dark hover:border-brand-primary hover:text-brand-primary hover:scale-105 active:scale-95 transition-all shadow-xs">
+                    Agenda
                 </a>
             </div>
         </div>
 
+        {{-- Dynamic News Grid --}}
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Article 1 -->
-            <article class="card-fade-up group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between" data-card-delay="0">
-                <div>
-                    <div class="aspect-16/9 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4 border-b border-slate-100 relative overflow-hidden">
-                        <!-- Shimmer Hover Glow -->
-                        <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+            @forelse($latestNews as $index => $item)
+                @php
+                    $fallbackSvgs = [
+                        'assets/undraw_working-together_r43a.svg',
+                        'assets/undraw_brainstorming_gny9.svg',
+                        'assets/undraw_team-assignment_lzot.svg'
+                    ];
+                    $svgImage = $fallbackSvgs[$index % count($fallbackSvgs)];
+                @endphp
+                <article class="card-fade-up group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between" data-card-delay="{{ $index * 150 }}">
+                    <div>
+                        <div class="aspect-16/9 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4 border-b border-slate-100 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
 
-                        <img src="{{ asset('assets/undraw_working-together_r43a.svg') }}" alt="Kerjasama Industri dan Studio Game" class="h-28 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 text-[10px] uppercase font-bold tracking-wider text-amber-800 bg-amber-100/95 px-2 py-0.5 rounded border border-amber-300 shadow-xs">
-                            [Berita Dummy #1]
-                        </span>
-                    </div>
-                    <div class="p-6 space-y-3">
-                        <div class="flex items-center gap-2 text-xs text-brand-muted">
-                            <span>{{ date('d M Y') }}</span>
-                            <span>&bull;</span>
-                            <span class="text-brand-secondary font-medium">Kemitraan DUDI</span>
+                            @if(!empty($item->featured_image))
+                                <img src="{{ asset($item->featured_image) }}" alt="{{ $item->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            @else
+                                <img src="{{ asset($svgImage) }}" alt="{{ $item->title }}" class="h-28 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform duration-500">
+                            @endif
+
+                            <span class="absolute top-3 left-3 text-[10px] uppercase font-bold tracking-wider text-brand-primary bg-white/90 backdrop-blur-xs px-2.5 py-0.5 rounded border border-brand-primary/20 shadow-xs">
+                                {{ $item->category?->name ?? 'Informasi' }}
+                            </span>
                         </div>
-                        <h3 class="font-bold text-base text-brand-dark leading-snug line-clamp-2 group-hover:text-brand-primary transition-colors">
-                            <a href="{{ route('public.news.show', 'd4-trm-politala-jalin-kerjasama-dengan-studio-game-nasional') }}">
-                                [Contoh Berita 1] Sosialisasi Kurikulum dan Laboratorium Multimedia Terapan D-IV TRM
-                            </a>
-                        </h3>
-                        <p class="text-xs text-brand-muted line-clamp-2 leading-relaxed">
-                            Uraian ringkas berita mengenai persiapan kegiatan perkuliahan, workshop industri, dan fasilitas multimedia...
-                        </p>
-                    </div>
-                </div>
-                <div class="px-6 pb-6 pt-2">
-                    <a href="{{ route('public.news.show', 'd4-trm-politala-jalin-kerjasama-dengan-studio-game-nasional') }}" class="text-xs font-bold text-brand-primary hover:text-brand-primary-hover inline-flex items-center gap-1 group/btn">
-                        <span>Baca Selengkapnya</span>
-                        <svg class="w-3.5 h-3.5 transform group-hover/btn:translate-x-1.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </a>
-                </div>
-            </article>
-
-            <!-- Article 2 -->
-            <article class="card-fade-up group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between" data-card-delay="150">
-                <div>
-                    <div class="aspect-16/9 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4 border-b border-slate-100 relative overflow-hidden">
-                        <!-- Shimmer Hover Glow -->
-                        <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-
-                        <img src="{{ asset('assets/undraw_brainstorming_gny9.svg') }}" alt="Workshop Kurikulum &amp; Desain" class="h-28 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 text-[10px] uppercase font-bold tracking-wider text-amber-800 bg-amber-100/95 px-2 py-0.5 rounded border border-amber-300 shadow-xs">
-                            [Berita Dummy #2]
-                        </span>
-                    </div>
-                    <div class="p-6 space-y-3">
-                        <div class="flex items-center gap-2 text-xs text-brand-muted">
-                            <span>{{ date('d M Y') }}</span>
-                            <span>&bull;</span>
-                            <span class="text-brand-secondary font-medium">Workshop Vokasi</span>
+                        <div class="p-6 space-y-3">
+                            <div class="flex items-center gap-2 text-xs text-brand-muted">
+                                <span>{{ $item->published_at ? $item->published_at->translatedFormat('d M Y') : date('d M Y') }}</span>
+                                <span>&bull;</span>
+                                <span class="text-brand-secondary font-medium">{{ $item->author?->name ?? 'Humas TRM' }}</span>
+                            </div>
+                            <h3 class="font-bold text-base text-brand-dark leading-snug line-clamp-2 group-hover:text-brand-primary transition-colors">
+                                <a href="{{ route('public.news.show', $item->slug) }}">
+                                    {{ $item->title }}
+                                </a>
+                            </h3>
+                            <p class="text-xs text-brand-muted line-clamp-2 leading-relaxed">
+                                {{ $item->excerpt ?? Str::limit(strip_tags($item->content), 110) }}
+                            </p>
                         </div>
-                        <h3 class="font-bold text-base text-brand-dark leading-snug line-clamp-2 group-hover:text-brand-primary transition-colors">
-                            <a href="{{ route('public.news.show', 'd4-trm-politala-jalin-kerjasama-dengan-studio-game-nasional') }}">
-                                [Contoh Berita 2] Lokakarya Perancangan UI/UX &amp; Pemodelan Animasi Berbasis Standar Industri
-                            </a>
-                        </h3>
-                        <p class="text-xs text-brand-muted line-clamp-2 leading-relaxed">
-                            Pelatihan teknis intensif bagi mahasiswa dalam merancang antarmuka modern dan aset digital terstandar...
-                        </p>
                     </div>
-                </div>
-                <div class="px-6 pb-6 pt-2">
-                    <a href="{{ route('public.news.show', 'd4-trm-politala-jalin-kerjasama-dengan-studio-game-nasional') }}" class="text-xs font-bold text-brand-primary hover:text-brand-primary-hover inline-flex items-center gap-1 group/btn">
-                        <span>Baca Selengkapnya</span>
-                        <svg class="w-3.5 h-3.5 transform group-hover/btn:translate-x-1.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </a>
-                </div>
-            </article>
-
-            <!-- Article 3 -->
-            <article class="card-fade-up group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:border-brand-primary/40 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between" data-card-delay="300">
-                <div>
-                    <div class="aspect-16/9 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center p-4 border-b border-slate-100 relative overflow-hidden">
-                        <!-- Shimmer Hover Glow -->
-                        <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-
-                        <img src="{{ asset('assets/undraw_team-assignment_lzot.svg') }}" alt="Praktikum &amp; Riset Multimedia" class="h-28 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-3 left-3 text-[10px] uppercase font-bold tracking-wider text-amber-800 bg-amber-100/95 px-2 py-0.5 rounded border border-amber-300 shadow-xs">
-                            [Berita Dummy #3]
-                        </span>
+                    <div class="px-6 pb-6 pt-2">
+                        <a href="{{ route('public.news.show', $item->slug) }}" class="text-xs font-bold text-brand-primary hover:text-brand-primary-hover inline-flex items-center gap-1 group/btn">
+                            <span>Baca Selengkapnya</span>
+                            <svg class="w-3.5 h-3.5 transform group-hover/btn:translate-x-1.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
                     </div>
-                    <div class="p-6 space-y-3">
-                        <div class="flex items-center gap-2 text-xs text-brand-muted">
-                            <span>{{ date('d M Y') }}</span>
-                            <span>&bull;</span>
-                            <span class="text-brand-secondary font-medium">Praktikum Lab</span>
-                        </div>
-                        <h3 class="font-bold text-base text-brand-dark leading-snug line-clamp-2 group-hover:text-brand-primary transition-colors">
-                            <a href="{{ route('public.news.show', 'd4-trm-politala-jalin-kerjasama-dengan-studio-game-nasional') }}">
-                                [Contoh Berita 3] Uji Coba Perangkat VR Headset dan Simulator Interaktif Mahasiswa TRM
-                            </a>
-                        </h3>
-                        <p class="text-xs text-brand-muted line-clamp-2 leading-relaxed">
-                            Eksplorasi teknologi spasial virtual reality dalam mendukung inovasi pembelajaran interaktif di kampus...
-                        </p>
-                    </div>
+                </article>
+            @empty
+                <div class="col-span-3 text-center py-12 text-slate-500 bg-white rounded-2xl border border-slate-200">
+                    Belum ada publikasi berita terbaru saat ini.
                 </div>
-                <div class="px-6 pb-6 pt-2">
-                    <a href="{{ route('public.news.show', 'd4-trm-politala-jalin-kerjasama-dengan-studio-game-nasional') }}" class="text-xs font-bold text-brand-primary hover:text-brand-primary-hover inline-flex items-center gap-1 group/btn">
-                        <span>Baca Selengkapnya</span>
-                        <svg class="w-3.5 h-3.5 transform group-hover/btn:translate-x-1.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </a>
-                </div>
-            </article>
+            @endforelse
         </div>
+
+        {{-- Dual Spotlight: Pengumuman Resmi & Agenda Mendatang --}}
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-4">
+            
+            {{-- Column 1: Pengumuman Resmi (6 Cols) --}}
+            <div class="lg:col-span-6 space-y-6">
+                <div class="flex items-center justify-between pb-2 border-b border-slate-200/80">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg bg-brand-primary-light text-brand-primary flex items-center justify-center font-bold">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-brand-dark tracking-tight">Pengumuman Resmi</h3>
+                    </div>
+                    <a href="{{ route('public.announcements.index') }}" class="text-xs font-bold text-brand-primary hover:underline flex items-center gap-1">
+                        <span>Lihat Semua</span>
+                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="space-y-3.5">
+                    @forelse($latestAnnouncements ?? [] as $ann)
+                        <div class="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-brand-primary/40 hover:shadow-md transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 group">
+                            <div class="space-y-1.5 flex-1">
+                                <div class="flex items-center gap-2 text-xs">
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-brand-sky-light text-brand-primary border border-brand-sky/30">
+                                        {{ $ann->status ?? 'Akademik' }}
+                                    </span>
+                                    <span class="text-brand-muted text-[11px]">
+                                        {{ $ann->published_at ? $ann->published_at->translatedFormat('d M Y') : date('d M Y') }}
+                                    </span>
+                                </div>
+                                <h4 class="font-bold text-sm text-brand-dark group-hover:text-brand-primary transition-colors line-clamp-2">
+                                    <a href="{{ route('public.announcements.index') }}#ann-{{ $ann->id }}">
+                                        {{ $ann->title }}
+                                    </a>
+                                </h4>
+                                <p class="text-xs text-brand-muted line-clamp-1">
+                                    {{ Str::limit(strip_tags($ann->content), 100) }}
+                                </p>
+                            </div>
+                            <a href="{{ route('public.announcements.index') }}#ann-{{ $ann->id }}" class="shrink-0 text-xs font-bold text-brand-primary hover:text-brand-primary-hover inline-flex items-center gap-1 self-start sm:self-center">
+                                <span>Rincian</span>
+                                <svg class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    @empty
+                        <div class="p-6 text-center text-xs text-slate-500 bg-white rounded-2xl border border-slate-200">
+                            Belum ada pengumuman resmi terbaru saat ini.
+                        </div>
+                    @endforelse
+                </div>
+            </div>
+
+            {{-- Column 2: Agenda Kegiatan Mendatang (6 Cols) --}}
+            <div class="lg:col-span-6 space-y-6">
+                <div class="flex items-center justify-between pb-2 border-b border-slate-200/80">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg bg-brand-secondary/15 text-brand-secondary flex items-center justify-center font-bold">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-brand-dark tracking-tight">Agenda Mendatang</h3>
+                    </div>
+                    <a href="{{ route('public.events.index') }}" class="text-xs font-bold text-brand-secondary hover:underline flex items-center gap-1">
+                        <span>Lihat Semua</span>
+                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="space-y-3.5">
+                    @forelse($upcomingEvents ?? [] as $ev)
+                        <div class="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-brand-primary/40 hover:shadow-md transition-all flex items-start sm:items-center gap-4 group">
+                            <!-- Date Badge -->
+                            <a href="{{ route('public.events.show', $ev->slug) }}" class="w-13 h-13 rounded-xl bg-brand-primary-light border border-brand-primary/20 text-brand-primary flex flex-col items-center justify-center font-black shrink-0 group-hover:bg-brand-primary group-hover:text-white transition-colors shadow-2xs">
+                                <span class="text-base leading-none">{{ $ev->day }}</span>
+                                <span class="text-[9px] uppercase tracking-wider font-bold mt-0.5">{{ $ev->month }}</span>
+                            </a>
+
+                            <!-- Event Info -->
+                            <div class="space-y-1 flex-1 min-w-0">
+                                <div class="flex items-center gap-2">
+                                    <span class="px-2 py-0.5 rounded text-[9px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                        {{ $ev->status ?? 'Pendaftaran Dibuka' }}
+                                    </span>
+                                    <span class="text-[11px] text-brand-muted truncate flex items-center gap-1">
+                                        <svg class="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        {{ $ev->time }}
+                                    </span>
+                                </div>
+                                <h4 class="font-bold text-sm text-brand-dark group-hover:text-brand-primary transition-colors line-clamp-1">
+                                    <a href="{{ route('public.events.show', $ev->slug) }}">
+                                        {{ $ev->title }}
+                                    </a>
+                                </h4>
+                                <p class="text-xs text-brand-muted truncate flex items-center gap-1">
+                                    <svg class="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                    {{ $ev->location }}
+                                </p>
+                            </div>
+
+                            <!-- Action -->
+                            <a href="{{ route('public.events.show', $ev->slug) }}" class="hidden sm:inline-flex px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 hover:bg-brand-primary hover:text-white text-slate-700 transition-colors shrink-0">
+                                Detail
+                            </a>
+                        </div>
+                    @empty
+                        <div class="p-6 text-center text-xs text-slate-500 bg-white rounded-2xl border border-slate-200">
+                            Belum ada agenda kegiatan mendatang yang dijadwalkan saat ini.
+                        </div>
+                    @endforelse
+                </div>
+            </div>
+
+        </div>
+    </section>
     </section>
 
     {{-- 8. Fasilitas --}}

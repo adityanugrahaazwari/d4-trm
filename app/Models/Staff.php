@@ -49,6 +49,11 @@ class Staff extends Model
         return $query->where('is_active', true);
     }
 
+    public function scopeOrdered(Builder $query): Builder
+    {
+        return $query->orderBy('order')->orderBy('name');
+    }
+
     public function scopeSearch(Builder $query, string $search): Builder
     {
         return $query->where(function (Builder $q) use ($search) {

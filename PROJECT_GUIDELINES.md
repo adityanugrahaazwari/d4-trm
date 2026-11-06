@@ -366,7 +366,7 @@ Menentukan pola implementasi yang konsisten sebelum membuat CRUD satu per satu.
 7. Hubungkan Blade dengan data database.
 8. Tambahkan pesan sukses dan gagal.
 9. Uji validasi, otorisasi, dan alur CRUD.
-10. Tinjau perubahan dan buat commit.
+10. Tinjau perubahan dan buat commit.sa
 
 Contoh membuat Form Request:
 

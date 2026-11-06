@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AcademicCalendar;
 use App\Models\Announcement;
+use App\Models\Category;
 use App\Models\Cpl;
 use App\Models\Curriculum;
 use App\Models\Event;
@@ -31,11 +32,22 @@ class PublicController extends Controller
             ->get();
 
         $upcomingEvents = Event::upcoming()
-            ->take(2)
+            ->take(3)
+            ->get();
+
+        $latestAnnouncements = Announcement::published()
+            ->latest('published_at')
+            ->take(3)
             ->get();
 
         $facilities = Facility::active()
             ->take(3)
+            ->get();
+
+        $featuredLecturers = Staff::lecturers()
+            ->active()
+            ->ordered()
+            ->take(4)
             ->get();
 
         $lecturersCount = Staff::lecturers()->active()->count();
@@ -43,7 +55,17 @@ class PublicController extends Controller
         $historyProfile = StudyProgramProfile::forSection('sejarah');
         $timeline = data_get($historyProfile, 'meta.timeline', []);
 
-        return view('public.home', compact('latestNews', 'upcomingEvents', 'facilities', 'lecturersCount', 'profile', 'historyProfile', 'timeline'));
+        return view('public.home', compact(
+            'latestNews',
+            'upcomingEvents',
+            'latestAnnouncements',
+            'facilities',
+            'featuredLecturers',
+            'lecturersCount',
+            'profile',
+            'historyProfile',
+            'timeline'
+        ));
     }
 
     /**
@@ -438,14 +460,39 @@ class PublicController extends Controller
     /**
      * Berita & Informasi.
      */
-    public function newsIndex(): View
+    public function newsIndex(Request $request): View
     {
-        $newsList = News::published()
-            ->with(['category', 'author'])
-            ->latest('published_at')
-            ->paginate(9);
+        $search = trim((string) $request->input('q', ''));
+        $selectedCategory = trim((string) $request->input('category', ''));
 
-        return view('public.news.index', compact('newsList'));
+        $query = News::published()->with(['category', 'author']);
+
+        if ($search !== '') {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('excerpt', 'like', "%{$search}%")
+                    ->orWhere('content', 'like', "%{$search}%");
+            });
+        }
+
+        if ($selectedCategory !== '' && $selectedCategory !== 'semua') {
+            $query->whereHas('category', function ($q) use ($selectedCategory) {
+                $q->where('slug', $selectedCategory);
+            });
+        }
+
+        $newsList = $query->latest('published_at')->paginate(9)->withQueryString();
+
+        $categories = Category::has('news')
+            ->withCount(['news' => fn ($q) => $q->published()])
+            ->get();
+
+        $featuredNews = null;
+        if (($request->input('page', 1) <= 1) && $search === '' && $selectedCategory === '') {
+            $featuredNews = $newsList->first();
+        }
+
+        return view('public.news.index', compact('newsList', 'categories', 'selectedCategory', 'search', 'featuredNews'));
     }
 
     /**
@@ -465,40 +512,111 @@ class PublicController extends Controller
                 'slug' => $slug,
                 'content' => 'Konten berita sedang dalam proses kurasi dan publikasi redaksi.',
                 'published_at' => now(),
+                'views_count' => 0,
             ]);
+        } else {
+            $news->increment('views_count');
         }
 
         $relatedNews = News::published()
             ->where('id', '!=', $news->id ?? 0)
+            ->when($news->category_id, fn ($q) => $q->where('category_id', $news->category_id))
             ->latest('published_at')
             ->take(3)
             ->get();
 
-        return view('public.news.show', compact('news', 'slug', 'relatedNews'));
+        if ($relatedNews->isEmpty()) {
+            $relatedNews = News::published()
+                ->where('id', '!=', $news->id ?? 0)
+                ->latest('published_at')
+                ->take(3)
+                ->get();
+        }
+
+        $prevNews = News::published()
+            ->where('id', '<', $news->id ?? 0)
+            ->latest('id')
+            ->first();
+
+        $nextNews = News::published()
+            ->where('id', '>', $news->id ?? 0)
+            ->oldest('id')
+            ->first();
+
+        return view('public.news.show', compact('news', 'slug', 'relatedNews', 'prevNews', 'nextNews'));
     }
 
     /**
      * Pengumuman Akademik.
      */
-    public function announcementsIndex(): View
+    public function announcementsIndex(Request $request): View
     {
-        $announcements = Announcement::published()
-            ->latest('published_at')
-            ->paginate(10);
+        $search = trim((string) $request->input('q', ''));
+        $selectedStatus = trim((string) $request->input('status', ''));
 
-        return view('public.announcements.index', compact('announcements'));
+        $query = Announcement::published();
+
+        if ($search !== '') {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('content', 'like', "%{$search}%");
+            });
+        }
+
+        if ($selectedStatus !== '' && $selectedStatus !== 'semua') {
+            $query->where('status', $selectedStatus);
+        }
+
+        $announcements = $query->latest('published_at')->paginate(10)->withQueryString();
+
+        $statuses = Announcement::published()
+            ->select('status')
+            ->distinct()
+            ->pluck('status')
+            ->filter()
+            ->values();
+
+        return view('public.announcements.index', compact('announcements', 'search', 'selectedStatus', 'statuses'));
     }
 
     /**
      * Agenda Kegiatan.
      */
-    public function eventsIndex(): View
+    public function eventsIndex(Request $request): View
     {
-        $events = Event::published()
-            ->orderBy('event_date', 'asc')
-            ->paginate(9);
+        $search = trim((string) $request->input('q', ''));
+        $tab = trim((string) $request->input('tab', 'mendatang')); // 'mendatang', 'selesai', 'semua'
 
-        return view('public.events.index', compact('events'));
+        $query = Event::published();
+
+        if ($search !== '') {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%")
+                    ->orWhere('location', 'like', "%{$search}%")
+                    ->orWhere('speaker', 'like', "%{$search}%");
+            });
+        }
+
+        $today = now()->toDateString();
+
+        if ($tab === 'mendatang') {
+            $query->where('event_date', '>=', $today)->orderBy('event_date', 'asc');
+        } elseif ($tab === 'selesai') {
+            $query->where('event_date', '<', $today)->orderBy('event_date', 'desc');
+        } else {
+            $query->orderBy('event_date', 'desc');
+        }
+
+        $events = $query->paginate(9)->withQueryString();
+
+        $counts = [
+            'all' => Event::published()->count(),
+            'upcoming' => Event::published()->where('event_date', '>=', $today)->count(),
+            'past' => Event::published()->where('event_date', '<', $today)->count(),
+        ];
+
+        return view('public.events.index', compact('events', 'search', 'tab', 'counts'));
     }
 
     /**
@@ -511,18 +629,39 @@ class PublicController extends Controller
             ->first();
 
         if (! $event) {
+            $event = Event::where('slug', $slug)->first();
+        }
+
+        if (! $event) {
             $event = Event::published()->first() ?? new Event([
                 'title' => ucwords(str_replace('-', ' ', $slug)),
                 'slug' => $slug,
-                'description' => 'Deskripsi agenda sedang diperbarui oleh panitia penyelenggara.',
+                'description' => 'Deskripsi agenda sedang diperbarui oleh panitia penyelenggara kegiatan.',
                 'location' => 'Politeknik Negeri Tanah Laut',
                 'event_date' => now()->addDays(7),
                 'start_time' => '09:00',
                 'end_time' => '15:00',
+                'status' => 'Pendaftaran Dibuka',
+                'speaker' => 'Narasumber & Praktisi DUDI',
             ]);
         }
 
-        return view('public.events.show', compact('event', 'slug'));
+        $upcomingEvents = Event::published()
+            ->where('id', '!=', $event->id ?? 0)
+            ->where('event_date', '>=', now()->toDateString())
+            ->orderBy('event_date', 'asc')
+            ->take(3)
+            ->get();
+
+        if ($upcomingEvents->isEmpty()) {
+            $upcomingEvents = Event::published()
+                ->where('id', '!=', $event->id ?? 0)
+                ->latest('event_date')
+                ->take(3)
+                ->get();
+        }
+
+        return view('public.events.show', compact('event', 'slug', 'upcomingEvents'));
     }
 
     /**

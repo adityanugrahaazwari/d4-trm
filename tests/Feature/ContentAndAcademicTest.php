@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\AcademicCalendar;
 use App\Models\Announcement;
+use App\Models\Category;
 use App\Models\Course;
 use App\Models\Cpl;
 use App\Models\Curriculum;
@@ -956,5 +957,138 @@ class ContentAndAcademicTest extends TestCase
         $deleteGrad = $this->delete(route('admin.graduate-profiles.destroy', $profile));
         $deleteGrad->assertRedirect(route('admin.crud.sample', ['section' => 'profil-lulusan']));
         $this->assertDatabaseMissing('graduate_profiles', ['id' => $profile->id]);
+    }
+
+    public function test_news_index_and_show_functionality_with_filters_and_views_count(): void
+    {
+        $catPrestasi = Category::create([
+            'name' => 'Prestasi',
+            'slug' => 'prestasi',
+            'description' => 'Kategori prestasi',
+        ]);
+        $catAkademik = Category::create([
+            'name' => 'Akademik',
+            'slug' => 'akademik',
+            'description' => 'Kategori akademik',
+        ]);
+
+        $news1 = News::create([
+            'title' => 'Juara 1 Kompetisi Animasi Vokasi',
+            'slug' => 'juara-1-kompetisi-animasi-vokasi',
+            'category_id' => $catPrestasi->id,
+            'content' => 'Mahasiswa TRM berhasil meraih medali emas.',
+            'status' => 'published',
+            'views_count' => 5,
+            'published_at' => now()->subDay(),
+        ]);
+
+        $news2 = News::create([
+            'title' => 'Sosialisasi Kurikulum OBE 2026',
+            'slug' => 'sosialisasi-kurikulum-obe-2026',
+            'category_id' => $catAkademik->id,
+            'content' => 'Kurikulum baru berbasis industri dan proyek riil.',
+            'status' => 'published',
+            'views_count' => 10,
+            'published_at' => now()->subDays(2),
+        ]);
+
+        // 1. Search keyword
+        $searchRes = $this->get(route('public.news.index', ['q' => 'Kompetisi Animasi']));
+        $searchRes->assertStatus(200);
+        $searchRes->assertSee('Juara 1 Kompetisi Animasi Vokasi');
+        $searchRes->assertDontSee('Sosialisasi Kurikulum OBE 2026');
+
+        // 2. Category filter
+        $catRes = $this->get(route('public.news.index', ['category' => 'akademik']));
+        $catRes->assertStatus(200);
+        $catRes->assertSee('Sosialisasi Kurikulum OBE 2026');
+        $catRes->assertDontSee('Juara 1 Kompetisi Animasi Vokasi');
+
+        // 3. Show detail and views increment
+        $showRes = $this->get(route('public.news.show', $news1->slug));
+        $showRes->assertStatus(200);
+        $showRes->assertSee('Juara 1 Kompetisi Animasi Vokasi');
+        $showRes->assertSee('Prestasi');
+
+        $news1->refresh();
+        $this->assertEquals(6, $news1->views_count);
+    }
+
+    public function test_announcements_index_functionality_with_search_and_status(): void
+    {
+        Announcement::create([
+            'title' => 'Jadwal Ujian Skripsi Gelombang 1',
+            'slug' => 'jadwal-ujian-skripsi-gelombang-1',
+            'content' => 'Pemberitahuan pendaftaran sidang tugas akhir.',
+            'status' => 'Akademik',
+            'published_at' => now(),
+        ]);
+
+        Announcement::create([
+            'title' => 'Beasiswa Magang Industri Game 2027',
+            'slug' => 'beasiswa-magang-industri-game-2027',
+            'content' => 'Program beasiswa penempatan magang kreatif.',
+            'status' => 'Kemahasiswaan',
+            'published_at' => now(),
+        ]);
+
+        // Filter by keyword
+        $searchRes = $this->get(route('public.announcements.index', ['q' => 'Skripsi']));
+        $searchRes->assertStatus(200);
+        $searchRes->assertSee('Jadwal Ujian Skripsi Gelombang 1');
+        $searchRes->assertDontSee('Beasiswa Magang Industri Game 2027');
+
+        // Filter by status
+        $statusRes = $this->get(route('public.announcements.index', ['status' => 'Kemahasiswaan']));
+        $statusRes->assertStatus(200);
+        $statusRes->assertSee('Beasiswa Magang Industri Game 2027');
+        $statusRes->assertDontSee('Jadwal Ujian Skripsi Gelombang 1');
+    }
+
+    public function test_events_index_and_show_functionality_with_tabs_and_calendar_url(): void
+    {
+        $upcoming = Event::create([
+            'title' => 'Kuliah Tamu Animasi dan Game Unreal',
+            'slug' => 'kuliah-tamu-animasi-dan-game-unreal',
+            'description' => 'Belajar langsung arsitektur engine bersama praktisi.',
+            'location' => 'Lab Game Gedung TI Lt. 2',
+            'event_date' => now()->addDays(10)->toDateString(),
+            'start_time' => '09:00',
+            'end_time' => '15:00',
+            'speaker' => 'Dr. Rian Hidayat',
+            'status' => 'Pendaftaran Dibuka',
+        ]);
+
+        $past = Event::create([
+            'title' => 'Pameran Karya Multimedia Expo Tahun Lalu',
+            'slug' => 'pameran-karya-multimedia-expo-tahun-lalu',
+            'description' => 'Showcase karya mahasiswa angkatan pertama.',
+            'location' => 'Auditorium POLITALA',
+            'event_date' => now()->subDays(20)->toDateString(),
+            'start_time' => '08:00',
+            'end_time' => '17:00',
+            'speaker' => 'Tim Dosen',
+            'status' => 'Selesai',
+        ]);
+
+        // Tab mendatang
+        $upcomingRes = $this->get(route('public.events.index', ['tab' => 'mendatang']));
+        $upcomingRes->assertStatus(200);
+        $upcomingRes->assertSee('Kuliah Tamu Animasi dan Game Unreal');
+        $upcomingRes->assertDontSee('Pameran Karya Multimedia Expo Tahun Lalu');
+
+        // Tab selesai
+        $pastRes = $this->get(route('public.events.index', ['tab' => 'selesai']));
+        $pastRes->assertStatus(200);
+        $pastRes->assertSee('Pameran Karya Multimedia Expo Tahun Lalu');
+        $pastRes->assertDontSee('Kuliah Tamu Animasi dan Game Unreal');
+
+        // Show detail
+        $showRes = $this->get(route('public.events.show', $upcoming->slug));
+        $showRes->assertStatus(200);
+        $showRes->assertSee('Kuliah Tamu Animasi dan Game Unreal');
+        $showRes->assertSee('Dr. Rian Hidayat');
+        $showRes->assertSee('Lab Game Gedung TI Lt. 2');
+        $showRes->assertSee('Simpan ke Google Calendar');
     }
 }

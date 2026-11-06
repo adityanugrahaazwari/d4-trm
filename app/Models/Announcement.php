@@ -35,6 +35,6 @@ class Announcement extends Model
 
     public function scopePublished(Builder $query): Builder
     {
-        return $query->where('status', 'published');
+        return $query->where('status', '!=', 'draft');
     }
 }

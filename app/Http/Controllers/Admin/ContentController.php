@@ -189,7 +189,7 @@ class ContentController extends Controller
             'title' => $validated['title'],
             'slug' => $slug,
             'category_id' => $validated['category_id'] ?? null,
-            'author_id' => auth()->id(),
+            'user_id' => auth()->id(),
             'excerpt' => $validated['excerpt'] ?? Str::limit(strip_tags($validated['content']), 150),
             'content' => $validated['content'],
             'status' => $validated['status'] ?? 'published',
@@ -239,10 +239,10 @@ class ContentController extends Controller
         Announcement::create([
             'title' => $validated['title'],
             'slug' => $slug,
+            'user_id' => auth()->id(),
             'content' => $validated['content'],
             'status' => $validated['status'] ?? 'Akademik',
             'published_at' => $validated['published_at'] ?? now(),
-            'is_active' => (bool) ($validated['is_active'] ?? true),
         ]);
 
         return redirect()->route('admin.crud.sample', ['section' => 'pengumuman'])

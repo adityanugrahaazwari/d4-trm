@@ -6,13 +6,26 @@
 
 @section('content')
 <div class="space-y-8">
-    <!-- Notice Banner (Penanda data contoh sesuai standar Tahap 5) -->
-    <div class="rounded-2xl bg-amber-50 border border-amber-200/80 p-5 flex items-start gap-3 text-amber-900 text-sm">
-        <svg class="w-5 h-5 text-amber-600 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        <div>
-            <strong class="font-bold">Tahap 5 — Kerangka UI Admin:</strong> Seluruh angka metrik dan tabel aktivitas di bawah ini merupakan data contoh/dummy bertanda visual. Data nyata akan dihubungkan secara dinamis dari database pada Tahap 8–11.
+    <!-- System Status Banner -->
+    <div class="rounded-2xl bg-gradient-to-r from-brand-primary to-slate-900 text-white p-5 sm:p-6 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="flex items-start gap-3.5">
+            <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0 border border-white/20">
+                <svg class="w-5 h-5 text-brand-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+            </div>
+            <div>
+                <h3 class="font-bold text-sm sm:text-base text-white">Sistem Manajemen Portal D-IV TRM Aktif</h3>
+                <p class="text-xs text-white/80 mt-0.5">Semua data metrik terhubung real-time dengan basis data resmi program studi. Selamat bertugas, <strong>{{ auth()->user()->name }}</strong> ({{ auth()->user()->role_label }}).</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-2 self-stretch sm:self-auto justify-end">
+            <a href="{{ route('home') }}" target="_blank" class="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold text-white transition-colors flex items-center gap-1.5 border border-white/20">
+                <span>Kunjungi Website</span>
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+            </a>
         </div>
     </div>
 
@@ -21,46 +34,46 @@
         <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-2">
             <div class="flex items-center justify-between text-xs text-brand-muted">
                 <span class="font-semibold uppercase tracking-wider">Total Berita</span>
-                <span class="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-bold">[Dummy]</span>
+                <span class="text-[10px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full font-bold">Live DB</span>
             </div>
-            <div class="text-3xl font-extrabold text-brand-dark">12</div>
+            <div class="text-3xl font-extrabold text-brand-dark">{{ $totalNews }}</div>
             <div class="text-xs text-emerald-600 font-semibold flex items-center gap-1">
-                <span>&bull; 10 Terbit</span>
+                <span>&bull; {{ $publishedNews }} Terbit</span>
                 <span>/</span>
-                <span class="text-slate-400">2 Draf</span>
+                <span class="text-slate-400">{{ $draftNews }} Draf</span>
             </div>
         </div>
 
         <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-2">
             <div class="flex items-center justify-between text-xs text-brand-muted">
                 <span class="font-semibold uppercase tracking-wider">Pengumuman</span>
-                <span class="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-bold">[Dummy]</span>
+                <span class="text-[10px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full font-bold">Live DB</span>
             </div>
-            <div class="text-3xl font-extrabold text-brand-dark">6</div>
+            <div class="text-3xl font-extrabold text-brand-dark">{{ $totalAnnouncements }}</div>
             <div class="text-xs text-brand-secondary font-semibold">
-                Semua kategori aktif
+                {{ $publishedAnnouncements }} Dokumen aktif dipublikasi
             </div>
         </div>
 
         <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-2">
             <div class="flex items-center justify-between text-xs text-brand-muted">
                 <span class="font-semibold uppercase tracking-wider">Dosen &amp; Tendik</span>
-                <span class="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-bold">[Dummy]</span>
+                <span class="text-[10px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full font-bold">Live DB</span>
             </div>
-            <div class="text-3xl font-extrabold text-brand-dark">8</div>
+            <div class="text-3xl font-extrabold text-brand-dark">{{ $totalStaff }}</div>
             <div class="text-xs text-slate-500 font-medium">
-                Dosen tetap &amp; staf
+                {{ $lecturersCount }} Dosen &bull; {{ $tendikCount }} Tenaga Kependidikan
             </div>
         </div>
 
         <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-2">
             <div class="flex items-center justify-between text-xs text-brand-muted">
                 <span class="font-semibold uppercase tracking-wider">Mata Kuliah</span>
-                <span class="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-bold">[Dummy]</span>
+                <span class="text-[10px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full font-bold">Live DB</span>
             </div>
-            <div class="text-3xl font-extrabold text-brand-dark">48</div>
-            <div class="text-xs text-brand-primary font-semibold">
-                Kurikulum 2026/2027
+            <div class="text-3xl font-extrabold text-brand-dark">{{ $totalCourses }}</div>
+            <div class="text-xs text-brand-primary font-semibold truncate">
+                {{ $activeCurriculum?->name ?? 'Kurikulum 2026/2027' }}
             </div>
         </div>
     </div>
@@ -154,16 +167,16 @@
             </div>
         </div>
 
-        <!-- Right: Recent Drafts & Publications Dummy Table -->
+        <!-- Right: Recent Content Activities Table -->
         <div class="lg:col-span-7">
             <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
                 <div class="p-6 border-b border-slate-100 flex items-center justify-between">
                     <div>
                         <h3 class="font-bold text-base text-brand-dark">Aktivitas Konten Terbaru</h3>
-                        <p class="text-xs text-brand-muted">Daftar pembaruan artikel dan dokumen terkini [Data Simulasi]</p>
+                        <p class="text-xs text-brand-muted">Pembaruan terkini warta berita dan dokumen pengumuman prodi</p>
                     </div>
                     <a href="{{ route('admin.crud.sample', ['section' => 'berita']) }}" class="text-xs font-bold text-brand-primary hover:text-brand-primary-hover">
-                        Lihat Semua
+                        Kelola Konten &rarr;
                     </a>
                 </div>
 
@@ -172,48 +185,48 @@
                         <thead class="bg-slate-50 border-b border-slate-100 text-slate-500 uppercase tracking-wider font-semibold">
                             <tr>
                                 <th class="py-3 px-6">Judul Konten</th>
-                                <th class="py-3 px-4">Kategori</th>
+                                <th class="py-3 px-4">Tipe / Kategori</th>
                                 <th class="py-3 px-4">Status</th>
-                                <th class="py-3 px-6 text-right">Tanggal</th>
+                                <th class="py-3 px-6 text-right">Terakhir Diperbarui</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100 text-slate-700 font-medium">
-                            <tr>
-                                <td class="py-3 px-6 font-bold text-brand-dark">
-                                    [Dummy] Sosialisasi Laboratorium Animasi &amp; Game Terapan
-                                </td>
-                                <td class="py-3 px-4 text-brand-muted">Berita</td>
-                                <td class="py-3 px-4">
-                                    <span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
-                                        Terbit
-                                    </span>
-                                </td>
-                                <td class="py-3 px-6 text-right text-slate-400">{{ date('d M Y') }}</td>
-                            </tr>
-                            <tr>
-                                <td class="py-3 px-6 font-bold text-brand-dark">
-                                    [Dummy] Kalender Akademik Semester Genap 2026/2027
-                                </td>
-                                <td class="py-3 px-4 text-brand-muted">Pengumuman</td>
-                                <td class="py-3 px-4">
-                                    <span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
-                                        Terbit
-                                    </span>
-                                </td>
-                                <td class="py-3 px-6 text-right text-slate-400">{{ date('d M Y') }}</td>
-                            </tr>
-                            <tr>
-                                <td class="py-3 px-6 font-bold text-brand-dark">
-                                    [Dummy] Draft Silabus Pemrograman Game 3D
-                                </td>
-                                <td class="py-3 px-4 text-brand-muted">Akademik</td>
-                                <td class="py-3 px-4">
-                                    <span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800">
-                                        Draf
-                                    </span>
-                                </td>
-                                <td class="py-3 px-6 text-right text-slate-400">{{ date('d M Y') }}</td>
-                            </tr>
+                            @forelse($recentActivities as $act)
+                                <tr class="hover:bg-slate-50/80 transition-colors">
+                                    <td class="py-3 px-6 font-bold text-brand-dark">
+                                        <a href="{{ $act->url }}" class="hover:text-brand-primary transition-colors line-clamp-1">
+                                            {{ $act->title }}
+                                        </a>
+                                    </td>
+                                    <td class="py-3 px-4 text-brand-muted whitespace-nowrap">
+                                        <span class="inline-flex items-center gap-1">
+                                            <span class="font-semibold text-slate-800">{{ $act->type }}</span>
+                                            <span>&bull;</span>
+                                            <span>{{ $act->category }}</span>
+                                        </span>
+                                    </td>
+                                    <td class="py-3 px-4 whitespace-nowrap">
+                                        @if($act->is_published)
+                                            <span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                                                Terbit
+                                            </span>
+                                        @else
+                                            <span class="inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800">
+                                                Draf
+                                            </span>
+                                        @endif
+                                    </td>
+                                    <td class="py-3 px-6 text-right text-slate-400 whitespace-nowrap">
+                                        {{ $act->date ? \Illuminate\Support\Carbon::parse($act->date)->translatedFormat('d M Y, H:i') : '-' }}
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="py-6 px-6 text-center text-brand-muted">
+                                        Belum ada aktivitas konten terbaru.
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

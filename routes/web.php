@@ -51,6 +51,7 @@ Route::get('/kontak', [PublicController::class, 'contact'])->name('public.contac
 
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\ContentController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\RbacController;
 
 // Auth Routes (Tahap 6 - Autentikasi dan Keamanan)
@@ -63,7 +64,7 @@ Route::post('/admin/logout', [AuthController::class, 'destroy'])->name('logout')
 
 // Panel Admin (Tahap 5 Layout & UI Kit, diproteksi auth pada Tahap 6)
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
-    Route::get('/dashboard', fn () => view('admin.dashboard'))->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Dynamic Database-Driven RBAC Management (Superadmin Only)
     Route::prefix('rbac')->name('rbac.')->middleware('can:manage-rbac')->group(function () {
