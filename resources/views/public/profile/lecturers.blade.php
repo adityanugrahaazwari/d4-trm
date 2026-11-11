@@ -4,21 +4,21 @@
 
 @section('content')
 <!-- Header Page -->
-<div class="bg-gradient-to-b from-brand-primary/10 via-brand-surface to-white border-b border-slate-100 pt-32 sm:pt-36 lg:pt-40 pb-12 lg:pb-16 mt-2 sm:mt-4">
+<div class="bg-gradient-to-b from-brand-primary/10 via-brand-surface to-white border-b border-slate-100 pt-24 sm:pt-28 lg:pt-32 pb-8 sm:pb-10 lg:pb-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <nav class="flex items-center gap-2 text-xs font-semibold text-brand-muted uppercase tracking-wider mb-4 mt-2">
+        <nav class="flex items-center gap-2 text-xs font-semibold text-brand-muted uppercase tracking-wider mb-3">
             <a href="{{ route('home') }}" class="hover:text-brand-primary">Beranda</a>
             <span>/</span>
             <span class="text-brand-secondary">Profil</span>
             <span>/</span>
             <span class="text-brand-dark">Dosen Pengajar</span>
         </nav>
-        <div class="flex flex-wrap items-center justify-between gap-4 mt-6 sm:mt-8">
-            <div class="space-y-2">
-                <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight mt-1">Dosen &amp; Tenaga Pengajar</h1>
-                <p class="text-sm sm:text-base text-brand-muted mt-3">Profil pendidik, instruktur laboratorium, dan praktisi industri Program Studi Sarjana Terapan TRM</p>
+        <div class="flex flex-wrap items-center justify-between gap-4 mt-3 sm:mt-4">
+            <div class="space-y-1.5">
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">Dosen &amp; Tenaga Pengajar</h1>
+                <p class="text-sm sm:text-base text-brand-muted">Profil pendidik, instruktur laboratorium, dan praktisi industri Program Studi Sarjana Terapan TRM</p>
             </div>
-            <div class="flex items-center gap-2 mt-4 sm:mt-0">
+            <div class="flex items-center gap-2">
                 <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 shadow-xs">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span>{{ count($lecturers) }} Dosen Pengajar Aktif</span>
@@ -28,7 +28,7 @@
     </div>
 </div>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-10">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-14 space-y-10">
     <!-- Search Bar -->
     <div class="bg-white rounded-2xl border border-slate-200/80 p-4 sm:p-5 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
         <form method="GET" action="{{ route('public.profile.lecturers') }}" class="relative w-full sm:w-96 flex items-center gap-2">

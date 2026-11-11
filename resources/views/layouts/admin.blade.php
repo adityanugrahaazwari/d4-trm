@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', 'Admin Panel') - D-IV Teknik Rekayasa Multimedia</title>
+    <title>@yield('title', 'Admin Panel') - D-IV Teknologi Rekayasa Multimedia</title>
     <link rel="icon" type="image/png" href="{{ asset('assets/logo.png') }}">
 
     <!-- Fonts -->

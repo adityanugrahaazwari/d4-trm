@@ -12,7 +12,7 @@
                     </div>
                     <div>
                         <span class="block text-xs uppercase tracking-wider text-brand-cream font-bold">Program Studi</span>
-                        <h3 class="font-extrabold text-base text-white leading-tight">D-IV Teknik Rekayasa Multimedia</h3>
+                        <h3 class="font-extrabold text-base text-white leading-tight">D-IV Teknologi Rekayasa Multimedia</h3>
                     </div>
                 </div>
                 <p class="text-sm text-slate-300 leading-relaxed">
@@ -74,7 +74,7 @@
         </div>
 
         <div class="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
-            <p>&copy; {{ date('Y') }} Program Studi D-IV Teknik Rekayasa Multimedia - Politeknik Negeri Tanah Laut. Seluruh hak cipta dilindungi.</p>
+            <p>&copy; {{ date('Y') }} Program Studi D-IV Teknologi Rekayasa Multimedia - Politeknik Negeri Tanah Laut. Seluruh hak cipta dilindungi.</p>
             <div class="flex items-center gap-5 font-medium">
                 <a href="{{ route('public.contact') }}" class="hover:text-white transition-colors">Bantuan</a>
                 <a href="{{ route('login') }}" class="hover:text-white transition-colors">Akses Pengelola</a>

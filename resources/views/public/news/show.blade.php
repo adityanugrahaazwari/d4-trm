@@ -5,7 +5,7 @@
 
 @section('content')
 {{-- Breadcrumbs & Top Meta Header --}}
-<div class="bg-gradient-to-b from-brand-primary/10 via-brand-surface to-white border-b border-slate-100 pt-28 sm:pt-32 lg:pt-36 pb-10 lg:pb-14">
+<div class="bg-gradient-to-b from-brand-primary/10 via-brand-surface to-white border-b border-slate-100 pt-24 sm:pt-28 lg:pt-32 pb-8 sm:pb-10 lg:pb-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {{-- Breadcrumb Navigation --}}
         <nav class="flex flex-wrap items-center gap-2 text-xs font-semibold text-brand-muted uppercase tracking-wider mb-4">
@@ -155,7 +155,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <p class="leading-relaxed">
-                        <strong class="text-brand-dark">Pelaihari, Tanah Laut</strong> &mdash; Dokumentasi resmi kegiatan Program Studi D-IV Teknik Rekayasa Multimedia, Politeknik Negeri Tanah Laut.
+                        <strong class="text-brand-dark">Pelaihari, Tanah Laut</strong> &mdash; Dokumentasi resmi kegiatan Program Studi D-IV Teknologi Rekayasa Multimedia, Politeknik Negeri Tanah Laut.
                     </p>
                 </div>
             </div>
@@ -267,7 +267,7 @@
                         <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-brand-primary-light text-brand-primary">Redaksi Resmi</span>
                     </div>
                     <p class="text-xs text-brand-muted leading-relaxed">
-                        Dikelola oleh Tim Publikasi &amp; Hubungan Media Program Studi Sarjana Terapan Teknik Rekayasa Multimedia, Politeknik Negeri Tanah Laut. Berkomitmen menyajikan warta akurat seputar riset terapan, kegiatan akademik, dan kemitraan industri.
+                        Dikelola oleh Tim Publikasi &amp; Hubungan Media Program Studi Sarjana Terapan Teknologi Rekayasa Multimedia, Politeknik Negeri Tanah Laut. Berkomitmen menyajikan warta akurat seputar riset terapan, kegiatan akademik, dan kemitraan industri.
                     </p>
                     <div class="pt-1 flex flex-wrap items-center justify-center sm:justify-start gap-4 text-xs font-semibold text-brand-primary">
                         <a href="mailto:trm@politala.ac.id" class="hover:underline flex items-center gap-1">

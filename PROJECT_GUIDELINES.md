@@ -1,5 +1,5 @@
 # Panduan Bertahap Pengembangan Website
-## Program Studi D-IV Teknik Rekayasa Multimedia
+## Program Studi D-IV Teknologi Rekayasa Multimedia
 
 Dokumen ini membagi pengembangan website menjadi tahap-tahap kecil. Selesaikan dan periksa satu tahap sebelum melanjutkan ke tahap berikutnya. Jangan langsung mengimplementasikan seluruh fitur sekaligus.
 
@@ -7,7 +7,7 @@ Dokumen ini membagi pengembangan website menjadi tahap-tahap kecil. Selesaikan d
 
 ## 1. Konteks dan tujuan proyek
 
-Membangun website resmi Program Studi D-IV Teknik Rekayasa Multimedia yang memiliki:
+Membangun website resmi Program Studi D-IV Teknologi Rekayasa Multimedia yang memiliki:
 - **Website publik** untuk menampilkan informasi program studi.
 - **Panel admin** untuk mengelola konten website.
 - **Database** untuk menyimpan konten yang perlu dikelola secara dinamis.
@@ -366,7 +366,7 @@ Menentukan pola implementasi yang konsisten sebelum membuat CRUD satu per satu.
 7. Hubungkan Blade dengan data database.
 8. Tambahkan pesan sukses dan gagal.
 9. Uji validasi, otorisasi, dan alur CRUD.
-10. Tinjau perubahan dan buat commit.sa
+10. Tinjau perubahan dan buat commit.samenuru
 
 Contoh membuat Form Request:
 

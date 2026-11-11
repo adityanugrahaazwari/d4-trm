@@ -45,7 +45,7 @@ class="fixed top-0 inset-x-0 z-50 pointer-events-none transition-all duration-30
             <div class="relative flex items-center justify-between gap-3 lg:gap-6">
                 
                 <!-- Brand Logo & Identity -->
-                <a href="{{ route('home') }}" class="flex items-center gap-2.5 sm:gap-3 group shrink-0" title="D-IV Teknik Rekayasa Multimedia POLITALA">
+                <a href="{{ route('home') }}" class="flex items-center gap-2.5 sm:gap-3 group shrink-0" title="D-IV Teknologi Rekayasa Multimedia POLITALA">
                     <div class="relative flex items-center justify-center">
                         <img src="{{ asset('assets/logo.png') }}" alt="Logo D-IV TRM POLITALA" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover shadow-md shadow-brand-primary/25 group-hover:scale-105 transition-all duration-300 ring-2 ring-brand-sky/40">
                         <span class="absolute -bottom-0.5 -right-0.5 flex h-2 w-2 sm:h-2.5 sm:w-2.5">
@@ -57,7 +57,7 @@ class="fixed top-0 inset-x-0 z-50 pointer-events-none transition-all duration-30
                     <div class="flex flex-col">
                         <div class="flex items-center gap-1.5">
                             <span class="font-extrabold text-xs sm:text-sm text-brand-dark tracking-tight leading-none group-hover:text-brand-primary transition-colors">
-                                D-IV Teknik Rekayasa Multimedia
+                                D-IV Teknologi Rekayasa Multimedia
                             </span>
                         </div>
                         <span class="text-[9px] sm:text-[10px] font-medium text-slate-400 leading-none mt-1 hidden sm:block">

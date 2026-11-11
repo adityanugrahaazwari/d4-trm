@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', 'Program Studi D-IV Teknik Rekayasa Multimedia') - POLITALA</title>
-    <meta name="description" content="@yield('meta_description', 'Website resmi Program Studi D-IV Teknik Rekayasa Multimedia - Politeknik Negeri Tanah Laut.')">
+    <title>@yield('title', 'Program Studi D-IV Teknologi Rekayasa Multimedia') - POLITALA</title>
+    <meta name="description" content="@yield('meta_description', 'Website resmi Program Studi D-IV Teknologi Rekayasa Multimedia - Politeknik Negeri Tanah Laut.')">
     <link rel="icon" type="image/png" href="{{ asset('assets/logo.png') }}">
 
     <!-- Fonts -->

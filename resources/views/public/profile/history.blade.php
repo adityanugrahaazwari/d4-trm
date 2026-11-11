@@ -4,25 +4,25 @@
 
 @section('content')
 <!-- Header Page -->
-<div class="bg-gradient-to-b from-brand-primary/10 via-brand-surface to-white border-b border-slate-100 pt-32 sm:pt-36 lg:pt-40 pb-12 lg:pb-16 mt-2 sm:mt-4">
+<div class="bg-gradient-to-b from-brand-primary/10 via-brand-surface to-white border-b border-slate-100 pt-24 sm:pt-28 lg:pt-32 pb-8 sm:pb-10 lg:pb-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <nav class="flex items-center gap-2 text-xs font-semibold text-brand-muted uppercase tracking-wider mb-4 mt-2">
+        <nav class="flex items-center gap-2 text-xs font-semibold text-brand-muted uppercase tracking-wider mb-3">
             <a href="{{ route('home') }}" class="hover:text-brand-primary">Beranda</a>
             <span>/</span>
             <span class="text-brand-secondary">Profil</span>
             <span>/</span>
             <span class="text-brand-dark">Sejarah</span>
         </nav>
-        <div class="flex flex-wrap items-center justify-between gap-4 mt-6 sm:mt-8">
-            <div class="space-y-2">
-                <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight mt-1">
+        <div class="flex flex-wrap items-center justify-between gap-4 mt-3 sm:mt-4">
+            <div class="space-y-1.5">
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">
                     {{ $profile->title ?? 'Sejarah Program Studi' }}
                 </h1>
-                <p class="text-sm sm:text-base text-brand-muted mt-3">
-                    Latar belakang pendirian, legalitas resmi, dan tonggak akselerasi D-IV Teknik Rekayasa Multimedia
+                <p class="text-sm sm:text-base text-brand-muted">
+                    Latar belakang pendirian, legalitas resmi, dan tonggak akselerasi D-IV Teknologi Rekayasa Multimedia
                 </p>
             </div>
-            <div class="flex items-center gap-2 mt-4 sm:mt-0">
+            <div class="flex items-center gap-2">
                 <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 shadow-xs">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span>SK Resmi Kemendiktisaintek</span>
@@ -32,9 +32,9 @@
     </div>
 </div>
 
-<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16 mt-8 sm:mt-12">
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-14 space-y-12 sm:space-y-14">
     <!-- Key Identifiers / Stat Cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6 sm:mt-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs space-y-1 mt-2 sm:mt-0">
             <span class="text-[11px] font-bold uppercase tracking-wider text-brand-muted block">Tahun Pendirian</span>
             <div class="text-2xl font-black text-brand-primary mt-2">{{ data_get($profile, 'meta.established_year', '2026') }}</div>
@@ -80,7 +80,7 @@
         @else
             <div class="space-y-4 text-slate-600 leading-relaxed mt-6 sm:mt-8">
                 <p class="mt-4 leading-relaxed">
-                    Program Studi Sarjana Terapan (D-IV) <strong>Teknik Rekayasa Multimedia</strong> di Politeknik Negeri Tanah Laut didirikan sebagai respon strategis terhadap akselerasi industri kreatif digital, teknologi game komersial, animasi komputer 3D, serta kebutuhan mendesak talenta multimedia interaktif di Kalimantan Selatan dan Indonesia.
+                    Program Studi Sarjana Terapan (D-IV) <strong>Teknologi Rekayasa Multimedia</strong> di Politeknik Negeri Tanah Laut didirikan sebagai respon strategis terhadap akselerasi industri kreatif digital, teknologi game komersial, animasi komputer 3D, serta kebutuhan mendesak talenta multimedia interaktif di Kalimantan Selatan dan Indonesia.
                 </p>
                 <p class="mt-4 leading-relaxed">
                     Dengan berkembangnya ekosistem media imersif (Virtual &amp; Augmented Reality), institusi memandang pentingnya kehadiran program studi vokasi yang memadukan keahlian <em>rekayasa perangkat lunak</em> dengan <em>estetika multimedia kreatif</em> berbasis praktik langsung (hands-on) 70% dan kolaborasi industri sejak semester awal.

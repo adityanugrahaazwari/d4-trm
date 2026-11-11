@@ -16,7 +16,7 @@
         <!-- Header -->
         <div class="border-b border-brand-border pb-6">
             <h1 class="text-3xl font-bold text-brand-primary">Design System & Token D-IV TRM</h1>
-            <p class="text-brand-muted mt-2">Fondasi palet warna, tipografi, dan komponen dasar website D-IV Teknik Rekayasa Multimedia.</p>
+            <p class="text-brand-muted mt-2">Fondasi palet warna, tipografi, dan komponen dasar website D-IV Teknologi Rekayasa Multimedia.</p>
         </div>
 
         <!-- Palette Showcase -->

@@ -4,17 +4,17 @@
 
 @section('content')
 <!-- Header Page -->
-<div class="bg-gradient-to-b from-brand-primary/10 via-brand-surface to-white border-b border-slate-100 pt-32 sm:pt-36 lg:pt-40 pb-12 lg:pb-16 mt-2 sm:mt-4">
+<div class="bg-gradient-to-b from-brand-primary/10 via-brand-surface to-white border-b border-slate-100 pt-24 sm:pt-28 lg:pt-32 pb-8 sm:pb-10 lg:pb-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <nav class="flex items-center gap-2 text-xs font-semibold text-brand-muted uppercase tracking-wider mb-4 mt-2">
+        <nav class="flex items-center gap-2 text-xs font-semibold text-brand-muted uppercase tracking-wider mb-3">
             <a href="{{ route('home') }}" class="hover:text-brand-primary transition-colors">Beranda</a>
             <span>/</span>
             <span class="text-brand-secondary">Akademik</span>
             <span>/</span>
             <span class="text-brand-dark">Capaian Pembelajaran</span>
         </nav>
-        <div class="flex flex-wrap items-center justify-between gap-6 mt-6 sm:mt-8">
-            <div class="max-w-3xl space-y-3">
+        <div class="flex flex-wrap items-center justify-between gap-6 mt-3 sm:mt-4">
+            <div class="max-w-3xl space-y-2">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-brand-primary/10 text-brand-primary border border-brand-primary/20">
                     <span class="w-2 h-2 rounded-full bg-brand-primary animate-pulse"></span>
                     <span>Standar Kerangka Kualifikasi Nasional Indonesia (KKNI Level 6)</span>
@@ -23,7 +23,7 @@
                     Capaian Pembelajaran Lulusan (CPL)
                 </h1>
                 <p class="text-sm sm:text-base text-brand-muted leading-relaxed">
-                    Standar kompetensi, kualifikasi, dan atribut lulusan Sarjana Terapan D-IV Teknik Rekayasa Multimedia berbasis kurikulum Outcome-Based Education (OBE) yang selaras dengan kebutuhan dunia usaha dan dunia industri (DUDI).
+                    Standar kompetensi, kualifikasi, dan atribut lulusan Sarjana Terapan D-IV Teknologi Rekayasa Multimedia berbasis kurikulum Outcome-Based Education (OBE) yang selaras dengan kebutuhan dunia usaha dan dunia industri (DUDI).
                 </p>
             </div>
 
@@ -40,7 +40,7 @@
     </div>
 </div>
 
-<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16 space-y-12">
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-14 space-y-10 sm:space-y-12">
     <!-- OBE & KKNI Explanatory Banner -->
     <div class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-xs grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="space-y-1.5">

@@ -31,7 +31,7 @@ class ContentSeeder extends Seeder
 
         // 1. Settings (Tahap 8)
         $settings = [
-            ['key' => 'site_name', 'value' => 'D-IV Teknik Rekayasa Multimedia', 'group' => 'identity', 'type' => 'text'],
+            ['key' => 'site_name', 'value' => 'D-IV Teknologi Rekayasa Multimedia', 'group' => 'identity', 'type' => 'text'],
             ['key' => 'site_tagline', 'value' => 'Pusat Keunggulan Seni Digital & Teknologi Terapan', 'group' => 'identity', 'type' => 'text'],
             ['key' => 'institution_name', 'value' => 'Politeknik Negeri Tanah Laut', 'group' => 'identity', 'type' => 'text'],
             ['key' => 'accreditation', 'value' => 'Baik Sekali (LAM INFOKOM)', 'group' => 'identity', 'type' => 'text'],
@@ -53,7 +53,7 @@ class ContentSeeder extends Seeder
             [
                 'section' => 'sejarah',
                 'title' => 'Sejarah Pendirian Program Studi',
-                'content' => "Program Studi Sarjana Terapan (D-IV) Teknik Rekayasa Multimedia di Politeknik Negeri Tanah Laut didirikan sebagai inisiatif strategis menjawab percepatan industri kreatif digital, teknologi komputasi interaktif, serta tingginya permintaan talenta profesional di bidang produksi animasi, pengembangan game komersial, dan rekayasa media imersif (AR/VR).\n\nBerakar dari perkembangan Jurusan Komputer dan Bisnis POLITALA, pendirian program studi ini melewati tahapan kajian kelayakan mendalam bersama asosiasi industri kreatif nasional. TRM dirancang dengan kurikulum vokasi modern 70% praktik langsung (hands-on project) yang memadukan keahlian logika pemrograman (Software Engineering) dengan estetika seni digital (Digital Arts & Design).\n\nMelalui SK Resmi Kemendiktisaintek RI, program studi ini resmi dibuka dan beroperasi penuh mempersiapkan Sarjana Terapan Komputer (S.Tr.Kom.) berdaya saing global yang siap memimpin transformasi ekonomi kreatif digital Indonesia.",
+                'content' => "Program Studi Sarjana Terapan (D-IV) Teknologi Rekayasa Multimedia di Politeknik Negeri Tanah Laut didirikan sebagai inisiatif strategis menjawab percepatan industri kreatif digital, teknologi komputasi interaktif, serta tingginya permintaan talenta profesional di bidang produksi animasi, pengembangan game komersial, dan rekayasa media imersif (AR/VR).\n\nBerakar dari perkembangan Jurusan Komputer dan Bisnis POLITALA, pendirian program studi ini melewati tahapan kajian kelayakan mendalam bersama asosiasi industri kreatif nasional. TRM dirancang dengan kurikulum vokasi modern 70% praktik langsung (hands-on project) yang memadukan keahlian logika pemrograman (Software Engineering) dengan estetika seni digital (Digital Arts & Design).\n\nMelalui SK Resmi Kemendiktisaintek RI, program studi ini resmi dibuka dan beroperasi penuh mempersiapkan Sarjana Terapan Komputer (S.Tr.Kom.) berdaya saing global yang siap memimpin transformasi ekonomi kreatif digital Indonesia.",
                 'meta' => [
                     'established_year' => '2026',
                     'sk_number' => 'SK Kemendiktisaintek RI No. 124/D/OT/2026',
@@ -148,7 +148,7 @@ class ContentSeeder extends Seeder
             [
                 'section' => 'sambutan',
                 'title' => 'Sambutan Ketua Program Studi',
-                'content' => "Selamat datang di website resmi Program Studi Sarjana Terapan (D-4) Teknik Rekayasa Multimedia (TRM) Politeknik Negeri Tanah Laut.\n\nEra transformasi digital saat ini menuntut sinergi antara kemampuan rekayasa perangkat lunak dan kepekaan seni multimedia. TRM POLITALA hadir dengan visi mencetak sarjana terapan yang tidak hanya memahami teori komputasi, tetapi juga mahir merancang game, memproduksi aset 3D & animasi, serta membangun solusi virtual dan augmented reality yang relevan dengan kebutuhan dunia kerja saat ini.\n\nMelalui kurikulum berbasis Teaching Factory dan Project-Based Learning, mahasiswa kami dipersiapkan sejak semester awal untuk mengerjakan proyek nyata bersama mitra industri. Kami berkomitmen untuk menyediakan iklim akademik yang kolaboratif, fasilitas laboratorium berteknologi terkini, dan bimbingan dosen yang berdedikasi.\n\nKami mengajak seluruh calon mahasiswa, mitra industri, dan masyarakat untuk bersama-sama mengembangkan ekosistem multimedia terapan yang unggul dan berdaya saing.",
+                'content' => "Selamat datang di website resmi Program Studi Sarjana Terapan (D-4) Teknologi Rekayasa Multimedia (TRM) Politeknik Negeri Tanah Laut.\n\nEra transformasi digital saat ini menuntut sinergi antara kemampuan rekayasa perangkat lunak dan kepekaan seni multimedia. TRM POLITALA hadir dengan visi mencetak sarjana terapan yang tidak hanya memahami teori komputasi, tetapi juga mahir merancang game, memproduksi aset 3D & animasi, serta membangun solusi virtual dan augmented reality yang relevan dengan kebutuhan dunia kerja saat ini.\n\nMelalui kurikulum berbasis Teaching Factory dan Project-Based Learning, mahasiswa kami dipersiapkan sejak semester awal untuk mengerjakan proyek nyata bersama mitra industri. Kami berkomitmen untuk menyediakan iklim akademik yang kolaboratif, fasilitas laboratorium berteknologi terkini, dan bimbingan dosen yang berdedikasi.\n\nKami mengajak seluruh calon mahasiswa, mitra industri, dan masyarakat untuk bersama-sama mengembangkan ekosistem multimedia terapan yang unggul dan berdaya saing.",
                 'meta' => [
                     'kaprodi_name' => 'Dr. H. Rian Hidayat, M.Kom.',
                     'kaprodi_nip' => '198504122014041001',
@@ -191,7 +191,7 @@ class ContentSeeder extends Seeder
             [
                 'section' => 'struktur',
                 'title' => 'Struktur Organisasi Program Studi',
-                'content' => "Tata kelola dan struktur organisasi Program Studi Sarjana Terapan (D-IV) Teknik Rekayasa Multimedia dirancang secara terpadu guna menjamin kelancaran tridharma perguruan tinggi, operasional laboratorium studio multimedia, serta efektivitas pelaksanaan pembelajaran berbasis proyek (Project-Based Learning).\n\nStruktur organisasi ini dipimpin oleh Koordinator Program Studi yang bertanggung jawab langsung kepada Ketua Jurusan Komputer dan Bisnis POLITALA, serta didukung oleh Gugus Kendali Mutu (GKM), Kepala Laboratorium Studio Multimedia, Koordinator Kurikulum & MBKM, Pembina Kemahasiswaan & Studio Game, Pranata Laboratorium Pendidikan (PLP), serta staf administrasi dan layanan akademik.",
+                'content' => "Tata kelola dan struktur organisasi Program Studi Sarjana Terapan (D-IV) Teknologi Rekayasa Multimedia dirancang secara terpadu guna menjamin kelancaran tridharma perguruan tinggi, operasional laboratorium studio multimedia, serta efektivitas pelaksanaan pembelajaran berbasis proyek (Project-Based Learning).\n\nStruktur organisasi ini dipimpin oleh Koordinator Program Studi yang bertanggung jawab langsung kepada Ketua Jurusan Komputer dan Bisnis POLITALA, serta didukung oleh Gugus Kendali Mutu (GKM), Kepala Laboratorium Studio Multimedia, Koordinator Kurikulum & MBKM, Pembina Kemahasiswaan & Studio Game, Pranata Laboratorium Pendidikan (PLP), serta staf administrasi dan layanan akademik.",
                 'meta' => [
                     'sk_number' => 'SK Direktur POLITALA No. 124/PL34/OT/2026',
                     'academic_year' => 'Tahun Akademik 2026/2027',
@@ -304,7 +304,7 @@ class ContentSeeder extends Seeder
                 'category_id' => $catIndustri->id,
                 'user_id' => $superadmin?->id,
                 'excerpt' => 'Peningkatan kapasitas mahasiswa melalui magang bersertifikat dan transfer teknologi pipeline produksi game komersial.',
-                'content' => "Program Studi Sarjana Terapan (D-IV) Teknik Rekayasa Multimedia Politeknik Negeri Tanah Laut resmi menandatangani nota kesepahaman kerjasama strategis (MoU) dengan konsorsium studio game nasional.\n\nKerjasama ini mencakup penyelarasan kurikulum berbasis standar industri (link and match), penempatan magang industri bersertifikat selama 1 hingga 2 semester, serta pelibatan praktisi industri sebagai dosen tamu di kampus.\n\nMelalui sinergi ini, mahasiswa TRM dipersiapkan menangani pipeline produksi riil game mulai dari perancangan game mechanics, 3D character modeling, environment design, hingga pemrograman gameplay menggunakan game engine modern.",
+                'content' => "Program Studi Sarjana Terapan (D-IV) Teknologi Rekayasa Multimedia Politeknik Negeri Tanah Laut resmi menandatangani nota kesepahaman kerjasama strategis (MoU) dengan konsorsium studio game nasional.\n\nKerjasama ini mencakup penyelarasan kurikulum berbasis standar industri (link and match), penempatan magang industri bersertifikat selama 1 hingga 2 semester, serta pelibatan praktisi industri sebagai dosen tamu di kampus.\n\nMelalui sinergi ini, mahasiswa TRM dipersiapkan menangani pipeline produksi riil game mulai dari perancangan game mechanics, 3D character modeling, environment design, hingga pemrograman gameplay menggunakan game engine modern.",
                 'status' => 'published',
                 'published_at' => now()->subDays(2),
             ],
@@ -314,7 +314,7 @@ class ContentSeeder extends Seeder
                 'category_id' => $catPrestasi->id,
                 'user_id' => $superadmin?->id,
                 'excerpt' => 'Karya film animasi pendek bertema kearifan lokal berhasil memukau dewan juri praktisi industri perfilman.',
-                'content' => "Kabar membanggakan datang dari kontingen mahasiswa D-IV Teknik Rekayasa Multimedia POLITALA yang sukses menyabet Medali Perak pada ajang Kompetisi Vokasi Nasional 2026 kategori 3D Animation.\n\nFilm pendek berjudul 'Lentera Borneo' karya tim mahasiswa TRM dinilai unggul dalam aspek visual storytelling, fluiditas rigging karakter, serta tata pencahayaan sinematik yang memukau.\n\nPencapaian ini membuktikan bahwa kualitas kompetensi teknis dan artistik mahasiswa multimedia POLITALA telah mampu bersaing di kancah nasional.",
+                'content' => "Kabar membanggakan datang dari kontingen mahasiswa D-IV Teknologi Rekayasa Multimedia POLITALA yang sukses menyabet Medali Perak pada ajang Kompetisi Vokasi Nasional 2026 kategori 3D Animation.\n\nFilm pendek berjudul 'Lentera Borneo' karya tim mahasiswa TRM dinilai unggul dalam aspek visual storytelling, fluiditas rigging karakter, serta tata pencahayaan sinematik yang memukau.\n\nPencapaian ini membuktikan bahwa kualitas kompetensi teknis dan artistik mahasiswa multimedia POLITALA telah mampu bersaing di kancah nasional.",
                 'status' => 'published',
                 'published_at' => now()->subDays(5),
             ],
@@ -408,7 +408,7 @@ class ContentSeeder extends Seeder
             [
                 'title' => 'Kuliah Pakar: Standar Pipeline Produksi Animasi 3D Studio Hollywood',
                 'slug' => 'kuliah-pakar-pipeline-animasi-3d-studio-hollywood',
-                'description' => 'Program Studi D-IV Teknik Rekayasa Multimedia (TRM) POLITALA menyelenggarakan Kuliah Pakar Internasional bertajuk "Standar Pipeline Produksi Animasi 3D Studio Hollywood". Kegiatan ini bertujuan memberikan wawasan praktis mengenai tahapan kerja riil di industri perfilman internasional, mulai dari concept art, digital sculpting, topology & rigging, shading, texturing hingga visual rendering berstandar bioskop.',
+                'description' => 'Program Studi D-IV Teknologi Rekayasa Multimedia (TRM) POLITALA menyelenggarakan Kuliah Pakar Internasional bertajuk "Standar Pipeline Produksi Animasi 3D Studio Hollywood". Kegiatan ini bertujuan memberikan wawasan praktis mengenai tahapan kerja riil di industri perfilman internasional, mulai dari concept art, digital sculpting, topology & rigging, shading, texturing hingga visual rendering berstandar bioskop.',
                 'location' => 'Auditorium Terpadu POLITALA Lantai 2 & Zoom Webinar',
                 'event_date' => now()->addDays(8)->toDateString(),
                 'start_time' => '09:00',

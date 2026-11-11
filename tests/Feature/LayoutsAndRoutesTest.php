@@ -18,7 +18,7 @@ class LayoutsAndRoutesTest extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(200);
-        $response->assertSee('Teknik Rekayasa Multimedia');
+        $response->assertSee('Teknologi Rekayasa Multimedia');
         $response->assertSee('Kurikulum');
         $response->assertDontSee('Karya Mahasiswa');
     }

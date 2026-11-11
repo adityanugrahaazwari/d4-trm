@@ -312,7 +312,7 @@
             <svg class="w-4 h-4 text-brand-primary shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span><strong>Modul: {{ $title }}.</strong> Terhubung ke database resmi program studi D-IV Teknik Rekayasa Multimedia.</span>
+            <span><strong>Modul: {{ $title }}.</strong> Terhubung ke database resmi program studi D-IV Teknologi Rekayasa Multimedia.</span>
         </div>
         <span class="text-[10px] uppercase font-bold text-brand-primary bg-white px-2 py-0.5 rounded shadow-xs">
             Live Database Connected
@@ -824,7 +824,7 @@
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div class="space-y-1">
                                         <label class="block text-xs font-semibold text-brand-muted">Subjudul Sambutan</label>
-                                        <input type="text" name="meta[subtitle]" value="{{ old('meta.subtitle', data_get($profileRecord, 'meta.subtitle', 'Pesan dan visi kepemimpinan Program Studi Sarjana Terapan Teknik Rekayasa Multimedia')) }}" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                                        <input type="text" name="meta[subtitle]" value="{{ old('meta.subtitle', data_get($profileRecord, 'meta.subtitle', 'Pesan dan visi kepemimpinan Program Studi Sarjana Terapan Teknologi Rekayasa Multimedia')) }}" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
                                     </div>
                                     <div class="space-y-1">
                                         <label class="block text-xs font-semibold text-brand-muted">Salam Pembuka</label>
@@ -1195,7 +1195,7 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         <div class="space-y-1.5">
                             <label class="block font-bold text-brand-dark">Nama Website / Program Studi</label>
-                            <input type="text" name="settings[site_name]" value="{{ old('settings.site_name', $settingsRecord['site_name'] ?? 'D-IV Teknik Rekayasa Multimedia') }}" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
+                            <input type="text" name="settings[site_name]" value="{{ old('settings.site_name', $settingsRecord['site_name'] ?? 'D-IV Teknologi Rekayasa Multimedia') }}" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-brand-primary/20">
                         </div>
                         <div class="space-y-1.5">
                             <label class="block font-bold text-brand-dark">Singkatan Brand</label>

@@ -2,7 +2,7 @@
 
 @section('title', 'Dashboard')
 @section('page_title', 'Dashboard Ringkasan')
-@section('page_subtitle', 'Selamat datang di Panel Administrasi D-IV Teknik Rekayasa Multimedia')
+@section('page_subtitle', 'Selamat datang di Panel Administrasi D-IV Teknologi Rekayasa Multimedia')
 
 @section('content')
 <div class="space-y-8">

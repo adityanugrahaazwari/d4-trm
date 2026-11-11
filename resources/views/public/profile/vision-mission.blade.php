@@ -4,25 +4,25 @@
 
 @section('content')
 <!-- Header Page -->
-<div class="bg-gradient-to-b from-brand-primary/10 via-brand-surface to-white border-b border-slate-100 pt-32 sm:pt-36 lg:pt-40 pb-12 lg:pb-16 mt-2 sm:mt-4">
+<div class="bg-gradient-to-b from-brand-primary/10 via-brand-surface to-white border-b border-slate-100 pt-24 sm:pt-28 lg:pt-32 pb-8 sm:pb-10 lg:pb-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <nav class="flex items-center gap-2 text-xs font-semibold text-brand-muted uppercase tracking-wider mb-4 mt-2">
+        <nav class="flex items-center gap-2 text-xs font-semibold text-brand-muted uppercase tracking-wider mb-3">
             <a href="{{ route('home') }}" class="hover:text-brand-primary">Beranda</a>
             <span>/</span>
             <span class="text-brand-secondary">Profil</span>
             <span>/</span>
             <span class="text-brand-dark">Visi &amp; Misi</span>
         </nav>
-        <div class="flex flex-wrap items-center justify-between gap-4 mt-6 sm:mt-8">
-            <div class="space-y-2">
-                <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight mt-1">
+        <div class="flex flex-wrap items-center justify-between gap-4 mt-3 sm:mt-4">
+            <div class="space-y-1.5">
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight">
                     {{ $profile->title ?? 'Visi, Misi & Tujuan' }}
                 </h1>
-                <p class="text-sm sm:text-base text-brand-muted mt-3">
+                <p class="text-sm sm:text-base text-brand-muted">
                     Arah strategis, komitmen pengembangan keilmuan, dan pilar keunggulan vokasi rekayasa multimedia
                 </p>
             </div>
-            <div class="flex items-center gap-2 mt-4 sm:mt-0">
+            <div class="flex items-center gap-2">
                 <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 shadow-xs">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span>Rencana Strategis TRM {{ $targetYear ?? '2030' }}</span>
@@ -32,9 +32,9 @@
     </div>
 </div>
 
-<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16 mt-8 sm:mt-12">
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-14 space-y-12 sm:space-y-14">
     <!-- Visi Box (Highlight Banner) -->
-    <div class="rounded-3xl bg-gradient-to-br from-brand-primary via-brand-secondary to-brand-primary-dark text-white p-8 sm:p-12 lg:p-14 shadow-xl relative overflow-hidden mt-6 sm:mt-8">
+    <div class="rounded-3xl bg-gradient-to-br from-brand-primary via-brand-secondary to-brand-primary-dark text-white p-8 sm:p-12 lg:p-14 shadow-xl relative overflow-hidden">
         <!-- Ambient Radial Background Glow -->
         <div class="absolute -right-16 -top-16 w-64 h-64 bg-brand-sky/20 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute -left-16 -bottom-16 w-64 h-64 bg-brand-complimentary/20 rounded-full blur-3xl pointer-events-none"></div>
@@ -46,7 +46,7 @@
                     <span>Visi Program Studi (Menuju {{ $targetYear ?? '2030' }})</span>
                 </span>
                 <span class="text-xs font-semibold text-white/70">
-                    D-IV Teknik Rekayasa Multimedia POLITALA
+                    D-IV Teknologi Rekayasa Multimedia POLITALA
                 </span>
             </div>
 
@@ -204,7 +204,7 @@
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
                 <h3 class="text-xl sm:text-2xl font-extrabold text-brand-dark">Nilai Utama Budaya Akademik (Core Values)</h3>
-                <p class="text-xs sm:text-sm text-brand-muted mt-1">Prinsip dasar yang menjiwai seluruh sivitas akademika D-IV Teknik Rekayasa Multimedia</p>
+                <p class="text-xs sm:text-sm text-brand-muted mt-1">Prinsip dasar yang menjiwai seluruh sivitas akademika D-IV Teknologi Rekayasa Multimedia</p>
             </div>
             <span class="inline-flex px-3 py-1 rounded-full text-xs font-bold bg-white border border-slate-200 text-brand-primary">
                 Budaya TRM Unggul

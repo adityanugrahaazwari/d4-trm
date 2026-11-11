@@ -3,7 +3,7 @@
 @section('title', $title ?? 'Halaman')
 
 @section('content')
-<div class="bg-gradient-to-b from-brand-primary/5 via-brand-surface to-white border-b border-slate-100 py-12 lg:py-16">
+<div class="bg-gradient-to-b from-brand-primary/5 via-brand-surface to-white border-b border-slate-100 pt-24 sm:pt-28 lg:pt-32 pb-8 sm:pb-10 lg:pb-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Breadcrumbs -->
         <nav class="flex items-center gap-2 text-xs font-semibold text-brand-muted uppercase tracking-wider mb-4">
@@ -36,7 +36,7 @@
 
         <div class="prose max-w-none text-slate-700 leading-relaxed space-y-4">
             <p>
-                Bagian <strong>{{ $title ?? 'ini' }}</strong> memuat informasi resmi terkait Program Studi D-IV Teknik Rekayasa Multimedia, Jurusan Komputer dan Bisnis, Politeknik Negeri Tanah Laut.
+                Bagian <strong>{{ $title ?? 'ini' }}</strong> memuat informasi resmi terkait Program Studi D-IV Teknologi Rekayasa Multimedia, Jurusan Komputer dan Bisnis, Politeknik Negeri Tanah Laut.
             </p>
             <p class="text-brand-muted text-sm italic">
                 * Konten dinamis pada modul ini akan dikelola melalui Panel Admin pada tahap implementasi fitur backend.

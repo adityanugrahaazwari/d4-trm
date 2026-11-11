@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Beranda - D-IV Teknik Rekayasa Multimedia POLITALA')
+@section('title', 'Beranda - D-IV Teknologi Rekayasa Multimedia POLITALA')
 
 @section('content')
 <div class="flex flex-col gap-16 lg:gap-24">
@@ -86,7 +86,7 @@
                             </div>
                         </div>
                         <p class="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-300">
-                            Program Studi Sarjana Terapan Teknik Rekayasa Multimedia
+                            Program Studi Sarjana Terapan Teknologi Rekayasa Multimedia
                         </p>
                     </div>
 
@@ -399,7 +399,7 @@
                         @endif
                     @else
                         <p>
-                            Program Studi D-IV Teknik Rekayasa Multimedia dirancang untuk menjawab tingginya kebutuhan industri kreatif dan teknologi digital terhadap tenaga ahli terapan yang menguasai perancangan sistem multimedia interaktif, produksi konten animasi, perancangan game, dan UI/UX modern.
+                            Program Studi D-IV Teknologi Rekayasa Multimedia dirancang untuk menjawab tingginya kebutuhan industri kreatif dan teknologi digital terhadap tenaga ahli terapan yang menguasai perancangan sistem multimedia interaktif, produksi konten animasi, perancangan game, dan UI/UX modern.
                         </p>
                         <p>
                             Dengan kurikulum berbasis praktik (Hands-on Learning) serta kolaborasi erat bersama Dunia Usaha dan Dunia Industri (DUDI), mahasiswa dibekali kemampuan teknis dan portofolio profesional sejak dini.
@@ -564,7 +564,7 @@
 
                 <div class="mt-5 pt-4 border-t border-slate-200/80 flex flex-wrap items-center justify-between gap-3 text-xs">
                     <span class="text-brand-muted">
-                        D-IV Teknik Rekayasa Multimedia &bull; Politeknik Negeri Tanah Laut
+                        D-IV Teknologi Rekayasa Multimedia &bull; Politeknik Negeri Tanah Laut
                     </span>
                     <a href="{{ route('public.profile.history') }}" class="font-bold text-brand-primary hover:text-brand-primary-hover flex items-center gap-1">
                         <span>Buka Riwayat Sejarah Lengkap</span>
@@ -924,130 +924,240 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-4">
             
             {{-- Column 1: Pengumuman Resmi (6 Cols) --}}
-            <div class="lg:col-span-6 space-y-6">
-                <div class="flex items-center justify-between pb-2 border-b border-slate-200/80">
-                    <div class="flex items-center gap-2.5">
-                        <div class="w-8 h-8 rounded-lg bg-brand-primary-light text-brand-primary flex items-center justify-center font-bold">
-                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                            </svg>
+            <div class="lg:col-span-6 flex flex-col justify-between bg-white rounded-3xl border border-slate-200/90 shadow-xs hover:shadow-md transition-all duration-300 p-6 sm:p-7 relative overflow-hidden group/box">
+                <!-- Ambient Top Accent Line -->
+                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-brand-primary via-brand-sky to-brand-primary"></div>
+                
+                <div class="space-y-6">
+                    <!-- Column Header -->
+                    <div class="flex items-center justify-between pb-4 border-b border-slate-100 gap-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-brand-primary-light text-brand-primary flex items-center justify-center font-bold shrink-0 ring-4 ring-brand-primary/10">
+                                <svg class="w-5 h-5 animate-pulse-slow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg sm:text-xl font-extrabold text-brand-dark tracking-tight">Pengumuman Resmi</h3>
+                                <p class="text-xs text-brand-muted">Surat edaran, registrasi &amp; informasi akademik</p>
+                            </div>
                         </div>
-                        <h3 class="text-xl font-extrabold text-brand-dark tracking-tight">Pengumuman Resmi</h3>
+                        <a href="{{ route('public.announcements.index') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-brand-primary hover:bg-brand-primary-light transition-all shrink-0 group/link">
+                            <span>Lihat Semua</span>
+                            <svg class="w-3.5 h-3.5 transform group-hover/link:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
                     </div>
-                    <a href="{{ route('public.announcements.index') }}" class="text-xs font-bold text-brand-primary hover:underline flex items-center gap-1">
-                        <span>Lihat Semua</span>
-                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </a>
+
+                    <!-- Announcements List -->
+                    <div class="space-y-3.5">
+                        @forelse($latestAnnouncements ?? [] as $ann)
+                            @php
+                                $statusStyle = match(strtolower($ann->status ?? '')) {
+                                    'akademik' => 'bg-indigo-50 text-indigo-700 border-indigo-200/80',
+                                    'kemahasiswaan' => 'bg-emerald-50 text-emerald-700 border-emerald-200/80',
+                                    'laboratorium', 'praktikum' => 'bg-amber-50 text-amber-700 border-amber-200/80',
+                                    'penting', 'urgen' => 'bg-rose-50 text-rose-700 border-rose-200/80',
+                                    default => 'bg-brand-sky-light text-brand-primary border-brand-sky/40',
+                                };
+                            @endphp
+                            <div class="p-4 sm:p-5 rounded-2xl bg-brand-surface/70 border border-slate-200/70 hover:border-brand-primary/50 hover:bg-white hover:shadow-md transition-all duration-200 flex flex-col justify-between gap-3 group">
+                                <div class="space-y-2">
+                                    <div class="flex flex-wrap items-center justify-between gap-2">
+                                        <div class="flex items-center gap-2">
+                                            <span class="px-2.5 py-0.5 rounded-md text-[10px] font-bold border {{ $statusStyle }}">
+                                                {{ $ann->status ?? 'Akademik' }}
+                                            </span>
+                                            @if(!empty($ann->file_attachment))
+                                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-slate-100 text-slate-700 border border-slate-200">
+                                                    <svg class="w-3 h-3 text-brand-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                                                    </svg>
+                                                    Lampiran
+                                                </span>
+                                            @endif
+                                        </div>
+                                        <span class="text-brand-muted text-[11px] font-medium flex items-center gap-1">
+                                            <svg class="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                            </svg>
+                                            {{ $ann->published_at ? $ann->published_at->translatedFormat('d M Y') : date('d M Y') }}
+                                        </span>
+                                    </div>
+                                    <h4 class="font-bold text-sm text-brand-dark group-hover:text-brand-primary transition-colors line-clamp-2 leading-snug">
+                                        <a href="{{ route('public.announcements.index') }}#ann-{{ $ann->id }}">
+                                            {{ $ann->title }}
+                                        </a>
+                                    </h4>
+                                    <p class="text-xs text-brand-muted line-clamp-2 leading-relaxed">
+                                        {{ Str::limit(strip_tags($ann->content), 120) }}
+                                    </p>
+                                </div>
+                                <div class="pt-2 border-t border-slate-100/80 flex items-center justify-between">
+                                    <a href="{{ route('public.announcements.index') }}#ann-{{ $ann->id }}" class="text-xs font-bold text-brand-primary hover:text-brand-primary-hover inline-flex items-center gap-1 group/btn">
+                                        <span>Baca Surat Edaran</span>
+                                        <svg class="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                        </svg>
+                                    </a>
+                                    @if(!empty($ann->file_attachment))
+                                        <a href="{{ asset($ann->file_attachment) }}" target="_blank" class="text-[11px] font-semibold text-slate-500 hover:text-brand-primary flex items-center gap-1">
+                                            <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                            </svg>
+                                            <span>Unduh File</span>
+                                        </a>
+                                    @endif
+                                </div>
+                            </div>
+                        @empty
+                            <div class="p-8 text-center bg-brand-surface rounded-2xl border border-dashed border-slate-200 space-y-2">
+                                <div class="w-10 h-10 rounded-full bg-slate-100 text-slate-400 mx-auto flex items-center justify-center">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                                    </svg>
+                                </div>
+                                <p class="text-xs font-semibold text-slate-600">Belum ada pengumuman resmi terbaru saat ini.</p>
+                                <p class="text-[11px] text-slate-400">Silakan pantau berkala untuk informasi pendaftaran &amp; perkuliahan.</p>
+                            </div>
+                        @endforelse
+                    </div>
                 </div>
 
-                <div class="space-y-3.5">
-                    @forelse($latestAnnouncements ?? [] as $ann)
-                        <div class="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-brand-primary/40 hover:shadow-md transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 group">
-                            <div class="space-y-1.5 flex-1">
-                                <div class="flex items-center gap-2 text-xs">
-                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-brand-sky-light text-brand-primary border border-brand-sky/30">
-                                        {{ $ann->status ?? 'Akademik' }}
-                                    </span>
-                                    <span class="text-brand-muted text-[11px]">
-                                        {{ $ann->published_at ? $ann->published_at->translatedFormat('d M Y') : date('d M Y') }}
-                                    </span>
-                                </div>
-                                <h4 class="font-bold text-sm text-brand-dark group-hover:text-brand-primary transition-colors line-clamp-2">
-                                    <a href="{{ route('public.announcements.index') }}#ann-{{ $ann->id }}">
-                                        {{ $ann->title }}
-                                    </a>
-                                </h4>
-                                <p class="text-xs text-brand-muted line-clamp-1">
-                                    {{ Str::limit(strip_tags($ann->content), 100) }}
-                                </p>
-                            </div>
-                            <a href="{{ route('public.announcements.index') }}#ann-{{ $ann->id }}" class="shrink-0 text-xs font-bold text-brand-primary hover:text-brand-primary-hover inline-flex items-center gap-1 self-start sm:self-center">
-                                <span>Rincian</span>
-                                <svg class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                                </svg>
-                            </a>
-                        </div>
-                    @empty
-                        <div class="p-6 text-center text-xs text-slate-500 bg-white rounded-2xl border border-slate-200">
-                            Belum ada pengumuman resmi terbaru saat ini.
-                        </div>
-                    @endforelse
+                <!-- Column Footer Quick-Link -->
+                <div class="mt-5 pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs text-brand-muted">
+                    <span class="flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Kanal Pengumuman Terverifikasi
+                    </span>
+                    <a href="{{ route('public.announcements.index') }}" class="font-bold text-brand-primary hover:underline">
+                        Arsip Dokumen &rarr;
+                    </a>
                 </div>
             </div>
 
             {{-- Column 2: Agenda Kegiatan Mendatang (6 Cols) --}}
-            <div class="lg:col-span-6 space-y-6">
-                <div class="flex items-center justify-between pb-2 border-b border-slate-200/80">
-                    <div class="flex items-center gap-2.5">
-                        <div class="w-8 h-8 rounded-lg bg-brand-secondary/15 text-brand-secondary flex items-center justify-center font-bold">
-                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                            </svg>
+            <div class="lg:col-span-6 flex flex-col justify-between bg-white rounded-3xl border border-slate-200/90 shadow-xs hover:shadow-md transition-all duration-300 p-6 sm:p-7 relative overflow-hidden group/box">
+                <!-- Ambient Top Accent Line -->
+                <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-brand-secondary via-teal-500 to-emerald-500"></div>
+
+                <div class="space-y-6">
+                    <!-- Column Header -->
+                    <div class="flex items-center justify-between pb-4 border-b border-slate-100 gap-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-brand-secondary/15 text-brand-secondary flex items-center justify-center font-bold shrink-0 ring-4 ring-brand-secondary/10">
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg sm:text-xl font-extrabold text-brand-dark tracking-tight">Agenda Mendatang</h3>
+                                <p class="text-xs text-brand-muted">Seminar, workshop &amp; kalender kegiatan prodi</p>
+                            </div>
                         </div>
-                        <h3 class="text-xl font-extrabold text-brand-dark tracking-tight">Agenda Mendatang</h3>
+                        <a href="{{ route('public.events.index') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-brand-secondary hover:bg-brand-secondary/10 transition-all shrink-0 group/link">
+                            <span>Lihat Semua</span>
+                            <svg class="w-3.5 h-3.5 transform group-hover/link:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
                     </div>
-                    <a href="{{ route('public.events.index') }}" class="text-xs font-bold text-brand-secondary hover:underline flex items-center gap-1">
-                        <span>Lihat Semua</span>
-                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </a>
+
+                    <!-- Events List -->
+                    <div class="space-y-3.5">
+                        @forelse($upcomingEvents ?? [] as $ev)
+                            <div class="p-4 sm:p-5 rounded-2xl bg-brand-surface/70 border border-slate-200/70 hover:border-brand-secondary/50 hover:bg-white hover:shadow-md transition-all duration-200 flex flex-col sm:flex-row sm:items-center gap-4 group">
+                                <!-- Calendar Ticket Badge -->
+                                <a href="{{ route('public.events.show', $ev->slug) }}" class="w-14 sm:w-16 h-16 sm:h-18 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col overflow-hidden shrink-0 group-hover:border-brand-primary group-hover:shadow-md transition-all">
+                                    <div class="bg-gradient-to-r from-brand-primary to-brand-secondary text-white text-[10px] font-black uppercase text-center py-1 tracking-wider">
+                                        {{ $ev->month }}
+                                    </div>
+                                    <div class="flex-1 flex items-center justify-center bg-white text-brand-dark font-black text-xl group-hover:text-brand-primary transition-colors">
+                                        {{ $ev->day }}
+                                    </div>
+                                </a>
+
+                                <!-- Event Details -->
+                                <div class="space-y-1.5 flex-1 min-w-0">
+                                    <div class="flex flex-wrap items-center gap-2">
+                                        <span class="px-2 py-0.5 rounded-md text-[9px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                            {{ $ev->status ?? 'Jadwal Resmi' }}
+                                        </span>
+                                        <span class="text-[11px] text-brand-muted flex items-center gap-1">
+                                            <svg class="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                            {{ $ev->time }}
+                                        </span>
+                                    </div>
+                                    <h4 class="font-bold text-sm text-brand-dark group-hover:text-brand-primary transition-colors line-clamp-1 leading-snug">
+                                        <a href="{{ route('public.events.show', $ev->slug) }}">
+                                            {{ $ev->title }}
+                                        </a>
+                                    </h4>
+                                    <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-xs text-brand-muted">
+                                        <p class="truncate flex items-center gap-1.5">
+                                            <svg class="w-3.5 h-3.5 text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            </svg>
+                                            <span class="truncate">{{ $ev->location }}</span>
+                                        </p>
+                                        @if(!empty($ev->speaker))
+                                            <span class="hidden sm:inline text-slate-300">&bull;</span>
+                                            <p class="truncate flex items-center gap-1.5 text-brand-secondary font-medium text-[11px]">
+                                                <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                                </svg>
+                                                <span class="truncate">{{ $ev->speaker }}</span>
+                                            </p>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <!-- Action Buttons -->
+                                <div class="flex sm:flex-col items-center gap-1.5 shrink-0 self-stretch sm:self-center justify-end">
+                                    <a href="{{ route('public.events.show', $ev->slug) }}" class="w-full sm:w-auto px-3.5 py-1.5 rounded-xl text-xs font-bold bg-brand-primary text-white hover:bg-brand-primary-hover shadow-2xs hover:shadow-xs transition-all text-center">
+                                        Detail
+                                    </a>
+                                    <a href="{{ $ev->google_calendar_url }}" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-2.5 py-1 rounded-xl text-[10px] font-semibold text-slate-600 hover:text-brand-primary hover:bg-slate-100 border border-slate-200 transition-all text-center flex items-center justify-center gap-1" title="Simpan ke Google Calendar">
+                                        <svg class="w-3 h-3 text-brand-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                        </svg>
+                                        <span>Kalender</span>
+                                    </a>
+                                </div>
+                            </div>
+                        @empty
+                            <div class="p-8 text-center bg-brand-surface rounded-2xl border border-dashed border-slate-200 space-y-2">
+                                <div class="w-10 h-10 rounded-full bg-slate-100 text-slate-400 mx-auto flex items-center justify-center">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                                <p class="text-xs font-semibold text-slate-600">Belum ada agenda kegiatan mendatang saat ini.</p>
+                                <p class="text-[11px] text-slate-400">Jadwal seminar dan kegiatan semester akan diumumkan di sini.</p>
+                            </div>
+                        @endforelse
+                    </div>
                 </div>
 
-                <div class="space-y-3.5">
-                    @forelse($upcomingEvents ?? [] as $ev)
-                        <div class="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-brand-primary/40 hover:shadow-md transition-all flex items-start sm:items-center gap-4 group">
-                            <!-- Date Badge -->
-                            <a href="{{ route('public.events.show', $ev->slug) }}" class="w-13 h-13 rounded-xl bg-brand-primary-light border border-brand-primary/20 text-brand-primary flex flex-col items-center justify-center font-black shrink-0 group-hover:bg-brand-primary group-hover:text-white transition-colors shadow-2xs">
-                                <span class="text-base leading-none">{{ $ev->day }}</span>
-                                <span class="text-[9px] uppercase tracking-wider font-bold mt-0.5">{{ $ev->month }}</span>
-                            </a>
-
-                            <!-- Event Info -->
-                            <div class="space-y-1 flex-1 min-w-0">
-                                <div class="flex items-center gap-2">
-                                    <span class="px-2 py-0.5 rounded text-[9px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                                        {{ $ev->status ?? 'Pendaftaran Dibuka' }}
-                                    </span>
-                                    <span class="text-[11px] text-brand-muted truncate flex items-center gap-1">
-                                        <svg class="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                        {{ $ev->time }}
-                                    </span>
-                                </div>
-                                <h4 class="font-bold text-sm text-brand-dark group-hover:text-brand-primary transition-colors line-clamp-1">
-                                    <a href="{{ route('public.events.show', $ev->slug) }}">
-                                        {{ $ev->title }}
-                                    </a>
-                                </h4>
-                                <p class="text-xs text-brand-muted truncate flex items-center gap-1">
-                                    <svg class="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
-                                    {{ $ev->location }}
-                                </p>
-                            </div>
-
-                            <!-- Action -->
-                            <a href="{{ route('public.events.show', $ev->slug) }}" class="hidden sm:inline-flex px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 hover:bg-brand-primary hover:text-white text-slate-700 transition-colors shrink-0">
-                                Detail
-                            </a>
-                        </div>
-                    @empty
-                        <div class="p-6 text-center text-xs text-slate-500 bg-white rounded-2xl border border-slate-200">
-                            Belum ada agenda kegiatan mendatang yang dijadwalkan saat ini.
-                        </div>
-                    @endforelse
+                <!-- Column Footer Quick-Link -->
+                <div class="mt-5 pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs text-brand-muted">
+                    <span class="flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-brand-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        Sinkronisasi Kalender Perkuliahan
+                    </span>
+                    <a href="{{ route('public.academic.calendar') }}" class="font-bold text-brand-secondary hover:underline">
+                        Kalender Akademik &rarr;
+                    </a>
                 </div>
             </div>
 
         </div>
-    </section>
     </section>
 
     {{-- 8. Fasilitas --}}
